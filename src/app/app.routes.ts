@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 
 // Main pages components
 import { LoginComponent } from './pages/login/login.component';
+import { RegistrateComponent } from './pages/registrate/registrate.component';
 import { HomeComponent } from './pages/home/home.component';
 import { ImprintComponent } from './pages/imprint/imprint.component';
 
@@ -14,6 +15,7 @@ import { RecurringBillsComponent } from './pages/home/content/recurring-bills/re
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent, pathMatch: 'full' },
+  { path: 'registrate', component: RegistrateComponent, pathMatch: 'full' },
   {
     path: '',
     component: HomeComponent,
