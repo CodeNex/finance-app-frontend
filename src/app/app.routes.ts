@@ -13,15 +13,17 @@ import { PotsComponent } from './pages/home/content/pots/pots.component';
 import { RecurringBillsComponent } from './pages/home/content/recurring-bills/recurring-bills.component';
 
 export const routes: Routes = [
-  { path: '', component: LoginComponent },
-  { path: 'homeComponent', component: HomeComponent,
+  { path: '', component: LoginComponent, pathMatch: 'full' },
+  {
+    path: 'home',
+    component: HomeComponent,
     children: [
-      {path: 'overviewComponent', component: OverviewComponent},
-      {path: 'transactionsComponent', component: TransactionsComponent},
-      {path: 'budgetsComponent', component: BudgetsComponent},
-      {path: 'potsComponent', component: PotsComponent},
-      {path: 'recurringBillsComponent', component: RecurringBillsComponent}
-    ]
-   },
-  { path: 'imprintComponent', component: ImprintComponent },
+      { path: 'overview', component: OverviewComponent },
+      { path: 'transactions', component: TransactionsComponent },
+      { path: 'budgets', component: BudgetsComponent },
+      { path: 'pots', component: PotsComponent },
+      { path: 'recurringBills', component: RecurringBillsComponent },
+    ],
+  },
+  { path: 'imprint', component: ImprintComponent },
 ];
