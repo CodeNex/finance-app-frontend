@@ -13,9 +13,9 @@ import { PotsComponent } from './pages/home/content/pots/pots.component';
 import { RecurringBillsComponent } from './pages/home/content/recurring-bills/recurring-bills.component';
 
 export const routes: Routes = [
-  { path: '', component: LoginComponent, pathMatch: 'full' },
+  { path: 'login', component: LoginComponent, pathMatch: 'full' },
   {
-    path: 'home',
+    path: '',
     component: HomeComponent,
     children: [
       { path: 'overview', component: OverviewComponent },
