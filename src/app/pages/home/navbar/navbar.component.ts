@@ -8,5 +8,5 @@ import jsonData from '../../../shared/data/financeapp.basedata.json';
   styleUrl: './navbar.component.scss',
 })
 export class NavbarComponent {
-  public navData = jsonData.financeapp.navbar.links;
+  public readonly navData = jsonData.financeapp.navbar.links;
 }
