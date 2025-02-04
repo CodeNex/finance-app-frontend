@@ -8,18 +8,30 @@
             "path": "overview"
           },
           {
-            "name": "About",
+            "name": "Transactions",
             "path": "transactions"
           },
           {
-            "name": "Contact",
-            "path": "/contact"
+            "name": "Budgets",
+            "path": "budgets"
+          },
+          {
+            "name": "Pots",
+            "path": "pots"
+          },
+          {
+            "name": "Recurring Bills",
+            "path": "recurringBills"
           }
         ],
         "sub": [
           {
             "name": "Settings",
-            "path": "transactions"
+            "path": "settings"
+          },
+          {
+            "name": "Imprint",
+            "path": "imprint"
           }
         ]
       }
