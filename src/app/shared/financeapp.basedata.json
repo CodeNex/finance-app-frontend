@@ -1,0 +1,18 @@
+{"financeapp": {
+  "navbar": {
+    "links": [
+      {
+        "name": "Home",
+        "url": "/home"
+      },
+      {
+        "name": "About",
+        "url": "/about"
+      },
+      {
+        "name": "Contact",
+        "url": "/contact"
+      }
+    ]
+  }
+}}
