@@ -26,6 +26,7 @@ export const routes: Routes = [
       { path: 'budgets', component: BudgetsComponent },
       { path: 'pots', component: PotsComponent },
       { path: 'recurringBills', component: RecurringBillsComponent },
+      { path: 'profile', component: ProfileComponent },
     ],
   },
   { path: 'imprint', component: ImprintComponent },
