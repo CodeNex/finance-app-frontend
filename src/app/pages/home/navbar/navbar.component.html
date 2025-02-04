@@ -4,7 +4,12 @@
       <p>finance</p>
     </div>
     <nav>
-      
+      @for (item of navData.main; track $index) {
+        <a [routerLink]="[item.path]" routerLinkActive="router-link-active">
+          {{ item.name }}
+        </a>
+        
+      }
     </nav>
   </div>
   
