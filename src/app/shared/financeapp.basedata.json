@@ -2,16 +2,16 @@
   "navbar": {
     "links": [
       {
-        "name": "Home",
-        "url": "/home"
+        "name": "Overview",
+        "path": "overview"
       },
       {
         "name": "About",
-        "url": "/about"
+        "path": "transactions"
       },
       {
         "name": "Contact",
-        "url": "/contact"
+        "path": "/contact"
       }
     ]
   }
