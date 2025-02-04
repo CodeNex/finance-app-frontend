@@ -10,3 +10,11 @@
 * {
   font-family: 'public-sans';
 }
+
+@layer utilities {
+  .text1b {
+    font-size: 32px;
+    line-height: 120%;
+    font-weight: bold;
+  }
+}
