@@ -12,6 +12,7 @@ import { TransactionsComponent } from './pages/home/content/transactions/transac
 import { BudgetsComponent } from './pages/home/content/budgets/budgets.component';
 import { PotsComponent } from './pages/home/content/pots/pots.component';
 import { RecurringBillsComponent } from './pages/home/content/recurring-bills/recurring-bills.component';
+import { ProfileComponent } from './pages/home/content/profile/profile.component';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent, pathMatch: 'full' },
