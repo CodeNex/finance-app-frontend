@@ -12,7 +12,7 @@ import { TransactionsComponent } from './pages/home/content/transactions/transac
 import { BudgetsComponent } from './pages/home/content/budgets/budgets.component';
 import { PotsComponent } from './pages/home/content/pots/pots.component';
 import { RecurringBillsComponent } from './pages/home/content/recurring-bills/recurring-bills.component';
-import { ProfileComponent } from './pages/home/content/profile/profile.component';
+import { SettingsComponent } from './pages/home/content/settings/settings.component';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent, pathMatch: 'full' },
@@ -26,7 +26,7 @@ export const routes: Routes = [
       { path: 'budgets', component: BudgetsComponent },
       { path: 'pots', component: PotsComponent },
       { path: 'recurringBills', component: RecurringBillsComponent },
-      { path: 'profile', component: ProfileComponent },
+      { path: 'settings', component: SettingsComponent },
     ],
   },
   { path: 'imprint', component: ImprintComponent },
