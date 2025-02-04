@@ -7,33 +7,33 @@ module.exports = {
     extend: {
       colors: {
         beige: {
-          500: "#98908B",
-          100: "#F8F4F0"
+          500: "var(--color-beige-500)",
+          100: "var(--color-beige-100)"
         },
         grey: {
-          900: "#201F24",
-          500: "#696868",
-          300: "#B3B3B3",
-          100: "#F2F2F2"
+          900: "var(--color-grey-900)",
+          500: "var(--color-grey-500)",
+          300: "var(--color-grey-300)",
+          100: "var(--color-grey-100)"
         },
         secondary: {
-          green: "#277C78",
-          yellow: "#F2CDAC",
-          cyan: "#82C9D7",
-          navy: "#626070",
-          red: "#C94736",
-          purple: "#826CB0"
+          green: "var(--color-secondary-green)",
+          yellow: "var(--color-secondary-yellow)",
+          cyan: "var(--color-secondary-cyan)",
+          navy: "var(--color-secondary-navy)",
+          red: "var(--color-secondary-red)",
+          purple: "var(--color-secondary-purple)",
         },
         other: {
-          purple: "#AF81BA",
-          turquoise: "#597C7C",
-          brown: "#93674F",
-          magenta: "#934F6F",
-          blue: "#3F82B2",
-          grey: "#97A0AC",
-          green: "#7F9161",
-          gold: "#CAB361",
-          orange: "#BE6C49"
+          purple: "var(--color-other-purple)",
+          turquoise: "var(--color-other-turquoise)",
+          brown: "var(--color-other-brown)",
+          magenta: "var(--color-other-magenta)",
+          blue: "var(--color-other-blue)",
+          grey: "var(--color-other-grey)",
+          green: "var(--color-other-green)",
+          gold: "var(--color-other-gold)",
+          orange: "var(--color-other-orange)",
         },
       }
     },
