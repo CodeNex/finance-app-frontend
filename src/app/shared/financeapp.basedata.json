@@ -1,18 +1,28 @@
-{"financeapp": {
-  "navbar": {
-    "links": [
-      {
-        "name": "Overview",
-        "path": "overview"
-      },
-      {
-        "name": "About",
-        "path": "transactions"
-      },
-      {
-        "name": "Contact",
-        "path": "/contact"
+{
+  "financeapp": {
+    "navbar": {
+      "links": {
+        "main": [
+          {
+            "name": "Overview",
+            "path": "overview"
+          },
+          {
+            "name": "About",
+            "path": "transactions"
+          },
+          {
+            "name": "Contact",
+            "path": "/contact"
+          }
+        ],
+        "sub": [
+          {
+            "name": "Settings",
+            "path": "transactions"
+          }
+        ]
       }
-    ]
+    }
   }
-}}
+}
