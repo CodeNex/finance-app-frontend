@@ -1,9 +1,8 @@
 import { Component } from '@angular/core';
-import { NavlinkComponent } from './navlink/navlink.component';
 
 @Component({
   selector: 'app-navbar',
-  imports: [ NavlinkComponent ],
+  imports: [ ],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.scss',
 })
