@@ -23,7 +23,7 @@
   <!-- lower sub navigation -->
   <div class="pb-[40px]">
     @for (item of navData.sub; track $index) {
-      <a [routerLink]="[item.path]" routerLinkActive="navbar-link-active">
+      <a [routerLink]="[item.path]" routerLinkActive="navbarLinkInActive">
         <p class="text-grey-300">{{ item.name }}</p>
       </a>
     }
