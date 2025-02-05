@@ -15,12 +15,13 @@ import { RecurringBillsComponent } from './pages/home/content/recurring-bills/re
 import { SettingsComponent } from './pages/home/content/settings/settings.component';
 
 export const routes: Routes = [
-  { path: 'login', component: LoginComponent, pathMatch: 'full' },
+  { path: '', component: LoginComponent, pathMatch: 'full' },
   { path: 'registrate', component: RegistrateComponent, pathMatch: 'full' },
   {
-    path: '',
+    path: 'home',
     component: HomeComponent,
     children: [
+      { path: '', redirectTo: 'overview', pathMatch: 'full' },
       { path: 'overview', component: OverviewComponent },
       { path: 'transactions', component: TransactionsComponent },
       { path: 'budgets', component: BudgetsComponent },
@@ -30,4 +31,5 @@ export const routes: Routes = [
     ],
   },
   { path: 'imprint', component: ImprintComponent },
+  { path: '**', redirectTo: 'login' },
 ];

@@ -3,7 +3,7 @@
     <div>
       <p>finance</p>
     </div>
-    <nav>
+    <nav class="flex flex-col">
       @for (item of navData.main; track $index) {
         <a [routerLink]="[item.path]" routerLinkActive="router-link-active">
           {{ item.name }}
