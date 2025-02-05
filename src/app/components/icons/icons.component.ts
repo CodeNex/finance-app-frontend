@@ -1,4 +1,4 @@
-import { Component, } from '@angular/core';
+import { Component, Input, } from '@angular/core';
 
 @Component({
   selector: 'app-icons',
@@ -7,5 +7,5 @@ import { Component, } from '@angular/core';
   styleUrl: './icons.component.scss'
 })
 export class IconsComponent {
-  
+  @Input("iconName") public readonly iconName: any = "";
 }
