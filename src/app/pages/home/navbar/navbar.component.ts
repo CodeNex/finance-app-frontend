@@ -18,26 +18,27 @@ export class NavbarComponent {
     let navLinkNames = Array.from(
       document.querySelectorAll('[data-group="navLinkName"]')
     );
+    let navBarRef = document.getElementById('navBar');
     if (!this.isNavbarThin) {
-      this.makeNavbarThin(navLinkNames);
+      this.makeNavbarThin(navLinkNames, navBarRef);
     } else {
-      this.makeNavbarWide(navLinkNames);
+      this.makeNavbarWide(navLinkNames, navBarRef);
     }
     this.isNavbarThin = !this.isNavbarThin;
     console.log('isNavbarThin', this.isNavbarThin);
   }
 
-  makeNavbarThin(navLinkNames: Array<any>) {
+  makeNavbarThin(navLinkNames: Array<any>, navBarRef: HTMLElement) {
     navLinkNames.forEach((navLinkName) =>
       navLinkName.classList.add('opacity_zero')
     );
-    document.getElementById('navBar')?.classList.add("navbar-thin");
+    navBarRef.classList.add("navbar-thin");
   }
 
-  makeNavbarWide(navLinkNames: Array<any>) {
+  makeNavbarWide(navLinkNames: Array<any>, navBarRef: HTMLElement) {
     navLinkNames.forEach((navLinkName) =>
       navLinkName.classList.remove('opacity_zero')
     );
-    document.getElementById('navBar')?.classList.remove("navbar-thin");
+    navBarRef.classList.remove("navbar-thin");
   }
 }
