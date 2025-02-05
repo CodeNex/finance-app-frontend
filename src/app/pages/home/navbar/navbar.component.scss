@@ -161,6 +161,7 @@
         top: 50%;
         left: 50%;
         transform: translate(-40%, -50%);
+        transition: all 0.3s ease-in-out;
         path {
           fill: var(--color-grey-300);
         }
@@ -180,6 +181,14 @@
       }
     }
   }
+
+  .slideButtonReturn {
+    ::ng-deep {
+      svg {
+        transform: translate(-50%, -50%) rotate(180deg);
+      }
+    }
+  }
 }
 
 .opacity_zero {
@@ -189,3 +198,5 @@
 .d_none {
   display: none;
 }
+
+
