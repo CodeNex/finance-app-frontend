@@ -28,9 +28,14 @@
   <!-- lower sub navigation -->
   <div class="pb-[40px]">
     @for (item of navData.sub; track $index) {
-      <a [routerLink]="[item.path]" routerLinkActive="navbarLinkActive">
-        <p class="text-grey-300">{{ item.name }}</p>
-      </a>
+      <a class="navbarLinkInActive" [routerLink]="[item.path]" routerLinkActive="navbarLinkActive">
+        <div class="linkBox">
+          <div class="navImgBox">
+            <img src="{{item.img}}" alt="">
+          </div>   
+          <p class="text-grey-300">{{ item.name }}</p>
+        </div>
+    </a>
     }
   </div>
 </section>

@@ -31,6 +31,12 @@
     border-radius: 0 12px 12px 0;
 
     .navImgBox {
+      img {
+        width: 24px;
+        height: 24px;
+
+        fill: var(--color-grey-300);
+      }
     }
 
     p {
@@ -46,7 +52,7 @@
 
   .linkBox {
     background-color: var(--color-beige-100);
-    
+
     .navImgBox {
     }
 
