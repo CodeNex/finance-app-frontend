@@ -28,17 +28,17 @@ export class NavbarComponent {
     console.log('isNavbarThin', this.isNavbarThin);
   }
 
-  makeNavbarThin(navLinkNames: Array<any>, navBarRef: HTMLElement) {
+  makeNavbarThin(navLinkNames: Array<any>, navBarRef: HTMLElement | null) {
     navLinkNames.forEach((navLinkName) =>
       navLinkName.classList.add('opacity_zero')
     );
-    navBarRef.classList.add("navbar-thin");
+    navBarRef?.classList.add("navbar-thin");
   }
 
-  makeNavbarWide(navLinkNames: Array<any>, navBarRef: HTMLElement) {
+  makeNavbarWide(navLinkNames: Array<any>, navBarRef: HTMLElement | null) {
     navLinkNames.forEach((navLinkName) =>
       navLinkName.classList.remove('opacity_zero')
     );
-    navBarRef.classList.remove("navbar-thin");
+    navBarRef?.classList.remove("navbar-thin");
   }
 }
