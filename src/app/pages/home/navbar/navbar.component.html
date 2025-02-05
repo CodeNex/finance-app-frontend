@@ -8,7 +8,8 @@
     </div>
     <nav class="flex flex-col gap-1 pt-6">
       @for (item of navData.main; track $index) {
-      <a [routerLink]="[item.path]" routerLinkActive="router-link-active">
+      <a class="navbarLinkInActive" [routerLink]="[item.path]" routerLinkActive="navbarLinkActive">
+          <div class="linkBox"></div>
         <p class="text-grey-300">{{ item.name }}</p>
       </a>
 
@@ -23,7 +24,7 @@
   <!-- lower sub navigation -->
   <div class="pb-[40px]">
     @for (item of navData.sub; track $index) {
-      <a [routerLink]="[item.path]" routerLinkActive="navbarLinkInActive">
+      <a [routerLink]="[item.path]" routerLinkActive="navbarLinkActive">
         <p class="text-grey-300">{{ item.name }}</p>
       </a>
     }

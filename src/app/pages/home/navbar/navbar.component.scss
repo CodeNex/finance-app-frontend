@@ -2,6 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
+@import '../../../../styles.scss';
+
 @layer components {
   .navbar-wide {
     width: 300px;
@@ -12,9 +14,13 @@
   }
 }
 
-.navbarLinkInActive {}
+.navbarLinkInActive {
+  height: 56px;
+  display: flex;
+  border-left: 4px solid var(--color-grey-900);
 
+}
 
 .navbarLinkActive {
-  
+  border-left: 4px solid var(--color-secondary-green);
 }
