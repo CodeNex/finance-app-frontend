@@ -157,9 +157,9 @@
         position: absolute;
         top: 50%;
         left: 50%;
-        transform: translate(-45%, -50%);
+        transform: translate(-40%, -50%);
         path {
-          fill: var(--color-beige-100);
+          fill: var(--color-grey-300);
         }
       }
     }
@@ -171,7 +171,7 @@
         svg {
           path {
             transition: fill 0.15s ease-in-out;
-            fill: var(--color-secondary-green);
+            fill: white;
           }
         }
       }
