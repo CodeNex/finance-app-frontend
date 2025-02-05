@@ -28,6 +28,8 @@
     padding-left: 32px;
     width: 100%;
     height: 100%;
+    overflow-x: hidden;
+    text-wrap: nowrap;
     border-radius: 0 12px 12px 0;
 
     .navImgBox {
