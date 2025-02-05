@@ -10,7 +10,9 @@
       @for (item of navData.main; track $index) {
       <a class="navbarLinkInActive" [routerLink]="[item.path]" routerLinkActive="navbarLinkActive">
           <div class="linkBox">
-            <img src="" alt="">
+            <div class="navImgBox">
+              <img src="{{item.img}}" alt="">
+            </div>   
             <p class="text-grey-300">{{ item.name }}</p>
           </div>
       </a>
