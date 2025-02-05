@@ -147,3 +147,34 @@
     color: white;
   }
 }
+
+.slideButtonBox {
+  .slideButton {
+    ::ng-deep {
+      svg {
+        width: 28px;
+        height: 28px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-45%, -50%);
+        path {
+          fill: var(--color-beige-100);
+        }
+      }
+    }
+  }
+
+  &:hover {
+    .slideButton {
+      ::ng-deep {
+        svg {
+          path {
+            transition: fill 0.15s ease-in-out;
+            fill: var(--color-secondary-green);
+          }
+        }
+      }
+    }
+  }
+}
