@@ -5,33 +5,40 @@
         "main": [
           {
             "name": "Overview",
-            "path": "overview"
+            "path": "overview",
+            "img": "/img/navbar/overview-img.svg"
           },
           {
             "name": "Transactions",
-            "path": "transactions"
+            "path": "transactions",
+            "img": "/img/navbar/transactions-img.svg"
           },
           {
             "name": "Budgets",
-            "path": "budgets"
+            "path": "budgets",
+            "img": "/img/navbar/budgets-img.svg"
           },
           {
             "name": "Pots",
-            "path": "pots"
+            "path": "pots",
+            "img": "/img/navbar/pots-img.svg"
           },
           {
             "name": "Recurring Bills",
-            "path": "recurringBills"
+            "path": "recurringBills",
+            "img": "/img/navbar/bills-img.svg"
           }
         ],
         "sub": [
           {
             "name": "Settings",
-            "path": "settings"
+            "path": "settings",
+            "img": "/img/navbar/settings-img.svg"
           },
           {
             "name": "Imprint",
-            "path": "imprint"
+            "path": "imprint",
+            "img": "/img/navbar/imprint-img.svg"
           }
         ]
       }
