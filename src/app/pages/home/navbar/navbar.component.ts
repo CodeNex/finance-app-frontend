@@ -36,16 +36,19 @@ export class NavbarComponent {
       navBarRef.classList.add('navbar-thin');
       navBarRef.style.paddingRight = '8px';
     }
+    setTimeout(() => {
+      navLinkNames.forEach((link) => link.classList.add('d_none'));
+    }, 600);
   }
 
   makeNavbarWide(navLinkNames: Array<any>, navBarRef: HTMLElement | null) {
-    navLinkNames.forEach((navLinkName) =>
-      navLinkName.classList.remove('opacity_zero')
-    );
-    if (navBarRef) {
-      navBarRef?.classList.remove('navbar-thin');
-      navBarRef.style.paddingRight = '24px';
-    }
-    
+    navLinkNames.forEach((link) => link.classList.remove('d_none'));
+    setTimeout(() => {
+      navLinkNames.forEach((link) => link.classList.remove('opacity_zero'));
+      if (navBarRef) {
+        navBarRef?.classList.remove('navbar-thin');
+        navBarRef.style.paddingRight = '24px';
+      }
+    }, 10);
   }
 }
