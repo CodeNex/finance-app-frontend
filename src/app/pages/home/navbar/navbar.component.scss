@@ -90,4 +90,21 @@
       @apply text3b;
     }
   }
+
+  &:hover 
+    .linkBox {
+      .navImgBox {
+        ::ng-deep {
+          svg {
+            path {
+              fill: var(--color-secondary-green);
+            }
+          }
+        }
+      }
+  
+      p {
+        color: var(--color-grey-900);
+      }
+    }
 }
