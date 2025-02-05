@@ -11,4 +11,27 @@ import { IconsComponent } from '../../../components/icons/icons.component';
 })
 export class NavbarComponent {
   public readonly navData = jsonData.financeapp.navbar.links;
+
+  isNavbarThin: boolean = false;
+
+  toggleMovingNavbar() {
+    let navLinkNames = Array.from(
+      document.querySelectorAll('[data-group="navLinkName"]')
+    );
+    if (!this.isNavbarThin) {
+      navLinkNames.forEach((navLinkName) =>
+        navLinkName.classList.add('opacity_zero')
+      );
+    } else {
+      navLinkNames.forEach((navLinkName) =>
+        navLinkName.classList.remove('opacity_zero')
+      );
+    }
+    this.isNavbarThin = !this.isNavbarThin;
+    console.log('isNavbarThin', this.isNavbarThin);
+  }
+
+  makeNavbarThin() {}
+
+  makeNavbarWide() {}
 }
