@@ -19,19 +19,23 @@ export class NavbarComponent {
       document.querySelectorAll('[data-group="navLinkName"]')
     );
     if (!this.isNavbarThin) {
-      navLinkNames.forEach((navLinkName) =>
-        navLinkName.classList.add('opacity_zero')
-      );
+      this.makeNavbarThin(navLinkNames);
     } else {
-      navLinkNames.forEach((navLinkName) =>
-        navLinkName.classList.remove('opacity_zero')
-      );
+      this.makeNavbarWide(navLinkNames);
     }
     this.isNavbarThin = !this.isNavbarThin;
     console.log('isNavbarThin', this.isNavbarThin);
   }
 
-  makeNavbarThin() {}
+  makeNavbarThin(navLinkNames: Array<any>) {
+    navLinkNames.forEach((navLinkName) =>
+      navLinkName.classList.add('opacity_zero')
+    );
+  }
 
-  makeNavbarWide() {}
+  makeNavbarWide(navLinkNames: Array<any>) {
+    navLinkNames.forEach((navLinkName) =>
+      navLinkName.classList.remove('opacity_zero')
+    );
+  }
 }
