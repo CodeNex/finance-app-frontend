@@ -32,13 +32,20 @@ export class NavbarComponent {
     navLinkNames.forEach((navLinkName) =>
       navLinkName.classList.add('opacity_zero')
     );
-    navBarRef?.classList.add("navbar-thin");
+    if (navBarRef) {
+      navBarRef.classList.add('navbar-thin');
+      navBarRef.style.paddingRight = '8px';
+    }
   }
 
   makeNavbarWide(navLinkNames: Array<any>, navBarRef: HTMLElement | null) {
     navLinkNames.forEach((navLinkName) =>
       navLinkName.classList.remove('opacity_zero')
     );
-    navBarRef?.classList.remove("navbar-thin");
+    if (navBarRef) {
+      navBarRef?.classList.remove('navbar-thin');
+      navBarRef.style.paddingRight = '24px';
+    }
+    
   }
 }
