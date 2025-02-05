@@ -1,16 +1,23 @@
-<section class="h-full relative flex flex-col bg-grey-900 transition-all duration-300 ease-in-out origin-left rounded-tr-2xl rounded-br-2xl navbar-wide">
+<section
+  class="h-full relative flex flex-col bg-grey-900 transition-all duration-300 ease-in-out origin-left rounded-tr-2xl rounded-br-2xl navbar-wide"
+>
+  <!-- upper main navigation -->
   <div>
     <div class="pl-[32px] pt-10 pb-10">
-      <img class="" src="/img/Sidebar/finance-logo.svg" alt="">
+      <img class="" src="/img/Sidebar/finance-logo.svg" alt="" />
     </div>
     <nav class="flex flex-col gap-1 pt-6">
       @for (item of navData.main; track $index) {
-        <a [routerLink]="[item.path]" routerLinkActive="router-link-active">
-          <p class="text-grey-300">{{ item.name }}</p>
-        </a>
-        
+      <a [routerLink]="[item.path]" routerLinkActive="router-link-active">
+        <p class="text-grey-300">{{ item.name }}</p>
+      </a>
+
       }
     </nav>
   </div>
-  
+  <!-- minimize button -->
+  <div class="absolute right-2 top-[50%] -translate-y-2/4 z-10 h-[60px] w-[30px] bg-beige-100 rounded-tl-full rounded-bl-full"></div>
+
+  <!-- lower sub navigation -->
+  <div></div>
 </section>
