@@ -31,7 +31,7 @@
       <a class="navbarLinkInActive" [routerLink]="[item.path]" routerLinkActive="navbarLinkActive">
         <div class="linkBox">
           <div class="navImgBox">
-            <img src="{{item.img}}" alt="">
+            <app-icons class="appIcon" [iconName]="item.path"></app-icons>
           </div>   
           <p class="text-grey-300">{{ item.name }}</p>
         </div>
