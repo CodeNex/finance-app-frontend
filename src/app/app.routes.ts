@@ -15,10 +15,10 @@ import { RecurringBillsComponent } from './pages/home/content/recurring-bills/re
 import { SettingsComponent } from './pages/home/content/settings/settings.component';
 
 export const routes: Routes = [
-  { path: '', component: LoginComponent, pathMatch: 'full' },
+  { path: 'login', component: LoginComponent, pathMatch: 'full' },
   { path: 'registrate', component: RegistrateComponent, pathMatch: 'full' },
   {
-    path: 'home',
+    path: '',
     component: HomeComponent,
     children: [
       { path: '', redirectTo: 'overview', pathMatch: 'full' },
