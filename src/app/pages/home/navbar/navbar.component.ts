@@ -68,10 +68,7 @@ export class NavbarComponent {
   makeLogoThin() {
     document.getElementById('financeLogo')!.style.transform = 'translateX(8px)';
     document.getElementById('logoPath7')!.style.display = 'none';
-    setTimeout(
-      () => (document.getElementById('logoPath6')!.style.display = 'none'),
-      50
-    );
+    setTimeout(() => (document.getElementById('logoPath6')!.style.display = 'none'), 50);
     setTimeout(
       () => (document.getElementById('logoPath5')!.style.display = 'none'),
       100
