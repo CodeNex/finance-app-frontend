@@ -4,10 +4,10 @@
 
 @layer components {
   .navbar-wide {
-    @apply w-[300px];
+    width: 300px;
   }
 
   .navbar-thin {
-    @apply w-[100px];
+    width: 100px;
   }
 }
