@@ -6,46 +6,39 @@
           {
             "name": "Overview",
             "path": "overview",
-            "img": "/img/navbar/overview-img.svg",
-            "svg": ""
+            "img": "/img/navbar/overview-img.svg"
           },
           {
             "name": "Transactions",
             "path": "transactions",
-            "img": "/img/navbar/transactions-img.svg",
-            "svg": ""
+            "img": "/img/navbar/transactions-img.svg"
           },
           {
             "name": "Budgets",
             "path": "budgets",
-            "img": "/img/navbar/budgets-img.svg",
-            "svg": ""
+            "img": "/img/navbar/budgets-img.svg"
           },
           {
             "name": "Pots",
             "path": "pots",
-            "img": "/img/navbar/pots-img.svg",
-            "svg": ""
+            "img": "/img/navbar/pots-img.svg"
           },
           {
             "name": "Recurring Bills",
             "path": "recurringBills",
-            "img": "/img/navbar/bills-img.svg",
-            "svg": ""
+            "img": "/img/navbar/bills-img.svg"
           }
         ],
         "sub": [
           {
             "name": "Settings",
             "path": "settings",
-            "img": "/img/navbar/settings-img.svg",
-            "svg": ""
+            "img": "/img/navbar/settings-img.svg"
           },
           {
             "name": "Imprint",
             "path": "imprint",
-            "img": "/img/navbar/imprint-img.svg",
-            "svg": ""
+            "img": "/img/navbar/imprint-img.svg"
           }
         ]
       }
