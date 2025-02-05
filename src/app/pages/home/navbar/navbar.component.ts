@@ -31,11 +31,13 @@ export class NavbarComponent {
     navLinkNames.forEach((navLinkName) =>
       navLinkName.classList.add('opacity_zero')
     );
+    document.getElementById('navBar')?.classList.add("navbar-thin");
   }
 
   makeNavbarWide(navLinkNames: Array<any>) {
     navLinkNames.forEach((navLinkName) =>
       navLinkName.classList.remove('opacity_zero')
     );
+    document.getElementById('navBar')?.classList.remove("navbar-thin");
   }
 }
