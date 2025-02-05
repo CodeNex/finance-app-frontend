@@ -1,0 +1,16 @@
+<section class="h-full relative flex flex-col">
+  <div>
+    <div>
+      <p>finance</p>
+    </div>
+    <nav class="flex flex-col">
+      @for (item of navData.main; track $index) {
+        <a [routerLink]="[item.path]" routerLinkActive="router-link-active">
+          {{ item.name }}
+        </a>
+        
+      }
+    </nav>
+  </div>
+  
+</section>

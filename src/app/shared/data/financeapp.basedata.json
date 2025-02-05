@@ -1,0 +1,40 @@
+{
+  "financeapp": {
+    "navbar": {
+      "links": {
+        "main": [
+          {
+            "name": "Overview",
+            "path": "overview"
+          },
+          {
+            "name": "Transactions",
+            "path": "transactions"
+          },
+          {
+            "name": "Budgets",
+            "path": "budgets"
+          },
+          {
+            "name": "Pots",
+            "path": "pots"
+          },
+          {
+            "name": "Recurring Bills",
+            "path": "recurringBills"
+          }
+        ],
+        "sub": [
+          {
+            "name": "Settings",
+            "path": "settings"
+          },
+          {
+            "name": "Imprint",
+            "path": "imprint"
+          }
+        ]
+      }
+    }
+  }
+}
