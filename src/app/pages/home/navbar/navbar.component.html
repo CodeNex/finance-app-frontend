@@ -1,5 +1,5 @@
 <section
-  class="h-full relative flex flex-col bg-grey-900 transition-all duration-300 ease-in-out origin-left rounded-tr-2xl rounded-br-2xl navbar-wide"
+  class="h-full relative flex flex-col justify-between bg-grey-900 transition-all duration-300 ease-in-out origin-left rounded-tr-2xl rounded-br-2xl navbar-wide"
 >
   <!-- upper main navigation -->
   <div>
@@ -21,5 +21,11 @@
   </div>
 
   <!-- lower sub navigation -->
-  <div></div>
+  <div class="pb-[40px]">
+    @for (item of navData.sub; track $index) {
+      <a [routerLink]="[item.path]" routerLinkActive="navbar-link-active">
+        <p class="text-grey-300">{{ item.name }}</p>
+      </a>
+    }
+  </div>
 </section>
