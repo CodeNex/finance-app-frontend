@@ -30,6 +30,7 @@ export class NavbarComponent {
   }
 
   makeNavbarThin(navLinkNames: Array<any>, navBarRef: HTMLElement | null, slideButtonRef: HTMLElement | null) {
+    this.makeLogoThin();
     if (slideButtonRef) slideButtonRef.classList.add("slideButtonReturn");
     navLinkNames.forEach((navLinkName) =>
       navLinkName.classList.add('opacity_zero')
@@ -46,6 +47,7 @@ export class NavbarComponent {
   makeNavbarWide(navLinkNames: Array<any>, navBarRef: HTMLElement | null, slideButtonRef: HTMLElement | null) {
     navLinkNames.forEach((link) => link.classList.remove('d_none'));
     setTimeout(() => {
+      this.makeLogoWide();
       if (slideButtonRef) slideButtonRef.classList.remove("slideButtonReturn");
       navLinkNames.forEach((link) => link.classList.remove('opacity_zero'));
       if (navBarRef) {
@@ -53,5 +55,13 @@ export class NavbarComponent {
         navBarRef.style.paddingRight = '24px';
       }
     }, 10);
+  }
+
+  makeLogoThin() {
+    document.getElementById("financeLogo")!.style.transform = "translateX(8px)";
+  }
+
+  makeLogoWide() {
+    document.getElementById("financeLogo")!.style.transform = "translateX(2px)";
   }
 }
