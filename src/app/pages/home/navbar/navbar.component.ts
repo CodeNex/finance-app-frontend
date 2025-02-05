@@ -38,7 +38,7 @@ export class NavbarComponent {
     }
     setTimeout(() => {
       navLinkNames.forEach((link) => link.classList.add('d_none'));
-    }, 600);
+    }, 1000);
   }
 
   makeNavbarWide(navLinkNames: Array<any>, navBarRef: HTMLElement | null) {

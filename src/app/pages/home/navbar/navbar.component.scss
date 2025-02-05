@@ -47,6 +47,7 @@
     }
 
     p {
+      transition: fill 0.9s ease-in-out;
       color: var(--color-grey-300);
       @apply text3b;
     }

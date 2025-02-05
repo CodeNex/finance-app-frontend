@@ -1,5 +1,5 @@
-<section id="navBar" style="padding-right: 24px;"
-  class="h-full relative flex flex-col justify-between bg-grey-900 transition-all duration-600 ease-in-out origin-left rounded-tr-2xl rounded-br-2xl navbar-wide"
+<section id="navBar" style="padding-right: 24px; transition: all 0.3s ease-in-out;"
+  class="h-full relative flex flex-col justify-between bg-grey-900 transition-all ease-in-out origin-left rounded-tr-2xl rounded-br-2xl navbar-wide"
 >
   <!-- upper main navigation -->
   <div>
@@ -18,7 +18,8 @@
             <app-icons [iconName]="item.path"></app-icons>
           </div>
           <p
-            class="text-grey-300 transition-all select-none"
+            class="text-grey-300 select-none"
+            style="transition: all 0.3s ease-in-out;"
             data-group="navLinkName"
           >
             {{ item.name }}
@@ -48,7 +49,7 @@
         <div class="navImgBox">
           <app-icons class="appIcon" [iconName]="item.path"></app-icons>
         </div>
-        <p class="text-grey-300 select-none" data-group="navLinkName">
+        <p class="text-grey-300 select-none" data-group="navLinkName" style="transition: all 0.3s ease-in-out;">
           {{ item.name }}
         </p>
       </div>
@@ -58,7 +59,7 @@
       <div class="iconBox">
         <app-icons [iconName]="'logout'"></app-icons>
       </div>
-      <p class="select-none" data-group="navLinkName">Logout</p>
+      <p class="select-none" data-group="navLinkName" style="transition: all 0.3s ease-in-out;">Logout</p>
     </button>
   </div>
 </section>
