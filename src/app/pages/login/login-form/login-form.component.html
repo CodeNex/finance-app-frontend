@@ -3,10 +3,24 @@
     <p class="text1b text-grey-900">Login</p>
   </div>
   <form action="">
-    <P>FORM</P>
+    <div class="input-wrapper">
+      <input type="text" id="name" placeholder=" " required />
+      <label for="name">Name</label>
+      <p class="validationWarning"></p>
+    </div>
+    <div class="input-wrapper">
+      <input type="text" id="name" placeholder=" " required />
+      <label for="name">Name</label>
+      <p class="validationWarning"></p>
+    </div>
   </form>
   <div class="flex justify-center items-center gap-2">
     <p class="text4r text-grey-500">Need to create an account?</p>
-    <button (click)="emitChangeWindow('signUpForm')" class="text4b text-grey-900 underline">Sign Up</button>
+    <button
+      (click)="emitChangeWindow('signUpForm')"
+      class="text4b text-grey-900 underline"
+    >
+      Sign Up
+    </button>
   </div>
 </section>

@@ -1,0 +1,33 @@
+.input-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+input {
+  padding: 8px;
+  width: 200px;
+  border: 1px solid red;
+  font-size: 16px;
+  outline: none;
+}
+
+label {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: white;
+  padding: 0 4px;
+  transition: all 0.15s ease-in-out;
+  color: gray;
+  font-size: 16px;
+}
+
+/* Effekt beim Fokussieren oder wenn Text im Input ist */
+input:focus + label,
+input:not(:placeholder-shown) + label {
+  top: 0;
+  left: 10px;
+  font-size: 12px;
+  color: blue;
+}
