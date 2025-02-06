@@ -15,4 +15,6 @@ export class SignUpFormComponent {
       this.changeWindow.emit(windowName);
     }
 
+    isPasswordVisible: boolean = false;
+
 }

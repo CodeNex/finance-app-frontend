@@ -43,3 +43,23 @@ input:not(:placeholder-shown) + label {
   text-align: end;
   margin-top: 4px;
 }
+
+.eyeBox {
+  position: absolute;
+  top: 11px;
+  right: 11px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+
+  ::ng-deep {
+    svg {
+      width: 16px;
+      height: 16px;
+      path {
+        fill: #696868;
+      }
+    }
+  }
+}
