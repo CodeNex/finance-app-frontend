@@ -4,14 +4,14 @@
 }
 
 input {
-  font-size: 14px;
-  line-height: 150%;
-  font-weight: normal;
+  
   padding: 8px 20px;
   width: 100%;
   border: 1px solid #696868;
   border-radius: 8px;
-  font-size: 16px;
+  font-size: 14px;
+  line-height: 150%;
+  color: #201f24;
   outline: none;
 }
 
@@ -29,10 +29,9 @@ label {
 
 }
 
-/* Effekt beim Fokussieren oder wenn Text im Input ist */
 input:focus + label,
 input:not(:placeholder-shown) + label {
   top: 0;
   left: 10px;
-  font-size: 12px;
+  font-size: 10px;
 }
