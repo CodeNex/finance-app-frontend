@@ -14,5 +14,7 @@ export class LoginFormComponent {
   emitChangeWindow(windowName: string) {
     this.changeWindow.emit(windowName);
   }
+
+  isPasswordVisible: boolean = false;
 }
 
