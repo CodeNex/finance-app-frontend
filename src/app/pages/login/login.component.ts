@@ -15,4 +15,8 @@ export class LoginComponent {
 
   currentShownLoginWindow: string = "loginForm"
   // loginForm, signUpForm, loadingScreen, warningScreen
+
+  chooseLoginWindow(windowName: string) {
+    this.currentShownLoginWindow = windowName;
+  }
 }
