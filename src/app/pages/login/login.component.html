@@ -13,9 +13,9 @@
       @if (currentShownLoginWindow == "signUpForm") {
         <app-sign-up-form (changeWindow)="chooseLoginWindow($event)"></app-sign-up-form>
       }
-      @if (currentShownLoginWindow == "loadingScreen") {
-        <app-loading-screen (changeWindow)="chooseLoginWindow($event)"></app-loading-screen>
-      }
+      
+      <app-loading-screen (changeWindow)="chooseLoginWindow($event)"></app-loading-screen>
+     
       @if (currentShownLoginWindow == "warningScreen") {
         <app-warning-screen (changeWindow)="chooseLoginWindow($event)"></app-warning-screen>
       }
