@@ -4,7 +4,6 @@
 }
 
 input {
-  
   padding: 8px 20px;
   width: 100%;
   border: 1px solid #696868;
@@ -26,7 +25,6 @@ label {
   color: #696868;
   font-size: 14px;
   font-weight: bold;
-
 }
 
 input:focus + label,
@@ -34,4 +32,12 @@ input:not(:placeholder-shown) + label {
   top: 0;
   left: 10px;
   font-size: 10px;
+}
+
+.validationWarning {
+  font-size: 12px;
+  line-height: 150%;
+  font-weight: normal;
+  background-color: red;
+  margin-top: 4px;
 }
