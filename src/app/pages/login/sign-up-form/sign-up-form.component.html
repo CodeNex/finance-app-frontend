@@ -7,6 +7,11 @@
   </form>
   <div class="flex justify-center items-center gap-2">
     <p class="text4r text-grey-500">Already have an account?</p>
-    <button class="text4b text-grey-900 underline">Login</button>
+    <button
+      (click)="emitChangeWindow('loginForm')"
+      class="text4b text-grey-900 underline"
+    >
+      Login
+    </button>
   </div>
 </section>
