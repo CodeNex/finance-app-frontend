@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 @Component({
@@ -8,5 +8,10 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './sign-up-form.component.scss'
 })
 export class SignUpFormComponent {
+  @Output() changeWindow = new EventEmitter();
+  
+    emitChangeWindow(windowName: string) {
+      this.changeWindow.emit(windowName);
+    }
 
 }

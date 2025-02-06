@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-loading-screen',
@@ -7,5 +7,10 @@ import { Component } from '@angular/core';
   styleUrl: './loading-screen.component.scss'
 })
 export class LoadingScreenComponent {
+  @Output() changeWindow = new EventEmitter();
+  
+    emitChangeWindow(windowName: string) {
+      this.changeWindow.emit(windowName);
+    }
 
 }

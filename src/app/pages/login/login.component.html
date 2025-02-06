@@ -8,16 +8,16 @@
   <div class="p-5 max-sm:p-4 flex-1 flex justify-center items-center">
     <div class="bg-white flex flex-col p-[32px] rounded-[12px] w-full max-w-[560px]">
       @if (currentShownLoginWindow == "loginForm") {
-        <app-login-form></app-login-form>
+        <app-login-form (changeWindow)="chooseLoginWindow($event)"></app-login-form>
       }
       @if (currentShownLoginWindow == "signUpForm") {
-        <app-sign-up-form></app-sign-up-form>
+        <app-sign-up-form (changeWindow)="chooseLoginWindow($event)"></app-sign-up-form>
       }
       @if (currentShownLoginWindow == "loadingScreen") {
-        <app-loading-screen></app-loading-screen>
+        <app-loading-screen (changeWindow)="chooseLoginWindow($event)"></app-loading-screen>
       }
       @if (currentShownLoginWindow == "warningScreen") {
-        <app-warning-screen></app-warning-screen>
+        <app-warning-screen (changeWindow)="chooseLoginWindow($event)"></app-warning-screen>
       }
     </div>
   </div>
