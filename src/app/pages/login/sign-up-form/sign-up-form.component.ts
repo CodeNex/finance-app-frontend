@@ -6,19 +6,23 @@ import { IconsComponent } from '../../../components/icons/icons.component';
   selector: 'app-sign-up-form',
   imports: [FormsModule, IconsComponent],
   templateUrl: './sign-up-form.component.html',
-  styleUrl: './sign-up-form.component.scss'
+  styleUrl: './sign-up-form.component.scss',
 })
 export class SignUpFormComponent {
   @Output() changeWindow = new EventEmitter();
-  
-    emitChangeWindow(windowName: string) {
-      this.changeWindow.emit(windowName);
-    }
 
-    isPasswordVisible: boolean = false;
+  emitChangeWindow(windowName: string) {
+    this.changeWindow.emit(windowName);
+  }
 
-    changePasswordVisibility() {
-      this.isPasswordVisible = !this.isPasswordVisible;
-    }
+  isPasswordVisible: boolean = false;
 
+  changePasswordVisibility() {
+    this.isPasswordVisible = !this.isPasswordVisible;
+    let passwordInputRef = document.getElementById(
+      'singupPasswordInput'
+    ) as HTMLInputElement;
+    passwordInputRef.type =
+      passwordInputRef.type === 'password' ? 'text' : 'password';
+  }
 }

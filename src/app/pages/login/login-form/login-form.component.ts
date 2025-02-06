@@ -6,7 +6,7 @@ import { IconsComponent } from '../../../components/icons/icons.component';
   selector: 'app-login-form',
   imports: [FormsModule, IconsComponent],
   templateUrl: './login-form.component.html',
-  styleUrl: './login-form.component.scss'
+  styleUrl: './login-form.component.scss',
 })
 export class LoginFormComponent {
   @Output() changeWindow = new EventEmitter();
@@ -19,6 +19,10 @@ export class LoginFormComponent {
 
   changePasswordVisibility() {
     this.isPasswordVisible = !this.isPasswordVisible;
+    let passwordInputRef = document.getElementById(
+      'loginPasswordInput'
+    ) as HTMLInputElement;
+    passwordInputRef.type =
+      passwordInputRef.type === 'password' ? 'text' : 'password';
   }
 }
-
