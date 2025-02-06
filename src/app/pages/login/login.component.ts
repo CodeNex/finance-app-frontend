@@ -22,6 +22,5 @@ export class LoginComponent {
    */
   chooseLoginWindow(windowName: string) {
     this.currentShownLoginWindow = windowName;
-    console.log(windowName);
   }
 }

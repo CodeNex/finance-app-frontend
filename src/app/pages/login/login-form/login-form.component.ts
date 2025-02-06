@@ -16,5 +16,9 @@ export class LoginFormComponent {
   }
 
   isPasswordVisible: boolean = false;
+
+  changePasswordVisibility() {
+    this.isPasswordVisible = !this.isPasswordVisible;
+  }
 }
 

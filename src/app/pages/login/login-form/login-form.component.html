@@ -25,14 +25,14 @@
       />
       <label for="password">Password</label>
       <p class="validationWarning"><span>&nbsp;</span></p>
-      <div class="eyeBox">
+      <div class="eyeBox" (click)="changePasswordVisibility()">
         <app-icons
           [iconName]="isPasswordVisible ? 'openedEye' : 'closedEye'"
         ></app-icons>
       </div>
     </div>
     <button
-      class="w-full bg-grey-900 text-white text4b pt-[9px] pb-[9px] rounded-lg"
+      class="w-full bg-grey-900 text-white text4b pt-[9px] pb-[9px] rounded-lg select-none"
     >
       Login
     </button>
@@ -42,7 +42,7 @@
     <p class="text4r text-grey-500">Need to create an account?</p>
     <button
       (click)="emitChangeWindow('signUpForm')"
-      class="text4b text-grey-900 underline"
+      class="text4b text-grey-900 underline select-none"
     >
       Sign Up
     </button>

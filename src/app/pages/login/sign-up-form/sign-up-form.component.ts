@@ -17,4 +17,8 @@ export class SignUpFormComponent {
 
     isPasswordVisible: boolean = false;
 
+    changePasswordVisibility() {
+      this.isPasswordVisible = !this.isPasswordVisible;
+    }
+
 }
