@@ -13,7 +13,7 @@ import { WarningScreenComponent } from './warning-screen/warning-screen.componen
 })
 export class LoginComponent {
 
-  currentShownLoginWindow: string = "loginForm"
+  currentShownLoginWindow: string = "signUpForm"
   // loginForm, signUpForm
 
   chooseLoginWindow(windowName: string) {
