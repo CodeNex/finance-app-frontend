@@ -25,6 +25,7 @@ label {
   color: #696868;
   font-size: 14px;
   font-weight: bold;
+  user-select: none;
 }
 
 input:focus + label,
