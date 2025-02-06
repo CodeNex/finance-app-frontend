@@ -14,7 +14,7 @@ import { WarningScreenComponent } from './warning-screen/warning-screen.componen
 export class LoginComponent {
 
   currentShownLoginWindow: string = "loginForm"
-  // loginForm, signUpForm, loadingScreen, warningScreen
+  // loginForm, signUpForm
 
   chooseLoginWindow(windowName: string) {
     this.currentShownLoginWindow = windowName;

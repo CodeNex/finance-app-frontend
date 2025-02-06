@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-warning-screen',
@@ -7,9 +7,4 @@ import { Component, EventEmitter, Output } from '@angular/core';
   styleUrl: './warning-screen.component.scss',
 })
 export class WarningScreenComponent {
-  @Output() changeWindow = new EventEmitter();
-
-  emitChangeWindow(windowName: string) {
-    this.changeWindow.emit(windowName);
-  }
 }
