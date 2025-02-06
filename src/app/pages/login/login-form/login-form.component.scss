@@ -38,6 +38,7 @@ input:not(:placeholder-shown) + label {
   font-size: 12px;
   line-height: 150%;
   font-weight: normal;
-  background-color: red;
+  color: #696868;
+  text-align: end;
   margin-top: 4px;
 }
