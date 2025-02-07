@@ -1,0 +1,26 @@
+[
+  {
+    "id": 0,
+    "category": "Entertainment",
+    "maximum": 50.0,
+    "theme": "#277C78"
+  },
+  {
+    "id": 1,
+    "category": "Bills",
+    "maximum": 750.0,
+    "theme": "#82C9D7"
+  },
+  {
+    "id": 2,
+    "category": "Dining Out",
+    "maximum": 75.0,
+    "theme": "#F2CDAC"
+  },
+  {
+    "id": 3,
+    "category": "Personal Care",
+    "maximum": 100.0,
+    "theme": "#626070"
+  }
+]
