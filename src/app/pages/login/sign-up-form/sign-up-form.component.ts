@@ -15,14 +15,15 @@ export class SignUpFormComponent {
     this.changeWindow.emit(windowName);
   }
 
-  isPasswordVisible: boolean = false;
+  isCreatePasswordVisible: boolean = false;
+  isConfirmPasswordVisible: boolean = false;
 
-  changePasswordVisibility() {
-    this.isPasswordVisible = !this.isPasswordVisible;
+  changePasswordVisibility(type: string) {
+    type === 'create' ? this.isCreatePasswordVisible = !this.isCreatePasswordVisible : this.isConfirmPasswordVisible = !this.isConfirmPasswordVisible;
     let passwordInputRef = document.getElementById(
-      'singupPasswordInput'
+      type === 'create' ? 'singupCreatePasswordInput' : 'singupConfirmPasswordInput'
     ) as HTMLInputElement;
     passwordInputRef.type =
-      passwordInputRef.type === 'password' ? 'text' : 'password';
+        passwordInputRef.type === 'password' ? 'text' : 'password';
   }
 }

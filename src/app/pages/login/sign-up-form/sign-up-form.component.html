@@ -26,22 +26,41 @@
       <label for="email">Email</label>
       <p class="validationWarning select-none"><span>&nbsp;</span></p>
     </div>
+
     <div class="input-wrapper">
       <input
         type="password"
-        id="singupPasswordInput"
+        id="singupCreatePasswordInput"
         name="password"
         placeholder=" "
         required
       />
       <label for="password">Create Password</label>
       <p class="validationWarning select-none"><span>&nbsp;</span></p>
-      <div class="eyeBox" (click)="changePasswordVisibility()">
+      <div class="eyeBox" (click)="changePasswordVisibility('create')">
         <app-icons
-          [iconName]="isPasswordVisible ? 'openedEye' : 'closedEye'"
+          [iconName]="isCreatePasswordVisible ? 'openedEye' : 'closedEye'"
         ></app-icons>
       </div>
     </div>
+
+    <div class="input-wrapper">
+      <input
+        type="password"
+        id="singupConfirmPasswordInput"
+        name="confirmPassword"
+        placeholder=" "
+        required
+      />
+      <label for="confirmPassword">Confirm Password</label>
+      <p class="validationWarning select-none"><span>&nbsp;</span></p>
+      <div class="eyeBox" (click)="changePasswordVisibility('confirm')">
+        <app-icons
+          [iconName]="isConfirmPasswordVisible ? 'openedEye' : 'closedEye'"
+        ></app-icons>
+      </div>
+    </div>
+
     <button
       class="w-full bg-grey-900 text-white text4b pt-[9px] pb-[9px] rounded-lg select-none"
     >
