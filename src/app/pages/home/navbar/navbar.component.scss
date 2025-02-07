@@ -1,0 +1,209 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import "../../../../styles.scss";
+
+@layer components {
+  .navbar-wide {
+    width: 300px;
+  }
+
+  .navbar-thin {
+    width: 100px;
+  }
+}
+
+.navbarLinkInActive {
+  height: 56px;
+  width: 100%;
+  display: flex;
+  border-left: 4px solid;
+  cursor: pointer;
+
+  .linkBox {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding-left: 32px;
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden;
+    text-wrap: nowrap;
+    border-radius: 0 12px 12px 0;
+
+    .navImgBox {
+      ::ng-deep {
+        svg {
+          width: 24px;
+          height: 24px;
+
+          path {
+            transition: fill 0.15s ease-in-out;
+            fill: var(--color-grey-300);
+          }
+        }
+      }
+    }
+
+    p {
+      transition: fill 0.9s ease-in-out;
+      color: var(--color-grey-300);
+      @apply text3b;
+    }
+  }
+
+  &:hover .linkBox {
+    .navImgBox {
+      ::ng-deep {
+        svg {
+          path {
+            fill: white;
+          }
+        }
+      }
+    }
+
+    p {
+      color: white;
+    }
+  }
+}
+
+.navbarLinkActive {
+  border-left: 4px solid var(--color-secondary-green);
+
+  .linkBox {
+    background-color: var(--color-beige-100);
+
+    .navImgBox {
+      ::ng-deep {
+        svg {
+          path {
+            fill: var(--color-secondary-green);
+          }
+        }
+      }
+    }
+
+    p {
+      color: var(--color-grey-900);
+      @apply text3b;
+    }
+  }
+
+  &:hover .linkBox {
+    .navImgBox {
+      ::ng-deep {
+        svg {
+          path {
+            fill: var(--color-secondary-green);
+          }
+        }
+      }
+    }
+
+    p {
+      color: var(--color-grey-900);
+    }
+  }
+}
+
+.logoutButton {
+  display: flex;
+  align-items: center;
+  padding-left: 36px;
+  gap: 16px;
+  height: 56px;
+
+  .iconBox {
+    ::ng-deep {
+      svg {
+        width: 24px;
+        height: 24px;
+
+        path {
+          transition: fill 0.15s ease-in-out;
+          fill: var(--color-grey-300);
+        }
+      }
+    }
+  }
+
+  p {
+    transition: all 0.15s ease-in-out;
+    color: var(--color-grey-300);
+    @apply text3b;
+  }
+
+  &:hover .iconBox {
+    ::ng-deep {
+      svg {
+        path {
+          fill: white;
+        }
+      }
+    }
+  }
+
+  &:hover p {
+    color: white;
+  }
+}
+
+.slideButtonBox {
+  .slideButton {
+    ::ng-deep {
+      svg {
+        width: 28px;
+        height: 28px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-40%, -50%);
+        transition: all 0.3s ease-in-out;
+        path {
+          fill: var(--color-grey-300);
+        }
+      }
+    }
+  }
+
+  &:hover {
+    .slideButton {
+      ::ng-deep {
+        svg {
+          path {
+            transition: fill 0.15s ease-in-out;
+            fill: white;
+          }
+        }
+      }
+    }
+  }
+
+  .slideButtonReturn {
+    ::ng-deep {
+      svg {
+        transform: translate(-50%, -50%) rotate(180deg);
+      }
+    }
+  }
+}
+
+.opacity_zero {
+  opacity: 0;
+}
+
+.d_none {
+  display: none;
+}
+
+#financeLogo {
+  transition: all 0.3s ease-in-out;
+  transform: translateX(2px);
+
+  path {
+    transition: all 0.1s ease-in-out;
+  }
+}

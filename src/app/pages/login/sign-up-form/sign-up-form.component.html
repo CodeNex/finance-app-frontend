@@ -1,0 +1,80 @@
+<section class="flex flex-col gap-8">
+  <div>
+    <p class="text1b text-grey-900">Sign Up</p>
+  </div>
+  <!-- Form -->
+  <form action="" class="flex flex-col gap-2">
+    <div class="input-wrapper">
+      <input
+        type="text"
+        id="singupNameInput"
+        name="name"
+        placeholder=" "
+        required
+      />
+      <label for="name">Name</label>
+      <p class="validationWarning select-none"><span>&nbsp;</span></p>
+    </div>
+    <div class="input-wrapper">
+      <input
+        type="email"
+        id="signupEmailInput"
+        name="email"
+        placeholder=" "
+        required
+      />
+      <label for="email">Email</label>
+      <p class="validationWarning select-none"><span>&nbsp;</span></p>
+    </div>
+
+    <div class="input-wrapper">
+      <input
+        type="password"
+        id="singupCreatePasswordInput"
+        name="password"
+        placeholder=" "
+        required
+      />
+      <label for="password">Create Password</label>
+      <p class="validationWarning select-none"><span>&nbsp;</span></p>
+      <div class="eyeBox" (click)="changePasswordVisibility('create')">
+        <app-icons
+          [iconName]="isCreatePasswordVisible ? 'openedEye' : 'closedEye'"
+        ></app-icons>
+      </div>
+    </div>
+
+    <div class="input-wrapper">
+      <input
+        type="password"
+        id="singupConfirmPasswordInput"
+        name="confirmPassword"
+        placeholder=" "
+        required
+      />
+      <label for="confirmPassword">Confirm Password</label>
+      <p class="validationWarning select-none"><span>&nbsp;</span></p>
+      <div class="eyeBox" (click)="changePasswordVisibility('confirm')">
+        <app-icons
+          [iconName]="isConfirmPasswordVisible ? 'openedEye' : 'closedEye'"
+        ></app-icons>
+      </div>
+    </div>
+
+    <button
+      class="w-full bg-grey-900 text-white text4b pt-[9px] pb-[9px] rounded-lg select-none"
+    >
+      Create Account
+    </button>
+  </form>
+
+  <div class="flex justify-center items-center gap-2">
+    <p class="text4r text-grey-500 select-none">Already have an account?</p>
+    <button
+      (click)="emitChangeWindow('loginForm')"
+      class="text4b text-grey-900 underline select-none"
+    >
+      Login
+    </button>
+  </div>
+</section>
