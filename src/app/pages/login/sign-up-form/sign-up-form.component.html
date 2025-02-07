@@ -5,28 +5,55 @@
   <!-- Form -->
   <form action="" class="flex flex-col gap-2">
     <div class="input-wrapper">
-      <input type="text" id="singupNameInput" name="name" placeholder=" " required />
+      <input
+        type="text"
+        id="singupNameInput"
+        name="name"
+        placeholder=" "
+        required
+      />
       <label for="name">Name</label>
-      <p class="validationWarning"><span>&nbsp;</span></p>
+      <p class="validationWarning select-none"><span>&nbsp;</span></p>
     </div>
     <div class="input-wrapper">
-      <input type="email" id="signupEmailInput" name="email" placeholder=" " required />
+      <input
+        type="email"
+        id="signupEmailInput"
+        name="email"
+        placeholder=" "
+        required
+      />
       <label for="email">Email</label>
-      <p class="validationWarning"><span>&nbsp;</span></p>
+      <p class="validationWarning select-none"><span>&nbsp;</span></p>
     </div>
     <div class="input-wrapper">
-      <input type="password" id="singupPassWordInput" name="password" placeholder=" " required />
+      <input
+        type="password"
+        id="singupPasswordInput"
+        name="password"
+        placeholder=" "
+        required
+      />
       <label for="password">Create Password</label>
-      <p class="validationWarning"><span>&nbsp;</span></p>
+      <p class="validationWarning select-none"><span>&nbsp;</span></p>
+      <div class="eyeBox" (click)="changePasswordVisibility()">
+        <app-icons
+          [iconName]="isPasswordVisible ? 'openedEye' : 'closedEye'"
+        ></app-icons>
+      </div>
     </div>
-    <button class="w-full bg-grey-900 text-white text4b pt-[9px] pb-[9px] rounded-lg">Create Account</button>
+    <button
+      class="w-full bg-grey-900 text-white text4b pt-[9px] pb-[9px] rounded-lg select-none"
+    >
+      Create Account
+    </button>
   </form>
 
   <div class="flex justify-center items-center gap-2">
-    <p class="text4r text-grey-500">Already have an account?</p>
+    <p class="text4r text-grey-500 select-none">Already have an account?</p>
     <button
       (click)="emitChangeWindow('loginForm')"
-      class="text4b text-grey-900 underline"
+      class="text4b text-grey-900 underline select-none"
     >
       Login
     </button>

@@ -13,12 +13,14 @@ import { WarningScreenComponent } from './warning-screen/warning-screen.componen
 })
 export class LoginComponent {
 
-  currentShownLoginWindow: string = "signUpForm"
+  currentShownLoginWindow: string = "loginForm"
   // loginForm, signUpForm
 
+  /**
+   * 
+   * @param windowName function to switch between login and sign up forms
+   */
   chooseLoginWindow(windowName: string) {
     this.currentShownLoginWindow = windowName;
-    console.log(windowName);
-    
   }
 }
