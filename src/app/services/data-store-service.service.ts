@@ -11,5 +11,11 @@ export class DataStoreServiceService {
     expenses: 0,
   };
 
+  public budgets: BudgetsObject[] = [];
+
+  public pots: PotsObject[] = [];
+
+  public transactions: TransactionsObject[] = [];
+
   constructor() {}
 }
