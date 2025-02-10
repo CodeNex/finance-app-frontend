@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { APIService } from '../../services/api.service';
 
 @Component({
   selector: 'app-warning-screen',
@@ -7,4 +8,7 @@ import { Component } from '@angular/core';
   styleUrl: './warning-screen.component.scss',
 })
 export class WarningScreenComponent {
+
+  private apiService: APIService = inject(APIService);
+  warningMessage: string = this.apiService.warningMessage;
 }

@@ -6,9 +6,7 @@
   }
  @if (isWarningScreenVisible)
   {
-    <app-warning-screen>
-      <p>{{ warningMessage }}</p>
-    </app-warning-screen>
+    <app-warning-screen></app-warning-screen>
   }
 
   @if (!isLoadingScreenVisible && !isWarningScreenVisible)
