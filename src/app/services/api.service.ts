@@ -39,6 +39,10 @@ export class APIService {
           headers,
         })
         .pipe(
+          tap((response) => {
+            console.log('Data updated', response);
+            return response;
+          }),
           catchError((error) => {
             console.error('Fail to update data', error);
             return throwError(() => new Error('Fail to update data'));
@@ -50,6 +54,10 @@ export class APIService {
           headers,
         })
         .pipe(
+          tap((response) => {
+            console.log('Data updated', response);
+            return response;
+          }),
           catchError((error) => {
             console.error('Fail to update data', error);
             return throwError(() => new Error('Fail to update data'));
