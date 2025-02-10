@@ -8,7 +8,7 @@ import { DataStoreServiceService } from './data-store-service.service';
   providedIn: 'root',
 })
 export class APIService {
-  private baseUrl = '/public/dummyData/';
+  private baseUrl = '/dummyData';
   private http: HttpClient = inject(HttpClient);
   private logIn: LoginService = inject(LoginService);
   private dataStore: DataStoreServiceService = inject(DataStoreServiceService);
@@ -24,11 +24,9 @@ export class APIService {
       'Accept': 'application/json',
     });
 
-    return this.http.get(`${this.baseUrl}/${endpoint}`, { headers }).pipe(
+    return this.http.get(`${this.baseUrl}/${endpoint}.json`, { headers }).pipe(
       tap((Response) => {
         this.dataStore.setStoredData(endpoint, Response);
-        console.log('Data fetched', Response);
-        return true;
       }),
       catchError((error) => {
         console.error('Fail to fetch data', error);

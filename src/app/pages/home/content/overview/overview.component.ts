@@ -25,8 +25,77 @@ export class OverviewComponent {
 
   isDataLoaded: boolean = this.balanceDataLoaded && this.budgetsDataLoaded && this.potsDataLoaded && this.transactionsDataLoaded;
 
-  ngOnInit() {}
+  loadBalanceData() {
+    this.apiService.getData('balance').subscribe({
+      next: (response) => {
+        console.log('Balance data fetched', response);
+        this.balanceDataLoaded = true;
+        this.checkDataLoaded();
+      },
+      error: (error) => {
+        console.error('Fail to fetch balance data', error);
+        this.apiService.warningMessage = 'Fail to fetch balance data';
+        this.isWarningScreenVisible = true;
+      }
+    })
+  }
+
+  loadBudgetsData() {
+    this.apiService.getData('budgets').subscribe({
+      next: (response) => {
+        console.log('Budgets data fetched', response);
+        this.budgetsDataLoaded = true;
+        this.checkDataLoaded();
+      },
+      error: (error) => {
+        console.error('Fail to fetch budgets data', error);
+        this.apiService.warningMessage = 'Fail to fetch budgets data';
+        this.isWarningScreenVisible = true;
+      }
+    })
+  }
+
+  loadPotsData() {
+    this.apiService.getData('pots').subscribe({
+      next: (response) => {
+        console.log('Pots data fetched', response);
+        this.potsDataLoaded = true;
+        this.checkDataLoaded();
+      },
+      error: (error) => {
+        console.error('Fail to fetch pots data', error);
+        this.apiService.warningMessage = 'Fail to fetch pots data';
+        this.isWarningScreenVisible = true;
+      }
+    })
+  }
+
+  loadTransactionsData() {
+    this.apiService.getData('transactions').subscribe({
+      next: (response) => {
+        console.log('Transactions data fetched', response);
+        this.transactionsDataLoaded = true;
+        this.checkDataLoaded();
+      },
+      error: (error) => {
+        console.error('Fail to fetch transactions data', error);
+        this.apiService.warningMessage = 'Fail to fetch transactions data';
+        this.isWarningScreenVisible = true;
+      }
+    })
+  }
+
+  checkDataLoaded() {
+    if (this.balanceDataLoaded && this.budgetsDataLoaded && this.potsDataLoaded && this.transactionsDataLoaded) {
+      this.isDataLoaded = true;
+    }
+  }
 
 
-  
+  ngOnInit() {
+    this.loadBalanceData();
+    this.loadBudgetsData();
+    this.loadPotsData();
+    this.loadTransactionsData();
+  } 
 }
