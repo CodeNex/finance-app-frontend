@@ -28,41 +28,26 @@ export class APIService {
   // PUT data to server
   // endpoints: balance, budgets, pots, transactions
   updateData(endpoint: string, id: number, body: any): Observable<any> {
+    let path = '';
+    id >= 0 ? (path = `/{${id}}`) : (path = '');
+
     const headers = new HttpHeaders({
       Authorization: `Bearer ${this.logIn.token}`,
       'Content-Type': 'application/json',
     });
-
-    if (id >= 0) {
-      return this.http
-        .put(`${this.baseUrl}/${endpoint}/{${id}}`, body, {
-          headers,
+    return this.http
+      .put(`${this.baseUrl}/${endpoint}${path}`, body, {
+        headers,
+      })
+      .pipe(
+        tap((response) => {
+          console.log('Data updated', response);
+          return response;
+        }),
+        catchError((error) => {
+          console.error('Fail to update data', error);
+          return throwError(() => new Error('Fail to update data'));
         })
-        .pipe(
-          tap((response) => {
-            console.log('Data updated', response);
-            return response;
-          }),
-          catchError((error) => {
-            console.error('Fail to update data', error);
-            return throwError(() => new Error('Fail to update data'));
-          })
-        );
-    } else {
-      return this.http
-        .put(`${this.baseUrl}/${endpoint}`, body, {
-          headers,
-        })
-        .pipe(
-          tap((response) => {
-            console.log('Data updated', response);
-            return response;
-          }),
-          catchError((error) => {
-            console.error('Fail to update data', error);
-            return throwError(() => new Error('Fail to update data'));
-          })
-        );
-    }
+      );
   }
 }
