@@ -12,12 +12,11 @@ import { CommonModule } from '@angular/common';
   styleUrl: './overview.component.scss',
 })
 export class OverviewComponent {
-
   private apiService: APIService = inject(APIService);
   private dataStore: DataStoreServiceService = inject(DataStoreServiceService);
   isLoadingScreenVisible: boolean = false;
   isWarningScreenVisible: boolean = false;
-  
+
   balanceDataLoaded: boolean = false;
   budgetsDataLoaded: boolean = false;
   potsDataLoaded: boolean = false;
@@ -26,20 +25,45 @@ export class OverviewComponent {
   isDataLoaded: boolean = false;
 
   checkDataLoaded() {
-    if (this.balanceDataLoaded && this.budgetsDataLoaded && this.potsDataLoaded && this.transactionsDataLoaded) {
+    if (
+      this.balanceDataLoaded &&
+      this.budgetsDataLoaded &&
+      this.potsDataLoaded &&
+      this.transactionsDataLoaded
+    ) {
       this.isDataLoaded = true;
     }
   }
 
+  loadingScreenTimer() {
+    setTimeout(() => {
+      if (!this.isDataLoaded) {
+        this.isLoadingScreenVisible = true;
+      } else {
+        this.isLoadingScreenVisible = false;
+      }
+    }, 300);
+  }
+
   loadData(endpoint: string) {
+    this.loadingScreenTimer();
+
     this.apiService.getData(endpoint).subscribe({
       next: (response) => {
         console.log(`${endpoint} data fetched`, response);
         switch (endpoint) {
-          case 'balance': this.balanceDataLoaded = true; break;
-          case 'budgets': this.budgetsDataLoaded = true; break;
-          case 'pots': this.potsDataLoaded = true; break;
-          case 'transactions': this.transactionsDataLoaded = true; break;
+          case 'balance':
+            this.balanceDataLoaded = true;
+            break;
+          case 'budgets':
+            this.budgetsDataLoaded = true;
+            break;
+          case 'pots':
+            this.potsDataLoaded = true;
+            break;
+          case 'transactions':
+            this.transactionsDataLoaded = true;
+            break;
         }
         this.checkDataLoaded();
         this.isLoadingScreenVisible = false;
@@ -50,8 +74,8 @@ export class OverviewComponent {
         this.isLoadingScreenVisible = false;
         this.apiService.warningMessage = `Fail to fetch ${endpoint} data`;
         this.isWarningScreenVisible = true;
-      }
-    })
+      },
+    });
   }
 
   ngOnInit() {
@@ -59,5 +83,5 @@ export class OverviewComponent {
     this.loadData('transactions');
     this.loadData('budgets');
     this.loadData('pots');
-  } 
+  }
 }
