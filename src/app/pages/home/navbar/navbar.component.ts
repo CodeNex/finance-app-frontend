@@ -26,7 +26,6 @@ export class NavbarComponent {
       this.makeNavbarWide(navLinkNames, navBarRef, slideButtonRef);
     }
     this.isNavbarThin = !this.isNavbarThin;
-    console.log('isNavbarThin', this.isNavbarThin);
   }
 
   makeNavbarThin(
