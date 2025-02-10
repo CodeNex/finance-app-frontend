@@ -18,72 +18,12 @@ export class OverviewComponent {
   isLoadingScreenVisible: boolean = false;
   isWarningScreenVisible: boolean = false;
   
-  balanceDataLoaded: any = false;
-  budgetsDataLoaded: any = false;
-  potsDataLoaded: any = false;
-  transactionsDataLoaded: any = false;
+  balanceDataLoaded: boolean = false;
+  budgetsDataLoaded: boolean = false;
+  potsDataLoaded: boolean = false;
+  transactionsDataLoaded: boolean = false;
 
-  isDataLoaded: boolean = this.balanceDataLoaded && this.budgetsDataLoaded && this.potsDataLoaded && this.transactionsDataLoaded;
-
-  loadBalanceData() {
-    this.apiService.getData('balance').subscribe({
-      next: (response) => {
-        console.log('Balance data fetched', response);
-        this.balanceDataLoaded = true;
-        this.checkDataLoaded();
-      },
-      error: (error) => {
-        console.error('Fail to fetch balance data', error);
-        this.apiService.warningMessage = 'Fail to fetch balance data';
-        this.isWarningScreenVisible = true;
-      }
-    })
-  }
-
-  loadBudgetsData() {
-    this.apiService.getData('budgets').subscribe({
-      next: (response) => {
-        console.log('Budgets data fetched', response);
-        this.budgetsDataLoaded = true;
-        this.checkDataLoaded();
-      },
-      error: (error) => {
-        console.error('Fail to fetch budgets data', error);
-        this.apiService.warningMessage = 'Fail to fetch budgets data';
-        this.isWarningScreenVisible = true;
-      }
-    })
-  }
-
-  loadPotsData() {
-    this.apiService.getData('pots').subscribe({
-      next: (response) => {
-        console.log('Pots data fetched', response);
-        this.potsDataLoaded = true;
-        this.checkDataLoaded();
-      },
-      error: (error) => {
-        console.error('Fail to fetch pots data', error);
-        this.apiService.warningMessage = 'Fail to fetch pots data';
-        this.isWarningScreenVisible = true;
-      }
-    })
-  }
-
-  loadTransactionsData() {
-    this.apiService.getData('transactions').subscribe({
-      next: (response) => {
-        console.log('Transactions data fetched', response);
-        this.transactionsDataLoaded = true;
-        this.checkDataLoaded();
-      },
-      error: (error) => {
-        console.error('Fail to fetch transactions data', error);
-        this.apiService.warningMessage = 'Fail to fetch transactions data';
-        this.isWarningScreenVisible = true;
-      }
-    })
-  }
+  isDataLoaded: boolean = false;
 
   checkDataLoaded() {
     if (this.balanceDataLoaded && this.budgetsDataLoaded && this.potsDataLoaded && this.transactionsDataLoaded) {
@@ -91,11 +31,31 @@ export class OverviewComponent {
     }
   }
 
+  loadData(endpoint: string) {
+    this.apiService.getData(endpoint).subscribe({
+      next: (response) => {
+        console.log(`${endpoint} data fetched`, response);
+        switch (endpoint) {
+          case 'balance': this.balanceDataLoaded = true; break;
+          case 'budgets': this.budgetsDataLoaded = true; break;
+          case 'pots': this.potsDataLoaded = true; break;
+          case 'transactions': this.transactionsDataLoaded = true; break;
+        }
+        this.checkDataLoaded();
+        this.isWarningScreenVisible = false;
+      },
+      error: (error) => {
+        console.error(`Fail to fetch ${endpoint} data`, error);
+        this.apiService.warningMessage = `Fail to fetch ${endpoint} data`;
+        this.isWarningScreenVisible = true;
+      }
+    })
+  }
 
   ngOnInit() {
-    this.loadBalanceData();
-    this.loadBudgetsData();
-    this.loadPotsData();
-    this.loadTransactionsData();
+    this.loadData('balance');
+    this.loadData('transactions');
+    this.loadData('budgets');
+    this.loadData('pots');
   } 
 }
