@@ -20,6 +20,7 @@ export class APIService {
   getData(endpoint: string): Observable<any> {
     const headers = new HttpHeaders({
       Authorization: `Bearer ${this.logIn.token}`,
+      'Accept': 'application/json',
     });
 
     return this.http.get(`${this.baseUrl}/${endpoint}`, { headers }).pipe(
@@ -44,6 +45,7 @@ export class APIService {
     const headers = new HttpHeaders({
       Authorization: `Bearer ${this.logIn.token}`,
       'Content-Type': 'application/json',
+      'Accept': 'application/json',
     });
     return this.http
       .put(`${this.baseUrl}/${endpoint}${path}`, body, {
