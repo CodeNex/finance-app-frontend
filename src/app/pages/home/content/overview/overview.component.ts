@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { LoadingScreenComponent } from '../../../../components/loading-screen/loading-screen.component';
 import { WarningScreenComponent } from '../../../../components/warning-screen/warning-screen.component';
+import { DataStoreServiceService } from '../../../../services/data-store-service.service';
+import { APIService } from '../../../../services/api.service';
 
 @Component({
   selector: 'app-overview',
@@ -8,4 +10,11 @@ import { WarningScreenComponent } from '../../../../components/warning-screen/wa
   templateUrl: './overview.component.html',
   styleUrl: './overview.component.scss',
 })
-export class OverviewComponent {}
+export class OverviewComponent {
+
+  private apiService: APIService = inject(APIService);
+  private dataStore: DataStoreServiceService = inject(DataStoreServiceService);
+  isDataLoaded: boolean = false;
+  warningMessage: string = '';
+  
+}
