@@ -47,7 +47,6 @@ export class OverviewComponent {
 
   loadData(endpoint: string) {
     this.loadingScreenTimer();
-
     this.apiService.getData(endpoint).subscribe({
       next: (response) => {
         console.log(`${endpoint} data fetched`, response);
