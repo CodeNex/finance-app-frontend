@@ -17,6 +17,16 @@ export class OverviewComponent {
   private dataStore: DataStoreServiceService = inject(DataStoreServiceService);
   isLoadingScreenVisible: boolean = false;
   isWarningScreenVisible: boolean = false;
-  isDataLoaded: boolean = false;
+  
+  balanceDataLoaded: any = false;
+  budgetsDataLoaded: any = false;
+  potsDataLoaded: any = false;
+  transactionsDataLoaded: any = false;
+
+  isDataLoaded: boolean = this.balanceDataLoaded && this.budgetsDataLoaded && this.potsDataLoaded && this.transactionsDataLoaded;
+
+  ngOnInit() {}
+
+
   
 }

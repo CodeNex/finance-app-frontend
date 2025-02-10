@@ -4,7 +4,9 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class LoginService {
-  constructor() {}
 
-  token: string = '';
+  public token: string = '';
+
+  ngOnInit() {}
+  
 }
