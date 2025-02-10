@@ -16,5 +16,4 @@ export class TransactionsComponent {
   private dataStore: DataStoreServiceService = inject(DataStoreServiceService);
   isLoadingScreenVisible: boolean = false;
   isWarningScreenVisible: boolean = false;
-  warningMessage: string = '';
 }
