@@ -26,6 +26,7 @@ export class APIService {
       tap((Response) => {
         this.dataStore.setStoredData(endpoint, Response);
         console.log('Data fetched', Response);
+        return true;
       }),
       catchError((error) => {
         console.error('Fail to fetch data', error);
