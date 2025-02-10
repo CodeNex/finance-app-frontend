@@ -14,7 +14,8 @@ export class OverviewComponent {
 
   private apiService: APIService = inject(APIService);
   private dataStore: DataStoreServiceService = inject(DataStoreServiceService);
-  isDataLoaded: boolean = false;
-  warningMessage: string = '';
+  isLoadingScreenVisible: boolean = false;
+  isWarningScreenVisible: boolean = false;
+  warningMessage: string = 'Warning';
   
 }

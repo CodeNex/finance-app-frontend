@@ -14,7 +14,8 @@ export class BudgetsComponent {
 
   private apiService: APIService = inject(APIService);
   private dataStore: DataStoreServiceService = inject(DataStoreServiceService);
-  isDataLoaded: boolean = false;
+  isLoadingScreenVisible: boolean = false;
+  isWarningScreenVisible: boolean = false;
   warningMessage: string = '';
 
 }
