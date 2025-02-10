@@ -1,7 +1,20 @@
-<section>
-  <p>overview works!</p>
-  <app-loading-screen *ngIf="isLoadingScreenVisible"></app-loading-screen>
-  <app-warning-screen *ngIf="isWarningScreenVisible">
-    <p>{{ warningMessage }}</p>
-  </app-warning-screen>
+<section class="relative flex-1 bg-red-300 w-full h-full">
+
+  @if (isLoadingScreenVisible)
+  {
+    <app-loading-screen></app-loading-screen>
+  }
+ @if (isWarningScreenVisible)
+  {
+    <app-warning-screen>
+      <p>{{ warningMessage }}</p>
+    </app-warning-screen>
+  }
+
+  @if (!isLoadingScreenVisible && !isWarningScreenVisible)
+  {
+    <div class="content-container">
+      <p>Hello World</p>
+    </div>
+  }
 </section>
