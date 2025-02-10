@@ -22,7 +22,16 @@ export class APIService {
       Authorization: `Bearer ${this.logIn.token}`,
     });
 
-    return this.http.get(`${this.baseUrl}/${endpoint}`, { headers });
+    return this.http.get(`${this.baseUrl}/${endpoint}`, { headers }).pipe(
+      tap((Response) => {
+        this.dataStore.setStoredData(endpoint, Response);
+        console.log('Data fetched', Response);
+      }),
+      catchError((error) => {
+        console.error('Fail to fetch data', error);
+        return throwError(() => new Error('Fail to fetch data'));
+      })
+    );
   }
 
   // PUT data to server
