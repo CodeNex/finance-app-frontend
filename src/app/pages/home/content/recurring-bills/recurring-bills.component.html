@@ -9,7 +9,7 @@
     <app-warning-screen></app-warning-screen>
   }
 
-  @if (!isLoadingScreenVisible && !isWarningScreenVisible)
+  @if (!isLoadingScreenVisible && !isWarningScreenVisible && isDataLoaded)
   {
     <div class="recurring-bills-container">
       <p>recurring-bills works!</p>

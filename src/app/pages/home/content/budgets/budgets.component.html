@@ -9,7 +9,7 @@
     <app-warning-screen></app-warning-screen>
   }
 
-  @if (!isLoadingScreenVisible && !isWarningScreenVisible)
+  @if (!isLoadingScreenVisible && !isWarningScreenVisible && isDataLoaded)
   {
     <div class="budgets-container">
       <p>budgets works!</p>

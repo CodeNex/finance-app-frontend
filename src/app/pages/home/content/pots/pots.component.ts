@@ -17,4 +17,5 @@ export class PotsComponent {
   private dataStore: DataStoreServiceService = inject(DataStoreServiceService);
   isLoadingScreenVisible: boolean = false;
   isWarningScreenVisible: boolean = false;
+  isDataLoaded: boolean = false;
 }
