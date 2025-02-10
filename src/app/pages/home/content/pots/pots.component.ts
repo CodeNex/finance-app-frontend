@@ -3,10 +3,11 @@ import { LoadingScreenComponent } from '../../../../components/loading-screen/lo
 import { WarningScreenComponent } from '../../../../components/warning-screen/warning-screen.component';
 import { DataStoreServiceService } from '../../../../services/data-store-service.service';
 import { APIService } from '../../../../services/api.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-pots',
-  imports: [ LoadingScreenComponent, WarningScreenComponent ],
+  imports: [ LoadingScreenComponent, WarningScreenComponent, CommonModule ],
   templateUrl: './pots.component.html',
   styleUrl: './pots.component.scss'
 })
