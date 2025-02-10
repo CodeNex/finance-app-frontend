@@ -16,15 +16,25 @@ export class APIService {
 
   constructor() { }
 
-  // get data from the server
+  // GET data from the server
   // endpoints: balance, budgets, pots, transactions
   getData(endpoint: string): Observable<any> {
     const headers = new HttpHeaders({
-      'Authorization': 'Bearer dein-token-hier',
+      'Authorization': `Bearer ${this.logIn.token}`,
       'Custom-Header': 'value'
     });
 
     return this.http.get(`${this.baseUrl}/${endpoint}`, { headers });
   }
 
+  // PUT data to server
+  // endpoints: balance, budgets, pots, transactions
+  updateData(endpoint: string, body: any): Observable<any> {
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.logIn.token}`,
+      'Content-Type': 'application/json'
+    });
+  
+    return this.http.put(`${this.baseUrl}/${endpoint}`, body, { headers });
+  }
 }
