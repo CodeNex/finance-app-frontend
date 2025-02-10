@@ -42,10 +42,12 @@ export class OverviewComponent {
           case 'transactions': this.transactionsDataLoaded = true; break;
         }
         this.checkDataLoaded();
+        this.isLoadingScreenVisible = false;
         this.isWarningScreenVisible = false;
       },
       error: (error) => {
         console.error(`Fail to fetch ${endpoint} data`, error);
+        this.isLoadingScreenVisible = false;
         this.apiService.warningMessage = `Fail to fetch ${endpoint} data`;
         this.isWarningScreenVisible = true;
       }
