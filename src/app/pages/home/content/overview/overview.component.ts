@@ -21,7 +21,6 @@ export class OverviewComponent {
   budgetsDataLoaded: boolean = false;
   potsDataLoaded: boolean = false;
   transactionsDataLoaded: boolean = false;
-
   isDataLoaded: boolean = false;
 
   checkDataLoaded() {

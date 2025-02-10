@@ -17,5 +17,58 @@ export class PotsComponent {
   private dataStore: DataStoreServiceService = inject(DataStoreServiceService);
   isLoadingScreenVisible: boolean = false;
   isWarningScreenVisible: boolean = false;
+
+  potsDataLoaded: boolean = false;
+  transactionsDataLoaded: boolean = false;
   isDataLoaded: boolean = false;
+
+  checkDataLoaded() {
+    if (
+      this.potsDataLoaded &&
+      this.transactionsDataLoaded
+    ) {
+      this.isDataLoaded = true;
+    }
+  }
+
+  loadingScreenTimer() {
+    setTimeout(() => {
+      if (!this.isDataLoaded) {
+        this.isLoadingScreenVisible = true;
+      } else {
+        this.isLoadingScreenVisible = false;
+      }
+    }, 300);
+  }
+
+  loadData(endpoint: string) {
+    this.loadingScreenTimer();
+    this.apiService.getData(endpoint).subscribe({
+      next: (response) => {
+        console.log(`${endpoint} data fetched`, response);
+        switch (endpoint) {
+          case 'pots':
+            this.potsDataLoaded = true;
+            break;
+          case 'transactions':
+            this.transactionsDataLoaded = true;
+            break;
+        }
+        this.checkDataLoaded();
+        this.isLoadingScreenVisible = false;
+        this.isWarningScreenVisible = false;
+      },
+      error: (error) => {
+        console.error(`Fail to fetch ${endpoint} data`, error);
+        this.isLoadingScreenVisible = false;
+        this.apiService.warningMessage = `Fail to fetch ${endpoint} data`;
+        this.isWarningScreenVisible = true;
+      },
+    });
+  }
+
+  ngOnInit() {
+    this.loadData('transactions');
+    this.loadData('pots');
+  }
 }
