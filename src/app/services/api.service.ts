@@ -28,12 +28,12 @@ export class APIService {
 
   // PUT data to server
   // endpoints: balance, budgets, pots, transactions
-  updateData(endpoint: string, body: any): Observable<any> {
+  updateData(endpoint: string, id: number, body: any): Observable<any> {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${this.logIn.token}`,
       'Content-Type': 'application/json'
     });
   
-    return this.http.put(`${this.baseUrl}/${endpoint}`, body, { headers });
+    return this.http.put(`${this.baseUrl}/${endpoint}/{${id}}`, body, { headers });
   }
 }
