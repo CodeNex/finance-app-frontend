@@ -21,7 +21,6 @@ export class APIService {
   getData(endpoint: string): Observable<any> {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${this.logIn.token}`,
-      'Custom-Header': 'value'
     });
 
     return this.http.get(`${this.baseUrl}/${endpoint}`, { headers });
