@@ -1,12 +1,15 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BehaviorSubject } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthentificationService {
   private http: HttpClient = inject(HttpClient);
+
+  private router: Router = inject(Router);
 
   private baseUrl: string = 'http://localhost:3000';
 
@@ -53,7 +56,8 @@ export class AuthentificationService {
         next: (response) => {
           this.setWarningScreen(false);
           this.authWarningMessage = '';
-          this.authToken = response.token;  
+          this.authToken = response.token;
+          if (authOption === 'login' || 'guest' || 'register') this.router.navigate(['/home']);  
         },
         error: (error) => {
           this.setWarningScreen(true);
