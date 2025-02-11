@@ -19,7 +19,6 @@ import { AuthentificationService } from '../../services/authentification.service
   styleUrl: './login.component.scss',
 })
 export class LoginComponent {
-
   public authService: AuthentificationService = inject(AuthentificationService);
 
   currentShownLoginWindow: string = 'loginForm';
@@ -28,6 +27,15 @@ export class LoginComponent {
   public isLoadingScreenVisible: boolean = false;
 
   public isWarningScreenVisible: boolean = false;
+
+  ngOnInit() {
+    this.authService.isloadingScreenVisible$.subscribe((value) => {
+      this.isLoadingScreenVisible = value;
+    });
+    this.authService.isWarningScreenVisible$.subscribe((value) => {
+      this.isWarningScreenVisible = value;
+    });
+  }
 
   /**
    *

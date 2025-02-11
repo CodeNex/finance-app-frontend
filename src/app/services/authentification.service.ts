@@ -14,6 +14,18 @@ export class AuthentificationService {
 
   private registerPath: string = '/register';
 
+  public isWarningScreenVisible = new BehaviorSubject<boolean>(false);
+  isWarningScreenVisible$ = this.isWarningScreenVisible.asObservable();
+  setWarningScreen(value: boolean) {
+    this.isWarningScreenVisible.next(value);
+  } 
+
+  public isLoadingScreenVisible = new BehaviorSubject<boolean>(false);
+  isloadingScreenVisible$ = this.isLoadingScreenVisible.asObservable();
+  setLoadingScreen(value: boolean) {
+    this.isLoadingScreenVisible.next(value);
+  }
+
   public authWarningMessage: string = '';
 
   public loadingScreenLogin: boolean = false;
@@ -39,6 +51,7 @@ export class AuthentificationService {
       })
       .subscribe({
         next: (response) => {
+          this.setWarningScreen(false);
           if (authOption === 'login' || 'guest') this.authWarningMessage = '';
           if (authOption === 'register') this.authWarningMessage = '';
           this.authToken = response.token;
@@ -47,8 +60,7 @@ export class AuthentificationService {
           
         },
         error: (error) => {
-          // if (authOption === 'login' || 'guest') this.warningScreenLogin = true;
-          // if (authOption === 'register') this.warningScreenRegister = true;
+          this.setWarningScreen(true);
           this.authWarningMessage = error.message;
           console.log('Error:', error);
           
