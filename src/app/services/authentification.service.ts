@@ -2,10 +2,9 @@ import { Injectable, inject } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthentificationService {
-
   private http: HttpClient = inject(HttpClient);
 
   private baseUrl: string = 'http://localhost:3000';
@@ -14,11 +13,11 @@ export class AuthentificationService {
 
   private registerPath: string = '/register';
 
-  public warningScreenLogin: boolean = true;
+  public warningScreenLogin: boolean = false;
 
   public warningScreenRegister: boolean = false;
 
-  public authWarningMessage: string = ''; 
+  public authWarningMessage: string = '';
 
   public loadingScreenLogin: boolean = false;
 
@@ -28,8 +27,8 @@ export class AuthentificationService {
 
   headers = new HttpHeaders({
     'Content-Type': 'application/json',
-    'Accept': 'application/json',
-  })
+    Accept: 'application/json',
+  });
 
   //authOption: 'login' | 'register' | 'guest'
   doAuthentificationRequest(authOption: string, body: any) {
@@ -37,12 +36,20 @@ export class AuthentificationService {
     if (authOption === 'login' || 'guest') path = this.loginPath;
     if (authOption === 'register') path = this.registerPath;
 
-    this.http.post<{ token: string }>((this.baseUrl + path), body, { headers: this.headers}).subscribe({
-      next: response => this.authToken = response.token,
-      error: (error) => {
-        if (authOption === 'login' || 'guest') this.warningScreenLogin = true;
-        if (authOption === 'register') this.warningScreenRegister = true;
-      }
-    });
+    this.http
+      .post<{ token: string }>(this.baseUrl + path, body, {
+        headers: this.headers,
+      })
+      .subscribe({
+        next: (response) => {
+          if (authOption === 'login' || 'guest') this.authWarningMessage = '';
+          if (authOption === 'register') this.authWarningMessage = '';
+          this.authToken = response.token;
+        },
+        error: (error) => {
+          if (authOption === 'login' || 'guest') this.warningScreenLogin = true;
+          if (authOption === 'register') this.warningScreenRegister = true;
+        },
+      });
   }
 }
