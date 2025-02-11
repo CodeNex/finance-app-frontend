@@ -1,10 +1,12 @@
 import { Injectable, inject } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthentificationService {
+
+  private http: HttpClient = inject(HttpClient);
 
   private baseUrl: string = 'http://localhost:3000';
 
@@ -12,11 +14,24 @@ export class AuthentificationService {
 
   private registerPath: string = '/register';
 
-  public header: any = {};
-
-  public body: any = {};
-
   public authToken: string = '';
 
-  ngOnInit() {}
+  headers = new HttpHeaders({
+    'Content-Type': 'application/json',
+    'Accept': 'application/json',
+  })
+
+  //authOption: 'login' | 'register' | 'guest'
+  doAuthentificationRequest(authOption: string, body: any) {
+    let path;
+    if (authOption === 'login' || 'guest') path = this.loginPath;
+    if (authOption === 'register') path = this.registerPath;
+
+    this.http.post<{ token: string }>((this.baseUrl + path), body, { headers: this.headers}).subscribe({
+      next: response => this.authToken = response.token,
+      error: (error) => {
+
+      }
+    });
+  }
 }

@@ -41,4 +41,6 @@ export class SignUpFormComponent {
         passwordInputRef.type === 'password' ? 'text' : 'password';
   }
 
+  doRegistration() {}
+
 }

@@ -21,6 +21,10 @@ export class LoginComponent {
   currentShownLoginWindow: string = 'loginForm';
   // loginForm, signUpForm
 
+  public isLoadingScreenVisible: boolean = false;
+
+  public isWarningScreenVisible: boolean = false;
+
   /**
    *
    * @param windowName function to switch between login and sign up forms

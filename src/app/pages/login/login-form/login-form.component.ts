@@ -38,7 +38,15 @@ export class LoginFormComponent {
       passwordInputRef.type === 'password' ? 'text' : 'password';
   }
 
-  doGuestLogin() {}
+  async doGuestLogin() {
 
-  doLogin() {}
+    let body = {
+      'email': 'guest@guest.com',
+      'password': 'password'
+    }
+
+    await this.authentificationService.doAuthentificationRequest('guest', body);
+  }
+
+  async doLogin() {}
 }
