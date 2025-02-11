@@ -11,7 +11,6 @@ import { LoginService } from '../../../services/login.service';
 })
 export class LoginFormComponent {
 
-  baseUrl: string = 'http://localhost:3000';
   private loginService: LoginService = inject(LoginService);
 
   /**
@@ -36,6 +35,8 @@ export class LoginFormComponent {
     passwordInputRef.type =
       passwordInputRef.type === 'password' ? 'text' : 'password';
   }
+
+  isFormValid: boolean = false;
 
   doGuestLogin() {
 

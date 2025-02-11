@@ -1,6 +1,7 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Output, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { IconsComponent } from '../../../components/icons/icons.component';
+import { LoginService } from '../../../services/login.service';
 
 @Component({
   selector: 'app-sign-up-form',
@@ -9,12 +10,21 @@ import { IconsComponent } from '../../../components/icons/icons.component';
   styleUrl: './sign-up-form.component.scss',
 })
 export class SignUpFormComponent {
+
+  private loginService: LoginService = inject(LoginService);
+
+  /**
+   * Emits an event to change the window between login and register components
+   */
   @Output() changeWindow = new EventEmitter();
 
   emitChangeWindow(windowName: string) {
     this.changeWindow.emit(windowName);
   }
 
+  /**
+   * Toggles the visibility of the password input field
+   */
   isCreatePasswordVisible: boolean = false;
   isConfirmPasswordVisible: boolean = false;
 
@@ -26,4 +36,6 @@ export class SignUpFormComponent {
     passwordInputRef.type =
         passwordInputRef.type === 'password' ? 'text' : 'password';
   }
+
+  isFormValid: boolean = false;
 }

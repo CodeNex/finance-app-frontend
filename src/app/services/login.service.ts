@@ -6,6 +6,8 @@ import { HttpClient } from '@angular/common/http';
 })
 export class LoginService {
 
+  private baseUrl: string = 'http://localhost:3000';
+
   public token: string = '';
 
   ngOnInit() {}
