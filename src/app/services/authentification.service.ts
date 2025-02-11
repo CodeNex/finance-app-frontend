@@ -49,6 +49,7 @@ export class AuthentificationService {
         error: (error) => {
           if (authOption === 'login' || 'guest') this.warningScreenLogin = true;
           if (authOption === 'register') this.warningScreenRegister = true;
+          this.authWarningMessage = error.error.message;
         },
       });
   }
