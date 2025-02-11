@@ -44,6 +44,10 @@ export class AuthentificationService {
 
   //authOption: 'login' | 'register' | 'guest'
   doAuthentificationRequest(authOption: string, body: any) {
+    setTimeout(() => {
+      if (this.authToken === '') this.setLoadingScreen(true);
+    }, 250);
+
     let path;
     if (authOption === 'login' || 'guest') path = this.loginPath;
     if (authOption === 'register') path = this.registerPath;
@@ -54,12 +58,14 @@ export class AuthentificationService {
       })
       .subscribe({
         next: (response) => {
+          this.setLoadingScreen(false);
           this.setWarningScreen(false);
           this.authWarningMessage = '';
           this.authToken = response.token;
           if (authOption === 'login' || 'guest' || 'register') this.router.navigate(['/home']);  
         },
         error: (error) => {
+          this.setLoadingScreen(false);
           this.setWarningScreen(true);
           this.authWarningMessage = error.message;
         },
