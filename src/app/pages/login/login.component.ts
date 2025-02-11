@@ -25,9 +25,9 @@ export class LoginComponent {
   currentShownLoginWindow: string = 'loginForm';
   // loginForm, signUpForm
 
-  public isLoadingScreenVisible = this.authService.loadingScreenLogin;
+  public isLoadingScreenVisible: boolean = false;
 
-  public isWarningScreenVisible = this.authService.warningScreenLogin;
+  public isWarningScreenVisible: boolean = false;
 
   /**
    *

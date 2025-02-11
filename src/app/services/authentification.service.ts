@@ -1,5 +1,6 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -12,10 +13,6 @@ export class AuthentificationService {
   private loginPath: string = '/login';
 
   private registerPath: string = '/register';
-
-  public warningScreenLogin: boolean = false;
-
-  public warningScreenRegister: boolean = false;
 
   public authWarningMessage: string = '';
 
@@ -46,11 +43,12 @@ export class AuthentificationService {
           if (authOption === 'register') this.authWarningMessage = '';
           this.authToken = response.token;
           console.log('Auth token:', this.authToken);
+          return 'true';
           
         },
         error: (error) => {
-          if (authOption === 'login' || 'guest') this.warningScreenLogin = true;
-          if (authOption === 'register') this.warningScreenRegister = true;
+          // if (authOption === 'login' || 'guest') this.warningScreenLogin = true;
+          // if (authOption === 'register') this.warningScreenRegister = true;
           this.authWarningMessage = error.message;
           console.log('Error:', error);
           
