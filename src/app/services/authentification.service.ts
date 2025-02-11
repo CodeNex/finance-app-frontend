@@ -2,14 +2,13 @@ import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
-export class LoginService {
+export class AuthentificationService {
 
   private baseUrl: string = 'http://localhost:3000';
 
-  public token: string = '';
+  public authToken: string = '';
 
   ngOnInit() {}
-  
 }

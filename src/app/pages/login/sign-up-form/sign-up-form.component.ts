@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Output, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { IconsComponent } from '../../../components/icons/icons.component';
-import { LoginService } from '../../../services/login.service';
+import { AuthentificationService } from '../../../services/authentification.service';
 
 @Component({
   selector: 'app-sign-up-form',
@@ -11,7 +11,7 @@ import { LoginService } from '../../../services/login.service';
 })
 export class SignUpFormComponent {
 
-  private loginService: LoginService = inject(LoginService);
+ private loginService: AuthentificationService = inject(AuthentificationService);
 
   /**
    * Emits an event to change the window between login and register components
