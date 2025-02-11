@@ -45,6 +45,8 @@ export class AuthentificationService {
           if (authOption === 'login' || 'guest') this.authWarningMessage = '';
           if (authOption === 'register') this.authWarningMessage = '';
           this.authToken = response.token;
+          console.log('Auth token:', this.authToken);
+          
         },
         error: (error) => {
           if (authOption === 'login' || 'guest') this.warningScreenLogin = true;
