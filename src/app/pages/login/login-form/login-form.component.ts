@@ -38,6 +38,9 @@ export class LoginFormComponent {
       passwordInputRef.type === 'password' ? 'text' : 'password';
   }
 
+  /**
+   * Logs in as a guest user
+   */
   async doGuestLogin() {
     let body = {
       'email': 'guest@guest.com',
@@ -46,6 +49,9 @@ export class LoginFormComponent {
     await this.authentificationService.doAuthentificationRequest('guest', body);
   }
 
+  /**
+   * Logs in as a registered user
+   */
   async doLogin() {
     // do validation of input fields
     // set isFormValid to true
