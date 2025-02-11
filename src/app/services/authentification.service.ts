@@ -14,6 +14,14 @@ export class AuthentificationService {
 
   private registerPath: string = '/register';
 
+  public warningScreenLogin: boolean = false;
+
+  public warningScreenRegister: boolean = false;
+
+  public loadingScreenLogin: boolean = false;
+
+  public loadingScreenRegister: boolean = false;
+
   public authToken: string = '';
 
   headers = new HttpHeaders({
