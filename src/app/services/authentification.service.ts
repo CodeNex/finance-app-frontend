@@ -31,10 +31,6 @@ export class AuthentificationService {
 
   public authWarningMessage: string = '';
 
-  public loadingScreenLogin: boolean = false;
-
-  public loadingScreenRegister: boolean = false;
-
   public authToken: string = '';
 
   headers = new HttpHeaders({
