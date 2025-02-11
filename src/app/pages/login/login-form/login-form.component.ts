@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Output, inject } from '@angular/core';
 import { FormsModule, FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { IconsComponent } from '../../../components/icons/icons.component';
-import { HttpClient } from '@angular/common/http';
+import { LoginService } from '../../../services/login.service';
 
 @Component({
   selector: 'app-login-form',
@@ -12,6 +12,7 @@ import { HttpClient } from '@angular/common/http';
 export class LoginFormComponent {
 
   baseUrl: string = 'http://localhost:3000';
+  private loginService: LoginService = inject(LoginService);
 
   /**
    * Emits an event to change the window between login and register components
