@@ -12,7 +12,7 @@ export class APIService {
   private http: HttpClient = inject(HttpClient);
   private authentificationService: AuthentificationService = inject(AuthentificationService);
   private dataStore: DataStoreServiceService = inject(DataStoreServiceService);
-  public warningMessage: string = 'WHAT THE FUCK ???';
+  public warningMessage: string = '';
 
   constructor() {}
 

@@ -14,9 +14,11 @@ export class AuthentificationService {
 
   private registerPath: string = '/register';
 
-  public warningScreenLogin: boolean = false;
+  public warningScreenLogin: boolean = true;
 
   public warningScreenRegister: boolean = false;
+
+  public authWarningMessage: string = ''; 
 
   public loadingScreenLogin: boolean = false;
 
@@ -38,7 +40,8 @@ export class AuthentificationService {
     this.http.post<{ token: string }>((this.baseUrl + path), body, { headers: this.headers}).subscribe({
       next: response => this.authToken = response.token,
       error: (error) => {
-
+        if (authOption === 'login' || 'guest') this.warningScreenLogin = true;
+        if (authOption === 'register') this.warningScreenRegister = true;
       }
     });
   }

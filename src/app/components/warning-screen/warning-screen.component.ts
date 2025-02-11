@@ -1,5 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { APIService } from '../../services/api.service';
+import { AuthentificationService } from '../../services/authentification.service';
 
 @Component({
   selector: 'app-warning-screen',
@@ -10,5 +11,8 @@ import { APIService } from '../../services/api.service';
 export class WarningScreenComponent {
 
   private apiService: APIService = inject(APIService);
-  warningMessage: string = this.apiService.warningMessage;
+  private authService: AuthentificationService = inject(AuthentificationService);
+
+  warningMessageApi: string = this.apiService.warningMessage;
+  warningMessageAuth: string = this.authService.authWarningMessage;  
 }
