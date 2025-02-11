@@ -11,13 +11,20 @@ import { AuthentificationService } from '../../../services/authentification.serv
 })
 export class SignUpFormComponent {
 
+  @Output() changeWindow = new EventEmitter();
+
  private authentificationService: AuthentificationService = inject(AuthentificationService);
+
+ isCreatePasswordVisible: boolean = false;
+
+ isConfirmPasswordVisible: boolean = false;
+
+ isFormValid: boolean = false;
+
 
   /**
    * Emits an event to change the window between login and register components
    */
-  @Output() changeWindow = new EventEmitter();
-
   emitChangeWindow(windowName: string) {
     this.changeWindow.emit(windowName);
   }
@@ -25,9 +32,6 @@ export class SignUpFormComponent {
   /**
    * Toggles the visibility of the password input field
    */
-  isCreatePasswordVisible: boolean = false;
-  isConfirmPasswordVisible: boolean = false;
-
   changePasswordVisibility(type: string) {
     type === 'create' ? this.isCreatePasswordVisible = !this.isCreatePasswordVisible : this.isConfirmPasswordVisible = !this.isConfirmPasswordVisible;
     let passwordInputRef = document.getElementById(
@@ -37,5 +41,4 @@ export class SignUpFormComponent {
         passwordInputRef.type === 'password' ? 'text' : 'password';
   }
 
-  isFormValid: boolean = false;
 }
