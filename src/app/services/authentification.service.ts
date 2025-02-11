@@ -52,18 +52,12 @@ export class AuthentificationService {
       .subscribe({
         next: (response) => {
           this.setWarningScreen(false);
-          if (authOption === 'login' || 'guest') this.authWarningMessage = '';
-          if (authOption === 'register') this.authWarningMessage = '';
-          this.authToken = response.token;
-          console.log('Auth token:', this.authToken);
-          return 'true';
-          
+          this.authWarningMessage = '';
+          this.authToken = response.token;  
         },
         error: (error) => {
           this.setWarningScreen(true);
           this.authWarningMessage = error.message;
-          console.log('Error:', error);
-          
         },
       });
   }
