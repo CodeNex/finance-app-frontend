@@ -1,1 +1,20 @@
-<p>pots works!</p>
+<section class="w-full min-h-[100dvh]">
+
+  @if (isLoadingScreenVisible)
+  {
+    <app-loading-screen></app-loading-screen>
+  }
+ @if (isWarningScreenVisible)
+  {
+    <app-warning-screen></app-warning-screen>
+  }
+
+  @if (!isLoadingScreenVisible && !isWarningScreenVisible && isDataLoaded)
+  {
+    <div class="pots-container">
+      <p>pots works!</p>
+    </div>
+  }
+</section>
+
+

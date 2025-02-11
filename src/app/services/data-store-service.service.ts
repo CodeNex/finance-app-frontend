@@ -10,44 +10,24 @@ export class DataStoreServiceService {
     income: 0,
     expenses: 0,
   };
-
   public budgets: BudgetsObject[] = [];
-
   public pots: PotsObject[] = [];
-
   public transactions: TransactionsObject[] = [];
 
   constructor() {}
 
-  // save and call Balance
-  setBalance(data: BalanceObject) {
-    this.balance = data;
-  }
-  getBalance() {
-    return this.balance;
-  }
-
-  // save and call Budgets
-  setBudgets(data: BudgetsObject[]) {
-    this.budgets = data;
-  }
-  getBudgets() {
-    return this.budgets;
+  getStoredData(endpoint: string) {
+    if (endpoint === 'balance') return this.balance;
+    if (endpoint === 'budgets') return this.budgets;
+    if (endpoint === 'pots') return this.pots;
+    if (endpoint === 'transactions') return this.transactions; 
+    return;
   }
 
-  // save and call Pots
-  setPots(data: PotsObject[]) {
-    this.pots = data;
-  }
-  getPots() {
-    return this.pots;
-  }
-
-  // save and call Transactions
-  setTransactions(data: TransactionsObject[]) {
-    this.transactions = data;
-  }
-  getTransactions() {
-    return this.transactions;
+  setStoredData(endpoint: string, data: any) {
+    if (endpoint === 'balance') this.balance = data;
+    if (endpoint === 'budgets') this.budgets = data;
+    if (endpoint === 'pots') this.pots = data;
+    if (endpoint === 'transactions') this.transactions = data;
   }
 }

@@ -1,1 +1,19 @@
-<p>budgets works!</p>
+<section class= "w-full min-h-[100dvh]">
+
+  @if (isLoadingScreenVisible)
+  {
+    <app-loading-screen></app-loading-screen>
+  }
+ @if (isWarningScreenVisible)
+  {
+    <app-warning-screen></app-warning-screen>
+  }
+
+  @if (!isLoadingScreenVisible && !isWarningScreenVisible && isDataLoaded)
+  {
+    <div class="budgets-container">
+      <p>budgets works!</p>
+    </div>
+  }
+  
+</section>
