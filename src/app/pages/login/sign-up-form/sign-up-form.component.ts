@@ -11,7 +11,7 @@ import { AuthentificationService } from '../../../services/authentification.serv
 })
 export class SignUpFormComponent {
 
- private loginService: AuthentificationService = inject(AuthentificationService);
+ private authentificationService: AuthentificationService = inject(AuthentificationService);
 
   /**
    * Emits an event to change the window between login and register components

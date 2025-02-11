@@ -1,7 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, Observable, of, tap, throwError } from 'rxjs';
-import { LoginService } from './login.service';
+import { AuthentificationService } from './authentification.service';
 import { DataStoreServiceService } from './data-store-service.service';
 
 @Injectable({
@@ -10,7 +10,7 @@ import { DataStoreServiceService } from './data-store-service.service';
 export class APIService {
   private baseUrl = '/dummyData';
   private http: HttpClient = inject(HttpClient);
-  private logIn: LoginService = inject(LoginService);
+  private authentificationService: AuthentificationService = inject(AuthentificationService);
   private dataStore: DataStoreServiceService = inject(DataStoreServiceService);
   public warningMessage: string = 'WHAT THE FUCK ???';
 
@@ -20,7 +20,7 @@ export class APIService {
   // endpoints: balance, budgets, pots, transactions
   getData(endpoint: string): Observable<any> {
     const headers = new HttpHeaders({
-      Authorization: `Bearer ${this.logIn.token}`,
+      Authorization: `Bearer ${this.authentificationService.authToken}`,
       'Accept': 'application/json',
     });
 
@@ -42,7 +42,7 @@ export class APIService {
     id >= 0 ? (path = `/{${id}}`) : (path = '');
 
     const headers = new HttpHeaders({
-      Authorization: `Bearer ${this.logIn.token}`,
+      Authorization: `Bearer ${this.authentificationService.authToken}`,
       'Content-Type': 'application/json',
       'Accept': 'application/json',
     });
