@@ -17,6 +17,9 @@ export class LoginFormComponent {
 
   isPasswordVisible: boolean = false;
 
+  /**
+   * Toggles the visibility of the password input field
+   */
   changePasswordVisibility() {
     this.isPasswordVisible = !this.isPasswordVisible;
     let passwordInputRef = document.getElementById(
