@@ -50,6 +50,7 @@ export class RecurringBillsComponent {
         this.checkDataLoaded();
         this.isLoadingScreenVisible = false;
         this.isWarningScreenVisible = false;
+        this.apiService.warningMessage = '';
       },
       error: (error) => {
         console.error(`Fail to fetch ${endpoint} data`, error);
