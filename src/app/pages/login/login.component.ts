@@ -28,6 +28,11 @@ export class LoginComponent {
 
   public isWarningScreenVisible: boolean = false;
 
+
+  /**
+   * Subscribes to observables from the AuthService to update the visibility of loading and warning screens.
+   * @memberof LoginComponent
+   */
   ngOnInit() {
     this.authService.isloadingScreenVisible$.subscribe((value) => {
       this.isLoadingScreenVisible = value;
@@ -38,7 +43,6 @@ export class LoginComponent {
   }
 
   /**
-   *
    * @param windowName function to switch between login and sign up forms
    */
   chooseLoginWindow(windowName: string) {
