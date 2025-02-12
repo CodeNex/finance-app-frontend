@@ -21,6 +21,18 @@ export class SignUpFormComponent {
 
  isFormValid: boolean = false;
 
+  public signUpBody = new FormGroup({
+    name: new FormControl(''),
+    email: new FormControl(''),
+    createPassword: new FormControl(''),
+    confirmPassword: new FormControl('')
+  })
+  
+
+  doRegistration() {
+    console.log("SignUp-Body: ", this.signUpBody.value);
+    
+  }
 
   /**
    * Emits an event to change the window between login and register components
@@ -40,7 +52,5 @@ export class SignUpFormComponent {
     passwordInputRef.type =
         passwordInputRef.type === 'password' ? 'text' : 'password';
   }
-
-  doRegistration() {}
 
 }
