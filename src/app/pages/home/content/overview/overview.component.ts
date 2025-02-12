@@ -80,12 +80,12 @@ export class OverviewComponent {
   }
 
   ngOnInit() {
-    if (!this.authService.isFirstRender) {
+    // if (!this.authService.isFirstRender) {
       this.loadData('balance');
       this.loadData('transactions');
       this.loadData('budgets');
       this.loadData('pots');
-    }
-    this.authService.isFirstRender = false;
+    // }
+    // this.authService.isFirstRender = false;
   }
 }
