@@ -64,6 +64,8 @@ export class AuthentificationService {
           this.authWarningMessage = '';
           this.authToken = response.token;
 
+          this.startApiFirstDataLoading();
+
           this.setLoadingScreen(false);
           this.setWarningScreen(false);
 

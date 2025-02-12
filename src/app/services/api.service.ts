@@ -65,5 +65,8 @@ export class APIService {
 
   // Load Data First Time after login
 
-  loadDataFirstTime() {}
+  loadDataFirstTime() {
+    console.log('Loading data first time');
+    
+  }
 }
