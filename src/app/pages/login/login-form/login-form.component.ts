@@ -44,6 +44,8 @@ export class LoginFormComponent {
    * Logs in as a registered user
    */
   async doLogin() {
+    console.log("Login-Body: ", this.loginBody.value);
+    
     // do validation of input fields
     // set isFormValid to true
     // build body object
