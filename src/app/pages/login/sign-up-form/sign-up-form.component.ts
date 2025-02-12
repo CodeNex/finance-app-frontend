@@ -1,6 +1,8 @@
 import { Component, EventEmitter, Output, inject } from '@angular/core';
 import { FormsModule, FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
+
 import { IconsComponent } from '../../../components/icons/icons.component';
+
 import { AuthentificationService } from '../../../services/authentification.service';
 
 @Component({

@@ -1,6 +1,8 @@
 import { Component, EventEmitter, Output, inject } from '@angular/core';
 import { FormsModule, FormBuilder, FormGroup, Validators, ReactiveFormsModule, FormControl } from '@angular/forms';
+
 import { IconsComponent } from '../../../components/icons/icons.component';
+
 import { AuthentificationService } from '../../../services/authentification.service';
 
 @Component({
@@ -25,6 +27,18 @@ export class LoginFormComponent {
   }) 
 
   /**
+   * Logs in as a registered user
+   */
+  async doLogin() {
+    console.log("Login-Body: ", this.loginBody.value);
+    
+    // do validation of input fields
+    // set isFormValid to true
+    // build body object
+    //fire authentification function
+  }
+
+  /**
    * Logs in as a guest user
    */
   async doGuestLogin() {
@@ -36,18 +50,6 @@ export class LoginFormComponent {
       // 'password': 'password'
     }
     await this.authentificationService.doAuthentificationRequest('guest', body);
-  }
-
-  /**
-   * Logs in as a registered user
-   */
-  async doLogin() {
-    console.log("Login-Body: ", this.loginBody.value);
-    
-    // do validation of input fields
-    // set isFormValid to true
-    // build body object
-    //fire authentification function
   }
 
   /**

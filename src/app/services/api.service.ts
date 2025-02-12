@@ -93,27 +93,23 @@ export class APIService {
       this.potsDataLoaded &&
       this.transactionsDataLoaded
     ) {
-      // this.isDataLoaded = true;
       this.authentificationService.setLoadingScreen(false);
       if (endpoint === 'login' || 'guest') this.router.navigate(['/home']);
     }
   }
 
   loadingScreenTimer() {
-    // setTimeout(() => {
       if (!this.isDataLoaded) {
         this.authentificationService.setLoadingScreen(true);
       } else {
         this.authentificationService.setLoadingScreen(false);
       }
-    // }, 300);
   }
 
   loadData(endpoint: string) {
     this.loadingScreenTimer();
     this.getData(endpoint).subscribe({
       next: (response) => {
-        // console.log(`${endpoint} data fetched`, response);
         switch (endpoint) {
           case 'balance':
             this.balanceDataLoaded = true;
@@ -129,7 +125,6 @@ export class APIService {
             break;
         }
         this.checkDataLoaded(endpoint);
-        // this.authentificationService.setLoadingScreen(false);
         this.authentificationService.setWarningScreen(false);
         this.warningMessage = '';
         console.log(this.dataStore.getStoredData(endpoint));
