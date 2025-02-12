@@ -58,10 +58,12 @@ export class AuthentificationService {
       })
       .subscribe({
         next: (response) => {
-          this.setLoadingScreen(false);
-          this.setWarningScreen(false);
           this.authWarningMessage = '';
           this.authToken = response.token;
+
+          this.setLoadingScreen(false);
+          this.setWarningScreen(false);
+
           if (authOption === 'login' || 'guest' || 'register') this.router.navigate(['/home']); 
           console.log('Auth-Token:', this.authToken); 
         },
