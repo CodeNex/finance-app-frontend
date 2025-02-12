@@ -43,8 +43,11 @@ export class LoginFormComponent {
    */
   async doGuestLogin() {
     let body = {
-      'email': 'guest@guest.com',
-      'password': 'password'
+      'email': 'test@example.com',
+      'password': 'password',
+
+      // 'email': 'guest@guest.com',
+      // 'password': 'password'
     }
     await this.authentificationService.doAuthentificationRequest('guest', body);
   }

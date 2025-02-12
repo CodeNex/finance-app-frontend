@@ -11,7 +11,9 @@ export class AuthentificationService {
 
   private router: Router = inject(Router);
 
-  private baseUrl: string = 'http://localhost:3000';
+  private baseUrl: string = 'https://finance.code-nex.de/api';
+
+  // private baseUrl: string = 'http://localhost:3000';
 
   private loginPath: string = '/login';
 
@@ -58,12 +60,14 @@ export class AuthentificationService {
           this.setWarningScreen(false);
           this.authWarningMessage = '';
           this.authToken = response.token;
-          if (authOption === 'login' || 'guest' || 'register') this.router.navigate(['/home']);  
+          if (authOption === 'login' || 'guest' || 'register') this.router.navigate(['/home']); 
+          console.log('Auth-Token:', this.authToken); 
         },
         error: (error) => {
           this.setLoadingScreen(false);
           this.setWarningScreen(true);
           this.authWarningMessage = error.message;
+          console.log('Error:', this.authWarningMessage);
         },
       });
   }
