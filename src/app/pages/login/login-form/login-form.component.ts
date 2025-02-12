@@ -1,11 +1,11 @@
 import { Component, EventEmitter, Output, inject } from '@angular/core';
-import { FormsModule, FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, FormBuilder, FormGroup, Validators, ReactiveFormsModule, FormControl } from '@angular/forms';
 import { IconsComponent } from '../../../components/icons/icons.component';
 import { AuthentificationService } from '../../../services/authentification.service';
 
 @Component({
   selector: 'app-login-form',
-  imports: [FormsModule, IconsComponent],
+  imports: [FormsModule, ReactiveFormsModule, IconsComponent],
   templateUrl: './login-form.component.html',
   styleUrl: './login-form.component.scss',
 })
@@ -19,24 +19,12 @@ export class LoginFormComponent {
 
   isFormValid: boolean = false;
 
-  /**
-   * Emits an event to change the window between login and register components
-   */
-  emitChangeWindow(windowName: string) {
-    this.changeWindow.emit(windowName);
-  }
+  public loginBody = new FormGroup({
+    email: new FormControl(''),
+    password: new FormControl('')
+  })
 
-  /**
-   * Toggles the visibility of the password input field
-   */
-  changePasswordVisibility() {
-    this.isPasswordVisible = !this.isPasswordVisible;
-    let passwordInputRef = document.getElementById(
-      'loginPasswordInput'
-    ) as HTMLInputElement;
-    passwordInputRef.type =
-      passwordInputRef.type === 'password' ? 'text' : 'password';
-  }
+  
 
   /**
    * Logs in as a guest user
@@ -60,5 +48,24 @@ export class LoginFormComponent {
     // set isFormValid to true
     // build body object
     //fire authentification function
+  }
+
+  /**
+   * Emits an event to change the window between login and register components
+   */
+  emitChangeWindow(windowName: string) {
+    this.changeWindow.emit(windowName);
+  }
+
+  /**
+   * Toggles the visibility of the password input field
+   */
+  changePasswordVisibility() {
+    this.isPasswordVisible = !this.isPasswordVisible;
+    let passwordInputRef = document.getElementById(
+      'loginPasswordInput'
+    ) as HTMLInputElement;
+    passwordInputRef.type =
+      passwordInputRef.type === 'password' ? 'text' : 'password';
   }
 }
