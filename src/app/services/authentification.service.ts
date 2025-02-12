@@ -1,7 +1,7 @@
 import { Injectable, inject, Injector } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BehaviorSubject } from 'rxjs';
-import { Router } from '@angular/router';
+
 import { APIService } from './api.service';
 
 @Injectable({
@@ -9,8 +9,6 @@ import { APIService } from './api.service';
 })
 export class AuthentificationService {
   private http: HttpClient = inject(HttpClient);
-
-  private router: Router = inject(Router);
 
   private injector = inject(Injector);
 
@@ -63,13 +61,7 @@ export class AuthentificationService {
         next: (response) => {
           this.authWarningMessage = '';
           this.authToken = response.token;
-
           this.startApiFirstDataLoading();
-
-          // this.setLoadingScreen(false);
-          // this.setWarningScreen(false);
-
-          // if (authOption === 'login' || 'guest' || 'register') this.router.navigate(['/home']); 
           console.log('Auth-Token:', this.authToken); 
         },
         error: (error) => {
