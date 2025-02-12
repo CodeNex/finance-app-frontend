@@ -24,7 +24,7 @@ export class SignUpFormComponent {
   public signUpBody = new FormGroup({
     name: new FormControl(''),
     email: new FormControl(''),
-    createPassword: new FormControl(''),
+    password: new FormControl(''),
     confirmPassword: new FormControl('')
   })
   
