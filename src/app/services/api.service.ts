@@ -76,7 +76,6 @@ export class APIService {
     this.loadData('transactions');
     this.loadData('budgets');
     this.loadData('pots');
-    console.log('Loading data first time');
   }
 
   balanceDataLoaded: boolean = false;
