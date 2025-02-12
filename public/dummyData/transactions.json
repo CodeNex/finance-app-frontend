@@ -1,0 +1,443 @@
+[
+  {
+    "id": 0,
+    "user": 0,
+    "name": "",
+    "category": "General",
+    "date": "2024-08-19T14:23:11Z",
+    "amount": 75.5,
+    "recurring": 0
+  },
+  {
+    "id": 1,
+    "user": null,
+    "name": "Savory Bites Bistro",
+    "category": "Dining Out",
+    "date": "2024-08-19T20:23:11Z",
+    "amount": -55.5,
+    "recurring": 0
+  },
+  {
+    "id": 2,
+    "user": null,
+    "name": "Daniel Carter",
+    "category": "General",
+    "date": "2024-08-18T09:45:32Z",
+    "amount": -42.3,
+    "recurring": 0
+  },
+  {
+    "id": 3,
+    "user": null,
+    "name": "Sun Park",
+    "category": "General",
+    "date": "2024-08-17T16:12:05Z",
+    "amount": 120.0,
+    "recurring": 0
+  },
+  {
+    "id": 4,
+    "user": null,
+    "name": "Urban Services Hub",
+    "category": "General",
+    "date": "2024-08-17T21:08:09Z",
+    "amount": -65.0,
+    "recurring": 0
+  },
+  {
+    "id": 5,
+    "user": null,
+    "name": "Liam Hughes",
+    "category": "Groceries",
+    "date": "2024-08-15T18:20:33Z",
+    "amount": 65.75,
+    "recurring": 0
+  },
+  {
+    "id": 6,
+    "user": null,
+    "name": "Lily Ramirez",
+    "category": "General",
+    "date": "2024-08-14T13:05:27Z",
+    "amount": 50.0,
+    "recurring": 0
+  },
+  {
+    "id": 7,
+    "user": null,
+    "name": "Ethan Clark",
+    "category": "Dining Out",
+    "date": "2024-08-13T20:15:59Z",
+    "amount": -32.5,
+    "recurring": 0
+  },
+  {
+    "id": 8,
+    "user": null,
+    "name": "James Thompson",
+    "category": "Entertainment",
+    "date": "2024-08-11T15:45:38Z",
+    "amount": -5.0,
+    "recurring": 0
+  },
+  {
+    "id": 9,
+    "user": null,
+    "name": "Pixel Playground",
+    "category": "Entertainment",
+    "date": "2024-08-11T18:45:38Z",
+    "amount": -10.0,
+    "recurring": 1
+  },
+  {
+    "id": 10,
+    "user": null,
+    "name": "Ella Phillips",
+    "category": "Dining Out",
+    "date": "2024-08-10T19:22:51Z",
+    "amount": -45.0,
+    "recurring": 0
+  },
+  {
+    "id": 11,
+    "user": null,
+    "name": "Sofia Peterson",
+    "category": "Transportation",
+    "date": "2024-08-08T08:55:17Z",
+    "amount": -15.0,
+    "recurring": 0
+  },
+  {
+    "id": 12,
+    "user": null,
+    "name": "Mason Martinez",
+    "category": "Lifestyle",
+    "date": "2024-08-07T17:40:29Z",
+    "amount": -35.25,
+    "recurring": 0
+  },
+  {
+    "id": 13,
+    "user": null,
+    "name": "Green Plate Eatery",
+    "category": "Groceries",
+    "date": "2024-08-06T08:25:44Z",
+    "amount": -78.5,
+    "recurring": 0
+  },
+  {
+    "id": 14,
+    "user": null,
+    "name": "Sebastian Cook",
+    "category": "Transportation",
+    "date": "2024-08-06T10:05:44Z",
+    "amount": -22.5,
+    "recurring": 0
+  },
+  {
+    "id": 15,
+    "user": null,
+    "name": "William Harris",
+    "category": "Personal Care",
+    "date": "2024-08-05T14:30:56Z",
+    "amount": -10.0,
+    "recurring": 0
+  },
+  {
+    "id": 16,
+    "user": null,
+    "name": "Elevate Education",
+    "category": "Education",
+    "date": "2024-08-04T11:15:22Z",
+    "amount": -50.0,
+    "recurring": 1
+  },
+  {
+    "id": 17,
+    "user": null,
+    "name": "Serenity Spa & Wellness",
+    "category": "Personal Care",
+    "date": "2024-08-03T14:00:37Z",
+    "amount": -30.0,
+    "recurring": 1
+  },
+  {
+    "id": 18,
+    "user": null,
+    "name": "Spark Electric Solutions",
+    "category": "Bills",
+    "date": "2024-08-02T09:25:11Z",
+    "amount": -100.0,
+    "recurring": 1
+  },
+  {
+    "id": 19,
+    "user": null,
+    "name": "Rina Sato",
+    "category": "Bills",
+    "date": "2024-08-02T13:31:11Z",
+    "amount": -50.0,
+    "recurring": 0
+  },
+  {
+    "id": 20,
+    "user": null,
+    "name": "Swift Ride Share",
+    "category": "Transportation",
+    "date": "2024-08-01T18:40:33Z",
+    "amount": -18.75,
+    "recurring": 0
+  },
+  {
+    "id": 21,
+    "user": null,
+    "name": "Aqua Flow Utilities",
+    "category": "Bills",
+    "date": "2024-07-30T13:20:14Z",
+    "amount": -100.0,
+    "recurring": 1
+  },
+  {
+    "id": 22,
+    "user": null,
+    "name": "EcoFuel Energy",
+    "category": "Bills",
+    "date": "2024-07-29T11:55:29Z",
+    "amount": -35.0,
+    "recurring": 1
+  },
+  {
+    "id": 23,
+    "user": null,
+    "name": "Yuna Kim",
+    "category": "Dining Out",
+    "date": "2024-07-29T13:51:29Z",
+    "amount": -28.5,
+    "recurring": 0
+  },
+  {
+    "id": 24,
+    "user": null,
+    "name": "Flavor Fiesta",
+    "category": "Dining Out",
+    "date": "2024-07-27T20:15:06Z",
+    "amount": -42.75,
+    "recurring": 0
+  },
+  {
+    "id": 25,
+    "user": null,
+    "name": "Harper Edwards",
+    "category": "Shopping",
+    "date": "2024-07-26T09:43:23Z",
+    "amount": -89.99,
+    "recurring": 0
+  },
+  {
+    "id": 26,
+    "user": null,
+    "name": "Buzz Marketing Group",
+    "category": "General",
+    "date": "2024-07-26T14:40:23Z",
+    "amount": 3358.0,
+    "recurring": 0
+  },
+  {
+    "id": 27,
+    "user": null,
+    "name": "TechNova Innovations",
+    "category": "Shopping",
+    "date": "2024-07-25T16:25:37Z",
+    "amount": -29.99,
+    "recurring": 0
+  },
+  {
+    "id": 28,
+    "user": null,
+    "name": "ByteWise",
+    "category": "Lifestyle",
+    "date": "2024-07-23T09:35:14Z",
+    "amount": -49.99,
+    "recurring": 1
+  },
+  {
+    "id": 29,
+    "user": null,
+    "name": "Nimbus Data Storage",
+    "category": "Bills",
+    "date": "2024-07-21T10:05:42Z",
+    "amount": -9.99,
+    "recurring": 1
+  },
+  {
+    "id": 30,
+    "user": null,
+    "name": "Emma Richardson",
+    "category": "General",
+    "date": "2024-07-20T17:30:55Z",
+    "amount": -25.0,
+    "recurring": 0
+  },
+  {
+    "id": 31,
+    "user": null,
+    "name": "Daniel Carter",
+    "category": "General",
+    "date": "2024-07-19T12:45:09Z",
+    "amount": 50.0,
+    "recurring": 0
+  },
+  {
+    "id": 32,
+    "user": null,
+    "name": "Sun Park",
+    "category": "General",
+    "date": "2024-07-18T19:20:23Z",
+    "amount": -38.5,
+    "recurring": 0
+  },
+  {
+    "id": 33,
+    "user": null,
+    "name": "Harper Edwards",
+    "category": "Shopping",
+    "date": "2024-07-17T14:55:37Z",
+    "amount": -29.99,
+    "recurring": 0
+  },
+  {
+    "id": 34,
+    "user": null,
+    "name": "Liam Hughes",
+    "category": "Groceries",
+    "date": "2024-07-16T10:10:51Z",
+    "amount": -52.75,
+    "recurring": 0
+  },
+  {
+    "id": 35,
+    "user": null,
+    "name": "Lily Ramirez",
+    "category": "General",
+    "date": "2024-07-15T16:35:04Z",
+    "amount": 75.0,
+    "recurring": 0
+  },
+  {
+    "id": 36,
+    "user": null,
+    "name": "Ethan Clark",
+    "category": "Dining Out",
+    "date": "2024-07-14T20:50:18Z",
+    "amount": -41.25,
+    "recurring": 0
+  },
+  {
+    "id": 37,
+    "user": null,
+    "name": "Rina Sato",
+    "category": "Entertainment",
+    "date": "2024-07-13T09:15:32Z",
+    "amount": -10.0,
+    "recurring": 0
+  },
+  {
+    "id": 38,
+    "user": null,
+    "name": "James Thompson",
+    "category": "Bills",
+    "date": "2024-07-12T13:40:46Z",
+    "amount": -95.5,
+    "recurring": 0
+  },
+  {
+    "id": 39,
+    "user": null,
+    "name": "Ella Phillips",
+    "category": "Dining Out",
+    "date": "2024-07-11T18:05:59Z",
+    "amount": -33.75,
+    "recurring": 0
+  },
+  {
+    "id": 40,
+    "user": null,
+    "name": "Yuna Kim",
+    "category": "Dining Out",
+    "date": "2024-07-10T12:30:13Z",
+    "amount": -27.5,
+    "recurring": 0
+  },
+  {
+    "id": 41,
+    "user": null,
+    "name": "Sofia Peterson",
+    "category": "Transportation",
+    "date": "2024-07-09T08:55:27Z",
+    "amount": -12.5,
+    "recurring": 0
+  },
+  {
+    "id": 42,
+    "user": null,
+    "name": "Mason Martinez",
+    "category": "Lifestyle",
+    "date": "2024-07-08T15:20:41Z",
+    "amount": -65.0,
+    "recurring": 0
+  },
+  {
+    "id": 43,
+    "user": null,
+    "name": "Sebastian Cook",
+    "category": "Transportation",
+    "date": "2024-07-07T11:45:55Z",
+    "amount": -20.0,
+    "recurring": 0
+  },
+  {
+    "id": 44,
+    "user": null,
+    "name": "William Harris",
+    "category": "General",
+    "date": "2024-07-06T17:10:09Z",
+    "amount": 20.0,
+    "recurring": 0
+  },
+  {
+    "id": 45,
+    "user": null,
+    "name": "Elevate Education",
+    "category": "Education",
+    "date": "2024-07-05T11:15:22Z",
+    "amount": -50.0,
+    "recurring": 1
+  },
+  {
+    "id": 46,
+    "user": null,
+    "name": "Serenity Spa & Wellness",
+    "category": "Personal Care",
+    "date": "2024-07-03T14:00:37Z",
+    "amount": -30.0,
+    "recurring": 1
+  },
+  {
+    "id": 47,
+    "user": null,
+    "name": "Spark Electric Solutions",
+    "category": "Bills",
+    "date": "2024-07-02T09:25:51Z",
+    "amount": -100.0,
+    "recurring": 1
+  },
+  {
+    "id": 48,
+    "user": null,
+    "name": "Swift Ride Share",
+    "category": "Transportation",
+    "date": "2024-07-02T19:50:05Z",
+    "amount": -16.5,
+    "recurring": 0
+  }
+]

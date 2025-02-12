@@ -3,13 +3,18 @@
     <p class="text1b text-grey-900">Sign Up</p>
   </div>
   <!-- Form -->
-  <form action="" class="flex flex-col gap-2">
+  <form
+    [formGroup]="signUpBody"
+    (ngSubmit)="doRegistration()"
+    class="flex flex-col gap-2"
+  >
     <div class="input-wrapper">
       <input
+        formControlName="name"
         type="text"
         id="singupNameInput"
         name="name"
-        placeholder=" "
+        placeholder=""
         required
       />
       <label for="name">Name</label>
@@ -17,10 +22,11 @@
     </div>
     <div class="input-wrapper">
       <input
+        formControlName="email"
         type="email"
         id="signupEmailInput"
         name="email"
-        placeholder=" "
+        placeholder=""
         required
       />
       <label for="email">Email</label>
@@ -29,10 +35,11 @@
 
     <div class="input-wrapper">
       <input
+        formControlName="password"
         type="password"
         id="singupCreatePasswordInput"
         name="password"
-        placeholder=" "
+        placeholder=""
         required
       />
       <label for="password">Create Password</label>
@@ -46,10 +53,11 @@
 
     <div class="input-wrapper">
       <input
+        formControlName="confirmPassword"
         type="password"
         id="singupConfirmPasswordInput"
         name="confirmPassword"
-        placeholder=" "
+        placeholder=""
         required
       />
       <label for="confirmPassword">Confirm Password</label>

@@ -22,15 +22,18 @@
       ></app-sign-up-form>
       }
 
-      <app-loading-screen
+      @if (isLoadingScreenVisible) {
+        <app-loading-screen
         id="loginLoadingScreen"
-        class="d_none"
       ></app-loading-screen>
-
-      <app-warning-screen
+      }
+      
+      @if (isWarningScreenVisible) {
+        <app-warning-screen
         id="loginWarningScreen"
-        class="d_none"
       ></app-warning-screen>
+      }
+      
     </div>
   </div>
 </main>
