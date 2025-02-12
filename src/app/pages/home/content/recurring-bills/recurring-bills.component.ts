@@ -61,8 +61,8 @@ export class RecurringBillsComponent {
     });
   }
 
-  ngOnInit() {
-    this.loadData('transactions');
-  }
+  // ngOnInit() {
+  //   this.loadData('transactions');
+  // }
   
 }

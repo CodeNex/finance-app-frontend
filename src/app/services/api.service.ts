@@ -1,6 +1,8 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, Observable, of, tap, throwError } from 'rxjs';
+import { Router } from '@angular/router';
+
 import { AuthentificationService } from './authentification.service';
 import { DataStoreServiceService } from './data-store-service.service';
 
@@ -8,12 +10,16 @@ import { DataStoreServiceService } from './data-store-service.service';
   providedIn: 'root',
 })
 export class APIService {
-  private baseUrl = '/dummyData';
+
   private http: HttpClient = inject(HttpClient);
   private authentificationService: AuthentificationService = inject(
     AuthentificationService
   );
   private dataStore: DataStoreServiceService = inject(DataStoreServiceService);
+  private router: Router = inject(Router);
+
+  private baseUrl = '/dummyData';
+
   public warningMessage: string = '';
 
   constructor() {}
@@ -80,7 +86,7 @@ export class APIService {
   transactionsDataLoaded: boolean = false;
   isDataLoaded: boolean = false;
 
-  checkDataLoaded() {
+  checkDataLoaded(endpoint: string) {
     if (
       this.balanceDataLoaded &&
       this.budgetsDataLoaded &&
@@ -89,6 +95,7 @@ export class APIService {
     ) {
       // this.isDataLoaded = true;
       this.authentificationService.setLoadingScreen(false);
+      if (endpoint === 'login' || 'guest') this.router.navigate(['/home']);
     }
   }
 
@@ -121,7 +128,7 @@ export class APIService {
             this.transactionsDataLoaded = true;
             break;
         }
-        this.checkDataLoaded();
+        this.checkDataLoaded(endpoint);
         // this.authentificationService.setLoadingScreen(false);
         this.authentificationService.setWarningScreen(false);
         this.warningMessage = '';
