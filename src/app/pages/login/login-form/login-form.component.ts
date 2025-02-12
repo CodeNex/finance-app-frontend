@@ -22,9 +22,7 @@ export class LoginFormComponent {
   public loginBody = new FormGroup({
     email: new FormControl(''),
     password: new FormControl('')
-  })
-
-  
+  }) 
 
   /**
    * Logs in as a guest user
