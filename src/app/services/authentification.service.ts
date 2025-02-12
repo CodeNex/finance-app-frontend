@@ -35,6 +35,8 @@ export class AuthentificationService {
 
   public authToken: string = '';
 
+  public isFirstRender: boolean = true;
+
   headers = new HttpHeaders({
     'Content-Type': 'application/json',
     Accept: 'application/json',

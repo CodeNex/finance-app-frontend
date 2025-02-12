@@ -1,9 +1,10 @@
 import { Component, inject } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { LoadingScreenComponent } from '../../../../components/loading-screen/loading-screen.component';
 import { WarningScreenComponent } from '../../../../components/warning-screen/warning-screen.component';
 import { DataStoreServiceService } from '../../../../services/data-store-service.service';
+import { AuthentificationService } from '../../../../services/authentification.service';
 import { APIService } from '../../../../services/api.service';
-import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-overview',
@@ -14,6 +15,7 @@ import { CommonModule } from '@angular/common';
 export class OverviewComponent {
   private apiService: APIService = inject(APIService);
   private dataStore: DataStoreServiceService = inject(DataStoreServiceService);
+  public authService: AuthentificationService = inject(AuthentificationService);
   isLoadingScreenVisible: boolean = false;
   isWarningScreenVisible: boolean = false;
 
@@ -78,9 +80,12 @@ export class OverviewComponent {
   }
 
   ngOnInit() {
-    this.loadData('balance');
-    this.loadData('transactions');
-    this.loadData('budgets');
-    this.loadData('pots');
+    if (!this.authService.isFirstRender) {
+      this.loadData('balance');
+      this.loadData('transactions');
+      this.loadData('budgets');
+      this.loadData('pots');
+    }
+    this.authService.isFirstRender = false;
   }
 }
