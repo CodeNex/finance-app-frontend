@@ -19,7 +19,7 @@ export class OverviewComponent {
   private apiService: APIService = inject(APIService);
   private dataStore: DataStoreServiceService = inject(DataStoreServiceService);
   public authService: AuthentificationService = inject(AuthentificationService);
-  
+
   isLoadingScreenVisible: boolean = false;
   isWarningScreenVisible: boolean = false;
 
@@ -85,10 +85,10 @@ export class OverviewComponent {
 
   ngOnInit() {
     // if (!this.authService.isFirstRender) {
-      this.loadData('balance');
-      this.loadData('transactions');
-      this.loadData('budgets');
-      this.loadData('pots');
+      // this.loadData('balance');
+      // this.loadData('transactions');
+      // this.loadData('budgets');
+      // this.loadData('pots');
     // }
     // this.authService.isFirstRender = false;
   }

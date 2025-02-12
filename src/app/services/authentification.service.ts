@@ -78,4 +78,9 @@ export class AuthentificationService {
         },
       });
   }
+
+  startApiFirstDataLoading() {
+    const apiService = this.injector.get(APIService);
+    return apiService.loadDataFirstTime();
+  }
 }
