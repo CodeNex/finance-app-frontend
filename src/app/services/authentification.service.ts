@@ -1,7 +1,8 @@
-import { Injectable, inject } from '@angular/core';
+import { Injectable, inject, Injector } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BehaviorSubject } from 'rxjs';
 import { Router } from '@angular/router';
+import { APIService } from './api.service';
 
 @Injectable({
   providedIn: 'root',
@@ -10,6 +11,8 @@ export class AuthentificationService {
   private http: HttpClient = inject(HttpClient);
 
   private router: Router = inject(Router);
+
+  private injector = inject(Injector);
 
   private baseUrl: string = 'https://finance.code-nex.de/api';
 
