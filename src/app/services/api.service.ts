@@ -87,25 +87,26 @@ export class APIService {
       this.potsDataLoaded &&
       this.transactionsDataLoaded
     ) {
-      this.isDataLoaded = true;
+      // this.isDataLoaded = true;
+      this.authentificationService.setLoadingScreen(false);
     }
   }
 
   loadingScreenTimer() {
-    setTimeout(() => {
+    // setTimeout(() => {
       if (!this.isDataLoaded) {
         this.authentificationService.setLoadingScreen(true);
       } else {
         this.authentificationService.setLoadingScreen(false);
       }
-    }, 300);
+    // }, 300);
   }
 
   loadData(endpoint: string) {
     this.loadingScreenTimer();
     this.getData(endpoint).subscribe({
       next: (response) => {
-        console.log(`${endpoint} data fetched`, response);
+        // console.log(`${endpoint} data fetched`, response);
         switch (endpoint) {
           case 'balance':
             this.balanceDataLoaded = true;
@@ -121,9 +122,10 @@ export class APIService {
             break;
         }
         this.checkDataLoaded();
-        this.authentificationService.setLoadingScreen(false);
+        // this.authentificationService.setLoadingScreen(false);
         this.authentificationService.setWarningScreen(false);
         this.warningMessage = '';
+        console.log(this.dataStore.getStoredData(endpoint));
       },
       error: (error) => {
         console.error(`Fail to fetch ${endpoint} data`, error);
