@@ -48,11 +48,9 @@ export class AuthentificationService {
     setTimeout(() => {
       if (this.authToken === '') this.setLoadingScreen(true);
     }, 250);
-
     let path;
     if (authOption === 'login' || 'guest') path = this.loginPath;
     if (authOption === 'register') path = this.registerPath;
-
     this.http
       .post<{ token: string }>(this.baseUrl + path, body, {
         headers: this.headers,

@@ -10,7 +10,6 @@ import { DataStoreServiceService } from './data-store-service.service';
   providedIn: 'root',
 })
 export class APIService {
-
   private http: HttpClient = inject(HttpClient);
   private authentificationService: AuthentificationService = inject(
     AuthentificationService
@@ -99,31 +98,21 @@ export class APIService {
   }
 
   loadingScreenTimer() {
-      if (!this.isDataLoaded) {
-        this.authentificationService.setLoadingScreen(true);
-      } else {
-        this.authentificationService.setLoadingScreen(false);
-      }
+    if (!this.isDataLoaded) {
+      this.authentificationService.setLoadingScreen(true);
+    } else {
+      this.authentificationService.setLoadingScreen(false);
+    }
   }
 
   loadData(endpoint: string) {
     this.loadingScreenTimer();
     this.getData(endpoint).subscribe({
       next: (response) => {
-        switch (endpoint) {
-          case 'balance':
-            this.balanceDataLoaded = true;
-            break;
-          case 'budgets':
-            this.budgetsDataLoaded = true;
-            break;
-          case 'pots':
-            this.potsDataLoaded = true;
-            break;
-          case 'transactions':
-            this.transactionsDataLoaded = true;
-            break;
-        }
+        if (endpoint === 'balance') this.balanceDataLoaded = true;
+        if (endpoint === 'budgets') this.budgetsDataLoaded = true;
+        if (endpoint === 'pots') this.potsDataLoaded = true;
+        if (endpoint === 'transactions') this.transactionsDataLoaded = true;
         this.checkDataLoaded(endpoint);
         this.authentificationService.setWarningScreen(false);
         this.warningMessage = '';
