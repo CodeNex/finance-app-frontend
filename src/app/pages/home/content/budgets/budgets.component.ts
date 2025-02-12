@@ -74,9 +74,9 @@ export class BudgetsComponent {
     });
   }
 
-  ngOnInit() {
-    this.loadData('transactions');
-    this.loadData('budgets');
-  }
+  // ngOnInit() {
+  //   this.loadData('transactions');
+  //   this.loadData('budgets');
+  // }
 
 }

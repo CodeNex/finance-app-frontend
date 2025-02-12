@@ -73,8 +73,8 @@ export class PotsComponent {
     });
   }
 
-  ngOnInit() {
-    this.loadData('transactions');
-    this.loadData('pots');
-  }
+  // ngOnInit() {
+  //   this.loadData('transactions');
+  //   this.loadData('pots');
+  // }
 }

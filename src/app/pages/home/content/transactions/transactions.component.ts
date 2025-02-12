@@ -16,7 +16,7 @@ import { APIService } from '../../../../services/api.service';
   styleUrl: './transactions.component.scss',
 })
 export class TransactionsComponent {
-  
+
   private apiService: APIService = inject(APIService);
   private dataStore: DataStoreServiceService = inject(DataStoreServiceService);
   public authService: AuthentificationService = inject(AuthentificationService);
@@ -67,7 +67,7 @@ export class TransactionsComponent {
     });
   }
 
-  ngOnInit() {
-    this.loadData('transactions');
-  }
+  // ngOnInit() {
+  //   this.loadData('transactions');
+  // }
 }

@@ -66,10 +66,10 @@ export class AuthentificationService {
 
           this.startApiFirstDataLoading();
 
-          this.setLoadingScreen(false);
-          this.setWarningScreen(false);
+          // this.setLoadingScreen(false);
+          // this.setWarningScreen(false);
 
-          if (authOption === 'login' || 'guest' || 'register') this.router.navigate(['/home']); 
+          // if (authOption === 'login' || 'guest' || 'register') this.router.navigate(['/home']); 
           console.log('Auth-Token:', this.authToken); 
         },
         error: (error) => {
