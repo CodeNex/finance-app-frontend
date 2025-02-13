@@ -67,8 +67,8 @@
         @if (signUpBody.controls['password'].hasError('required') && signUpBody.controls['password'].touched) {
           <span>Insert a Password</span>
         }
-        @if (signUpBody.controls['password'].hasError('minlength') && signUpBody.controls['password'].touched) {
-          <span>Password must be at least 6 characters long</span>
+        @if (signUpBody.controls['password'].hasError('weakPassword') && signUpBody.controls['password'].touched) {
+          <span>Must be 10+ chars, inc. A-Z, a-z, 0-9, and special (!&#64;#$%^&*). No spaces.</span>
         }
       </p>
       <div class="eyeBox" (click)="changePasswordVisibility('create')">
@@ -94,8 +94,8 @@
         @if (signUpBody.controls['confirmPassword'].hasError('required') && signUpBody.controls['confirmPassword'].touched) {
           <span>Insert a Password</span>
         }
-        @if (signUpBody.controls['confirmPassword'].hasError('minlength') && signUpBody.controls['confirmPassword'].touched) {
-          <span>Password must be at least 6 characters long</span>
+        @if (signUpBody.controls['confirmPassword'].hasError('weakPassword') && signUpBody.controls['confirmPassword'].touched) {
+          <span>Must be 10+ chars, inc. A-Z, a-z, 0-9, and special (!&#64;#$%^&*). No spaces.</span>
         }
       </p>
       <div class="eyeBox" (click)="changePasswordVisibility('confirm')">

@@ -4,6 +4,8 @@ import {
   FormBuilder,
   Validators,
   ReactiveFormsModule,
+  AbstractControl,
+  ValidationErrors
 } from '@angular/forms';
 import { NgClass } from '@angular/common';
 
@@ -38,11 +40,19 @@ export class LoginFormComponent {
     password: [
       '',
       {
-        validators: [Validators.required, Validators.minLength(6)],
+        validators: [Validators.required, this.validateStrongPassword],
         updateOn: 'blur',
       },
     ],
   });
+
+  validateStrongPassword(control: AbstractControl): ValidationErrors | null {
+    const password = control.value;
+    const regex =
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*(),.?":{}|<>])[A-Za-z\d!@#$%^&*(),.?":{}|<>]{10,}$/;
+    if (!password) return null;
+    return regex.test(password) ? null : { weakPassword: true };
+  }
 
   /**
    * Logs in as a registered user

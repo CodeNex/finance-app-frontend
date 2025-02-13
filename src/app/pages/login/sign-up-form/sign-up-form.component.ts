@@ -5,7 +5,7 @@ import {
   FormBuilder,
   ReactiveFormsModule,
   AbstractControl,
-  ValidationErrors
+  ValidationErrors,
 } from '@angular/forms';
 import { NgClass } from '@angular/common';
 
@@ -51,14 +51,14 @@ export class SignUpFormComponent {
     password: [
       '',
       {
-        validators: [Validators.required, Validators.minLength(6)],
+        validators: [Validators.required, this.validateStrongPassword],
         updateOn: 'blur',
       },
     ],
     confirmPassword: [
       '',
       {
-        validators: [Validators.required, Validators.minLength(6)],
+        validators: [Validators.required, this.validateStrongPassword],
         updateOn: 'blur',
       },
     ],
@@ -72,7 +72,9 @@ export class SignUpFormComponent {
       console.log('SignUp-Body: ', this.signUpBody.value);
     } else {
       this.signUpBody.markAllAsTouched();
-      Object.values(this.signUpBody.controls).forEach(control => control.updateValueAndValidity());
+      Object.values(this.signUpBody.controls).forEach((control) =>
+        control.updateValueAndValidity()
+      );
       console.log('SignUpBody is valid:', this.signUpBody.valid);
     }
   }
@@ -80,7 +82,15 @@ export class SignUpFormComponent {
   validateName(control: AbstractControl): ValidationErrors | null {
     if (!control.value) return null;
     let words = control.value.split(' ');
-    return words.length > 1 ? null : { invalidName: true};
+    return words.length > 1 ? null : { invalidName: true };
+  }
+
+  validateStrongPassword(control: AbstractControl): ValidationErrors | null {
+    const password = control.value;
+    const regex =
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*(),.?":{}|<>])[A-Za-z\d!@#$%^&*(),.?":{}|<>]{10,}$/;
+    if (!password) return null;
+    return regex.test(password) ? null : { weakPassword: true };
   }
 
   comparePasswords() {

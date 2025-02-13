@@ -41,8 +41,8 @@
         @if (loginBody.controls['password'].hasError('required') && loginBody.controls['password'].touched) {
           <span>Insert a Password</span>
         }
-        @if (loginBody.controls['password'].hasError('minlength') && loginBody.controls['password'].touched) {
-          <span>Password must be at least 6 characters long</span>
+        @if (loginBody.controls['password'].hasError('weakPassword') && loginBody.controls['password'].touched) {
+          <span>Must be 10+ chars, inc. A-Z, a-z, 0-9, and special (!&#64;#$%^&*). No spaces.</span>
         }
       </p>
       <div class="eyeBox" (click)="changePasswordVisibility()">
