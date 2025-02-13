@@ -28,7 +28,7 @@
         name="email"
         placeholder=""
         required
-        [ngClass]="{'validationError': signUpBody.controls['email'].invalid && signUpBody.controls['email'].touched}"
+        [ngClass]="{'validationError': (signUpBody.controls['email'].invalid && signUpBody.controls['email'].touched && signUpBody.value.email)}"
       />
       <label for="email">Email</label>
       <p class="validationWarning select-none"><span>&nbsp;</span></p>
@@ -42,6 +42,7 @@
         name="password"
         placeholder=""
         required
+        [ngClass]="{'validationError': (signUpBody.controls['password'].invalid && signUpBody.controls['password'].touched && signUpBody.value.password)}"
       />
       <label for="password">Create Password</label>
       <p class="validationWarning select-none"><span>&nbsp;</span></p>
@@ -60,6 +61,7 @@
         name="confirmPassword"
         placeholder=""
         required
+        [ngClass]="{'validationError': (signUpBody.controls['confirmPassword'].invalid && signUpBody.controls['confirmPassword'].touched && signUpBody.value.confirmPassword)}"
       />
       <label for="confirmPassword">Confirm Password</label>
       <p class="validationWarning select-none"><span>&nbsp;</span></p>
