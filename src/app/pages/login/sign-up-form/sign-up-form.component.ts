@@ -71,9 +71,8 @@ export class SignUpFormComponent {
       console.log('Are passwords identical: ', this.arePasswordsIdentical);
       console.log('SignUp-Body: ', this.signUpBody.value);
     } else {
+      Object.values(this.signUpBody.controls).forEach(control => control.updateValueAndValidity());
       console.log('SignUpBody is valid:', this.signUpBody.valid);
-      console.log('Are passwords identical: ', this.arePasswordsIdentical);
-      console.log('SignUp-Body: ', this.signUpBody.value);
     }
   }
 
