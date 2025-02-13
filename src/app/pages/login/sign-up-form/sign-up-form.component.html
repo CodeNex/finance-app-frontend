@@ -16,6 +16,7 @@
         name="name"
         placeholder=""
         required
+        [ngClass]="{'validationError': (signUpBody.controls['name'].invalid && signUpBody.controls['name'].touched && signUpBody.value.name)}"
       />
       <label for="name">Name</label>
       <p class="validationWarning select-none"><span>&nbsp;</span></p>
