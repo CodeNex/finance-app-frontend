@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Output, inject } from '@angular/core';
 import { FormsModule, FormGroup, FormControl, Validators, FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { NgClass } from '@angular/common';
 
 import { IconsComponent } from '../../../components/icons/icons.component';
 
