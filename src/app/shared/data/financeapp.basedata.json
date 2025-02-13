@@ -1,5 +1,6 @@
 {
   "financeapp": {
+    "login": "",
     "navbar": {
       "links": {
         "main": [
@@ -43,6 +44,19 @@
         ]
       }
     },
-    "login": ""
+    "budgets": {
+      "categories": {
+        "entertainment": "Entertainment",
+        "bills": "Bills",
+        "groceries": "Groceries",
+        "diningOut": "Dining Out",
+        "transportation": "Transportation",
+        "personalCare": "Personal Care",
+        "education": "Education",
+        "lifestyle": "Lifestyle",
+        "shopping": "Shopping",
+        "general": "General"
+      }
+    }
   }
 }
