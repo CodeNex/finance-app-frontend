@@ -6,7 +6,7 @@ import {
   ReactiveFormsModule,
   AbstractControl,
   ValidationErrors,
-  ValidatorFn
+  ValidatorFn,
 } from '@angular/forms';
 import { NgClass } from '@angular/common';
 
@@ -94,12 +94,17 @@ export class SignUpFormComponent {
     return regex.test(password) ? null : { weakPassword: true };
   }
 
-  validatePasswordMatch(): ValidatorFn {
-    return (control: AbstractControl): ValidationErrors | null => {
-      const password = control.get('password')?.value;
-      const confirmPassword = control.get('confirmPassword')?.value;
-      return password === confirmPassword ? null : { passwordDismatch: true };
-    };
+  validatePasswordMatch(control: AbstractControl): ValidationErrors | null {
+    console.log('control: ', control);
+    if (!control.value) return null;
+    // if (this.signUpBody) {
+    //   const password = this.signUpBody?.value.password;
+    //   const confirmPassword = control.value;
+    //   return password === confirmPassword ? null : { passwordDismatch: true };
+    // }
+    // else {
+      return null;
+    // }
   }
 
   comparePasswords() {
