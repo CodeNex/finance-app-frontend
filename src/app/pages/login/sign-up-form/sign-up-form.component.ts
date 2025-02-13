@@ -95,16 +95,10 @@ export class SignUpFormComponent {
   }
 
   validatePasswordMatch(control: AbstractControl): ValidationErrors | null {
-    console.log('control: ', control);
     if (!control.value) return null;
-    // if (this.signUpBody) {
-    //   const password = this.signUpBody?.value.password;
-    //   const confirmPassword = control.value;
-    //   return password === confirmPassword ? null : { passwordDismatch: true };
-    // }
-    // else {
-      return null;
-    // }
+    return control.value === control.parent?.get('password')?.value
+      ? null
+      : { passwordDismatch: true };
   }
 
   comparePasswords() {
