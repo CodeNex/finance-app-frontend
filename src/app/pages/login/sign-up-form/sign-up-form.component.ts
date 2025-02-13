@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Output, inject } from '@angular/core';
-import { FormsModule, FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, FormGroup, FormControl, Validators, FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { NgClass } from '@angular/common';
 
 import { IconsComponent } from '../../../components/icons/icons.component';
 
@@ -7,7 +8,7 @@ import { AuthentificationService } from '../../../services/authentification.serv
 
 @Component({
   selector: 'app-sign-up-form',
-  imports: [FormsModule, ReactiveFormsModule, IconsComponent],
+  imports: [FormsModule, NgClass, ReactiveFormsModule, IconsComponent],
   templateUrl: './sign-up-form.component.html',
   styleUrl: './sign-up-form.component.scss',
 })
@@ -17,23 +18,32 @@ export class SignUpFormComponent {
 
  private authentificationService: AuthentificationService = inject(AuthentificationService);
 
+ private formBuilder: FormBuilder = inject(FormBuilder);
+
  isCreatePasswordVisible: boolean = false;
 
  isConfirmPasswordVisible: boolean = false;
 
  isFormValid: boolean = false;
 
-  public signUpBody = new FormGroup({
-    name: new FormControl(''),
-    email: new FormControl(''),
-    password: new FormControl(''),
-    confirmPassword: new FormControl('')
+ arePasswordsIdentical: boolean = false;
+
+  public signUpBody = this.formBuilder.group({
+    name: ['', Validators.required, {updateOn: 'blur'}],
+    email: ['', Validators.required, Validators.email, {updateOn: 'blur'}],
+    password: ['', Validators.required, {updateOn: 'blur'}],
+    confirmPassword: ['', Validators.required, {updateOn: 'blur'}]
   })
   
 
   doRegistration() {
-    console.log("SignUp-Body: ", this.signUpBody.value);
-    
+    this.comparePasswords();
+    console.log("SignUp-Body: ", this.signUpBody);
+    console.log("Are passwords identical: ", this.arePasswordsIdentical);  
+  }
+
+  comparePasswords() {
+    this.arePasswordsIdentical = this.signUpBody.value.password === this.signUpBody.value.confirmPassword;
   }
 
   /**

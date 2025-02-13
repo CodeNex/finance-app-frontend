@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Output, inject } from '@angular/core';
 import { FormsModule, FormBuilder, FormGroup, Validators, ReactiveFormsModule, FormControl } from '@angular/forms';
+import { NgClass } from '@angular/common';
 
 import { IconsComponent } from '../../../components/icons/icons.component';
 
@@ -7,7 +8,7 @@ import { AuthentificationService } from '../../../services/authentification.serv
 
 @Component({
   selector: 'app-login-form',
-  imports: [FormsModule, ReactiveFormsModule, IconsComponent],
+  imports: [FormsModule, NgClass, ReactiveFormsModule, IconsComponent],
   templateUrl: './login-form.component.html',
   styleUrl: './login-form.component.scss',
 })
@@ -17,13 +18,15 @@ export class LoginFormComponent {
 
   private authentificationService: AuthentificationService = inject(AuthentificationService);
 
+  private formBuilder: FormBuilder = inject(FormBuilder);
+
   isPasswordVisible: boolean = false;
 
   isFormValid: boolean = false;
 
-  public loginBody = new FormGroup({
-    email: new FormControl(''),
-    password: new FormControl('')
+  public loginBody = this.formBuilder.group({
+    email: ['', Validators.required, Validators.email],
+    password: ['']
   }) 
 
   /**
