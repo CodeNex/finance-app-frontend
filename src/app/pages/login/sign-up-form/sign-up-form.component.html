@@ -62,7 +62,15 @@
         [ngClass]="{'validationError': (signUpBody.controls['password'].invalid && signUpBody.controls['password'].touched)}"
       />
       <label for="password">Create Password</label>
-      <p class="validationWarning select-none"><span>&nbsp;</span></p>
+      <p class="validationWarning select-none">
+        <span>&nbsp;</span>
+        @if (signUpBody.controls['password'].hasError('required') && signUpBody.controls['password'].touched) {
+          <span>Insert a Password</span>
+        }
+        @if (signUpBody.controls['password'].hasError('minlength') && signUpBody.controls['password'].touched) {
+          <span>Password must be at least 6 characters long</span>
+        }
+      </p>
       <div class="eyeBox" (click)="changePasswordVisibility('create')">
         <app-icons
           [iconName]="isCreatePasswordVisible ? 'openedEye' : 'closedEye'"
@@ -81,7 +89,15 @@
         [ngClass]="{'validationError': (signUpBody.controls['confirmPassword'].invalid && signUpBody.controls['confirmPassword'].touched)}"
       />
       <label for="confirmPassword">Confirm Password</label>
-      <p class="validationWarning select-none"><span>&nbsp;</span></p>
+      <p class="validationWarning select-none">
+        <span>&nbsp;</span>
+        @if (signUpBody.controls['confirmPassword'].hasError('required') && signUpBody.controls['confirmPassword'].touched) {
+          <span>Insert a Password</span>
+        }
+        @if (signUpBody.controls['confirmPassword'].hasError('minlength') && signUpBody.controls['confirmPassword'].touched) {
+          <span>Password must be at least 6 characters long</span>
+        }
+      </p>
       <div class="eyeBox" (click)="changePasswordVisibility('confirm')">
         <app-icons
           [iconName]="isConfirmPasswordVisible ? 'openedEye' : 'closedEye'"
