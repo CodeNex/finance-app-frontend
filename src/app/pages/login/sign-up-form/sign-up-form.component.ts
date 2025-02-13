@@ -40,7 +40,7 @@ export class SignUpFormComponent {
     name: [
       '',
       {
-        validators: [Validators.required, Validators.minLength(3)],
+        validators: [Validators.required, this.validateName],
         updateOn: 'blur',
       },
     ],
