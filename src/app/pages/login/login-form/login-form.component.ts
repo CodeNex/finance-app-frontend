@@ -17,13 +17,15 @@ export class LoginFormComponent {
 
   private authentificationService: AuthentificationService = inject(AuthentificationService);
 
+  private formBuilder: FormBuilder = inject(FormBuilder);
+
   isPasswordVisible: boolean = false;
 
   isFormValid: boolean = false;
 
-  public loginBody = new FormGroup({
-    email: new FormControl(''),
-    password: new FormControl('')
+  public loginBody = this.formBuilder.group({
+    email: [''],
+    password: ['']
   }) 
 
   /**
