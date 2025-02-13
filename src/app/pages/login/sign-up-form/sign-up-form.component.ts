@@ -28,10 +28,10 @@ export class SignUpFormComponent {
  arePasswordsIdentical: boolean = false;
 
   public signUpBody = this.formBuilder.group({
-    name: [''],
-    email: [''],
-    password: [''],
-    confirmPassword: ['']
+    name: ['', Validators.required, {updateOn: 'blur'}],
+    email: ['', Validators.required, Validators.email, {updateOn: 'blur'}],
+    password: ['', Validators.required, {updateOn: 'blur'}],
+    confirmPassword: ['', Validators.required, {updateOn: 'blur'}]
   })
   
 
