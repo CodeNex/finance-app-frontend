@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Output, inject } from '@angular/core';
-import { FormsModule, FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, FormGroup, FormControl, Validators, FormBuilder, ReactiveFormsModule } from '@angular/forms';
 
 import { IconsComponent } from '../../../components/icons/icons.component';
 
@@ -17,17 +17,19 @@ export class SignUpFormComponent {
 
  private authentificationService: AuthentificationService = inject(AuthentificationService);
 
+ private formBuilder: FormBuilder = inject(FormBuilder);
+
  isCreatePasswordVisible: boolean = false;
 
  isConfirmPasswordVisible: boolean = false;
 
  isFormValid: boolean = false;
 
-  public signUpBody = new FormGroup({
-    name: new FormControl(''),
-    email: new FormControl(''),
-    password: new FormControl(''),
-    confirmPassword: new FormControl('')
+  public signUpBody = this.formBuilder.group({
+    name: [''],
+    email: [''],
+    password: [''],
+    confirmPassword: ['']
   })
   
 
