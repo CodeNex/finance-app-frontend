@@ -94,8 +94,8 @@
         @if (signUpBody.controls['confirmPassword'].hasError('required') && signUpBody.controls['confirmPassword'].touched) {
           <span>Insert a Password</span>
         }
-        @if (signUpBody.controls['confirmPassword'].hasError('weakPassword') && signUpBody.controls['confirmPassword'].touched) {
-          <span>Must be 10+ chars, inc. A-Z, a-z, 0-9, and special (!&#64;#$%^&*). No spaces.</span>
+        @if (signUpBody.controls['confirmPassword'].hasError('passwordDismatch') && signUpBody.controls['confirmPassword'].touched) {
+          <span>Passwords do not match. Please try again.</span>
         }
       </p>
       <div class="eyeBox" (click)="changePasswordVisibility('confirm')">
