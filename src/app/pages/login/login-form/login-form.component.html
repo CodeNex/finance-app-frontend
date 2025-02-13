@@ -15,7 +15,15 @@
         [ngClass]="{'validationError': loginBody.controls['email'].invalid && loginBody.controls['email'].touched}"
       />
       <label for="email">Email</label>
-      <p class="validationWarning select-none"><span>&nbsp;</span></p>
+      <p class="validationWarning select-none">
+        <span>&nbsp;</span>
+        @if (loginBody.controls['email'].hasError('required') && loginBody.controls['email'].touched) {
+          <span>Insert an Email</span>
+        }
+        @if (loginBody.controls['email'].hasError('email') && loginBody.controls['email'].touched) {
+          <span>Invalid Email</span>
+        }
+      </p>
     </div>
     <div class="input-wrapper">
       <input
