@@ -1,5 +1,12 @@
 import { Component, EventEmitter, Output, inject } from '@angular/core';
-import { FormsModule, FormBuilder, FormGroup, Validators, ReactiveFormsModule, FormControl } from '@angular/forms';
+import {
+  FormsModule,
+  FormBuilder,
+  FormGroup,
+  Validators,
+  ReactiveFormsModule,
+  FormControl,
+} from '@angular/forms';
 import { NgClass } from '@angular/common';
 
 import { IconsComponent } from '../../../components/icons/icons.component';
@@ -13,10 +20,11 @@ import { AuthentificationService } from '../../../services/authentification.serv
   styleUrl: './login-form.component.scss',
 })
 export class LoginFormComponent {
-
   @Output() changeWindow = new EventEmitter();
 
-  private authentificationService: AuthentificationService = inject(AuthentificationService);
+  private authentificationService: AuthentificationService = inject(
+    AuthentificationService
+  );
 
   private formBuilder: FormBuilder = inject(FormBuilder);
 
@@ -25,16 +33,16 @@ export class LoginFormComponent {
   isFormValid: boolean = false;
 
   public loginBody = this.formBuilder.group({
-    email: ['', [Validators.required, Validators.email], {updateOn: 'blur'}],
-    password: ['', [Validators.required, Validators.minLength(6)], {updateOn: 'blur'}]
-  }) 
+    email: ['', {validators: [Validators.required, Validators.email], updateOn: 'blur'}],
+    password: ['', {validators: [Validators.required, Validators.minLength(6)], updateOn: 'blur'}],
+  });
 
   /**
    * Logs in as a registered user
    */
   async doLogin() {
-    console.log("Login-Body: ", this.loginBody.value);
-    
+    console.log('Login-Body: ', this.loginBody.value);
+
     // do validation of input fields
     // set isFormValid to true
     // build body object
@@ -46,12 +54,12 @@ export class LoginFormComponent {
    */
   async doGuestLogin() {
     let body = {
-      'email': 'test@example.com',
-      'password': 'password',
+      email: 'test@example.com',
+      password: 'password',
 
       // 'email': 'guest@guest.com',
       // 'password': 'password'
-    }
+    };
     await this.authentificationService.doAuthentificationRequest('guest', body);
   }
 

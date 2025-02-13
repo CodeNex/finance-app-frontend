@@ -25,6 +25,7 @@
         name="password"
         placeholder=" "
         required
+        [ngClass]="{'validationError': loginBody.controls['password'].invalid && loginBody.controls['password'].touched && loginBody.value.password}"
       />
       <label for="password">Password</label>
       <p class="validationWarning select-none"><span>&nbsp;</span></p>
