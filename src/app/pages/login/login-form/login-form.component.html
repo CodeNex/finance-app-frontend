@@ -36,7 +36,15 @@
         [ngClass]="{'validationError': loginBody.controls['password'].invalid && loginBody.controls['password'].touched}"
       />
       <label for="password">Password</label>
-      <p class="validationWarning select-none"><span>&nbsp;</span></p>
+      <p class="validationWarning select-none">
+        <span>&nbsp;</span>
+        @if (loginBody.controls['password'].hasError('required') && loginBody.controls['password'].touched) {
+          <span>Insert a Password</span>
+        }
+        @if (loginBody.controls['password'].hasError('minlength') && loginBody.controls['password'].touched) {
+          <span>Password must be at least 6 characters long</span>
+        }
+      </p>
       <div class="eyeBox" (click)="changePasswordVisibility()">
         <app-icons
           [iconName]="isPasswordVisible ? 'openedEye' : 'closedEye'"

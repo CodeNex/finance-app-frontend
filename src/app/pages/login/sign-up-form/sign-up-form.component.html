@@ -19,7 +19,15 @@
         [ngClass]="{'validationError': (signUpBody.controls['name'].invalid && signUpBody.controls['name'].touched)}"
       />
       <label for="name">Name</label>
-      <p class="validationWarning select-none"><span>&nbsp;</span></p>
+      <p class="validationWarning select-none">
+        <span>&nbsp;</span>
+        @if (signUpBody.controls['name'].hasError('required') && signUpBody.controls['name'].touched) {
+          <span>Insert a Name</span>
+        }
+        @if (signUpBody.controls['name'].hasError('invalidName') && signUpBody.controls['name'].touched) {
+          <span>Enter a name like: Jane Doe</span>
+        }
+      </p>
     </div>
     <div class="input-wrapper">
       <input
@@ -32,7 +40,15 @@
         [ngClass]="{'validationError': (signUpBody.controls['email'].invalid && signUpBody.controls['email'].touched)}"
       />
       <label for="email">Email</label>
-      <p class="validationWarning select-none"><span>&nbsp;</span></p>
+      <p class="validationWarning select-none">
+        <span>&nbsp;</span>
+        @if (signUpBody.controls['email'].hasError('required') && signUpBody.controls['email'].touched) {
+          <span>Insert an Email</span>
+        }
+        @if (signUpBody.controls['email'].hasError('email') && signUpBody.controls['email'].touched) {
+          <span>Invalid Email</span>
+        }
+      </p>
     </div>
 
     <div class="input-wrapper">
