@@ -8,7 +8,7 @@ import { AuthentificationService } from '../../../services/authentification.serv
 
 @Component({
   selector: 'app-sign-up-form',
-  imports: [FormsModule, ReactiveFormsModule, IconsComponent],
+  imports: [FormsModule, NgClass, ReactiveFormsModule, IconsComponent],
   templateUrl: './sign-up-form.component.html',
   styleUrl: './sign-up-form.component.scss',
 })

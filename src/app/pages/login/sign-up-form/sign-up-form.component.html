@@ -28,6 +28,7 @@
         name="email"
         placeholder=""
         required
+        [ngClass]="{'validationError': signUpBody.controls['email'].invalid && signUpBody.controls['email'].touched}"
       />
       <label for="email">Email</label>
       <p class="validationWarning select-none"><span>&nbsp;</span></p>

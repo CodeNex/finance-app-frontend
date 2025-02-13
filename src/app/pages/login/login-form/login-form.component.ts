@@ -8,7 +8,7 @@ import { AuthentificationService } from '../../../services/authentification.serv
 
 @Component({
   selector: 'app-login-form',
-  imports: [FormsModule, ReactiveFormsModule, IconsComponent],
+  imports: [FormsModule, NgClass, ReactiveFormsModule, IconsComponent],
   templateUrl: './login-form.component.html',
   styleUrl: './login-form.component.scss',
 })
