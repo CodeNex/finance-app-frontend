@@ -48,7 +48,16 @@ export class LoginFormComponent {
    * Logs in as a registered user
    */
   async doLogin() {
-    console.log('Login-Body: ', this.loginBody.value);
+    if (this.loginBody.valid) {
+      console.log('Login-Body is valid: ', this.loginBody.valid);
+      console.log('Login-Body: ', this.loginBody.value);
+    } else {
+      this.loginBody.markAllAsTouched();
+      Object.values(this.loginBody.controls).forEach((control) =>
+        control.updateValueAndValidity()
+      );
+      console.log('Login-Body is valid: ', this.loginBody.valid);
+    }
 
     // do validation of input fields
     // set isFormValid to true
