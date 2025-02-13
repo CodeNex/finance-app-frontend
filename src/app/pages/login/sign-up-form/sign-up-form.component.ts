@@ -1,5 +1,12 @@
 import { Component, EventEmitter, Output, inject } from '@angular/core';
-import { FormsModule, FormGroup, FormControl, Validators, FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import {
+  FormsModule,
+  Validators,
+  FormBuilder,
+  ReactiveFormsModule,
+  AbstractControl,
+  ValidationErrors
+} from '@angular/forms';
 import { NgClass } from '@angular/common';
 
 import { IconsComponent } from '../../../components/icons/icons.component';
@@ -13,44 +20,72 @@ import { AuthentificationService } from '../../../services/authentification.serv
   styleUrl: './sign-up-form.component.scss',
 })
 export class SignUpFormComponent {
-
   @Output() changeWindow = new EventEmitter();
 
- private authentificationService: AuthentificationService = inject(AuthentificationService);
+  private authentificationService: AuthentificationService = inject(
+    AuthentificationService
+  );
 
- private formBuilder: FormBuilder = inject(FormBuilder);
+  private formBuilder: FormBuilder = inject(FormBuilder);
 
- isCreatePasswordVisible: boolean = false;
+  isCreatePasswordVisible: boolean = false;
 
- isConfirmPasswordVisible: boolean = false;
+  isConfirmPasswordVisible: boolean = false;
 
- isFormValid: boolean = false;
+  isFormValid: boolean = false;
 
- arePasswordsIdentical: boolean = false;
+  arePasswordsIdentical: boolean = false;
 
   public signUpBody = this.formBuilder.group({
-    name: ['', {validators: [Validators.required, Validators.minLength(3)], updateOn: 'blur'}],
-    email: ['', {validators: [Validators.required, Validators.email], updateOn: 'blur'}],
-    password: ['', {validators: [Validators.required, Validators.minLength(6)], updateOn: 'blur'}],
-    confirmPassword: ['', {validators: [Validators.required, Validators.minLength(6)], updateOn: 'blur'}]
-  })
-  
+    name: [
+      '',
+      {
+        validators: [Validators.required, Validators.minLength(3)],
+        updateOn: 'blur',
+      },
+    ],
+    email: [
+      '',
+      { validators: [Validators.required, Validators.email], updateOn: 'blur' },
+    ],
+    password: [
+      '',
+      {
+        validators: [Validators.required, Validators.minLength(6)],
+        updateOn: 'blur',
+      },
+    ],
+    confirmPassword: [
+      '',
+      {
+        validators: [Validators.required, Validators.minLength(6)],
+        updateOn: 'blur',
+      },
+    ],
+  });
+
   doRegistration() {
     this.comparePasswords();
     if (this.signUpBody.valid && this.arePasswordsIdentical) {
-      console.log("SignUpBody is valid:", this.signUpBody.valid);
-      console.log("Are passwords identical: ", this.arePasswordsIdentical); 
-      console.log("SignUp-Body: ", this.signUpBody.value);
-    }
-    else {
-      console.log("SignUpBody is valid:", this.signUpBody.valid);
-      console.log("Are passwords identical: ", this.arePasswordsIdentical); 
-      console.log("SignUp-Body: ", this.signUpBody.value);
+      console.log('SignUpBody is valid:', this.signUpBody.valid);
+      console.log('Are passwords identical: ', this.arePasswordsIdentical);
+      console.log('SignUp-Body: ', this.signUpBody.value);
+    } else {
+      console.log('SignUpBody is valid:', this.signUpBody.valid);
+      console.log('Are passwords identical: ', this.arePasswordsIdentical);
+      console.log('SignUp-Body: ', this.signUpBody.value);
     }
   }
 
+  validateName(control: AbstractControl): ValidationErrors | null {
+    if (!control.value) return null;
+    let words = control.value.split(' ');
+    return words.length > 1 ? null : { invalidName: true};
+  }
+
   comparePasswords() {
-    this.arePasswordsIdentical = this.signUpBody.value.password === this.signUpBody.value.confirmPassword;
+    this.arePasswordsIdentical =
+      this.signUpBody.value.password === this.signUpBody.value.confirmPassword;
   }
 
   /**
@@ -64,12 +99,15 @@ export class SignUpFormComponent {
    * Toggles the visibility of the password input field
    */
   changePasswordVisibility(type: string) {
-    type === 'create' ? this.isCreatePasswordVisible = !this.isCreatePasswordVisible : this.isConfirmPasswordVisible = !this.isConfirmPasswordVisible;
+    type === 'create'
+      ? (this.isCreatePasswordVisible = !this.isCreatePasswordVisible)
+      : (this.isConfirmPasswordVisible = !this.isConfirmPasswordVisible);
     let passwordInputRef = document.getElementById(
-      type === 'create' ? 'singupCreatePasswordInput' : 'singupConfirmPasswordInput'
+      type === 'create'
+        ? 'singupCreatePasswordInput'
+        : 'singupConfirmPasswordInput'
     ) as HTMLInputElement;
     passwordInputRef.type =
-        passwordInputRef.type === 'password' ? 'text' : 'password';
+      passwordInputRef.type === 'password' ? 'text' : 'password';
   }
-
 }

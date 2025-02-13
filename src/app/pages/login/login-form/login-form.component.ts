@@ -2,10 +2,8 @@ import { Component, EventEmitter, Output, inject } from '@angular/core';
 import {
   FormsModule,
   FormBuilder,
-  FormGroup,
   Validators,
   ReactiveFormsModule,
-  FormControl,
 } from '@angular/forms';
 import { NgClass } from '@angular/common';
 
@@ -33,8 +31,17 @@ export class LoginFormComponent {
   isFormValid: boolean = false;
 
   public loginBody = this.formBuilder.group({
-    email: ['', {validators: [Validators.required, Validators.email], updateOn: 'blur'}],
-    password: ['', {validators: [Validators.required, Validators.minLength(6)], updateOn: 'blur'}],
+    email: [
+      '',
+      { validators: [Validators.required, Validators.email], updateOn: 'blur' },
+    ],
+    password: [
+      '',
+      {
+        validators: [Validators.required, Validators.minLength(6)],
+        updateOn: 'blur',
+      },
+    ],
   });
 
   /**
