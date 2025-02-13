@@ -26,7 +26,7 @@ export class LoginFormComponent {
 
   public loginBody = this.formBuilder.group({
     email: ['', [Validators.required, Validators.email], {updateOn: 'blur'}],
-    password: ['']
+    password: ['', [Validators.required, Validators.minLength(6)], {updateOn: 'blur'}]
   }) 
 
   /**

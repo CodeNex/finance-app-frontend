@@ -31,8 +31,8 @@ export class SignUpFormComponent {
   public signUpBody = this.formBuilder.group({
     name: ['', Validators.required, {updateOn: 'blur'}],
     email: ['', [Validators.required, Validators.email], {updateOn: 'blur'}],
-    password: ['', Validators.required, {updateOn: 'blur'}],
-    confirmPassword: ['', Validators.required, {updateOn: 'blur'}]
+    password: ['', [Validators.required, Validators.minLength(6)], {updateOn: 'blur'}],
+    confirmPassword: ['', [Validators.required, Validators.minLength(6)], {updateOn: 'blur'}]
   })
   
 
