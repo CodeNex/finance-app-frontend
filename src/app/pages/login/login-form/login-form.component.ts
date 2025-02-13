@@ -25,7 +25,7 @@ export class LoginFormComponent {
   isFormValid: boolean = false;
 
   public loginBody = this.formBuilder.group({
-    email: ['', Validators.required, Validators.email],
+    email: ['', [Validators.required, Validators.email], {updateOn: 'blur'}],
     password: ['']
   }) 
 

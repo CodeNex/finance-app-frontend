@@ -12,7 +12,7 @@
         name="email"
         placeholder=" "
         required
-        [ngClass]="{'validationError': loginBody.controls['email'].invalid && loginBody.controls['email'].touched}"
+        [ngClass]="{'validationError': loginBody.controls['email'].invalid && loginBody.controls['email'].touched && loginBody.value.email}"
       />
       <label for="email">Email</label>
       <p class="validationWarning select-none"><span>&nbsp;</span></p>
