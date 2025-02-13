@@ -12,7 +12,7 @@
         name="email"
         placeholder=" "
         required
-        [ngClass]="{'validationError': loginBody.controls['email'].invalid && loginBody.controls['email'].touched && loginBody.value.email}"
+        [ngClass]="{'validationError': loginBody.controls['email'].invalid && loginBody.controls['email'].touched}"
       />
       <label for="email">Email</label>
       <p class="validationWarning select-none"><span>&nbsp;</span></p>
@@ -25,7 +25,7 @@
         name="password"
         placeholder=" "
         required
-        [ngClass]="{'validationError': loginBody.controls['password'].invalid && loginBody.controls['password'].touched && loginBody.value.password}"
+        [ngClass]="{'validationError': loginBody.controls['password'].invalid && loginBody.controls['password'].touched}"
       />
       <label for="password">Password</label>
       <p class="validationWarning select-none"><span>&nbsp;</span></p>
