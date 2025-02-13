@@ -25,6 +25,8 @@ export class SignUpFormComponent {
 
  isFormValid: boolean = false;
 
+ arePasswordsIdentical: boolean = false;
+
   public signUpBody = this.formBuilder.group({
     name: [''],
     email: [''],
@@ -34,8 +36,13 @@ export class SignUpFormComponent {
   
 
   doRegistration() {
-    console.log("SignUp-Body: ", this.signUpBody.value);
-    
+    this.comparePasswords();
+    console.log("SignUp-Body: ", this.signUpBody);
+    console.log("Are passwords identical: ", this.arePasswordsIdentical);  
+  }
+
+  comparePasswords() {
+    this.arePasswordsIdentical = this.signUpBody.value.password === this.signUpBody.value.confirmPassword;
   }
 
   /**
