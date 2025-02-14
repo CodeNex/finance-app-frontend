@@ -32,9 +32,12 @@ export class AutoLoginService {
     let storageJsonToken = await localStorage.getItem(
       this.baseData.financeApp.basics.apiData.localStorage.tokenKey
     );
-    if (storageJsonToken === typeof 'string') {
+    if (storageJsonToken === typeof 'string' && storageJsonToken !== null && storageJsonToken.length > 0) {
       this.isTokenAvailableFromLocalStorage = true;
       this.token = JSON.parse(storageJsonToken);
+      this.doTokenValidationRequest();
+    } else {
+      return console.log('No token available in LocalStorage');
     }
     console.log('Token from LocalStorage: ', this.token);
   }
@@ -50,8 +53,18 @@ export class AutoLoginService {
         headers: headers,
       })
       .subscribe({
-        next: (response) => {},
-        error: (error) => {},
+        next: (response) => {
+          this.doAutoLogin();
+        },
+        error: (error) => {
+          console.log('Token is invalid: ', error);
+        },
       });
+  }
+
+  doAutoLogin() {
+    this.authService.authToken = this.token;
+    this.authService.setLoadingScreen(true);
+    this.apiService.loadDataFirstTime();
   }
 }
