@@ -99,6 +99,10 @@ export class SignUpFormComponent {
       : { passwordDismatch: true };
   }
 
+  toggleAcceptPrivacyPolicy() {
+    this.isPrivacyPolicyAccepted = !this.isPrivacyPolicyAccepted;
+  }
+
   /**
    * Emits an event to change the window between login and register components
    */

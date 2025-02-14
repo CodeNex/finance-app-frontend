@@ -113,12 +113,12 @@
 
     <!-- checkbox privacy policy  -->
     <div class="flex gap-2 items-center mt-[-4px]">
-      <div class="relative w-4 h-4 border border-grey-900 rounded-[4px] cursor-pointer">
+      <div (click)="toggleAcceptPrivacyPolicy()" class="relative w-4 h-4 border border-grey-900 rounded-[4px] cursor-pointer">
         @if (isPrivacyPolicyAccepted) {
           <app-icons class="absolute top-[50%] left-[50%] transform translate-x-[-50%] translate-y-[-50%]" [iconName]="'checked'"></app-icons>
         }
       </div>
-      <p class="text4r text-grey-500 select-none">I accept the <a href="">Privacy policy</a></p>
+      <p class="text4r text-grey-500 select-none">I accept the <a href="" class="underline hover:text-grey-900">Privacy policy</a></p>
      </div>
 
     <!-- create account field -->
