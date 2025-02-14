@@ -59,6 +59,7 @@ export class AuthentificationService {
       })
       .subscribe({
         next: (response) => {
+          if (this.saveTokenInLocalStorage) this.setTokenToLocalStorage(response.token);
           this.authWarningMessage = '';
           this.authToken = response.token;
           this.startApiFirstDataLoading();
