@@ -55,12 +55,12 @@
 
     <!-- checkbox remember me -->
      <div class="flex gap-2 items-center">
-      <div class="felx items-center justify-center w-4 h-4 border border-grey-900 rounded-[4px] cursor-pointer" (click)="toggleKeepLoggedIn()">
+      <div class="relative w-4 h-4 border border-grey-900 rounded-[4px] cursor-pointer" (click)="toggleKeepLoggedIn()">
         @if (isKeepLoggedIn) {
-          <app-icons class="h-[8px] w-[8px]" [iconName]="'checked'"></app-icons>
+          <app-icons class="absolute top-[50%] left-[50%] transform translate-x-[-50%] translate-y-[-50%]" [iconName]="'checked'"></app-icons>
         }
       </div>
-      <p>Remember my password for automatic login next time.</p>
+      <p class="text4r text-grey-500 select-none">Remember my password for automatic login next time.</p>
      </div>
 
     <!-- button box -->

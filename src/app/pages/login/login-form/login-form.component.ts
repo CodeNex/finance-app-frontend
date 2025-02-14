@@ -33,7 +33,7 @@ export class LoginFormComponent {
 
   private isFormValid: boolean = false;
 
-  public isKeepLoggedIn: boolean = true;
+  public isKeepLoggedIn: boolean = false;
 
   public loginBody = this.formBuilder.group({
     email: [
