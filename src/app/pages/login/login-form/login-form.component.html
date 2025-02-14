@@ -54,17 +54,17 @@
     </div>
 
     <!-- checkbox remember me -->
-     <div class="flex gap-2 items-center">
+     <div class="flex gap-2 items-center mt-[-4px]">
       <div class="relative w-4 h-4 border border-grey-900 rounded-[4px] cursor-pointer" (click)="toggleKeepLoggedIn()">
         @if (isKeepLoggedIn) {
           <app-icons class="absolute top-[50%] left-[50%] transform translate-x-[-50%] translate-y-[-50%]" [iconName]="'checked'"></app-icons>
         }
       </div>
-      <p class="text4r text-grey-500 select-none">Remember my password for automatic login next time.</p>
+      <p class="text4r text-grey-500 select-none">Remember me</p>
      </div>
 
     <!-- button box -->
-     <div class="flex gap-8">
+     <div class="flex gap-8 mt-5">
       <button type="submit"
       class="w-full bg-grey-900 text-white text4b pt-[9px] pb-[9px] rounded-lg select-none"
     >
