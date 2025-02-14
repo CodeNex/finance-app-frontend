@@ -68,11 +68,6 @@ export class LoginFormComponent {
       );
       console.log('Login-Body is valid: ', this.loginBody.valid);
     }
-
-    // do validation of input fields
-    // set isFormValid to true
-    // build body object
-    //fire authentification function
   }
 
   /**
