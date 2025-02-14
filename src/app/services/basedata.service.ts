@@ -9,8 +9,8 @@ export class BasedataService {
   public financeapp: any = {
     basics: {
       apiData: {
-        baseUrl: '',
-        // baseUrl: ''
+        baseUrl: 'https://finance.code-nex.de/api',
+        // baseUrl: 'http://localhost:3000'
       },
       colors: {
         green: {
