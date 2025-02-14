@@ -9,7 +9,6 @@ import { BasedataService } from './basedata.service';
   providedIn: 'root',
 })
 export class AuthentificationService {
-
   private http: HttpClient = inject(HttpClient);
   private injector: Injector = inject(Injector);
   private baseData: BasedataService = inject(BasedataService);
@@ -24,7 +23,7 @@ export class AuthentificationService {
   isWarningScreenVisible$ = this.isWarningScreenVisible.asObservable();
   setWarningScreen(value: boolean) {
     this.isWarningScreenVisible.next(value);
-  } 
+  }
 
   public isLoadingScreenVisible = new BehaviorSubject<boolean>(false);
   isloadingScreenVisible$ = this.isLoadingScreenVisible.asObservable();
@@ -42,7 +41,7 @@ export class AuthentificationService {
 
   headers = new HttpHeaders({
     'Content-Type': 'application/json',
-    'Accept': 'application/json',
+    Accept: 'application/json',
   });
 
   //authOption: 'login' | 'register' | 'guest'
@@ -59,11 +58,12 @@ export class AuthentificationService {
       })
       .subscribe({
         next: (response) => {
-          if (this.saveTokenInLocalStorage) this.setTokenToLocalStorage(response.token);
+          if (this.saveTokenInLocalStorage)
+            this.setTokenToLocalStorage(response.token);
           this.authWarningMessage = '';
           this.authToken = response.token;
           this.startApiFirstDataLoading();
-          console.log('Auth-Token:', this.authToken); 
+          console.log('Auth-Token:', this.authToken);
         },
         error: (error) => {
           this.setLoadingScreen(false);
@@ -80,7 +80,10 @@ export class AuthentificationService {
   }
 
   setTokenToLocalStorage(token: string) {
-    let jsonToken = JSON.stringify(token); 
-    localStorage.setItem('sdio732d_uuw12!#SDo072354°ka', jsonToken);
+    let jsonToken = JSON.stringify(token);
+    localStorage.setItem(
+      this.baseData.financeApp.basics.apiData.tokenKey,
+      jsonToken
+    );
   }
 }

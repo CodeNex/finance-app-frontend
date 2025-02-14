@@ -30,7 +30,7 @@ export class AutoLoginService {
 
   async checkForToken() {
     let storageJsonToken = await localStorage.getItem(
-      'sdio732d_uuw12!#SDo072354°ka'
+      this.baseData.financeApp.basics.apiData.localStorage.tokenKey
     );
     if (storageJsonToken === typeof 'string') {
       this.isTokenAvailableFromLocalStorage = true;
