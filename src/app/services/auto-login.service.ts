@@ -11,6 +11,7 @@ export class AutoLoginService {
 
   public authService: AuthentificationService = inject(AuthentificationService);
   public apiService: APIService = inject(APIService);
+  private http: HttpClient = inject(HttpClient);
 
   private isTokenAvailableFromLocalStorage: boolean = false;
 
@@ -31,8 +32,25 @@ export class AutoLoginService {
     console.log('Token from LocalStorage: ', this.token);
   }
 
-  function() {
-    console.log('AutoLoginService');
-    
+  doTokenValidationRequest() {
+    this.http
+      .post<{ token: string }>(this.baseUrl + path, body, {
+        headers: this.headers,
+      })
+      .subscribe({
+        next: (response) => {
+          if (this.saveTokenInLocalStorage) this.setTokenToLocalStorage(response.token);
+          this.authWarningMessage = '';
+          this.authToken = response.token;
+          this.startApiFirstDataLoading();
+          console.log('Auth-Token:', this.authToken); 
+        },
+        error: (error) => {
+          this.setLoadingScreen(false);
+          this.setWarningScreen(true);
+          this.authWarningMessage = error.message;
+          console.log('Error:', this.authWarningMessage);
+        },
+      });
   }
 }
