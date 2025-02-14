@@ -1,6 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
+import { BasedataService } from './basedata.service';
 import { AuthentificationService } from './authentification.service';
 import { APIService } from './api.service';
 
@@ -9,9 +10,12 @@ import { APIService } from './api.service';
 })
 export class AutoLoginService {
 
+  private baseData: BasedataService = inject(BasedataService);
   public authService: AuthentificationService = inject(AuthentificationService);
   public apiService: APIService = inject(APIService);
   private http: HttpClient = inject(HttpClient);
+
+  private baseUrl: string = this.baseData.financeApp.basics.apiData.baseUrl;
 
   private isTokenAvailableFromLocalStorage: boolean = false;
 
@@ -33,24 +37,24 @@ export class AutoLoginService {
   }
 
   doTokenValidationRequest() {
-    this.http
-      .post<{ token: string }>(this.baseUrl + path, body, {
-        headers: this.headers,
-      })
-      .subscribe({
-        next: (response) => {
-          if (this.saveTokenInLocalStorage) this.setTokenToLocalStorage(response.token);
-          this.authWarningMessage = '';
-          this.authToken = response.token;
-          this.startApiFirstDataLoading();
-          console.log('Auth-Token:', this.authToken); 
-        },
-        error: (error) => {
-          this.setLoadingScreen(false);
-          this.setWarningScreen(true);
-          this.authWarningMessage = error.message;
-          console.log('Error:', this.authWarningMessage);
-        },
-      });
+    // this.http
+    //   .post<{ token: string }>(this.baseUrl + path, body, {
+    //     headers: this.headers,
+    //   })
+    //   .subscribe({
+    //     next: (response) => {
+    //       if (this.saveTokenInLocalStorage) this.setTokenToLocalStorage(response.token);
+    //       this.authWarningMessage = '';
+    //       this.authToken = response.token;
+    //       this.startApiFirstDataLoading();
+    //       console.log('Auth-Token:', this.authToken); 
+    //     },
+    //     error: (error) => {
+    //       this.setLoadingScreen(false);
+    //       this.setWarningScreen(true);
+    //       this.authWarningMessage = error.message;
+    //       console.log('Error:', this.authWarningMessage);
+    //     },
+    //   });
   }
 }

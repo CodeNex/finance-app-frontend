@@ -4,19 +4,23 @@ import { catchError, Observable, of, tap, throwError } from 'rxjs';
 import { Router } from '@angular/router';
 
 import { AuthentificationService } from './authentification.service';
+import { BasedataService } from './basedata.service';
 import { DataStoreServiceService } from './data-store-service.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class APIService {
+
   private http: HttpClient = inject(HttpClient);
   private authentificationService: AuthentificationService = inject(
     AuthentificationService
   );
   private dataStore: DataStoreServiceService = inject(DataStoreServiceService);
+  private baseData: BasedataService = inject(BasedataService);
   private router: Router = inject(Router);
 
+  // private baseUrl: string = this.baseData.financeApp.basics.apiData.baseUrl;
   private baseUrl = '/dummyData';
 
   public warningMessage: string = '';

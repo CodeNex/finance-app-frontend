@@ -3,18 +3,18 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BehaviorSubject } from 'rxjs';
 
 import { APIService } from './api.service';
+import { BasedataService } from './basedata.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthentificationService {
+
   private http: HttpClient = inject(HttpClient);
+  private injector: Injector = inject(Injector);
+  private baseData: BasedataService = inject(BasedataService);
 
-  private injector = inject(Injector);
-
-  private baseUrl: string = 'https://finance.code-nex.de/api';
-
-  // private baseUrl: string = 'http://localhost:3000';
+  private baseUrl: string = this.baseData.financeApp.basics.apiData.baseUrl;
 
   private loginPath: string = '/login';
 

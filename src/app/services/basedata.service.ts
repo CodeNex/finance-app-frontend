@@ -6,7 +6,7 @@ import { Injectable } from '@angular/core';
 export class BasedataService {
   constructor() {}
 
-  public financeapp: any = {
+  public financeApp: any = {
     basics: {
       apiData: {
         baseUrl: 'https://finance.code-nex.de/api',
