@@ -37,8 +37,6 @@ export class SignUpFormComponent {
 
   isFormValid: boolean = false;
 
-  arePasswordsIdentical: boolean = false;
-
   public signUpBody = this.formBuilder.group({
     name: [
       '',
@@ -68,10 +66,8 @@ export class SignUpFormComponent {
   });
 
   doRegistration() {
-    this.comparePasswords();
-    if (this.signUpBody.valid && this.arePasswordsIdentical) {
+    if (this.signUpBody.valid) {
       console.log('SignUpBody is valid:', this.signUpBody.valid);
-      console.log('Are passwords identical: ', this.arePasswordsIdentical);
       console.log('SignUp-Body: ', this.signUpBody.value);
     } else {
       this.signUpBody.markAllAsTouched();
@@ -101,11 +97,6 @@ export class SignUpFormComponent {
     return control.value === control.parent?.get('password')?.value
       ? null
       : { passwordDismatch: true };
-  }
-
-  comparePasswords() {
-    this.arePasswordsIdentical =
-      this.signUpBody.value.password === this.signUpBody.value.confirmPassword;
   }
 
   /**
