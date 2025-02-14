@@ -4,8 +4,6 @@ import {
   FormBuilder,
   Validators,
   ReactiveFormsModule,
-  AbstractControl,
-  ValidationErrors,
 } from '@angular/forms';
 import { NgClass } from '@angular/common';
 
@@ -35,7 +33,7 @@ export class LoginFormComponent {
 
   private isFormValid: boolean = false;
 
-  private isKeepLoggedIn: boolean = false;
+  public isKeepLoggedIn: boolean = true;
 
   public loginBody = this.formBuilder.group({
     email: [
