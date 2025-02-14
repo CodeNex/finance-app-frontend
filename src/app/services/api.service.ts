@@ -31,8 +31,8 @@ export class APIService {
   // endpoints: balance, budgets, pots, transactions
   getData(endpoint: string): Observable<any> {
     const headers = new HttpHeaders({
-      Authorization: `Bearer ${this.authentificationService.authToken}`,
-      Accept: 'application/json',
+      'Authorization': `Bearer ${this.authentificationService.authToken}`,
+      'Accept': 'application/json',
     });
 
     return this.http.get(`${this.baseUrl}/${endpoint}.json`, { headers }).pipe(
@@ -53,9 +53,9 @@ export class APIService {
     id >= 0 ? (path = `/{${id}}`) : (path = '');
 
     const headers = new HttpHeaders({
-      Authorization: `Bearer ${this.authentificationService.authToken}`,
+      'Authorization': `Bearer ${this.authentificationService.authToken}`,
       'Content-Type': 'application/json',
-      Accept: 'application/json',
+      'Accept': 'application/json',
     });
     return this.http
       .put(`${this.baseUrl}/${endpoint}${path}`, body, {

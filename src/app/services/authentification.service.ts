@@ -42,7 +42,7 @@ export class AuthentificationService {
 
   headers = new HttpHeaders({
     'Content-Type': 'application/json',
-    Accept: 'application/json',
+    'Accept': 'application/json',
   });
 
   //authOption: 'login' | 'register' | 'guest'
