@@ -8,6 +8,8 @@
     (ngSubmit)="doRegistration()"
     class="flex flex-col gap-2"
   >
+
+    <!-- name input field -->
     <div class="input-wrapper">
       <input
         formControlName="name"
@@ -29,6 +31,8 @@
         }
       </p>
     </div>
+
+    <!-- email input field -->
     <div class="input-wrapper">
       <input
         formControlName="email"
@@ -51,6 +55,7 @@
       </p>
     </div>
 
+    <!-- password input field -->
     <div class="input-wrapper">
       <input
         formControlName="password"
@@ -78,6 +83,7 @@
       </div>
     </div>
 
+    <!-- confirm password field -->
     <div class="input-wrapper">
       <input
         formControlName="confirmPassword"
@@ -105,8 +111,19 @@
       </div>
     </div>
 
+    <!-- checkbox privacy policy  -->
+    <div class="flex gap-2 items-center mt-[-4px]">
+      <div class="relative w-4 h-4 border border-grey-900 rounded-[4px] cursor-pointer">
+        @if (isPrivacyPolicyAccepted) {
+          <app-icons class="absolute top-[50%] left-[50%] transform translate-x-[-50%] translate-y-[-50%]" [iconName]="'checked'"></app-icons>
+        }
+      </div>
+      <p class="text4r text-grey-500 select-none">I accept the <a href="">Privacy policy</a></p>
+     </div>
+
+    <!-- create account field -->
     <button
-      class="w-full bg-grey-900 text-white text4b pt-[9px] pb-[9px] rounded-lg select-none"
+      class="w-full bg-grey-900 text-white text4b mt-[18px] pt-[9px] pb-[9px] rounded-lg select-none"
     >
       Create Account
     </button>

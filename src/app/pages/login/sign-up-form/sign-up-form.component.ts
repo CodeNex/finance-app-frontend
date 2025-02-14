@@ -29,6 +29,8 @@ export class SignUpFormComponent {
 
   private formBuilder: FormBuilder = inject(FormBuilder);
 
+  public isPrivacyPolicyAccepted: boolean = false;
+
   isCreatePasswordVisible: boolean = false;
 
   isConfirmPasswordVisible: boolean = false;
