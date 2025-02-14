@@ -54,7 +54,7 @@ export class LoginFormComponent {
   validateStrongPassword(control: AbstractControl): ValidationErrors | null {
     const password = control.value;
     const regex =
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*(),.?":{}|<>])[A-Za-z\d!@#$%^&*(),.?":{}|<>]{10,}$/;
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d!@#$%^&*(),.?":{}|<>]{8,}$/;
     if (!password) return null;
     return regex.test(password) ? null : { weakPassword: true };
   }

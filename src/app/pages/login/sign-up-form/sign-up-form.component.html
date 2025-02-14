@@ -68,7 +68,7 @@
           <span>Insert a Password</span>
         }
         @if (signUpBody.controls['password'].hasError('weakPassword') && signUpBody.controls['password'].touched) {
-          <span>Must be 10+ chars, inc. A-Z, a-z, 0-9, and special (!&#64;#$%^&*). No spaces.</span>
+          <span>Must be 8+ chars, inc. A-Z, a-z, 0-9. No spaces.</span>
         }
       </p>
       <div class="eyeBox" (click)="changePasswordVisibility('create')">
