@@ -16,7 +16,7 @@
         required
         [ngClass]="{'validationError': loginBody.controls['email'].invalid && loginBody.controls['email'].touched}"
       />
-      <label for="email">Email</label>
+      <label for="loginEmailInput" class="hover:cursor-text">Email</label>
       <p class="validationWarning select-none">
         <span>&nbsp;</span>
         @if (loginBody.controls['email'].hasError('required') && loginBody.controls['email'].touched) {
@@ -39,7 +39,7 @@
         required
         [ngClass]="{'validationError': loginBody.controls['password'].invalid && loginBody.controls['password'].touched}"
       />
-      <label for="password">Password</label>
+      <label for="loginPasswordInput" class="hover:cursor-text">Password</label>
       <p class="validationWarning select-none">
         <span>&nbsp;</span>
         @if (loginBody.controls['password'].hasError('required') && loginBody.controls['password'].touched) {

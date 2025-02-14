@@ -23,7 +23,7 @@
             signUpBody.controls['name'].touched
         }"
       />
-      <label for="name">Name</label>
+      <label for="singupNameInput" class="hover:cursor-text">Name</label>
       <p class="validationWarning select-none">
         <span>&nbsp;</span>
         @if (signUpBody.controls['name'].hasError('required') &&
@@ -51,7 +51,7 @@
             signUpBody.controls['email'].touched
         }"
       />
-      <label for="email">Email</label>
+      <label for="signupEmailInput" class="hover:cursor-text">Email</label>
       <p class="validationWarning select-none">
         <span>&nbsp;</span>
         @if (signUpBody.controls['email'].hasError('required') &&
@@ -79,7 +79,7 @@
             signUpBody.controls['password'].touched
         }"
       />
-      <label for="password">Create Password</label>
+      <label for="singupCreatePasswordInput" class="hover:cursor-text">Create Password</label>
       <p class="validationWarning select-none">
         <span>&nbsp;</span>
         @if (signUpBody.controls['password'].hasError('required') &&
@@ -112,7 +112,7 @@
             signUpBody.controls['confirmPassword'].touched
         }"
       />
-      <label for="confirmPassword">Confirm Password</label>
+      <label for="singupConfirmPasswordInput" class="hover:cursor-text">Confirm Password</label>
       <p class="validationWarning select-none">
         <span>&nbsp;</span>
         @if (signUpBody.controls['confirmPassword'].hasError('required') &&
