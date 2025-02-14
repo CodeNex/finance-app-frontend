@@ -11,6 +11,7 @@ import { NgClass } from '@angular/common';
 
 import { IconsComponent } from '../../../components/icons/icons.component';
 
+import { AutoLoginService } from '../../../services/auto-login.service';
 import { AuthentificationService } from '../../../services/authentification.service';
 
 @Component({
@@ -21,6 +22,8 @@ import { AuthentificationService } from '../../../services/authentification.serv
 })
 export class LoginFormComponent {
   @Output() changeWindow = new EventEmitter();
+
+  private autoLoginService: AutoLoginService = inject(AutoLoginService);
 
   private authentificationService: AuthentificationService = inject(
     AuthentificationService
