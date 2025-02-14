@@ -38,6 +38,8 @@ export class AuthentificationService {
 
   public isFirstRender: boolean = true;
 
+  public saveTokenInLocalStorage: boolean = false;
+
   headers = new HttpHeaders({
     'Content-Type': 'application/json',
     Accept: 'application/json',
@@ -74,5 +76,10 @@ export class AuthentificationService {
   startApiFirstDataLoading() {
     const apiService = this.injector.get(APIService);
     return apiService.loadDataFirstTime();
+  }
+
+  setTokenToLocalStorage(token: string) {
+    let jsonToken = JSON.stringify(token); 
+    localStorage.setItem('sdio732d_uuw12!#SDo072354°ka', jsonToken);
   }
 }

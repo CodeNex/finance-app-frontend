@@ -5,7 +5,7 @@ import {
   Validators,
   ReactiveFormsModule,
   AbstractControl,
-  ValidationErrors
+  ValidationErrors,
 } from '@angular/forms';
 import { NgClass } from '@angular/common';
 
@@ -28,9 +28,11 @@ export class LoginFormComponent {
 
   private formBuilder: FormBuilder = inject(FormBuilder);
 
-  isPasswordVisible: boolean = false;
+  public isPasswordVisible: boolean = false;
 
-  isFormValid: boolean = false;
+  private isFormValid: boolean = false;
+
+  private isKeepLoggedIn: boolean = false;
 
   public loginBody = this.formBuilder.group({
     email: [
@@ -59,6 +61,7 @@ export class LoginFormComponent {
    */
   async doLogin() {
     if (this.loginBody.valid) {
+      this.checkIfKeepLoggedIn();
       console.log('Login-Body is valid: ', this.loginBody.valid);
       console.log('Login-Body: ', this.loginBody.value);
     } else {
@@ -101,5 +104,14 @@ export class LoginFormComponent {
     ) as HTMLInputElement;
     passwordInputRef.type =
       passwordInputRef.type === 'password' ? 'text' : 'password';
+  }
+
+  toggleKeepLoggedIn() {
+    this.isKeepLoggedIn = !this.isKeepLoggedIn;
+  }
+
+  checkIfKeepLoggedIn() {
+    if (this.isKeepLoggedIn)
+      this.authentificationService.saveTokenInLocalStorage = true;
   }
 }
