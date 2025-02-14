@@ -110,7 +110,6 @@ export class SignUpFormComponent {
     else {
       this.isPrivacyPolicyAccepted = false;
     }
-    
   }
 
   /**
