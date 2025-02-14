@@ -18,8 +18,6 @@ export class AutoLoginService {
 
   private path: string = '/auto-login';
 
-  private isTokenAvailableFromLocalStorage: boolean = false;
-
   private token: string = '';
 
   private isTokenValid: boolean = false;
@@ -33,7 +31,6 @@ export class AutoLoginService {
       this.baseData.financeApp.basics.apiData.localStorage.tokenKey
     );
     if (storageJsonToken === typeof 'string' && storageJsonToken !== null && storageJsonToken.length > 0) {
-      this.isTokenAvailableFromLocalStorage = true;
       this.token = JSON.parse(storageJsonToken);
       this.doTokenValidationRequest();
     } else {
