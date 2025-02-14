@@ -4,6 +4,8 @@
   </div>
   <!-- Form -->
   <form [formGroup]="loginBody" (ngSubmit)="doLogin()" action="" class="flex flex-col gap-2">
+
+    <!-- email input field -->
     <div class="input-wrapper">
       <input
         formControlName="email"
@@ -25,6 +27,8 @@
         }
       </p>
     </div>
+
+    <!-- password input field -->
     <div class="input-wrapper">
       <input
         formControlName="password"
@@ -48,16 +52,20 @@
         ></app-icons>
       </div>
     </div>
-    <button type="submit"
+
+    <!-- button box -->
+     <div class="flex gap-8">
+      <button type="submit"
       class="w-full bg-grey-900 text-white text4b pt-[9px] pb-[9px] rounded-lg select-none"
     >
       Login
     </button>
     <div (click)="doGuestLogin()"
-      class="w-full bg-grey-900 text-white text4b pt-[9px] pb-[9px] mt-6 rounded-lg select-none text-center cursor-pointer"
+      class="w-full bg-grey-900 text-white text4b pt-[9px] pb-[9px] rounded-lg select-none text-center cursor-pointer"
     >
-      Guest Login without registration
+      Guest Login
     </div>
+     </div> 
   </form>
 
   <div class="flex justify-center items-center gap-2">
