@@ -78,6 +78,28 @@ export class APIService {
     this.loadData('pots');
   }
 
+  loadData(endpoint: string) {
+    this.loadingScreenTimer();
+    this.getData(endpoint).subscribe({
+      next: (response) => {
+        if (endpoint === 'balance') this.balanceDataLoaded = true;
+        if (endpoint === 'budgets') this.budgetsDataLoaded = true;
+        if (endpoint === 'pots') this.potsDataLoaded = true;
+        if (endpoint === 'transactions') this.transactionsDataLoaded = true;
+        this.checkDataLoaded(endpoint);
+        this.authentificationService.setWarningScreen(false);
+        this.warningMessage = '';
+        console.log(this.dataStore.getStoredData(endpoint));
+      },
+      error: (error) => {
+        console.error(`Fail to fetch ${endpoint} data`, error);
+        this.authentificationService.setLoadingScreen(false);
+        this.warningMessage = `Fail to fetch ${endpoint} data`;
+        this.authentificationService.setWarningScreen(true);
+      },
+    });
+  }
+
   balanceDataLoaded: boolean = false;
   budgetsDataLoaded: boolean = false;
   potsDataLoaded: boolean = false;
@@ -104,25 +126,5 @@ export class APIService {
     }
   }
 
-  loadData(endpoint: string) {
-    this.loadingScreenTimer();
-    this.getData(endpoint).subscribe({
-      next: (response) => {
-        if (endpoint === 'balance') this.balanceDataLoaded = true;
-        if (endpoint === 'budgets') this.budgetsDataLoaded = true;
-        if (endpoint === 'pots') this.potsDataLoaded = true;
-        if (endpoint === 'transactions') this.transactionsDataLoaded = true;
-        this.checkDataLoaded(endpoint);
-        this.authentificationService.setWarningScreen(false);
-        this.warningMessage = '';
-        console.log(this.dataStore.getStoredData(endpoint));
-      },
-      error: (error) => {
-        console.error(`Fail to fetch ${endpoint} data`, error);
-        this.authentificationService.setLoadingScreen(false);
-        this.warningMessage = `Fail to fetch ${endpoint} data`;
-        this.authentificationService.setWarningScreen(true);
-      },
-    });
-  }
+  
 }
