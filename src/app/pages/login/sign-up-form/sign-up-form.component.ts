@@ -31,6 +31,8 @@ export class SignUpFormComponent {
 
   public isPrivacyPolicyAccepted: boolean = false;
 
+  public isPrivacyPolicyValidationMessageVisible: boolean = false;
+
   isCreatePasswordVisible: boolean = false;
 
   isConfirmPasswordVisible: boolean = false;
@@ -66,10 +68,11 @@ export class SignUpFormComponent {
   });
 
   doRegistration() {
-    if (this.signUpBody.valid) {
+    if (this.signUpBody.valid && this.isPrivacyPolicyAccepted) {
       console.log('SignUpBody is valid:', this.signUpBody.valid);
       console.log('SignUp-Body: ', this.signUpBody.value);
     } else {
+      this.isPrivacyPolicyValidationMessageVisible = true;
       this.signUpBody.markAllAsTouched();
       Object.values(this.signUpBody.controls).forEach((control) =>
         control.updateValueAndValidity()
@@ -100,7 +103,14 @@ export class SignUpFormComponent {
   }
 
   toggleAcceptPrivacyPolicy() {
-    this.isPrivacyPolicyAccepted = !this.isPrivacyPolicyAccepted;
+    if (!this.isPrivacyPolicyAccepted) {
+      this.isPrivacyPolicyAccepted = true;
+      this.isPrivacyPolicyValidationMessageVisible = false;
+    }
+    else {
+      this.isPrivacyPolicyAccepted = false;
+    }
+    
   }
 
   /**
