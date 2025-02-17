@@ -147,7 +147,7 @@
         </div>
         <p class="text4r text-grey-500 select-none">
           I accept the
-          <a href="" class="underline hover:text-grey-900">Privacy policy</a>
+          <a [routerLink]="['/imprint']" class="underline hover:text-grey-900">Privacy policy</a>
         </p>
       </div>
       <p class="validationWarning select-none">
@@ -173,5 +173,9 @@
     >
       Login
     </button>
+  </div>
+
+  <div class="flex justify-center">
+    <a [routerLink]="['/imprint']" routerLinkActive="router-link-active" class="text4r text-grey-500 select-none underline hover:text-grey-900">Imprint & Privacy</a>
   </div>
 </section>
