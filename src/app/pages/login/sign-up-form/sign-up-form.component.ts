@@ -9,6 +9,7 @@ import {
   ValidatorFn,
 } from '@angular/forms';
 import { NgClass } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
 import { IconsComponent } from '../../../components/icons/icons.component';
 
@@ -16,7 +17,7 @@ import { AuthentificationService } from '../../../services/authentification.serv
 
 @Component({
   selector: 'app-sign-up-form',
-  imports: [FormsModule, NgClass, ReactiveFormsModule, IconsComponent],
+  imports: [FormsModule, RouterModule, NgClass, ReactiveFormsModule, IconsComponent],
   templateUrl: './sign-up-form.component.html',
   styleUrl: './sign-up-form.component.scss',
 })

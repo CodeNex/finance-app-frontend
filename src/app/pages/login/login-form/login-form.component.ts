@@ -6,6 +6,7 @@ import {
   ReactiveFormsModule,
 } from '@angular/forms';
 import { NgClass } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
 import { IconsComponent } from '../../../components/icons/icons.component';
 
@@ -14,7 +15,7 @@ import { AuthentificationService } from '../../../services/authentification.serv
 
 @Component({
   selector: 'app-login-form',
-  imports: [FormsModule, NgClass, ReactiveFormsModule, IconsComponent],
+  imports: [FormsModule, RouterModule, NgClass, ReactiveFormsModule, IconsComponent],
   templateUrl: './login-form.component.html',
   styleUrl: './login-form.component.scss',
 })
