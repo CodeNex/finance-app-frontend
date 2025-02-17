@@ -54,4 +54,13 @@ export class LoginComponent {
   chooseLoginWindow(windowName: string) {
     this.currentShownLoginWindow = windowName;
   }
+
+  switchToLogInComponent(currentShownLoginWindow: string) {
+    this. currentShownLoginWindow = currentShownLoginWindow;
+    this.isImprintComponentVisible = false;
+  }
+
+  switchToImprintComponent() {
+    this.isImprintComponentVisible = true;
+  }
 }
