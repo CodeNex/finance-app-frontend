@@ -24,6 +24,8 @@ import { AuthentificationService } from '../../../services/authentification.serv
 export class SignUpFormComponent {
   @Output() changeWindow = new EventEmitter();
 
+  @Output() public switchToImprintComponent: EventEmitter<string> = new EventEmitter<string>();
+
   private authentificationService: AuthentificationService = inject(
     AuthentificationService
   );
@@ -80,6 +82,10 @@ export class SignUpFormComponent {
       );
       console.log('SignUpBody is valid:', this.signUpBody.valid);
     }
+  }
+
+  goToImprintComponent() {
+    this.switchToImprintComponent.emit('loginForm');
   }
 
   validateName(control: AbstractControl): ValidationErrors | null {

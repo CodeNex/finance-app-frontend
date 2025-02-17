@@ -23,6 +23,7 @@
       } @if (currentShownLoginWindow == "signUpForm") {
       <app-sign-up-form
         (changeWindow)="chooseLoginWindow($event)"
+        (switchToImprintComponent)="switchToImprintComponent($event)"
       ></app-sign-up-form>
       } @if (isLoadingScreenVisible) {
       <app-loading-screen id="loginLoadingScreen"></app-loading-screen>
