@@ -13,6 +13,8 @@ export class ImprintComponent {
 
   public location: string = '';
 
+  @Input() public lastShownLoginWindow: string = '';
+
   ngOnInit() {
     this.getImprintLocation();
   }
