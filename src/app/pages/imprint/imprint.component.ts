@@ -1,9 +1,9 @@
 import { Component, inject } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-imprint',
-  imports: [],
+  imports: [RouterModule],
   templateUrl: './imprint.component.html',
   styleUrl: './imprint.component.scss'
 })

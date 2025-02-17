@@ -1,7 +1,7 @@
 <section class="w-full min-h-[100dvh] imprint-container">
   <p>imprint works!</p>
   <br>
-  @if (location) {
-    <p>{{ location }}</p>
+  @if (location === 'loggedOut') {
+    <a [routerLink]="['']" class="underline">Back to LogIn</a>
   }
 </section>
