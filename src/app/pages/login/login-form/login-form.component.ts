@@ -22,6 +22,8 @@ import { AuthentificationService } from '../../../services/authentification.serv
 export class LoginFormComponent {
   @Output() changeWindow = new EventEmitter();
 
+  @Output () public switchToImprintComponent: EventEmitter<string> = new EventEmitter<string>();
+
   private autoLoginService: AutoLoginService = inject(AutoLoginService);
 
   private authentificationService: AuthentificationService = inject(
@@ -49,6 +51,10 @@ export class LoginFormComponent {
       },
     ],
   });
+
+  goToImprintComponent() {
+    this.switchToImprintComponent.emit('loginForm');
+  }
 
   /**
    * Logs in as a registered user
@@ -108,4 +114,6 @@ export class LoginFormComponent {
     if (this.isKeepLoggedIn)
       this.authentificationService.saveTokenInLocalStorage = true;
   }
+
+
 }

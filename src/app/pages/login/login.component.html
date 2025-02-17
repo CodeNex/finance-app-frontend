@@ -17,6 +17,7 @@
       @if (currentShownLoginWindow == "loginForm") {
       <app-login-form
         (changeWindow)="chooseLoginWindow($event)"
+        (switchToImprintComponent)="switchToImprintComponent($event)"
       ></app-login-form>
 
       } @if (currentShownLoginWindow == "signUpForm") {
@@ -34,6 +35,6 @@
 
   <!-- imprint component -->
   @if (isImprintComponentVisible) {
-  <app-imprint [lastShownLoginWindow]="currentShownLoginWindow" (switchToLogInComponent)="switchToLogInComponent(currentShownLoginWindow)"></app-imprint>
+  <app-imprint [lastShownLoginWindow]="currentShownLoginWindow" (switchToLogInComponent)="switchToLogInComponent($event)"></app-imprint>
   }
 </main>

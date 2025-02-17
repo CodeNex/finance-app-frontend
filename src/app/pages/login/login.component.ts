@@ -60,7 +60,8 @@ export class LoginComponent {
     this.isImprintComponentVisible = false;
   }
 
-  switchToImprintComponent() {
+  switchToImprintComponent($event: string) {
     this.isImprintComponentVisible = true;
+    this.currentShownLoginWindow = $event;
   }
 }
