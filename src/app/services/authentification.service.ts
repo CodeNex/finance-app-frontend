@@ -100,7 +100,7 @@ export class AuthentificationService {
     console.log(this.authToken);
     
 
-    this.http.post(this.baseUrl + this.logoutPath, {}, { headers }).subscribe({
+    this.http.post<{ token: string }>(this.baseUrl + this.logoutPath, {}, { headers }).subscribe({
       next: (response) => {
         console.log('Logout successful', response);
       },
