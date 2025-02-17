@@ -96,7 +96,10 @@ export class AuthentificationService {
       'Content-Type': 'application/json',
       Accept: 'application/json',
     });
+
+    console.log(this.authToken);
     
+
     this.http.post(this.baseUrl + this.logoutPath, {}, { headers }).subscribe({
       next: (response) => {
         console.log('Logout successful', response);

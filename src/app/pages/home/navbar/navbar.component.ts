@@ -1,7 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import jsonData from '../../../shared/data/financeapp.basedata.json';
 import { IconsComponent } from '../../../components/icons/icons.component';
+
+import { AuthentificationService } from '../../../services/authentification.service';
 
 @Component({
   selector: 'app-navbar',
@@ -11,6 +13,8 @@ import { IconsComponent } from '../../../components/icons/icons.component';
 })
 export class NavbarComponent {
   public readonly navData = jsonData.financeapp.navbar.links;
+
+  public authService: AuthentificationService = inject(AuthentificationService); 
 
   isNavbarThin: boolean = false;
 
