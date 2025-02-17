@@ -19,6 +19,8 @@ export class AuthentificationService {
 
   private registerPath: string = '/register';
 
+  private logoutPath: string = '/logout';
+
   public isWarningScreenVisible = new BehaviorSubject<boolean>(false);
   isWarningScreenVisible$ = this.isWarningScreenVisible.asObservable();
   setWarningScreen(value: boolean) {
@@ -86,5 +88,22 @@ export class AuthentificationService {
       this.baseData.financeApp.basics.apiData.localStorage.tokenKey,
       jsonToken
     );
+  }
+
+  doLogOut() {
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${this.authToken}`,
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+    });
+    
+    this.http.post(this.baseUrl + this.logoutPath, {}, { headers }).subscribe({
+      next: (response) => {
+        console.log('Logout successful', response);
+      },
+      error: (error) => {
+        console.error('Fail to logout', error);
+      },
+    });
   }
 }
