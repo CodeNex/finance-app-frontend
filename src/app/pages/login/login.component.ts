@@ -1,9 +1,12 @@
 import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+
 import { LoginFormComponent } from './login-form/login-form.component';
 import { SignUpFormComponent } from './sign-up-form/sign-up-form.component';
 import { LoadingScreenComponent } from '../../components/loading-screen/loading-screen.component';
 import { WarningScreenComponent } from '../../components/warning-screen/warning-screen.component';
+import { ImprintComponent } from '../imprint/imprint.component';
+
 import { AuthentificationService } from '../../services/authentification.service';
 
 @Component({
@@ -14,6 +17,7 @@ import { AuthentificationService } from '../../services/authentification.service
     SignUpFormComponent,
     LoadingScreenComponent,
     WarningScreenComponent,
+    ImprintComponent
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
@@ -21,12 +25,14 @@ import { AuthentificationService } from '../../services/authentification.service
 export class LoginComponent {
   public authService: AuthentificationService = inject(AuthentificationService);
 
-  currentShownLoginWindow: string = 'loginForm';
+  public currentShownLoginWindow: string = 'loginForm';
   // loginForm, signUpForm
 
   public isLoadingScreenVisible: boolean = false;
 
   public isWarningScreenVisible: boolean = false;
+
+  public isImprintComponentVisible: boolean = false;
 
 
   /**
