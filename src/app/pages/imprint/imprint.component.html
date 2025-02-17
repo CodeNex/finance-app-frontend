@@ -1,7 +1,7 @@
 <section class="w-full min-h-[100dvh] imprint-container">
   <p>imprint works!</p>
   <br>
-  @if (location === 'loggedOut') {
+  <!-- @if (location === 'loggedOut') { -->
     <!-- <a [routerLink]="['']" class="underline">Back to LogIn</a> -->
 
     @if (lastShownLoginWindow === 'loginForm') {
@@ -10,5 +10,5 @@
     @if (lastShownLoginWindow === 'signUpForm') {
       <button (click)="switchToLoginComponent()">Back To SignUp</button>
       }
-  }
+  <!-- } -->
 </section>

@@ -85,7 +85,7 @@ export class SignUpFormComponent {
   }
 
   goToImprintComponent() {
-    this.switchToImprintComponent.emit('loginForm');
+    this.switchToImprintComponent.emit('signUpForm');
   }
 
   validateName(control: AbstractControl): ValidationErrors | null {

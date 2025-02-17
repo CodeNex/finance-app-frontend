@@ -36,6 +36,6 @@
 
   <!-- imprint component -->
   @if (isImprintComponentVisible) {
-  <app-imprint [lastShownLoginWindow]="currentShownLoginWindow" (switchToLogInComponent)="switchToLogInComponent($event)"></app-imprint>
+  <app-imprint [lastShownLoginWindow]="this.currentShownLoginWindow" (switchToLogInComponent)="switchToLogInComponent($event)"></app-imprint>
   }
 </main>
