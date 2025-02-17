@@ -2,6 +2,13 @@
   <p>imprint works!</p>
   <br>
   @if (location === 'loggedOut') {
-    <a [routerLink]="['']" class="underline">Back to LogIn</a>
+    <!-- <a [routerLink]="['']" class="underline">Back to LogIn</a> -->
+
+    @if (lastShownLoginWindow === 'loginForm') {
+      <button (click)="switchToLoginComponent()">Back To LogIn</button>
+    }
+    @if (lastShownLoginWindow === 'signUpForm') {
+      <button (click)="switchToLoginComponent()">Back To SignUp</button>
+      }
   }
 </section>
