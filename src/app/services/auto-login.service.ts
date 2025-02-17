@@ -30,7 +30,11 @@ export class AutoLoginService {
     let storageJsonToken = await localStorage.getItem(
       this.baseData.financeApp.basics.apiData.localStorage.tokenKey
     );
-    if (storageJsonToken === typeof 'string' && storageJsonToken !== null && storageJsonToken.length > 0) {
+    if (
+      storageJsonToken === typeof 'string' &&
+      storageJsonToken !== null &&
+      storageJsonToken.length > 0
+    ) {
       this.token = JSON.parse(storageJsonToken);
       this.doTokenValidationRequest();
     } else {
@@ -62,6 +66,6 @@ export class AutoLoginService {
   doAutoLogin() {
     this.authService.authToken = this.token;
     this.authService.setLoadingScreen(true);
-    this.apiService.loadDataFirstTime();
+    this.apiService.initialDataLoading();
   }
 }

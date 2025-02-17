@@ -11,7 +11,6 @@ import { DataStoreServiceService } from './data-store-service.service';
   providedIn: 'root',
 })
 export class APIService {
-
   private http: HttpClient = inject(HttpClient);
   private authentificationService: AuthentificationService = inject(
     AuthentificationService
@@ -21,7 +20,11 @@ export class APIService {
   private router: Router = inject(Router);
 
   // private baseUrl: string = this.baseData.financeApp.basics.apiData.baseUrl;
-  private baseUrl = '/dummyData';
+  // private baseUrl = '/dummyData';
+
+  private baseUrl: string = this.baseData.financeApp.basics.apiData.baseUrl;
+
+  private dummyEndpoint = this.baseUrl === '/dummyData' ? '.json' : '';
 
   public warningMessage: string = '';
 
@@ -31,19 +34,21 @@ export class APIService {
   // endpoints: balance, budgets, pots, transactions
   getData(endpoint: string): Observable<any> {
     const headers = new HttpHeaders({
-      'Authorization': `Bearer ${this.authentificationService.authToken}`,
-      'Accept': 'application/json',
+      Authorization: `Bearer ${this.authentificationService.authToken}`,
+      Accept: 'application/json',
     });
 
-    return this.http.get(`${this.baseUrl}/${endpoint}.json`, { headers }).pipe(
-      tap((Response) => {
-        this.dataStore.setStoredData(endpoint, Response);
-      }),
-      catchError((error) => {
-        console.error('Fail to fetch data', error);
-        return throwError(() => new Error('Fail to fetch data'));
-      })
-    );
+    return this.http
+      .get(`${this.baseUrl}/${endpoint}${this.dummyEndpoint}`, { headers })
+      .pipe(
+        tap((Response) => {
+          this.dataStore.setStoredData(endpoint, Response);
+        }),
+        catchError((error) => {
+          console.error('Fail to fetch data', error);
+          return throwError(() => new Error('Fail to fetch data'));
+        })
+      );
   }
 
   // PUT data to server
@@ -53,9 +58,9 @@ export class APIService {
     id >= 0 ? (path = `/{${id}}`) : (path = '');
 
     const headers = new HttpHeaders({
-      'Authorization': `Bearer ${this.authentificationService.authToken}`,
+      Authorization: `Bearer ${this.authentificationService.authToken}`,
       'Content-Type': 'application/json',
-      'Accept': 'application/json',
+      Accept: 'application/json',
     });
     return this.http
       .put(`${this.baseUrl}/${endpoint}${path}`, body, {
@@ -75,7 +80,7 @@ export class APIService {
   }
 
   // Load Data First Time after login
-  loadDataFirstTime() {
+  initialDataLoading() {
     this.loadData('balance');
     this.loadData('transactions');
     this.loadData('budgets');
@@ -129,6 +134,4 @@ export class APIService {
       this.authentificationService.setLoadingScreen(false);
     }
   }
-
-  
 }
