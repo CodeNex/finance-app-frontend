@@ -17,14 +17,21 @@ import { AuthentificationService } from '../../../services/authentification.serv
 
 @Component({
   selector: 'app-sign-up-form',
-  imports: [FormsModule, RouterModule, NgClass, ReactiveFormsModule, IconsComponent],
+  imports: [
+    FormsModule,
+    RouterModule,
+    NgClass,
+    ReactiveFormsModule,
+    IconsComponent,
+  ],
   templateUrl: './sign-up-form.component.html',
   styleUrl: './sign-up-form.component.scss',
 })
 export class SignUpFormComponent {
   @Output() changeWindow = new EventEmitter();
 
-  @Output() public switchToImprintComponent: EventEmitter<string> = new EventEmitter<string>();
+  @Output() public switchToImprintComponent: EventEmitter<string> =
+    new EventEmitter<string>();
 
   private authentificationService: AuthentificationService = inject(
     AuthentificationService
@@ -70,10 +77,14 @@ export class SignUpFormComponent {
     ],
   });
 
-  doRegistration() {
+  async doRegistration() {
     if (this.signUpBody.valid && this.isPrivacyPolicyAccepted) {
       console.log('SignUpBody is valid:', this.signUpBody.valid);
       console.log('SignUp-Body: ', this.signUpBody.value);
+      await this.authentificationService.doAuthentificationRequest(
+        'register',
+        this.signUpBody.value
+      );
     } else {
       this.isPrivacyPolicyValidationMessageVisible = true;
       this.signUpBody.markAllAsTouched();
@@ -113,8 +124,7 @@ export class SignUpFormComponent {
     if (!this.isPrivacyPolicyAccepted) {
       this.isPrivacyPolicyAccepted = true;
       this.isPrivacyPolicyValidationMessageVisible = false;
-    }
-    else {
+    } else {
       this.isPrivacyPolicyAccepted = false;
     }
   }
