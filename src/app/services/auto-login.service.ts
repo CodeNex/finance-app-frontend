@@ -16,7 +16,7 @@ export class AutoLoginService {
 
   private baseUrl: string = this.baseData.financeApp.basics.apiData.baseUrl;
 
-  private path: string = '/auto-login';
+  private path: string = '/check-auth';
 
   private token: string = '';
 
@@ -53,7 +53,7 @@ export class AutoLoginService {
     });
 
     this.http
-      .post<{ token: string }>(this.baseUrl + this.path, '', {
+      .post<{ token: string }>(this.baseUrl + this.path, {}, {
         headers: headers,
       })
       .subscribe({

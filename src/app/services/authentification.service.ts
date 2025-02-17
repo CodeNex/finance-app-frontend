@@ -1,6 +1,7 @@
 import { Injectable, inject, Injector } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BehaviorSubject } from 'rxjs';
+import { Router } from '@angular/router';
 
 import { APIService } from './api.service';
 import { BasedataService } from './basedata.service';
@@ -12,6 +13,7 @@ export class AuthentificationService {
   private http: HttpClient = inject(HttpClient);
   private injector: Injector = inject(Injector);
   private baseData: BasedataService = inject(BasedataService);
+  private router: Router = inject(Router);
 
   private baseUrl: string = this.baseData.financeApp.basics.apiData.baseUrl;
 
@@ -97,12 +99,12 @@ export class AuthentificationService {
       Accept: 'application/json',
     });
 
-    console.log(this.authToken);
-    
-
     this.http.post<{ token: string }>(this.baseUrl + this.logoutPath, {}, { headers }).subscribe({
       next: (response) => {
         console.log('Logout successful', response);
+        this.authToken = '';
+        localStorage.removeItem(`${this.baseData.financeApp.basics.apiData.localStorage.tokenKey}`);
+        this.router.navigate(['']);
       },
       error: (error) => {
         console.error('Fail to logout', error);
