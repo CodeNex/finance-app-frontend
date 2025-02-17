@@ -29,6 +29,6 @@ export const routes: Routes = [
       { path: 'imprint', component: ImprintComponent, data: {location: 'loggedIn'} },
     ],
   },
-  { path: 'imprint', component: ImprintComponent, data: {location: 'loggedOut'} },
+  { path: 'imprint', component: ImprintComponent },
   { path: '**', redirectTo: 'login' },
 ];

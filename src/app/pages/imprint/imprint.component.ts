@@ -11,7 +11,7 @@ export class ImprintComponent {
 
   public route: ActivatedRoute = inject(ActivatedRoute);
 
-  public location: string = '';
+  public location: string = 'loggedOut';
 
   @Input() public lastShownLoginWindow: string = 'loginForm';
 
