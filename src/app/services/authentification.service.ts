@@ -83,7 +83,7 @@ export class AuthentificationService {
   setTokenToLocalStorage(token: string) {
     let jsonToken = JSON.stringify(token);
     localStorage.setItem(
-      this.baseData.financeApp.basics.apiData.tokenKey,
+      this.baseData.financeApp.basics.apiData.localStorage.tokenKey,
       jsonToken
     );
   }

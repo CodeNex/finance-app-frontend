@@ -61,9 +61,9 @@ export class LoginFormComponent {
    */
   async doLogin() {
     if (this.loginBody.valid) {
-      this.checkIfKeepLoggedIn();
       console.log('Login-Body is valid: ', this.loginBody.valid);
       console.log('Login-Body: ', this.loginBody.value);
+      this.checkIfKeepLoggedIn();
       await this.authentificationService.doAuthentificationRequest('login', this.loginBody.value);
     } else {
       this.loginBody.markAllAsTouched();

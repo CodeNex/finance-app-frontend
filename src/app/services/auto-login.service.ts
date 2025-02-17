@@ -30,11 +30,14 @@ export class AutoLoginService {
     let storageJsonToken = await localStorage.getItem(
       this.baseData.financeApp.basics.apiData.localStorage.tokenKey
     );
+    
+    
     if (
-      storageJsonToken === typeof 'string' &&
+      typeof storageJsonToken === 'string' &&
       storageJsonToken !== null &&
       storageJsonToken.length > 0
     ) {
+      console.log('Token from LocalStorage: ', storageJsonToken);
       this.token = JSON.parse(storageJsonToken);
       this.doTokenValidationRequest();
     } else {
