@@ -15,6 +15,8 @@ export class ImprintComponent {
 
   @Input() public lastShownLoginWindow: string = '';
 
+  @Output() public switchToLogInComponent: EventEmitter<string> = new EventEmitter<string>();
+
   ngOnInit() {
     this.getImprintLocation();
   }
@@ -23,6 +25,10 @@ export class ImprintComponent {
     this.route.data.subscribe(data => {
       this.location = data['location'];
     })
+  }
+
+  switchToLoginComponent() {
+    this.switchToLogInComponent.emit(this.lastShownLoginWindow);
   }
 
 }
