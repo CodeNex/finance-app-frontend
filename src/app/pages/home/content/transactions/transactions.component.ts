@@ -5,7 +5,7 @@ import { LoadingScreenComponent } from '../../../../components/loading-screen/lo
 import { WarningScreenComponent } from '../../../../components/warning-screen/warning-screen.component';
 
 import { DataStoreServiceService } from '../../../../services/data-store-service.service';
-import { AuthenticationService } from '../../../../services/Authentication.service';
+import { AuthenticationService } from '../../../../services/authentication.service';
 import { APIService } from '../../../../services/api.service';
 
 @Component({

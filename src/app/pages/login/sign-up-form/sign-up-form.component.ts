@@ -13,7 +13,7 @@ import { RouterModule } from '@angular/router';
 
 import { IconsComponent } from '../../../components/icons/icons.component';
 
-import { AuthenticationService } from '../../../services/Authentication.service';
+import { AuthenticationService } from '../../../services/authentication.service';
 
 @Component({
   selector: 'app-sign-up-form',
