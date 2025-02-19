@@ -12,6 +12,7 @@ import { IconsComponent } from '../../../components/icons/icons.component';
 
 import { AutoLoginService } from '../../../services/auto-login.service';
 import { AuthenticationService } from '../../../services/authentication.service';
+import { BasedataService } from '../../../services/basedata.service';
 
 @Component({
   selector: 'app-login-form',
@@ -38,6 +39,8 @@ export class LoginFormComponent {
   );
 
   private formBuilder: FormBuilder = inject(FormBuilder);
+
+  private baseData: BasedataService = inject(BasedataService);
 
   public isPasswordVisible: boolean = false;
 
@@ -88,13 +91,7 @@ export class LoginFormComponent {
    * Logs in as a guest user
    */
   async doGuestLogin() {
-    let body = {
-      email: 'guest@guest.com',
-      password: 'password',
-
-      // 'email': 'guest@guest.com',
-      // 'password': 'password'
-    };
+    let body = this.baseData.financeApp.basics.apiData.guestLogin;
     await this.AuthenticationService.doAuthenticationRequest('guest', body);
   }
 
