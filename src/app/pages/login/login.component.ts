@@ -7,7 +7,7 @@ import { LoadingScreenComponent } from '../../components/loading-screen/loading-
 import { WarningScreenComponent } from '../../components/warning-screen/warning-screen.component';
 import { ImprintComponent } from '../imprint/imprint.component';
 
-import { AuthenticationService } from '../../services/Authentication.service';
+import { AuthenticationService } from '../../services/authentication.service';
 
 @Component({
   selector: 'app-login',

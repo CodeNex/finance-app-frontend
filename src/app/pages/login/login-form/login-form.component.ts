@@ -11,7 +11,7 @@ import { RouterModule } from '@angular/router';
 import { IconsComponent } from '../../../components/icons/icons.component';
 
 import { AutoLoginService } from '../../../services/auto-login.service';
-import { AuthenticationService } from '../../../services/Authentication.service';
+import { AuthenticationService } from '../../../services/authentication.service';
 
 @Component({
   selector: 'app-login-form',
