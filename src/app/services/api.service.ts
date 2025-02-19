@@ -86,6 +86,7 @@ export class APIService {
     this.loadData('budgets');
     this.loadData('pots');
   }
+  // transactions/recurring
 
   loadData(endpoint: string) {
     this.loadingScreenTimer();
