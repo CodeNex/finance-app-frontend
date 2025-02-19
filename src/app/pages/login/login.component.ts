@@ -7,7 +7,7 @@ import { LoadingScreenComponent } from '../../components/loading-screen/loading-
 import { WarningScreenComponent } from '../../components/warning-screen/warning-screen.component';
 import { ImprintComponent } from '../imprint/imprint.component';
 
-import { AuthentificationService } from '../../services/authentification.service';
+import { AuthenticationService } from '../../services/Authentication.service';
 
 @Component({
   selector: 'app-login',
@@ -17,13 +17,13 @@ import { AuthentificationService } from '../../services/authentification.service
     SignUpFormComponent,
     LoadingScreenComponent,
     WarningScreenComponent,
-    ImprintComponent
+    ImprintComponent,
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
 })
 export class LoginComponent {
-  public authService: AuthentificationService = inject(AuthentificationService);
+  public authService: AuthenticationService = inject(AuthenticationService);
 
   public currentShownLoginWindow: string = 'loginForm';
   // loginForm, signUpForm
@@ -33,7 +33,6 @@ export class LoginComponent {
   public isWarningScreenVisible: boolean = false;
 
   public isImprintComponentVisible: boolean = false;
-
 
   /**
    * Subscribes to observables from the AuthService to update the visibility of loading and warning screens.
@@ -56,7 +55,7 @@ export class LoginComponent {
   }
 
   switchToLogInComponent(currentShownLoginWindow: string) {
-    this. currentShownLoginWindow = currentShownLoginWindow;
+    this.currentShownLoginWindow = currentShownLoginWindow;
     this.isImprintComponentVisible = false;
   }
 

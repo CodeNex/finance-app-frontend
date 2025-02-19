@@ -2,7 +2,7 @@ import { Injectable, inject } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { BasedataService } from './basedata.service';
-import { AuthentificationService } from './authentification.service';
+import { AuthenticationService } from './authentication.service';
 import { APIService } from './api.service';
 
 @Injectable({
@@ -10,7 +10,7 @@ import { APIService } from './api.service';
 })
 export class AutoLoginService {
   private baseData: BasedataService = inject(BasedataService);
-  public authService: AuthentificationService = inject(AuthentificationService);
+  public authService: AuthenticationService = inject(AuthenticationService);
   public apiService: APIService = inject(APIService);
   private http: HttpClient = inject(HttpClient);
 
@@ -30,8 +30,7 @@ export class AutoLoginService {
     let storageJsonToken = await localStorage.getItem(
       this.baseData.financeApp.basics.apiData.localStorage.tokenKey
     );
-    
-    
+
     if (
       typeof storageJsonToken === 'string' &&
       storageJsonToken !== null &&
@@ -53,9 +52,13 @@ export class AutoLoginService {
     });
 
     this.http
-      .post<{ token: string }>(this.baseUrl + this.path, {}, {
-        headers: headers,
-      })
+      .post<{ token: string }>(
+        this.baseUrl + this.path,
+        {},
+        {
+          headers: headers,
+        }
+      )
       .subscribe({
         next: (response) => {
           this.doAutoLogin();

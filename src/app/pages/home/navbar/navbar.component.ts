@@ -3,7 +3,7 @@ import { RouterModule } from '@angular/router';
 import jsonData from '../../../shared/data/financeapp.basedata.json';
 import { IconsComponent } from '../../../components/icons/icons.component';
 
-import { AuthentificationService } from '../../../services/authentification.service';
+import { AuthenticationService } from '../../../services/Authentication.service';
 
 @Component({
   selector: 'app-navbar',
@@ -14,7 +14,7 @@ import { AuthentificationService } from '../../../services/authentification.serv
 export class NavbarComponent {
   public readonly navData = jsonData.financeapp.navbar.links;
 
-  public authService: AuthentificationService = inject(AuthentificationService); 
+  public authService: AuthenticationService = inject(AuthenticationService);
 
   isNavbarThin: boolean = false;
 
@@ -71,7 +71,10 @@ export class NavbarComponent {
   makeLogoThin() {
     document.getElementById('financeLogo')!.style.transform = 'translateX(8px)';
     document.getElementById('logoPath7')!.style.display = 'none';
-    setTimeout(() => (document.getElementById('logoPath6')!.style.display = 'none'), 50);
+    setTimeout(
+      () => (document.getElementById('logoPath6')!.style.display = 'none'),
+      50
+    );
     setTimeout(
       () => (document.getElementById('logoPath5')!.style.display = 'none'),
       100

@@ -2,7 +2,7 @@ import { Component, inject } from '@angular/core';
 import { NavbarComponent } from './navbar/navbar.component';
 import { ContentComponent } from './content/content.component';
 
-import { AuthentificationService } from '../../services/authentification.service';
+import { AuthenticationService } from '../../services/Authentication.service';
 import { RouterModule, Router } from '@angular/router';
 
 @Component({
@@ -12,9 +12,7 @@ import { RouterModule, Router } from '@angular/router';
   styleUrl: './home.component.scss',
 })
 export class HomeComponent {
-  private authService: AuthentificationService = inject(
-    AuthentificationService
-  );
+  private authService: AuthenticationService = inject(AuthenticationService);
 
   private router: Router = inject(Router);
 

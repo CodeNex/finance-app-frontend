@@ -13,7 +13,7 @@ import { RouterModule } from '@angular/router';
 
 import { IconsComponent } from '../../../components/icons/icons.component';
 
-import { AuthentificationService } from '../../../services/authentification.service';
+import { AuthenticationService } from '../../../services/Authentication.service';
 
 @Component({
   selector: 'app-sign-up-form',
@@ -33,8 +33,8 @@ export class SignUpFormComponent {
   @Output() public switchToImprintComponent: EventEmitter<string> =
     new EventEmitter<string>();
 
-  private authentificationService: AuthentificationService = inject(
-    AuthentificationService
+  private AuthenticationService: AuthenticationService = inject(
+    AuthenticationService
   );
 
   private formBuilder: FormBuilder = inject(FormBuilder);
@@ -81,7 +81,7 @@ export class SignUpFormComponent {
     if (this.signUpBody.valid && this.isPrivacyPolicyAccepted) {
       console.log('SignUpBody is valid:', this.signUpBody.valid);
       console.log('SignUp-Body: ', this.signUpBody.value);
-      await this.authentificationService.doAuthentificationRequest(
+      await this.AuthenticationService.doAuthenticationRequest(
         'register',
         this.signUpBody.value
       );

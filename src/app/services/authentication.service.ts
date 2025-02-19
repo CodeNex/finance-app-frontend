@@ -9,7 +9,7 @@ import { BasedataService } from './basedata.service';
 @Injectable({
   providedIn: 'root',
 })
-export class AuthentificationService {
+export class AuthenticationService {
   private http: HttpClient = inject(HttpClient);
   private injector: Injector = inject(Injector);
   private baseData: BasedataService = inject(BasedataService);
@@ -50,7 +50,7 @@ export class AuthentificationService {
   });
 
   //authOption: 'login' | 'register' | 'guest'
-  doAuthentificationRequest(authOption: string, body: any) {
+  doAuthenticationRequest(authOption: string, body: any) {
     setTimeout(() => {
       if (this.authToken === '') this.setLoadingScreen(true);
     }, 250);
@@ -99,16 +99,20 @@ export class AuthentificationService {
       Accept: 'application/json',
     });
 
-    this.http.post<{ token: string }>(this.baseUrl + this.logoutPath, {}, { headers }).subscribe({
-      next: (response) => {
-        console.log('Logout successful', response);
-        this.authToken = '';
-        localStorage.removeItem(`${this.baseData.financeApp.basics.apiData.localStorage.tokenKey}`);
-        this.router.navigate(['']);
-      },
-      error: (error) => {
-        console.error('Fail to logout', error);
-      },
-    });
+    this.http
+      .post<{ token: string }>(this.baseUrl + this.logoutPath, {}, { headers })
+      .subscribe({
+        next: (response) => {
+          console.log('Logout successful', response);
+          this.authToken = '';
+          localStorage.removeItem(
+            `${this.baseData.financeApp.basics.apiData.localStorage.tokenKey}`
+          );
+          this.router.navigate(['']);
+        },
+        error: (error) => {
+          console.error('Fail to logout', error);
+        },
+      });
   }
 }
