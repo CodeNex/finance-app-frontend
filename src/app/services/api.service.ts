@@ -30,8 +30,44 @@ export class APIService {
 
   constructor() {}
 
+  // Load Data First Time after login
+  initialDataLoading() {
+    this.loadData('balance');
+    this.loadData('transactions');
+    this.loadData('budgets');
+    this.loadData('pots');
+  }
+
+  balanceDataLoaded: boolean = false;
+  budgetsDataLoaded: boolean = false;
+  potsDataLoaded: boolean = false;
+  transactionsDataLoaded: boolean = false;
+  isDataLoaded: boolean = false;
+
+  loadData(endpoint: string) {
+    this.loadingScreenTimer();
+    this.getData(endpoint).subscribe({
+      next: (response) => {
+        if (endpoint === 'balance') this.balanceDataLoaded = true;
+        if (endpoint === 'budgets') this.budgetsDataLoaded = true;
+        if (endpoint === 'pots') this.potsDataLoaded = true;
+        if (endpoint === 'transactions') this.transactionsDataLoaded = true;
+        this.checkDataLoaded(endpoint);
+        this.authentificationService.setWarningScreen(false);
+        this.warningMessage = '';
+        console.log(this.dataStore.getStoredData(endpoint));
+      },
+      error: (error) => {
+        console.error(`Fail to fetch ${endpoint} data`, error);
+        this.authentificationService.setLoadingScreen(false);
+        this.warningMessage = `Fail to fetch ${endpoint} data`;
+        this.authentificationService.setWarningScreen(true);
+      },
+    });
+  }
+
   // GET data from the server
-  // endpoints: balance, budgets, pots, transactions
+  // endpoints: balance, budgets, pots, transactions, transactions/recurring
   getData(endpoint: string): Observable<any> {
     const headers = new HttpHeaders({
       Authorization: `Bearer ${this.authentificationService.authToken}`,
@@ -49,6 +85,26 @@ export class APIService {
           return throwError(() => new Error('Fail to fetch data'));
         })
       );
+  }
+
+  checkDataLoaded(endpoint: string) {
+    if (
+      this.balanceDataLoaded &&
+      this.budgetsDataLoaded &&
+      this.potsDataLoaded &&
+      this.transactionsDataLoaded
+    ) {
+      this.authentificationService.setLoadingScreen(false);
+      if (endpoint === 'login' || 'guest') this.router.navigate(['/home']);
+    }
+  }
+
+  loadingScreenTimer() {
+    if (!this.isDataLoaded) {
+      this.authentificationService.setLoadingScreen(true);
+    } else {
+      this.authentificationService.setLoadingScreen(false);
+    }
   }
 
   // PUT data to server
@@ -77,62 +133,5 @@ export class APIService {
           return throwError(() => new Error('Fail to update data'));
         })
       );
-  }
-
-  // Load Data First Time after login
-  initialDataLoading() {
-    this.loadData('balance');
-    this.loadData('transactions');
-    this.loadData('budgets');
-    this.loadData('pots');
-  }
-  // transactions/recurring
-
-  loadData(endpoint: string) {
-    this.loadingScreenTimer();
-    this.getData(endpoint).subscribe({
-      next: (response) => {
-        if (endpoint === 'balance') this.balanceDataLoaded = true;
-        if (endpoint === 'budgets') this.budgetsDataLoaded = true;
-        if (endpoint === 'pots') this.potsDataLoaded = true;
-        if (endpoint === 'transactions') this.transactionsDataLoaded = true;
-        this.checkDataLoaded(endpoint);
-        this.authentificationService.setWarningScreen(false);
-        this.warningMessage = '';
-        console.log(this.dataStore.getStoredData(endpoint));
-      },
-      error: (error) => {
-        console.error(`Fail to fetch ${endpoint} data`, error);
-        this.authentificationService.setLoadingScreen(false);
-        this.warningMessage = `Fail to fetch ${endpoint} data`;
-        this.authentificationService.setWarningScreen(true);
-      },
-    });
-  }
-
-  balanceDataLoaded: boolean = false;
-  budgetsDataLoaded: boolean = false;
-  potsDataLoaded: boolean = false;
-  transactionsDataLoaded: boolean = false;
-  isDataLoaded: boolean = false;
-
-  checkDataLoaded(endpoint: string) {
-    if (
-      this.balanceDataLoaded &&
-      this.budgetsDataLoaded &&
-      this.potsDataLoaded &&
-      this.transactionsDataLoaded
-    ) {
-      this.authentificationService.setLoadingScreen(false);
-      if (endpoint === 'login' || 'guest') this.router.navigate(['/home']);
-    }
-  }
-
-  loadingScreenTimer() {
-    if (!this.isDataLoaded) {
-      this.authentificationService.setLoadingScreen(true);
-    } else {
-      this.authentificationService.setLoadingScreen(false);
-    }
   }
 }
