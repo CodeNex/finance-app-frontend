@@ -12,7 +12,11 @@ export class BasedataService {
         baseUrl: 'https://finance.code-nex.de/api',
         // baseUrl: 'http://localhost:3000',
         localStorage: {
-          tokenKey: 'sdio732d_uuw12!#SDo072354°ka'
+          tokenKey: 'sdio732d_uuw12!#SDo072354°ka',
+        },
+        guestLogin: {
+          email: '  guest@guest.com',
+          password: 'password',
         },
       },
       colors: {
