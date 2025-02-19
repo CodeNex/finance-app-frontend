@@ -5,22 +5,20 @@ import { LoadingScreenComponent } from '../../../../components/loading-screen/lo
 import { WarningScreenComponent } from '../../../../components/warning-screen/warning-screen.component';
 
 import { DataStoreServiceService } from '../../../../services/data-store-service.service';
-import { AuthentificationService } from '../../../../services/authentification.service';
+import { AuthenticationService } from '../../../../services/Authentication.service';
 import { APIService } from '../../../../services/api.service';
 
 @Component({
   selector: 'app-pots',
-  imports: [ LoadingScreenComponent, WarningScreenComponent, CommonModule ],
+  imports: [LoadingScreenComponent, WarningScreenComponent, CommonModule],
   templateUrl: './pots.component.html',
-  styleUrl: './pots.component.scss'
+  styleUrl: './pots.component.scss',
 })
 export class PotsComponent {
-
   private apiService: APIService = inject(APIService);
   private dataStore: DataStoreServiceService = inject(DataStoreServiceService);
-  public authService: AuthentificationService = inject(AuthentificationService);
+  public authService: AuthenticationService = inject(AuthenticationService);
 
   isLoadingScreenVisible: boolean = false;
   isWarningScreenVisible: boolean = false;
-
 }

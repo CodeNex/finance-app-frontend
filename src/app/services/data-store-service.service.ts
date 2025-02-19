@@ -13,6 +13,7 @@ export class DataStoreServiceService {
   public budgets: BudgetsObject[] = [];
   public pots: PotsObject[] = [];
   public transactions: TransactionsObject[] = [];
+  public transactionsRecurring: TransactionsObject[] = [];
 
   constructor() {}
 
@@ -21,6 +22,7 @@ export class DataStoreServiceService {
     if (endpoint === 'budgets') return this.budgets;
     if (endpoint === 'pots') return this.pots;
     if (endpoint === 'transactions') return this.transactions; 
+    if (endpoint === 'transactions/recurring') return this.transactionsRecurring;
     return;
   }
 
@@ -29,5 +31,6 @@ export class DataStoreServiceService {
     if (endpoint === 'budgets') this.budgets = data;
     if (endpoint === 'pots') this.pots = data;
     if (endpoint === 'transactions') this.transactions = data;
+    if (endpoint === 'transactions/recurring') this.transactionsRecurring = data;
   }
 }

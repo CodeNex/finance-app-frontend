@@ -8,6 +8,7 @@
     (ngSubmit)="doRegistration()"
     class="flex flex-col gap-2"
   >
+    <!-- name input field -->
     <div class="input-wrapper">
       <input
         formControlName="name"
@@ -16,10 +17,26 @@
         name="name"
         placeholder=""
         required
+        [ngClass]="{
+          validationError:
+            signUpBody.controls['name'].invalid &&
+            signUpBody.controls['name'].touched
+        }"
       />
-      <label for="name">Name</label>
-      <p class="validationWarning select-none"><span>&nbsp;</span></p>
+      <label for="singupNameInput" class="hover:cursor-text">Name</label>
+      <p class="validationWarning select-none">
+        <span>&nbsp;</span>
+        @if (signUpBody.controls['name'].hasError('required') &&
+        signUpBody.controls['name'].touched) {
+        <span>Insert a Name</span>
+        } @if (signUpBody.controls['name'].hasError('invalidName') &&
+        signUpBody.controls['name'].touched) {
+        <span>Enter a name like: Jane Doe</span>
+        }
+      </p>
     </div>
+
+    <!-- email input field -->
     <div class="input-wrapper">
       <input
         formControlName="email"
@@ -28,11 +45,26 @@
         name="email"
         placeholder=""
         required
+        [ngClass]="{
+          validationError:
+            signUpBody.controls['email'].invalid &&
+            signUpBody.controls['email'].touched
+        }"
       />
-      <label for="email">Email</label>
-      <p class="validationWarning select-none"><span>&nbsp;</span></p>
+      <label for="signupEmailInput" class="hover:cursor-text">Email</label>
+      <p class="validationWarning select-none">
+        <span>&nbsp;</span>
+        @if (signUpBody.controls['email'].hasError('required') &&
+        signUpBody.controls['email'].touched) {
+        <span>Insert an Email</span>
+        } @if (signUpBody.controls['email'].hasError('email') &&
+        signUpBody.controls['email'].touched) {
+        <span>Invalid Email</span>
+        }
+      </p>
     </div>
 
+    <!-- password input field -->
     <div class="input-wrapper">
       <input
         formControlName="password"
@@ -41,9 +73,23 @@
         name="password"
         placeholder=""
         required
+        [ngClass]="{
+          validationError:
+            signUpBody.controls['password'].invalid &&
+            signUpBody.controls['password'].touched
+        }"
       />
-      <label for="password">Create Password</label>
-      <p class="validationWarning select-none"><span>&nbsp;</span></p>
+      <label for="singupCreatePasswordInput" class="hover:cursor-text">Create Password</label>
+      <p class="validationWarning select-none">
+        <span>&nbsp;</span>
+        @if (signUpBody.controls['password'].hasError('required') &&
+        signUpBody.controls['password'].touched) {
+        <span>Insert a Password</span>
+        } @if (signUpBody.controls['password'].hasError('weakPassword') &&
+        signUpBody.controls['password'].touched) {
+        <span>Must be 8+ chars, inc. A-Z, a-z, 0-9. No spaces.</span>
+        }
+      </p>
       <div class="eyeBox" (click)="changePasswordVisibility('create')">
         <app-icons
           [iconName]="isCreatePasswordVisible ? 'openedEye' : 'closedEye'"
@@ -51,6 +97,7 @@
       </div>
     </div>
 
+    <!-- confirm password field -->
     <div class="input-wrapper">
       <input
         formControlName="confirmPassword"
@@ -59,9 +106,24 @@
         name="confirmPassword"
         placeholder=""
         required
+        [ngClass]="{
+          validationError:
+            signUpBody.controls['confirmPassword'].invalid &&
+            signUpBody.controls['confirmPassword'].touched
+        }"
       />
-      <label for="confirmPassword">Confirm Password</label>
-      <p class="validationWarning select-none"><span>&nbsp;</span></p>
+      <label for="singupConfirmPasswordInput" class="hover:cursor-text">Confirm Password</label>
+      <p class="validationWarning select-none">
+        <span>&nbsp;</span>
+        @if (signUpBody.controls['confirmPassword'].hasError('required') &&
+        signUpBody.controls['confirmPassword'].touched) {
+        <span>Insert a Password</span>
+        } @if
+        (signUpBody.controls['confirmPassword'].hasError('passwordDismatch') &&
+        signUpBody.controls['confirmPassword'].touched) {
+        <span>Passwords do not match. Please try again.</span>
+        }
+      </p>
       <div class="eyeBox" (click)="changePasswordVisibility('confirm')">
         <app-icons
           [iconName]="isConfirmPasswordVisible ? 'openedEye' : 'closedEye'"
@@ -69,8 +131,35 @@
       </div>
     </div>
 
+    <!-- checkbox privacy policy  -->
+    <div class="flex items-center justify-between">
+      <div class="flex gap-2 items-center mt-[-4px]">
+        <div
+          (click)="toggleAcceptPrivacyPolicy()"
+          class="relative w-4 h-4 border border-grey-900 rounded-[4px] cursor-pointer"
+        >
+          @if (isPrivacyPolicyAccepted) {
+          <app-icons
+            class="absolute top-[50%] left-[50%] transform translate-x-[-50%] translate-y-[-50%]"
+            [iconName]="'checked'"
+          ></app-icons>
+          }
+        </div>
+        <p class="text4r text-grey-500 select-none">
+          I accept the
+          <a [routerLink]="['/imprint']" class="underline hover:text-grey-900">Privacy policy</a>
+        </p>
+      </div>
+      <p class="validationWarning select-none">
+        <span>&nbsp;</span>
+        @if (!isPrivacyPolicyAccepted && isPrivacyPolicyValidationMessageVisible) {
+        <span>You must accept the Privacy Policy</span>
+        }
+    </div>
+
+    <!-- create account field -->
     <button
-      class="w-full bg-grey-900 text-white text4b pt-[9px] pb-[9px] rounded-lg select-none"
+      class="w-full bg-grey-900 text-white text4b mt-[18px] pt-[9px] pb-[9px] rounded-lg select-none"
     >
       Create Account
     </button>
@@ -84,5 +173,9 @@
     >
       Login
     </button>
+  </div>
+
+  <div class="flex justify-center">
+    <button (click)="goToImprintComponent()" class="text4r text-grey-500 select-none underline hover:text-grey-900">Imprint & Privacy</button>
   </div>
 </section>

@@ -7,6 +7,9 @@
   >
     <img class="h-[22px]" src="/img/navbar/finance-logo.svg" alt="" />
   </div>
+
+  <!-- logIn / signUp mask -->
+  @if (!isImprintComponentVisible) {
   <div class="p-5 max-sm:p-4 flex-1 flex justify-center items-center">
     <div
       class="bg-white flex flex-col p-[32px] rounded-[12px] w-full max-w-[560px] relative"
@@ -14,26 +17,25 @@
       @if (currentShownLoginWindow == "loginForm") {
       <app-login-form
         (changeWindow)="chooseLoginWindow($event)"
+        (switchToImprintComponent)="switchToImprintComponent($event)"
       ></app-login-form>
 
       } @if (currentShownLoginWindow == "signUpForm") {
       <app-sign-up-form
         (changeWindow)="chooseLoginWindow($event)"
+        (switchToImprintComponent)="switchToImprintComponent($event)"
       ></app-sign-up-form>
+      } @if (isLoadingScreenVisible) {
+      <app-loading-screen id="loginLoadingScreen"></app-loading-screen>
+      } @if (isWarningScreenVisible) {
+      <app-warning-screen id="loginWarningScreen"></app-warning-screen>
       }
-
-      @if (isLoadingScreenVisible) {
-        <app-loading-screen
-        id="loginLoadingScreen"
-      ></app-loading-screen>
-      }
-      
-      @if (isWarningScreenVisible) {
-        <app-warning-screen
-        id="loginWarningScreen"
-      ></app-warning-screen>
-      }
-      
     </div>
   </div>
+  }
+
+  <!-- imprint component -->
+  @if (isImprintComponentVisible) {
+  <app-imprint [lastShownLoginWindow]="this.currentShownLoginWindow" (switchToLogInComponent)="switchToLogInComponent($event)" class="p-5 max-sm:p-4 flex-1 h-[100dvh] overflow-auto"></app-imprint>
+  }
 </main>
