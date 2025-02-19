@@ -2,7 +2,6 @@ import { Routes } from '@angular/router';
 
 // Main pages components
 import { LoginComponent } from './pages/login/login.component';
-import { RegistrateComponent } from './pages/registrate/registrate.component';
 import { HomeComponent } from './pages/home/home.component';
 import { ImprintComponent } from './pages/imprint/imprint.component';
 
@@ -16,7 +15,6 @@ import { SettingsComponent } from './pages/home/content/settings/settings.compon
 
 export const routes: Routes = [
   { path: '', component: LoginComponent, pathMatch: 'full' },
-  { path: 'registrate', component: RegistrateComponent, pathMatch: 'full' },
   {
     path: 'home',
     component: HomeComponent,
@@ -28,7 +26,7 @@ export const routes: Routes = [
       { path: 'pots', component: PotsComponent },
       { path: 'recurringBills', component: RecurringBillsComponent },
       { path: 'settings', component: SettingsComponent },
-      { path: 'imprint', component: ImprintComponent },
+      { path: 'imprint', component: ImprintComponent, data: {location: 'loggedIn'} },
     ],
   },
   { path: 'imprint', component: ImprintComponent },

@@ -4,6 +4,8 @@
   </div>
   <!-- Form -->
   <form [formGroup]="loginBody" (ngSubmit)="doLogin()" action="" class="flex flex-col gap-2">
+
+    <!-- email input field -->
     <div class="input-wrapper">
       <input
         formControlName="email"
@@ -14,9 +16,19 @@
         required
         [ngClass]="{'validationError': loginBody.controls['email'].invalid && loginBody.controls['email'].touched}"
       />
-      <label for="email">Email</label>
-      <p class="validationWarning select-none"><span>&nbsp;</span></p>
+      <label for="loginEmailInput" class="hover:cursor-text">Email</label>
+      <p class="validationWarning select-none">
+        <span>&nbsp;</span>
+        @if (loginBody.controls['email'].hasError('required') && loginBody.controls['email'].touched) {
+          <span>Insert an Email</span>
+        }
+        @if (loginBody.controls['email'].hasError('email') && loginBody.controls['email'].touched) {
+          <span>Invalid Email</span>
+        }
+      </p>
     </div>
+
+    <!-- password input field -->
     <div class="input-wrapper">
       <input
         formControlName="password"
@@ -25,25 +37,45 @@
         name="password"
         placeholder=" "
         required
+        [ngClass]="{'validationError': loginBody.controls['password'].invalid && loginBody.controls['password'].touched}"
       />
-      <label for="password">Password</label>
-      <p class="validationWarning select-none"><span>&nbsp;</span></p>
+      <label for="loginPasswordInput" class="hover:cursor-text">Password</label>
+      <p class="validationWarning select-none">
+        <span>&nbsp;</span>
+        @if (loginBody.controls['password'].hasError('required') && loginBody.controls['password'].touched) {
+          <span>Insert a Password</span>
+        }
+      </p>
       <div class="eyeBox" (click)="changePasswordVisibility()">
         <app-icons
           [iconName]="isPasswordVisible ? 'openedEye' : 'closedEye'"
         ></app-icons>
       </div>
     </div>
-    <button type="submit"
+
+    <!-- checkbox remember me -->
+     <div class="flex gap-2 items-center mt-[-4px]">
+      <div class="relative w-4 h-4 border border-grey-900 rounded-[4px] cursor-pointer" (click)="toggleKeepLoggedIn()">
+        @if (isKeepLoggedIn) {
+          <app-icons class="absolute top-[50%] left-[50%] transform translate-x-[-50%] translate-y-[-50%]" [iconName]="'checked'"></app-icons>
+        }
+      </div>
+      <p class="text4r text-grey-500 select-none">Remember me</p>
+     </div>
+
+    <!-- button box -->
+     <div class="flex gap-8 mt-5">
+      <button type="submit"
       class="w-full bg-grey-900 text-white text4b pt-[9px] pb-[9px] rounded-lg select-none"
     >
       Login
     </button>
     <div (click)="doGuestLogin()"
-      class="w-full bg-grey-900 text-white text4b pt-[9px] pb-[9px] mt-6 rounded-lg select-none text-center cursor-pointer"
+      class="w-full bg-grey-900 text-white text4b pt-[9px] pb-[9px] rounded-lg select-none text-center cursor-pointer"
     >
-      Guest Login without registration
+      Guest Login
     </div>
+     </div> 
   </form>
 
   <div class="flex justify-center items-center gap-2">
@@ -54,5 +86,9 @@
     >
       Sign Up
     </button>
+  </div>
+
+  <div class="flex justify-center">
+    <button (click)="goToImprintComponent()" class="text4r text-grey-500 select-none underline hover:text-grey-900">Imprint & Privacy</button>
   </div>
 </section>
