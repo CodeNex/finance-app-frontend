@@ -89,7 +89,7 @@ export class LoginFormComponent {
    */
   async doGuestLogin() {
     let body = {
-      email: 'test@example.com',
+      email: 'guest@guest.com',
       password: 'password',
 
       // 'email': 'guest@guest.com',
