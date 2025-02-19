@@ -42,6 +42,7 @@ export class APIService {
   budgetsDataLoaded: boolean = false;
   potsDataLoaded: boolean = false;
   transactionsDataLoaded: boolean = false;
+  transactionsRecurringDataLoaded: boolean = false;
   isDataLoaded: boolean = false;
 
   loadData(endpoint: string) {
@@ -52,6 +53,7 @@ export class APIService {
         if (endpoint === 'budgets') this.budgetsDataLoaded = true;
         if (endpoint === 'pots') this.potsDataLoaded = true;
         if (endpoint === 'transactions') this.transactionsDataLoaded = true;
+        if (endpoint === 'transactions/recurring') this.transactionsRecurringDataLoaded = true;
         this.checkDataLoaded(endpoint);
         this.authentificationService.setWarningScreen(false);
         this.warningMessage = '';
@@ -92,7 +94,8 @@ export class APIService {
       this.balanceDataLoaded &&
       this.budgetsDataLoaded &&
       this.potsDataLoaded &&
-      this.transactionsDataLoaded
+      this.transactionsDataLoaded &&
+      this.transactionsRecurringDataLoaded
     ) {
       this.authentificationService.setLoadingScreen(false);
       if (endpoint === 'login' || 'guest') this.router.navigate(['/home']);
