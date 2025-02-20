@@ -1,15 +1,33 @@
 import { Component, inject } from '@angular/core';
 
 import { MainModalService } from '../../../services/main-modal.service';
+import { Subscription } from 'rxjs';
+
+import { AddBudgetModalComponent } from '../content/budgets/budgets-modals/add-budget-modal/add-budget-modal.component';
+import { DeleteBudgetModalComponent } from '../content/budgets/budgets-modals/delete-budget-modal/delete-budget-modal.component';
+import { EditBudgetModalComponent } from '../content/budgets/budgets-modals/edit-budget-modal/edit-budget-modal.component';
+import { AddPotModalComponent } from '../content/pots/pots-modals/add-pot-modal/add-pot-modal.component';
+import { EditPotModalComponent } from '../content/pots/pots-modals/edit-pot-modal/edit-pot-modal.component';
+import { DeletePotModalComponent } from '../content/pots/pots-modals/delete-pot-modal/delete-pot-modal.component';
+import { AddmoneyPotModalComponent } from '../content/pots/pots-modals/addmoney-pot-modal/addmoney-pot-modal.component';
+import { WithdrawmoneyPotModalComponent } from '../content/pots/pots-modals/withdrawmoney-pot-modal/withdrawmoney-pot-modal.component';
 
 @Component({
   selector: 'app-main-modal',
-  imports: [],
+  imports: [
+    AddBudgetModalComponent,
+    DeleteBudgetModalComponent,
+    EditBudgetModalComponent,
+    AddPotModalComponent,
+    EditPotModalComponent,
+    DeletePotModalComponent,
+    AddmoneyPotModalComponent,
+    WithdrawmoneyPotModalComponent,
+  ],
   templateUrl: './main-modal.component.html',
-  styleUrl: './main-modal.component.scss'
+  styleUrl: './main-modal.component.scss',
 })
 export class MainModalComponent {
-
   private mainModalService: MainModalService = inject(MainModalService);
 
   public hideMainModal(event: Event) {
@@ -18,6 +36,27 @@ export class MainModalComponent {
     }
   }
 
-  public currentSubModal: string = this.mainModalService.currentSubModal$.value;
+  ngOnInit() {
+    this.subscribeSubModal();
+  }
 
+  // subscribe to get what sub modal has to be shown, get value from main-modal.service
+  public currentShownSubModal: string = '';
+  public subModalSubscription!: Subscription;
+
+  private subscribeSubModal() {
+    this.subModalSubscription =
+      this.mainModalService.currentSubModal$.subscribe(
+        (subModal: string) => (this.currentShownSubModal = subModal)
+      );
+  }
+
+  // unsubscribe sub modal to avoid memory leak
+  ngOnDestroy() {
+    this.unsubscribeSubModal();
+  }
+
+  private unsubscribeSubModal() {
+    this.subModalSubscription.unsubscribe();
+  }
 }
