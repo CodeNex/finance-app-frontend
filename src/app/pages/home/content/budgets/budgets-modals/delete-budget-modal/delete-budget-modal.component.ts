@@ -1,10 +1,11 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, Input } from '@angular/core';
 
 import { MainModalService } from '../../../../../../services/main-modal.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-delete-budget-modal',
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './delete-budget-modal.component.html',
   styleUrl: './delete-budget-modal.component.scss',
 })
@@ -17,4 +18,6 @@ export class DeleteBudgetModalComponent {
   }
 
   public currentBudgetToDelete: string = 'CurrentBudget';
+
+  @Input() public modalObject: Object = {};
 }

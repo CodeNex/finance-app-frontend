@@ -1,5 +1,5 @@
-import { Component, inject } from '@angular/core';
-
+import { Component, inject, Input } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import {
   FormsModule,
   FormBuilder,
@@ -11,7 +11,7 @@ import { MainModalService } from '../../../../../../services/main-modal.service'
 
 @Component({
   selector: 'app-add-budget-modal',
-  imports: [FormsModule, ReactiveFormsModule],
+  imports: [FormsModule, ReactiveFormsModule, CommonModule],
   templateUrl: './add-budget-modal.component.html',
   styleUrl: './add-budget-modal.component.scss',
 })
@@ -22,4 +22,6 @@ export class AddBudgetModalComponent {
   public closeMainModal() {
     this.mainModalService.hideMainModal();
   }
+
+  @Input() public modalObject: Object = {};
 }
