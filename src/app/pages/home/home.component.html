@@ -1,7 +1,9 @@
-<main class="flex relative max-lg:flex-col-reverse h-dvh w-full">
-  <app-navbar></app-navbar>
-  <app-content class="flex-1 relative flex"></app-content>
+<section class="relative h-dvh w-full">
+  <main class="flex max-lg:flex-col-reverse h-full w-full">
+    <app-navbar></app-navbar>
+    <app-content class="flex-1 relative flex"></app-content>
+  </main>
   @if (isMainModalVisible) {
-    <app-main-modal></app-main-modal>
+  <app-main-modal></app-main-modal>
   }
-</main>
+</section>
