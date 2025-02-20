@@ -1,10 +1,17 @@
 import { Component, inject } from '@angular/core';
 
+import {
+  FormsModule,
+  FormBuilder,
+  Validators,
+  ReactiveFormsModule,
+} from '@angular/forms';
+
 import { MainModalService } from '../../../../../../services/main-modal.service';
 
 @Component({
   selector: 'app-add-budget-modal',
-  imports: [],
+  imports: [FormsModule, ReactiveFormsModule],
   templateUrl: './add-budget-modal.component.html',
   styleUrl: './add-budget-modal.component.scss',
 })
