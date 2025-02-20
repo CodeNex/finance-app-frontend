@@ -7,6 +7,10 @@
   src: url("/font/PublicSans-VariableFont_wght.ttf");
 }
 
+* {
+  font-family: "public-sans";
+}
+
 body {
   font-family: "public-sans";
   color: var(--color-grey-900);
@@ -17,6 +21,7 @@ body {
     font-size: 32px;
     line-height: 120%;
     font-weight: bold;
+    font-family: "public-sans";
   }
 
   .text2b {
