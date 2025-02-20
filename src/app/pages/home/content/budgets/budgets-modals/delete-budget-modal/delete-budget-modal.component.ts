@@ -15,4 +15,6 @@ export class DeleteBudgetModalComponent {
   public closeMainModal() {
     this.mainModalService.hideMainModal();
   }
+
+  public currentBudgetToDelete: string = 'CurrentBudgetToDelete';
 }
