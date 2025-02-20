@@ -1,10 +1,12 @@
-import { Component, inject } from '@angular/core';
+import { Component, Inject, inject } from '@angular/core';
 import { NavbarComponent } from './navbar/navbar.component';
 import { ContentComponent } from './content/content.component';
+import { RouterModule, Router } from '@angular/router';
+
+import { MainModalComponent } from './main-modal/main-modal.component';
 
 import { AuthenticationService } from '../../services/authentication.service';
-import { RouterModule, Router } from '@angular/router';
-import { MainModalComponent } from './main-modal/main-modal.component';
+import { MainModalService } from '../../services/main-modal.service';
 
 @Component({
   selector: 'app-home',
@@ -14,10 +16,10 @@ import { MainModalComponent } from './main-modal/main-modal.component';
 })
 export class HomeComponent {
   private authService: AuthenticationService = inject(AuthenticationService);
-
   private router: Router = inject(Router);
+  private mainModalService: MainModalService = inject(MainModalService);
 
-  public isMainModalVisible: boolean = false;
+  public isMainModalVisible: boolean = this.mainModalService.isMainModalVisible;
 
   ngOnInit() {
     this.checkIfAuthTokenExists();
