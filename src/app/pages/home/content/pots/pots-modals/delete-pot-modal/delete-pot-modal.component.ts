@@ -15,4 +15,6 @@ export class DeletePotModalComponent {
   public closeMainModal() {
     this.mainModalService.hideMainModal();
   }
+
+  public currentPotToDelete: string = 'CurrentPot';
 }

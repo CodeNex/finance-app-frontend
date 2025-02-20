@@ -16,5 +16,5 @@ export class DeleteBudgetModalComponent {
     this.mainModalService.hideMainModal();
   }
 
-  public currentBudgetToDelete: string = 'CurrentBudgetToDelete';
+  public currentBudgetToDelete: string = 'CurrentBudget';
 }
