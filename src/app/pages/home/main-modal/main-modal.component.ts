@@ -41,13 +41,19 @@ export class MainModalComponent {
   }
 
   // subscribe to get what sub modal has to be shown, get value from main-modal.service
-  public currentShownSubModal: string = '';
   public subModalSubscription!: Subscription;
+  public currentShownSubModal: string = '';
+  public subModalObjectSubscription!: Subscription;
+  public subModelObject: Object = {};
 
   private subscribeSubModal() {
     this.subModalSubscription =
       this.mainModalService.currentSubModal$.subscribe(
         (subModal: string) => (this.currentShownSubModal = subModal)
+      );
+    this.subModalObjectSubscription =
+      this.mainModalService.currentSubModal$.subscribe(
+        (subModalObject: Object) => (this.subModelObject = subModalObject)
       );
   }
 

@@ -23,8 +23,11 @@ export class MainModalService {
   // this will be used to determine which sub modal to show
   // Types of sub modal: addBudget, deleteBudget, editBudget, addPot, editPot, deletePot, addMoneyPot, withdrawMoneyPot
   @Output() public currentSubModal$ = new BehaviorSubject<string>('withdrawMoneyPot');
+  @Output() public subModalObject$ = new BehaviorSubject<Object>({});
 
-  public chooseSubModal(subModal: string) {
+  public chooseSubModal(subModal: string, subModalObject: Object) {
+    this.showMainModal();
     this.currentSubModal$.next(subModal);
+    this.subModalObject$.next(subModalObject);
   }
 }
