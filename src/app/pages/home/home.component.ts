@@ -11,7 +11,12 @@ import { MainModalService } from '../../services/main-modal.service';
 
 @Component({
   selector: 'app-home',
-  imports: [NavbarComponent, RouterModule, ContentComponent, MainModalComponent],
+  imports: [
+    NavbarComponent,
+    RouterModule,
+    ContentComponent,
+    MainModalComponent,
+  ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
 })
@@ -20,7 +25,8 @@ export class HomeComponent {
   private router: Router = inject(Router);
   public mainModalService: MainModalService = inject(MainModalService);
 
-  public isMainModalVisible: boolean = this.mainModalService.isMainModalVisible$.value;
+  public isMainModalVisible: boolean =
+    this.mainModalService.isMainModalVisible$.value;
   public mainModalSubscription!: Subscription;
 
   // NG ON INIT
@@ -38,7 +44,19 @@ export class HomeComponent {
 
   // gets the value of isMainModalVisible from the mainModalService
   subscribeMainModalVisibility() {
-    this.mainModalSubscription = this.mainModalService.isMainModalVisible$.subscribe((value) => this.isMainModalVisible = value);
+    this.mainModalSubscription =
+      this.mainModalService.isMainModalVisible$.subscribe(
+        (value) => (this.isMainModalVisible = value)
+      );
   }
 
+  // NG ON DESTROY
+  ngOnDestroy() {
+    this.unsubscribeMainModalVisibility();
+  }
+
+  // unsubscribes from the mainModalService
+  unsubscribeMainModalVisibility() {
+    this.mainModalSubscription.unsubscribe();
+  }
 }

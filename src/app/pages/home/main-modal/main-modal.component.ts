@@ -18,4 +18,6 @@ export class MainModalComponent {
     }
   }
 
+  public currentSubModal: string = this.mainModalService.currentSubModal$.value;
+
 }
