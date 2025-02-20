@@ -4,10 +4,11 @@ import { ContentComponent } from './content/content.component';
 
 import { AuthenticationService } from '../../services/authentication.service';
 import { RouterModule, Router } from '@angular/router';
+import { MainModalComponent } from './main-modal/main-modal.component';
 
 @Component({
   selector: 'app-home',
-  imports: [NavbarComponent, RouterModule, ContentComponent],
+  imports: [NavbarComponent, RouterModule, ContentComponent, MainModalComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
 })
