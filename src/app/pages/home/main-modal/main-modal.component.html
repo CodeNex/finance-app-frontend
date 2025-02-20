@@ -5,21 +5,21 @@
 >
   <div class="subModalContainer">
     @if (currentShownSubModal === "addBudget") {
-    <app-add-budget-modal></app-add-budget-modal>
+    <app-add-budget-modal [modalObject]="subModalObject"></app-add-budget-modal>
     } @if (currentShownSubModal === "deleteBudget") {
-    <app-delete-budget-modal></app-delete-budget-modal>
+    <app-delete-budget-modal [modalObject]="subModalObject"></app-delete-budget-modal>
     } @if (currentShownSubModal === "editBudget") {
-    <app-edit-budget-modal></app-edit-budget-modal>
+    <app-edit-budget-modal [modalObject]="subModalObject"></app-edit-budget-modal>
     } @if (currentShownSubModal === "addPot") {
-    <app-add-pot-modal></app-add-pot-modal>
+    <app-add-pot-modal [modalObject]="subModalObject"></app-add-pot-modal>
     } @if (currentShownSubModal === "editPot") {
-    <app-edit-pot-modal></app-edit-pot-modal>
+    <app-edit-pot-modal [modalObject]="subModalObject"></app-edit-pot-modal>
     } @if (currentShownSubModal === "deletePot") {
-    <app-delete-pot-modal></app-delete-pot-modal>
+    <app-delete-pot-modal [modalObject]="subModalObject"></app-delete-pot-modal>
     } @if (currentShownSubModal === "addMoneyPot") {
-    <app-addmoney-pot-modal></app-addmoney-pot-modal>
+    <app-addmoney-pot-modal [modalObject]="subModalObject"></app-addmoney-pot-modal>
     } @if (currentShownSubModal === "withdrawMoneyPot") {
-    <app-withdrawmoney-pot-modal></app-withdrawmoney-pot-modal>
+    <app-withdrawmoney-pot-modal [modalObject]="subModalObject"></app-withdrawmoney-pot-modal>
     }
   </div>
 </section>

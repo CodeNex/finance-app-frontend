@@ -44,7 +44,7 @@ export class MainModalComponent {
   public subModalSubscription!: Subscription;
   public currentShownSubModal: string = '';
   public subModalObjectSubscription!: Subscription;
-  public subModelObject: Object = {};
+  public subModalObject: Object = {};
 
   private subscribeSubModal() {
     this.subModalSubscription =
@@ -53,7 +53,7 @@ export class MainModalComponent {
       );
     this.subModalObjectSubscription =
       this.mainModalService.currentSubModal$.subscribe(
-        (subModalObject: Object) => (this.subModelObject = subModalObject)
+        (subModalObject: Object) => (this.subModalObject = subModalObject)
       );
   }
 
