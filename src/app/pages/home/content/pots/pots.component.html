@@ -13,11 +13,11 @@
   {
     <div class="pots-container">
       <p>pots works!</p>
-      <button class="border-solid border-black border-2 mb-4">Add New Pot</button>
-      <button class="border-solid border-black border-2 mb-4">Edit Pot</button>
-      <button class="border-solid border-black border-2 mb-4">Delete Pot</button>
-      <button class="border-solid border-black border-2 mb-4">Add Money</button>
-      <button class="border-solid border-black border-2 mb-4">Withdraw Money</button>
+      <button (click)="openSubModal('addPot', {})" class="border-solid border-black border-2 mb-4">Add New Pot</button>
+      <button (click)="openSubModal('editPot', {})" class="border-solid border-black border-2 mb-4">Edit Pot</button>
+      <button (click)="openSubModal('deletePot', {})" class="border-solid border-black border-2 mb-4">Delete Pot</button>
+      <button (click)="openSubModal('addMoneyPot', {})" class="border-solid border-black border-2 mb-4">Add Money</button>
+      <button (click)="openSubModal('withdrawMoneyPot', {})" class="border-solid border-black border-2 mb-4">Withdraw Money</button>
     </div>
   }
 </section>
