@@ -15,4 +15,6 @@ export class WithdrawmoneyPotModalComponent {
   public closeMainModal() {
     this.mainModalService.hideMainModal();
   }
+
+  public currentPot: string = 'currentPot';
 }
