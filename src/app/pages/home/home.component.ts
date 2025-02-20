@@ -17,6 +17,8 @@ export class HomeComponent {
 
   private router: Router = inject(Router);
 
+  public isMainModalVisible: boolean = true;
+
   ngOnInit() {
     this.checkIfAuthTokenExists();
   }
