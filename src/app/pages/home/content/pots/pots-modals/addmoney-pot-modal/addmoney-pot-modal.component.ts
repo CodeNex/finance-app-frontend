@@ -15,4 +15,6 @@ export class AddmoneyPotModalComponent {
   public closeMainModal() {
     this.mainModalService.hideMainModal();
   }
+
+  public currentPot: string = 'currentPot';
 }
