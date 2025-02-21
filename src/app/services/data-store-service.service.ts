@@ -5,7 +5,6 @@ import '../shared/interfaces.ts';
   providedIn: 'root',
 })
 export class DataStoreServiceService {
-
   public balance = signal<BalanceObject>({
     id: 1,
     current: 0.0,
@@ -67,11 +66,11 @@ export class DataStoreServiceService {
 
   setStoredData(endpoint: string, data: any) {
     if (endpoint === 'balance') this.balance.set(data);
-    if (endpoint === 'budgets') this.budgets = data;
-    if (endpoint === 'pots') this.pots = data;
-    if (endpoint === 'transactions') this.transactions = data;
+    if (endpoint === 'budgets') this.budgets.set(data);
+    if (endpoint === 'pots') this.pots.set(data);
+    if (endpoint === 'transactions') this.transactions.set(data);
     if (endpoint === 'transactions/recurring')
-      this.transactionsRecurring = data;
+      this.transactionsRecurring.set(data);
   }
 
   updateStoredData(endpoint: string, data: any) {
@@ -82,5 +81,14 @@ export class DataStoreServiceService {
     if (endpoint === 'transactions/recurring')
       this.transactionsRecurring = data;
   }
- 
+
+  getStoredData(endpoint: string) {
+    if (endpoint === 'balance') return this.balance;
+    if (endpoint === 'budgets') return this.budgets;
+    if (endpoint === 'pots') return this.pots;
+    if (endpoint === 'transactions') return this.transactions;
+    if (endpoint === 'transactions/recurring')
+      return this.transactionsRecurring;
+    return null; // Add a default return value to handle unknown endpoints
+  }
 }
