@@ -65,22 +65,22 @@ export class DataStoreServiceService {
 
   constructor() {}
 
-  getStoredData(endpoint: string) {
-    if (endpoint === 'balance') return this.balance;
-    if (endpoint === 'budgets') return this.budgets;
-    if (endpoint === 'pots') return this.pots;
-    if (endpoint === 'transactions') return this.transactions;
-    if (endpoint === 'transactions/recurring')
-      return this.transactionsRecurring;
-    return;
-  }
-
   setStoredData(endpoint: string, data: any) {
-    if (endpoint === 'balance') this.balance = data;
+    if (endpoint === 'balance') this.balance.set(data);
     if (endpoint === 'budgets') this.budgets = data;
     if (endpoint === 'pots') this.pots = data;
     if (endpoint === 'transactions') this.transactions = data;
     if (endpoint === 'transactions/recurring')
       this.transactionsRecurring = data;
   }
+
+  updateStoredData(endpoint: string, data: any) {
+    if (endpoint === 'balance') this.balance.set(data);
+    if (endpoint === 'budgets') this.budgets = data;
+    if (endpoint === 'pots') this.pots = data;
+    if (endpoint === 'transactions') this.transactions = data;
+    if (endpoint === 'transactions/recurring')
+      this.transactionsRecurring = data;
+  }
+ 
 }
