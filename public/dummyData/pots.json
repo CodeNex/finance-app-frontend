@@ -4,34 +4,39 @@
     "name": "Savings",
     "target": 2000.0,
     "total": 159.0,
-    "theme": "#277C78"
+    "theme": "#277C78",
+    "deletedAt": null
   },
   {
     "id": 1,
     "name": "Concert Ticket",
     "target": 150.0,
     "total": 110.0,
-    "theme": "#626070"
+    "theme": "#626070",
+    "deletedAt": null
   },
   {
     "id": 2,
     "name": "Gift",
     "target": 150.0,
     "total": 110.0,
-    "theme": "#82C9D7"
+    "theme": "#82C9D7",
+    "deletedAt": null
   },
   {
     "id": 3,
     "name": "New Laptop",
     "target": 1000.0,
     "total": 10.0,
-    "theme": "#F2CDAC"
+    "theme": "#F2CDAC",
+    "deletedAt": null
   },
   {
     "id": 4,
     "name": "Holiday",
     "target": 1440.0,
     "total": 531.0,
-    "theme": "#826CB0"
+    "theme": "#826CB0",
+    "deletedAt": null
   }
 ]

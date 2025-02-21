@@ -10,7 +10,7 @@ export class BasedataService {
     basics: {
       apiData: {
         baseUrl: 'https://finance.code-nex.de/api',
-        // baseUrl: 'http://localhost:3000',
+        // baseUrl: 'http://localhost:3000/dummyData',
         localStorage: {
           tokenKey: 'sdio732d_uuw12!#SDo072354°ka',
         },

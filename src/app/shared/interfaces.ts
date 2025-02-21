@@ -16,7 +16,8 @@ interface PotsObject {
   name: string,
   target: number,
   total: number,
-  theme: string
+  theme: string,
+  deletedAt: string | null
 }
 
 interface TransactionsObject {
