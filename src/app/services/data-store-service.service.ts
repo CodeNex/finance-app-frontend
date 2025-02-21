@@ -64,6 +64,7 @@ export class DataStoreServiceService {
 
   constructor() {}
 
+  // set the hole data package within signal and UI update
   setStoredData(endpoint: string, data: any) {
     if (endpoint === 'balance') this.balance.set(data);
     if (endpoint === 'budgets') this.budgets.set(data);
@@ -73,6 +74,7 @@ export class DataStoreServiceService {
       this.transactionsRecurring.set(data);
   }
 
+  // get the hole data package without signal and UI update
   getStoredData(endpoint: string) {
     if (endpoint === 'balance') return this.balance;
     if (endpoint === 'budgets') return this.budgets;
