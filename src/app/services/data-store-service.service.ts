@@ -89,6 +89,8 @@ export class DataStoreServiceService {
   addToStoredData(endpoint: string, index: number, data: any) {
     if (endpoint === 'budgets') this.budgets.update(prev => [...prev, data]);
     if (endpoint === 'pots') this.pots.update(prev => [...prev, data]);
+    if (endpoint === 'transactions') this.transactions.update(prev => [...prev, data]);
+    if (endpoint === 'transactions/recurring') this.transactionsRecurring.update(prev => [...prev, data]);
   }
 
   updateStoredData(endpoint: string, data: any, index: number | null) {
