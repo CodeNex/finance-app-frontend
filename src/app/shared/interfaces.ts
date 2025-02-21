@@ -1,4 +1,5 @@
 interface BalanceObject {
+  id: number,
   current: number,
   income: number,
   expenses: number
