@@ -85,7 +85,11 @@ export class DataStoreServiceService {
     return null;
   }
 
-  updateStoredData(endpoint: string, data: any) {
+  addToStoredData(endpoint: string, index: number, data: Object) {
+
+  }
+
+  updateStoredData(endpoint: string, data: any, index: number | null) {
     if (endpoint === 'balance') this.balance.set(data);
     if (endpoint === 'budgets') this.budgets = data;
     if (endpoint === 'pots') this.pots = data;
