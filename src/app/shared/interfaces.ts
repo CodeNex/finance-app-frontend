@@ -9,7 +9,9 @@ interface BudgetsObject {
   id: number,
   category: string,
   maximum: number,
-  theme: string
+  theme: string,
+  createdAt: string | null,
+  deletedAt: string | null
 }
 
 interface PotsObject {
@@ -18,6 +20,7 @@ interface PotsObject {
   target: number,
   total: number,
   theme: string,
+  createdAt: string | null,
   deletedAt: string | null
 }
 
