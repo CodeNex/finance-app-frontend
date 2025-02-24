@@ -35,12 +35,12 @@ export class SinglePotComponent {
 
   public totalAmount: string = "";
   public targetAmount: string = "";
-  public percentage: number = 0;
+  public percentage: string = "";
 
   ngOnInit() {
     this.totalAmount = this.pot.total.toFixed(2);
     this.targetAmount = this.pot.target.toLocaleString('en-US', {maximumFractionDigits: 0});
-    // this.percentage = (this.totalAmount / this.targetAmount) * 100;
+    this.percentage = (Math.trunc((this.pot.total / this.pot.target) * 1000) / 10).toFixed(1);
   }
 
   public openSubModal(subModal: string, subModalObject: Object) {
