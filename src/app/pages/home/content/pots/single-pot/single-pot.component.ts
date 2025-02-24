@@ -34,12 +34,12 @@ export class SinglePotComponent {
   @Input() public potIndex: number = -1;
 
   public totalAmount: string = "";
-  public targetAmount: number = -1;
+  public targetAmount: string = "";
   public percentage: number = 0;
 
   ngOnInit() {
     this.totalAmount = this.pot.total.toFixed(2);
-    this.targetAmount = this.pot.target;
+    this.targetAmount = this.pot.target.toFixed(3).replace('.', ',');
     // this.percentage = (this.totalAmount / this.targetAmount) * 100;
   }
 
