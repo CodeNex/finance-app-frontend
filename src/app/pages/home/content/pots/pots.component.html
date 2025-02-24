@@ -1,16 +1,6 @@
 <section class="w-full min-h-[100%]">
 
-  @if (isLoadingScreenVisible)
-  {
-    <app-loading-screen></app-loading-screen>
-  }
- @if (isWarningScreenVisible)
-  {
-    <app-warning-screen></app-warning-screen>
-  }
 
-  @if (!isLoadingScreenVisible && !isWarningScreenVisible)
-  {
     <div class="pots-container">
       <p>pots works!</p>
       <button (click)="openSubModal('addPot', {})" class="border-solid border-black border-2 mb-4">Add New Pot</button>
@@ -19,7 +9,7 @@
       <button (click)="openSubModal('addMoneyPot', {})" class="border-solid border-black border-2 mb-4">Add Money</button>
       <button (click)="openSubModal('withdrawMoneyPot', {})" class="border-solid border-black border-2 mb-4">Withdraw Money</button>
     </div>
-  }
+  
 </section>
 
 
