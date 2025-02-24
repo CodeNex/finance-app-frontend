@@ -87,41 +87,28 @@ export class DataStoreServiceService {
 
   // add new data to the existing dataArray and update the signal and UI
   addToStoredData(endpoint: string, data: any) {
-    if (endpoint === 'budgets') this.budgets.update(prev => [...prev, data]);
-    if (endpoint === 'pots') this.pots.update(prev => [...prev, data]);
-    if (endpoint === 'transactions') this.transactions.update(prev => [...prev, data]);
-    if (endpoint === 'transactions/recurring') this.transactionsRecurring.update(prev => [...prev, data]);
-  }
-
-  // update the existing data and update the signal and UI
-  updateStoredData(endpoint: string, data: any, index: number | null) {
-    if (endpoint === 'balance' && data) this.balance.set(data);
-    if (endpoint === 'budgets' && data && index) this.budgets.update(prev => {
-      let budgetsArray = [...prev];
-      budgetsArray[index] = data;
-      return budgetsArray;
-    });
-    if (endpoint === 'pots' && data && index) this.pots.update(prev => {
-      let potsArray = [...prev];
-      potsArray[index] = data;
-      return potsArray;
-    });
-    // if (endpoint === 'transactions') this.transactions = data;
+    if (endpoint === 'budgets') this.budgets.update((prev) => [...prev, data]);
+    if (endpoint === 'pots') this.pots.update((prev) => [...prev, data]);
+    if (endpoint === 'transactions')
+      this.transactions.update((prev) => [...prev, data]);
     if (endpoint === 'transactions/recurring')
-      this.transactionsRecurring = data;
+      this.transactionsRecurring.update((prev) => [...prev, data]);
   }
 
   // chose what kind of data to soft delete and update the signal and UI
-  choseDataToSoftDelete(endpoint: string, index: number) {
-    if (endpoint === 'budgets' && index) this.budgets.update(prev => {
-      return this.softDeleteData(prev, index);
-    })
-    if (endpoint === 'pots' && index) this.pots.update(prev => {
-      return this.softDeleteData(prev, index);
-    })
-    if (endpoint === 'transactions/recurring' && index) this.transactionsRecurring.update(prev => {
-      return this.softDeleteData(prev, index);
-    })
+  choseDataAndSoftDelete(endpoint: string, index: number) {
+    if (endpoint === 'budgets' && index)
+      this.budgets.update((prev) => {
+        return this.softDeleteData(prev, index);
+      });
+    if (endpoint === 'pots' && index)
+      this.pots.update((prev) => {
+        return this.softDeleteData(prev, index);
+      });
+    if (endpoint === 'transactions/recurring' && index)
+      this.transactionsRecurring.update((prev) => {
+        return this.softDeleteData(prev, index);
+      });
   }
 
   // soft delete data
@@ -131,4 +118,34 @@ export class DataStoreServiceService {
     return array;
   }
 
+  // update the balance and update the signal and UI
+  updateStoredBalance(key: string, amount: number) {
+    this.balance.update((prev) => {
+      let prevBalance = { ...prev };
+      if (key === 'current') prevBalance.current += amount;
+      if (key === 'income') prevBalance.income += amount;
+      if (key === 'expenses') prevBalance.expenses += amount;
+      return prevBalance;
+    });
+  }
+
+  // update the existing data and update the signal and UI
+  editStoredData(endpoint: string, index: number | null, data: any) {
+    if (endpoint === 'budgets' && data && index)
+      this.budgets.update((prev) => {
+        let budgetsArray = [...prev];
+        budgetsArray[index].category = data.category;
+        budgetsArray[index].maximum = data.maximum;
+        budgetsArray[index].theme = data.theme;
+        return budgetsArray;
+      });
+    if (endpoint === 'pots' && data && index)
+      this.pots.update((prev) => {
+        let potsArray = [...prev];
+        potsArray[index].name = data.name;
+        potsArray[index].target = data.target;
+        potsArray[index].theme = data.theme;
+        return potsArray;
+      });
+  }
 }
