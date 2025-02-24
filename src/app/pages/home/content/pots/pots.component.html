@@ -18,8 +18,10 @@
   </div>
 
   <div class="potsContent flex justify-center flex-wrap gap-6">
-    @for (item of this.potsArray(); track item.id) {
-    <div class="singlePot min-h-[300px] min-w-[500px] max-w-[700px] flex-1 bg-red-600 border-solid border-2 border-black"></div>
+    @for (item of this.potsArray(); track $index) {
+    <div class="singlePot min-h-[300px] min-w-[500px] max-w-[700px] flex-1 bg-red-600 border-solid border-2 border-black">
+      <p>{{potsArray()[$index].name}}</p>
+    </div>
     } 
     <div class="min-h-[300px] min-w-[500px] max-w-[700px] flex-1">ghost div</div>
   </div>
