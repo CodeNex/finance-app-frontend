@@ -85,8 +85,8 @@ export class DataStoreServiceService {
     return null;
   }
 
-  // add new data to the existing data and update the signal and UI
-  addToStoredData(endpoint: string, index: number, data: any) {
+  // add new data to the existing dataArray and update the signal and UI
+  addToStoredData(endpoint: string, data: any) {
     if (endpoint === 'budgets') this.budgets.update(prev => [...prev, data]);
     if (endpoint === 'pots') this.pots.update(prev => [...prev, data]);
     if (endpoint === 'transactions') this.transactions.update(prev => [...prev, data]);
@@ -95,10 +95,18 @@ export class DataStoreServiceService {
 
   // update the existing data and update the signal and UI
   updateStoredData(endpoint: string, data: any, index: number | null) {
-    if (endpoint === 'balance') this.balance.set(data);
-    if (endpoint === 'budgets') this.budgets = data;
-    if (endpoint === 'pots') this.pots = data;
-    if (endpoint === 'transactions') this.transactions = data;
+    if (endpoint === 'balance' && data) this.balance.set(data);
+    if (endpoint === 'budgets' && data && index) this.budgets.update(prev => {
+      let budgetsArray = [...prev];
+      budgetsArray[index] = data;
+      return budgetsArray;
+    });
+    if (endpoint === 'pots' && data && index) this.pots.update(prev => {
+      let potsArray = [...prev];
+      potsArray[index] = data;
+      return potsArray;
+    });
+    // if (endpoint === 'transactions') this.transactions = data;
     if (endpoint === 'transactions/recurring')
       this.transactionsRecurring = data;
   }
