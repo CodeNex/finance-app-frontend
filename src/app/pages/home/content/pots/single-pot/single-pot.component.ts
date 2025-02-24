@@ -1,6 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, Input } from '@angular/core';
 
+import { IconsComponent } from '../../../../../components/icons/icons.component';
+
 import { DataStoreServiceService } from '../../../../../services/data-store-service.service';
 import { AuthenticationService } from '../../../../../services/authentication.service';
 import { APIService } from '../../../../../services/api.service';
@@ -10,7 +12,7 @@ import "../../../../../shared/interfaces.ts";
 
 @Component({
   selector: 'app-single-pot',
-  imports: [CommonModule],
+  imports: [CommonModule, IconsComponent],
   templateUrl: './single-pot.component.html',
   styleUrl: './single-pot.component.scss'
 })
