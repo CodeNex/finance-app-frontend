@@ -1,0 +1,9 @@
+::ng-deep app-icons svg {
+  path {
+    transition: all 0.3s ease-in-out;
+  }
+
+  &:hover path {
+    fill: var(--color-grey-500);
+  }
+}
