@@ -7,6 +7,10 @@
   src: url("/font/PublicSans-VariableFont_wght.ttf");
 }
 
+* {
+  font-family: "public-sans";
+}
+
 body {
   font-family: "public-sans";
   color: var(--color-grey-900);
@@ -17,6 +21,7 @@ body {
     font-size: 32px;
     line-height: 120%;
     font-weight: bold;
+    font-family: "public-sans";
   }
 
   .text2b {
@@ -68,6 +73,7 @@ body {
   --color-secondary-cyan: #82c9d7;
   --color-secondary-navy: #626070;
   --color-secondary-red: #c94736;
+  --color-secondary-lightRed: #d46c5e;
   --color-secondary-purple: #826cb0;
   --color-other-purple: #af81ba;
   --color-other-turquoise: #597c7c;

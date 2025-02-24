@@ -1,20 +1,18 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: [
-    "./src/**/*.{html,ts}",
-  ],
+  content: ["./src/**/*.{html,ts}"],
   theme: {
     extend: {
       colors: {
         beige: {
           500: "var(--color-beige-500)",
-          100: "var(--color-beige-100)"
+          100: "var(--color-beige-100)",
         },
         grey: {
           900: "var(--color-grey-900)",
           500: "var(--color-grey-500)",
           300: "var(--color-grey-300)",
-          100: "var(--color-grey-100)"
+          100: "var(--color-grey-100)",
         },
         secondary: {
           green: "var(--color-secondary-green)",
@@ -22,6 +20,7 @@ module.exports = {
           cyan: "var(--color-secondary-cyan)",
           navy: "var(--color-secondary-navy)",
           red: "var(--color-secondary-red)",
+          lightRed: "var(--color-secondary-lightRed)",
           purple: "var(--color-secondary-purple)",
         },
         other: {
@@ -35,8 +34,8 @@ module.exports = {
           gold: "var(--color-other-gold)",
           orange: "var(--color-other-orange)",
         },
-      }
+      },
     },
   },
   plugins: [],
-}
+};
