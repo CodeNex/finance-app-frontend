@@ -39,7 +39,7 @@ export class SinglePotComponent {
 
   ngOnInit() {
     this.totalAmount = this.pot.total.toFixed(2);
-    this.targetAmount = this.pot.target.toFixed(3).replace('.', ',');
+    this.targetAmount = this.pot.target.toLocaleString('en-US', {maximumFractionDigits: 0});
     // this.percentage = (this.totalAmount / this.targetAmount) * 100;
   }
 
