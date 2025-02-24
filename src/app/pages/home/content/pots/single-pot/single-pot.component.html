@@ -14,7 +14,14 @@
     </button>
   </div>
 
-  <div class="potContent"></div>
+  <div class="potContent">
+    <div class="potContentTotalContainer flex items-center justify-between">
+      <p class="text4r text-grey-500">Total Saved</p>
+      <p><span>$</span><span></span></p>
+    </div>
+    <div class="potContentBarContainer"></div>
+    <div class="potContentPercentContainer"></div>
+  </div>
 
   <div class="potButtons flex items-center gap-4">
     <button (click)="openSubModal('addMoneyPot', {})" class="bg-beige-100 flex-1 rounded-lg pt-4 pb-4 text4b transition-all duration-300 ease-in-out hover:bg-white border-solid border-[1px] border-beige-100 hover:border-beige-500">+ Add Money</button>
