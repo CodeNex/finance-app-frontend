@@ -66,12 +66,13 @@
     <!-- button box -->
      <div class="flex gap-8 mt-5">
       <button type="submit"
-      class="w-full bg-grey-900 text-white text4b pt-[9px] pb-[9px] rounded-lg select-none"
+      class="w-full bg-grey-900 text-white text4b pt-[9px] pb-[9px] rounded-lg select-none
+      transition-all duration-300 ease-in-out hover:bg-grey-500"
     >
       Login
     </button>
     <div (click)="doGuestLogin()"
-      class="w-full bg-grey-900 text-white text4b pt-[9px] pb-[9px] rounded-lg select-none text-center cursor-pointer"
+      class="w-full bg-grey-900 text-white text4b pt-[9px] pb-[9px] rounded-lg select-none text-center cursor-pointer transition-all duration-300 ease-in-out hover:bg-grey-500"
     >
       Guest Login
     </div>
@@ -82,7 +83,8 @@
     <p class="text4r text-grey-500 select-none">Need to create an account?</p>
     <button
       (click)="emitChangeWindow('signUpForm')"
-      class="text4b text-grey-900 underline select-none"
+      class="text4b text-grey-900 underline select-none
+      "
     >
       Sign Up
     </button>

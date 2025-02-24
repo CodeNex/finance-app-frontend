@@ -1,4 +1,5 @@
 interface BalanceObject {
+  id: number,
   current: number,
   income: number,
   expenses: number
@@ -8,7 +9,9 @@ interface BudgetsObject {
   id: number,
   category: string,
   maximum: number,
-  theme: string
+  theme: string,
+  createdAt: string | null,
+  deletedAt: string | null
 }
 
 interface PotsObject {
@@ -16,15 +19,18 @@ interface PotsObject {
   name: string,
   target: number,
   total: number,
-  theme: string
+  theme: string,
+  createdAt: string | null,
+  deletedAt: string | null
 }
 
 interface TransactionsObject {
   id: number,
   user: number | null,
+  createdAt: string | null,
+  deletedAt: string | null,
+  recurring: string | null,
   name: string,
   category: string,
-  date: string,
   amount: number,
-  recurring: boolean
 }
