@@ -1,21 +1,27 @@
 <section class="w-full min-h-[100%]">
+  <!-- <button (click)="openSubModal('editPot', {})" class="border-solid border-black border-2 mb-4">Edit Pot</button>
 
-
-    <div class="pots-container">
-      <p>pots works!</p>
-      <button (click)="openSubModal('addPot', {})" class="border-solid border-black border-2 mb-4">Add New Pot</button>
-      <button (click)="openSubModal('editPot', {})" class="border-solid border-black border-2 mb-4">Edit Pot</button>
       <button (click)="openSubModal('deletePot', {})" class="border-solid border-black border-2 mb-4">Delete Pot</button>
+
       <button (click)="openSubModal('addMoneyPot', {})" class="border-solid border-black border-2 mb-4">Add Money</button>
-      <button (click)="openSubModal('withdrawMoneyPot', {})" class="border-solid border-black border-2 mb-4">Withdraw Money</button>
-    </div>
 
+      <button (click)="openSubModal('withdrawMoneyPot', {})" class="border-solid border-black border-2 mb-4">Withdraw Money</button> -->
+
+  <div class="potsHeader flex items-center justify-between">
+    <p class="text1b">Pots</p>
+    <button
+      (click)="openSubModal('addPot', {})"
+      class="border-solid bg-grey-900 text4b text-white p-4 rounded-lg transition-all duration-300 hover:bg-grey-500"
+    >
+      + Add New Pot
+    </button>
+  </div>
+
+  <div class="potsContent">
     @for (item of this.potsArray(); track $index) {
-      <div class="bg-red-600 w-8 h-8 border-solid border-2 border-black"></div>
+    <div class="singlePot bg-red-600 w-8 h-8 border-solid border-2 border-black"></div>
     } @empty {
-      <div>nichts da zum anzeigen</div>
+    <div>nichts da zum anzeigen</div>
     }
-  
+  </div>
 </section>
-
-
