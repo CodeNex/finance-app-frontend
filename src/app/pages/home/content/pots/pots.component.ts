@@ -20,13 +20,6 @@ export class PotsComponent {
 
   public potsArray: any = this.dataStore.pots; 
 
- ngOnInit() {
-  // assign pots-signal from data-store-service to local potsArray
-  // this.potsArray = this.dataStore.pots;
-  console.log(this.potsArray());
-  
- } 
-
   public openSubModal(subModal: string, subModalObject: Object) {
     this.mainModalService.chooseSubModal(subModal, subModalObject);
   }
