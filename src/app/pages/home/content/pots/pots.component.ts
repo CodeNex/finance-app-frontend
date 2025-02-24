@@ -5,10 +5,11 @@ import { DataStoreServiceService } from '../../../../services/data-store-service
 import { AuthenticationService } from '../../../../services/authentication.service';
 import { APIService } from '../../../../services/api.service';
 import { MainModalService } from '../../../../services/main-modal.service';
+import { SinglePotComponent } from './single-pot/single-pot.component';
 
 @Component({
   selector: 'app-pots',
-  imports: [CommonModule],
+  imports: [ CommonModule, SinglePotComponent ],
   templateUrl: './pots.component.html',
   styleUrl: './pots.component.scss',
 })
