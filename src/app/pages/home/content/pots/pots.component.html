@@ -18,7 +18,7 @@
   </div>
 
   <div class="potsContent">
-    @for (item of this.potsArray(); track $index) {
+    @for (item of this.potsArray(); track item.id) {
     <div class="singlePot bg-red-600 w-8 h-8 border-solid border-2 border-black"></div>
     } @empty {
     <div>nichts da zum anzeigen</div>
