@@ -5,6 +5,7 @@ import { DataStoreServiceService } from '../../../../../services/data-store-serv
 import { AuthenticationService } from '../../../../../services/authentication.service';
 import { APIService } from '../../../../../services/api.service';
 import { MainModalService } from '../../../../../services/main-modal.service';
+import "../../../../../shared/interfaces.ts";
 
 
 @Component({
@@ -20,7 +21,16 @@ export class SinglePotComponent {
   public authService: AuthenticationService = inject(AuthenticationService);
   public apiService: APIService = inject(APIService);
 
-  @Input() public pot: Object = {};
+  @Input() public pot: PotsObject = {
+    id: -1,
+    name: "",
+    target: -1,
+    total: -1,
+    theme: "",
+    createdAt: null,
+    deletedAt: null
+  }
+    
   @Input() public potIndex: number = -1;
 
   public openSubModal(subModal: string, subModalObject: Object) {
