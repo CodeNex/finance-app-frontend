@@ -93,6 +93,7 @@ export class DataStoreServiceService {
     if (endpoint === 'transactions/recurring') this.transactionsRecurring.update(prev => [...prev, data]);
   }
 
+  // update the existing data and update the signal and UI
   updateStoredData(endpoint: string, data: any, index: number | null) {
     if (endpoint === 'balance') this.balance.set(data);
     if (endpoint === 'budgets') this.budgets = data;
