@@ -24,6 +24,7 @@ export class AddBudgetModalComponent implements OnInit {
   public categories: string[] = [];
   public budgetForm = this.formBuilder.group({
     category: ['', Validators.required],
+    maxSpending: ['', [Validators.required, Validators.min(0)]],
   });
 
   @Input() public modalObject: Object = {};
