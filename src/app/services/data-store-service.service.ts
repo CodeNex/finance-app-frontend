@@ -14,49 +14,55 @@ export class DataStoreServiceService {
 
   public budgets = signal<BudgetsObject[]>([]);
 
-  public pots = signal<PotsObject[]>([]);
-  // public pots = signal<PotsObject[]>([
-  //   {
-  //     id: 0,
-  //     name: 'Savings',
-  //     target: 2000.0,
-  //     total: 159.0,
-  //     theme: '#277C78',
-  //     deletedAt: null,
-  //   },
-  //   {
-  //     id: 1,
-  //     name: 'Concert Ticket',
-  //     target: 150.0,
-  //     total: 110.0,
-  //     theme: '#626070',
-  //     deletedAt: null,
-  //   },
-  //   {
-  //     id: 2,
-  //     name: 'Gift',
-  //     target: 150.0,
-  //     total: 110.0,
-  //     theme: '#82C9D7',
-  //     deletedAt: null,
-  //   },
-  //   {
-  //     id: 3,
-  //     name: 'New Laptop',
-  //     target: 1000.0,
-  //     total: 10.0,
-  //     theme: '#F2CDAC',
-  //     deletedAt: null,
-  //   },
-  //   {
-  //     id: 4,
-  //     name: 'Holiday',
-  //     target: 1440.0,
-  //     total: 531.0,
-  //     theme: '#826CB0',
-  //     deletedAt: null,
-  //   },
-  // ]);
+  // public pots = signal<PotsObject[]>([]);
+
+  public pots = signal<PotsObject[]>([
+    {
+      id: 0,
+      name: 'Savings',
+      target: 2000.0,
+      total: 159.0,
+      theme: '#277C78',
+      createdAt: null,
+      deletedAt: null,
+    },
+    {
+      id: 1,
+      name: 'Concert Ticket',
+      target: 150.0,
+      total: 110.0,
+      theme: '#626070',
+      createdAt: null,
+      deletedAt: null,
+    },
+    {
+      id: 2,
+      name: 'Gift',
+      target: 150.0,
+      total: 110.0,
+      theme: '#82C9D7',
+      createdAt: null,
+      deletedAt: null,
+    },
+    {
+      id: 3,
+      name: 'New Laptop',
+      target: 1000.0,
+      total: 10.0,
+      theme: '#F2CDAC',
+      createdAt: null,
+      deletedAt: null,
+    },
+    {
+      id: 4,
+      name: 'Holiday',
+      target: 1440.0,
+      total: 531.0,
+      theme: '#826CB0',
+      createdAt: null,
+      deletedAt: null,
+    },
+  ]);
 
   public transactions = signal<TransactionsObject[]>([]);
 

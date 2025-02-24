@@ -18,11 +18,11 @@ export class PotsComponent {
   public authService: AuthenticationService = inject(AuthenticationService);
   public mainModalService: MainModalService = inject(MainModalService);
 
-  public potsArray: any = []; 
+  public potsArray: any = this.dataStore.pots; 
 
  ngOnInit() {
   // assign pots-signal from data-store-service to local potsArray
-  this.potsArray = this.dataStore.pots;
+  // this.potsArray = this.dataStore.pots;
  } 
 
   public openSubModal(subModal: string, subModalObject: Object) {
