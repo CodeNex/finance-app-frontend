@@ -12,8 +12,8 @@
   </div>
 
   <div class="potsContent flex flex-wrap gap-6">
-    @for (item of this.potsArray(); track $index) {
-    <app-single-pot [pot]="item" [potIndex]="$index" class="min-w-[500px] max-w-[700px] flex-1"></app-single-pot>
+    @for (item of this.potsArray(); let index = $index; track item.id) {
+    <app-single-pot [pot]="item" [potIndex]="index" class="min-w-[500px] max-w-[700px] flex-1"></app-single-pot>
     } 
     <div class="min-w-[500px] max-w-[700px] flex-1"></div>
   </div>
