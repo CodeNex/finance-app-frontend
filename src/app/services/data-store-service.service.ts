@@ -111,18 +111,24 @@ export class DataStoreServiceService {
       this.transactionsRecurring = data;
   }
 
-  // soft delete the existing data and update the signal and UI
-  softDeleteStoredData(endpoint: string, index: number) {
+  // chose what kind of data to soft delete and update the signal and UI
+  choseDataToSoftDelete(endpoint: string, index: number) {
     if (endpoint === 'budgets' && index) this.budgets.update(prev => {
-      let budgetsArray = [...prev];
-      budgetsArray[index].deletedAt = new Date().toISOString();
-      return budgetsArray;
+      return this.softDeleteData(prev, index);
     })
     if (endpoint === 'pots' && index) this.pots.update(prev => {
-      let potsArray = [...prev];
-      potsArray[index].deletedAt = new Date().toISOString();
-      return potsArray;
+      return this.softDeleteData(prev, index);
     })
+    if (endpoint === 'transactions/recurring' && index) this.transactionsRecurring.update(prev => {
+      return this.softDeleteData(prev, index);
+    })
+  }
+
+  // soft delete data
+  softDeleteData(prev: any, index: number) {
+    let array = [...prev];
+    array[index].deletedAt = new Date().toISOString();
+    return array;
   }
 
 }

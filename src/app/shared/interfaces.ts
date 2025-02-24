@@ -27,9 +27,10 @@ interface PotsObject {
 interface TransactionsObject {
   id: number,
   user: number | null,
+  createdAt: string | null,
+  deletedAt: string | null,
+  recurring: string | null,
   name: string,
   category: string,
-  date: string,
   amount: number,
-  recurring: boolean
 }
