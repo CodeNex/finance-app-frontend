@@ -7,17 +7,15 @@ import { DataStoreServiceService } from '../../../../../services/data-store-serv
 import { AuthenticationService } from '../../../../../services/authentication.service';
 import { APIService } from '../../../../../services/api.service';
 import { MainModalService } from '../../../../../services/main-modal.service';
-import "../../../../../shared/interfaces.ts";
-
+import '../../../../../shared/interfaces.ts';
 
 @Component({
   selector: 'app-single-pot',
   imports: [CommonModule, IconsComponent],
   templateUrl: './single-pot.component.html',
-  styleUrl: './single-pot.component.scss'
+  styleUrl: './single-pot.component.scss',
 })
 export class SinglePotComponent {
-
   public mainModalService: MainModalService = inject(MainModalService);
   public dataStore: DataStoreServiceService = inject(DataStoreServiceService);
   public authService: AuthenticationService = inject(AuthenticationService);
@@ -25,18 +23,27 @@ export class SinglePotComponent {
 
   @Input() public pot: PotsObject = {
     id: -1,
-    name: "",
+    name: '',
     target: -1,
     total: -1,
-    theme: "",
+    theme: '',
     createdAt: null,
-    deletedAt: null
-  }
-    
+    deletedAt: null,
+  };
+
   @Input() public potIndex: number = -1;
+
+  public totalAmount: string = "";
+  public targetAmount: number = -1;
+  public percentage: number = 0;
+
+  ngOnInit() {
+    this.totalAmount = this.pot.total.toFixed(2);
+    this.targetAmount = this.pot.target;
+    // this.percentage = (this.totalAmount / this.targetAmount) * 100;
+  }
 
   public openSubModal(subModal: string, subModalObject: Object) {
     this.mainModalService.chooseSubModal(subModal, subModalObject);
   }
-
 }
