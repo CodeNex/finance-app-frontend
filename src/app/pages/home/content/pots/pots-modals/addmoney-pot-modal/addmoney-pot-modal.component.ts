@@ -41,7 +41,7 @@ export class AddmoneyPotModalComponent {
   public amountPercentageBar: string = '';
   public differencePercentageBar: string = '';
 
-  public inputValue: number = 0;
+  public inputValue: number | null = null;
 
   ngOnInit() {
     this.currentPot = this.modalObject;
