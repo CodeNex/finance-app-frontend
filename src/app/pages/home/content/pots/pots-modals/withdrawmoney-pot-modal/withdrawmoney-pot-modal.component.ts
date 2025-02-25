@@ -19,7 +19,7 @@ export class WithdrawmoneyPotModalComponent {
 
   @Input() public modalObject: Object = {};
 
-  public currentPot: Object = {
+  public currentPot: any = {
     id: -1,
     name: '',
     target: -1,
@@ -28,6 +28,8 @@ export class WithdrawmoneyPotModalComponent {
     createdAt: null,
     deletedAt: null,
   };
+
+  public potName: string = '';
 
   ngOnInit() {
     this.currentPot = this.modalObject;

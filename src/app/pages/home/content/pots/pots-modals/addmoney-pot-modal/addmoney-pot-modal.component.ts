@@ -19,7 +19,7 @@ export class AddmoneyPotModalComponent {
 
   @Input() public modalObject: Object = {};
 
-  public currentPot: Object = {
+  public currentPot: any = {
     id: -1,
     name: '',
     target: -1,
