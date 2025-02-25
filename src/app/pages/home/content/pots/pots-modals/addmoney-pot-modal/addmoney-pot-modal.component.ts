@@ -41,7 +41,7 @@ export class AddmoneyPotModalComponent {
 
   public prevPercentageBar: string = '';
   public amountPercentageBar: string = '';
-  public differencePercentageBar: string = '';
+  // public differencePercentageBar: string = '';
 
   public inputValue: number | null = null;
 
@@ -116,10 +116,15 @@ export class AddmoneyPotModalComponent {
       Math.trunc(
         ((this.currentPot.total + inputAmount) / this.currentPot.target) * 100
       ).toFixed(0) + '%';
-      this.percentage = (
-        Math.trunc(((this.currentPot.total + inputAmount) / this.currentPot.target) * 1000) / 10
-      ).toFixed(1);
+    this.percentage = (
+      Math.trunc(
+        ((this.currentPot.total + inputAmount) / this.currentPot.target) * 1000
+      ) / 10
+    ).toFixed(1);
+    this.amountPercentageBar = ((inputAmount / (this.currentPot.total + inputAmount)) * 100).toFixed(0) + '%';
+    this.newAmount = (inputAmount + this.currentPot.total).toFixed(2);
 
-    console.log(inputAmount);
+    console.log(this.amountPercentageBar);
   }
 }
+
