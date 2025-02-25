@@ -63,7 +63,7 @@ export class AddmoneyPotModalComponent {
   }
 
   validateInputValue() {
-    let inputAmount;
+    let inputAmount: any;
     if (
       this.inputValue === null ||
       this.inputValue <= 0 ||
@@ -72,16 +72,55 @@ export class AddmoneyPotModalComponent {
       inputAmount = 0;
     }
 
-    if (this.inputValue && this.inputValue < this.dataStore.balance().current && this.inputValue <= (this.currentPot.target - this.currentPot.total)) {
+    if (
+      this.inputValue &&
+      // I <= Rest
+      this.inputValue <= this.currentPot.target - this.currentPot.total &&
+      // I <= Current
+      this.inputValue <= this.dataStore.balance().current
+    ) {
+      // Amount = I
       inputAmount = this.inputValue;
+      setTimeout(() => {
+        this.inputValue = inputAmount;
+      }, 10);
     }
 
-    if ()
+    if (
+      this.inputValue &&
+      // I >= Rest
+      this.inputValue >= this.currentPot.target - this.currentPot.total &&
+      // I <= Current
+      this.inputValue <= this.dataStore.balance().current
+    ) {
+      inputAmount = this.currentPot.target - this.currentPot.total;
+      setTimeout(() => {
+        this.inputValue = inputAmount;
+      }, 10);
+    }
 
-    if (this.inputValue && this.inputValue >= this.dataStore.balance().current) {
+    if (
+      this.inputValue &&
+      this.inputValue <= this.currentPot.target - this.currentPot.total &&
+      this.inputValue >= this.dataStore.balance().current
+    ) {
       inputAmount = this.dataStore.balance().current;
       setTimeout(() => {
-        this.inputValue = this.dataStore.balance().current;
+        this.inputValue = inputAmount;
+      }, 10);
+    }
+
+    if (
+      this.inputValue &&
+      // I >= Rest
+      this.inputValue >= this.currentPot.target - this.currentPot.total &&
+      // I >= Current
+      this.inputValue >= this.dataStore.balance().current
+    ) {
+      // Amount = Rest
+      inputAmount = this.currentPot.target - this.currentPot.total;
+      setTimeout(() => {
+        this.inputValue = inputAmount;
       }, 10);
     }
 
@@ -98,5 +137,3 @@ export class AddmoneyPotModalComponent {
     console.log(inputAmount);
   }
 }
-
-1000000;

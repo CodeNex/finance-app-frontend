@@ -7,7 +7,7 @@ import '../shared/interfaces.ts';
 export class DataStoreServiceService {
   public balance = signal<BalanceObject>({
     id: 1,
-    current: 5632.0,
+    current: 500.0,
     income: 3250.0,
     expenses: 2188.0,
   });
