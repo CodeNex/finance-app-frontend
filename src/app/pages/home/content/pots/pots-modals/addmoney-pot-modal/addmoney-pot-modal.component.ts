@@ -49,12 +49,25 @@ export class AddmoneyPotModalComponent {
     this.targetAmount = this.currentPot.target.toLocaleString('en-US', {
       maximumFractionDigits: 0,
     });
-    this.percentageNumber = Math.trunc((this.currentPot.total / this.currentPot.target) * 1000) / 10;
+    this.percentageNumber =
+      Math.trunc((this.currentPot.total / this.currentPot.target) * 1000) / 10;
     this.percentage = (
       Math.trunc((this.currentPot.total / this.currentPot.target) * 1000) / 10
     ).toFixed(1);
-    this.progressBarPercentage = (
-      Math.trunc((this.currentPot.total / this.currentPot.target) * 1000) / 10
-    ).toFixed(0) + "%";
+    this.progressBarPercentage =
+      (
+        Math.trunc((this.currentPot.total / this.currentPot.target) * 1000) / 10
+      ).toFixed(0) + '%';
+  }
+
+  updatePercentageBar() {  
+    this.progressBarPercentage =
+      Math.trunc(
+        (((this.currentPot.total + this.inputValue) / this.currentPot.target) * 
+          100)
+      ).toFixed(0) + '%';
+
+      console.log(this.currentPot.total + this.inputValue);
+      
   }
 }
