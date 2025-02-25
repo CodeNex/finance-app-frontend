@@ -44,15 +44,9 @@
       <div
         class="potContentProgressBar absolute top-0 left-0 z-10 h-full rounded-[4px] bg-grey-900"
         [ngStyle]="{
-          width: percentageNumber >= 100 ? '100%' : progressBarPercentage
+          width: percentageNumber >= 100 ? '100%' : progressBarPercentage, 'background': 'linear-gradient(to left, #277c78 ' + amountPercentageBar + '%, #696868 ' + amountPercentageBar + '%)'
         }"
       >
-        <div
-          class="potAmountPercentageBar absolute z-20 h-full top-0 right-0 bg-secondary-green rounded-tr-[4px] rounded-br-[4px]"
-          [ngStyle]="{
-            width: amountPercentageBar ? amountPercentageBar : '0%'
-          }"
-        ></div>
       </div>
     </div>
     <div

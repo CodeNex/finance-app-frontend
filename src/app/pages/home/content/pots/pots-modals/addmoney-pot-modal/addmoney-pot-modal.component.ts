@@ -40,8 +40,7 @@ export class AddmoneyPotModalComponent {
   public progressBarPercentage: string = '';
 
   public prevPercentageBar: string = '';
-  public amountPercentageBar: string = '';
-  // public differencePercentageBar: string = '';
+  public amountPercentageBar: number = 100;
 
   public inputValue: number | null = null;
 
@@ -121,7 +120,7 @@ export class AddmoneyPotModalComponent {
         ((this.currentPot.total + inputAmount) / this.currentPot.target) * 1000
       ) / 10
     ).toFixed(1);
-    this.amountPercentageBar = ((inputAmount / (this.currentPot.total + inputAmount)) * 100).toFixed(0) + '%';
+    this.amountPercentageBar = Math.floor((inputAmount / (this.currentPot.total + inputAmount)) * 100);
     this.newAmount = (inputAmount + this.currentPot.total).toFixed(2);
 
     console.log(this.amountPercentageBar);
