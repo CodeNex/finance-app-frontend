@@ -32,9 +32,16 @@ export class AddmoneyPotModalComponent {
 
   public newAmount: string = '';
   public targetAmount: string = '';
+
   public percentageNumber: number = 0;
   public percentage: string = '';
   public progressBarPercentage: string = '';
+
+  public prevPercentageBar: string = '';
+  public amountPercentageBar: string = '';
+  public differencePercentageBar: string = '';
+
+  public inputValue: number = 0;
 
   ngOnInit() {
     this.currentPot = this.modalObject;
