@@ -20,4 +20,9 @@ export class AddmoneyPotModalComponent {
   public currentPot: string = 'currentPot';
 
   @Input() public modalObject: Object = {};
+
+  ngOnInit() {
+    console.log(this.modalObject);
+    
+  }
 }

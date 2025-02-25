@@ -48,13 +48,13 @@
 
   <div class="potButtons flex items-center gap-4">
     <button
-      (click)="openSubModal('addMoneyPot', {})"
+      (click)="openSubModal('addMoneyPot', pot)"
       class="bg-beige-100 flex-1 rounded-lg pt-4 pb-4 text4b transition-all duration-300 ease-in-out hover:bg-white border-solid border-[1px] border-beige-100 hover:border-beige-500"
     >
       + Add Money
     </button>
     <button
-      (click)="openSubModal('withdrawMoneyPot', {})"
+      (click)="openSubModal('withdrawMoneyPot', pot)"
       class="bg-beige-100 flex-1 rounded-lg pt-4 pb-4 text4b transition-all duration-300 ease-in-out hover:bg-white border-solid border-[1px] border-beige-100 hover:border-beige-500"
     >
       Withdraw
