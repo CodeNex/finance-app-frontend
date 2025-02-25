@@ -42,12 +42,17 @@
       class="potContentProgressBarContainer w-[100%] h-[8px] rounded-[4px] bg-beige-100 overflow-hidden relative"
     >
       <div
-        class="potContentProgressBar absolute top-0 left-0 z-10 h-full rounded-[4px] bg-grey-900"
+        class="potContentProgressBar absolute top-0 left-0 z-10 h-full rounded-[4px]"
         [ngStyle]="{
-          width: percentageNumber >= 100 ? '100%' : progressBarPercentage, 'background': 'linear-gradient(to left, #277c78 ' + amountPercentageBar + '%, #696868 ' + amountPercentageBar + '%)'
+          width: percentageNumber >= 100 ? '100%' : progressBarPercentage,
+          background:
+            'linear-gradient(to left, #277c78 ' +
+            amountPercentageBar +
+            '%, #696868 ' +
+            amountPercentageBar +
+            '%)'
         }"
-      >
-      </div>
+      ></div>
     </div>
     <div
       class="potContentPercentContainer flex items-center justify-between pt-[13px]"
