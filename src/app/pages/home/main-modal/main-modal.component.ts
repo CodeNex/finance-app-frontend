@@ -52,7 +52,7 @@ export class MainModalComponent {
         (subModal: string) => (this.currentShownSubModal = subModal)
       );
     this.subModalObjectSubscription =
-      this.mainModalService.currentSubModal$.subscribe(
+      this.mainModalService.subModalObject$.subscribe(
         (subModalObject: Object) => (this.subModalObject = subModalObject)
       );
   }
