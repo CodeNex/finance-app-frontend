@@ -78,7 +78,7 @@ export class AddmoneyPotModalComponent {
     ) {
       inputAmount = this.inputValue;
       setTimeout(() => {
-        this.inputValue = inputAmount;
+        this.inputValue = Math.round(inputAmount * 100) / 100;
       }, 10);
     }
 
@@ -90,7 +90,7 @@ export class AddmoneyPotModalComponent {
     ) {
       inputAmount = this.currentPot.target - this.currentPot.total;
       setTimeout(() => {
-        this.inputValue = inputAmount;
+        this.inputValue = Math.round(inputAmount * 100) / 100;
       }, 10);
     }
 
@@ -102,7 +102,7 @@ export class AddmoneyPotModalComponent {
     ) {
       inputAmount = this.dataStore.balance().current;
       setTimeout(() => {
-        this.inputValue = inputAmount;
+        this.inputValue = Math.round(inputAmount * 100) / 100;
       }, 10);
     }
 
@@ -120,10 +120,14 @@ export class AddmoneyPotModalComponent {
         ((this.currentPot.total + inputAmount) / this.currentPot.target) * 1000
       ) / 10
     ).toFixed(1);
-    this.amountPercentageBar = Math.floor((inputAmount / (this.currentPot.total + inputAmount)) * 100);
+    this.amountPercentageBar = Math.floor(
+      (inputAmount / (this.currentPot.total + inputAmount)) * 100
+    );
     this.newAmount = (inputAmount + this.currentPot.total).toFixed(2);
+  }
 
-    console.log(this.amountPercentageBar);
+  commitAddMoney() {
+    this.currentPot.total = this.currentPot.total + this.validateInputValue();
+    console.log(this.currentPot);
   }
 }
-
