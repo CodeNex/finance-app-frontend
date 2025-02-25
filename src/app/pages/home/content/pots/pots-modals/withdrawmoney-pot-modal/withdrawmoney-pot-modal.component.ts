@@ -34,6 +34,5 @@ export class WithdrawmoneyPotModalComponent {
 
   ngOnInit() {
     this.currentPot = this.modalObject;
-    console.log(this.currentPot);
   }
 }
