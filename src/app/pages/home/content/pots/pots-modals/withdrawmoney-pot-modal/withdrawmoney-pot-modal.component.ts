@@ -17,7 +17,20 @@ export class WithdrawmoneyPotModalComponent {
     this.mainModalService.hideMainModal();
   }
 
-  public currentPot: string = 'currentPot';
-
   @Input() public modalObject: Object = {};
+
+  public currentPot: Object = {
+    id: -1,
+    name: '',
+    target: -1,
+    total: -1,
+    theme: '',
+    createdAt: null,
+    deletedAt: null,
+  };
+
+  ngOnInit() {
+    this.currentPot = this.modalObject;
+    console.log(this.currentPot);
+  }
 }

@@ -46,15 +46,7 @@ export class MainModalComponent {
   public subModalSubscription!: Subscription;
   public currentShownSubModal: string = '';
   public subModalObjectSubscription!: Subscription;
-  public subModalObject: Object = {
-    id: -1,
-    name: '',
-    target: -1,
-    total: -1,
-    theme: '',
-    createdAt: null,
-    deletedAt: null,
-  };
+  public subModalObject: Object = {};
 
   private subscribeSubModal() {
     this.subModalSubscription =
