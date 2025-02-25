@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 import { MainModalService } from '../../../../../../services/main-modal.service';
+import { DataStoreServiceService } from '../../../../../../services/data-store-service.service';
 
 @Component({
   selector: 'app-addmoney-pot-modal',
@@ -12,6 +13,7 @@ import { MainModalService } from '../../../../../../services/main-modal.service'
 })
 export class AddmoneyPotModalComponent {
   public mainModalService: MainModalService = inject(MainModalService);
+  public dataStore: DataStoreServiceService = inject(DataStoreServiceService);
 
   // closes main modal and its children
   public closeMainModal() {
@@ -60,14 +62,41 @@ export class AddmoneyPotModalComponent {
       ).toFixed(0) + '%';
   }
 
-  updatePercentageBar() {  
+  validateInputValue() {
+    let inputAmount;
+    if (
+      this.inputValue === null ||
+      this.inputValue <= 0 ||
+      this.inputValue === undefined
+    ) {
+      inputAmount = 0;
+    }
+
+    if (this.inputValue && this.inputValue < this.dataStore.balance().current && this.inputValue <= (this.currentPot.target - this.currentPot.total)) {
+      inputAmount = this.inputValue;
+    }
+
+    if ()
+
+    if (this.inputValue && this.inputValue >= this.dataStore.balance().current) {
+      inputAmount = this.dataStore.balance().current;
+      setTimeout(() => {
+        this.inputValue = this.dataStore.balance().current;
+      }, 10);
+    }
+
+    return inputAmount;
+  }
+
+  updatePercentageBar() {
+    let inputAmount = this.validateInputValue();
     this.progressBarPercentage =
       Math.trunc(
-        (((this.currentPot.total + this.inputValue) / this.currentPot.target) * 
-          100)
+        ((this.currentPot.total + inputAmount) / this.currentPot.target) * 100
       ).toFixed(0) + '%';
 
-      console.log(this.currentPot.total + this.inputValue);
-      
+    console.log(inputAmount);
   }
 }
+
+1000000;

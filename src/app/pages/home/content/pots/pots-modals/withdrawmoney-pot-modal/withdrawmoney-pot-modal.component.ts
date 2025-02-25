@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 import { MainModalService } from '../../../../../../services/main-modal.service';
+import { DataStoreServiceService } from '../../../../../../services/data-store-service.service';
 
 @Component({
   selector: 'app-withdrawmoney-pot-modal',
@@ -12,6 +13,7 @@ import { MainModalService } from '../../../../../../services/main-modal.service'
 })
 export class WithdrawmoneyPotModalComponent {
   public mainModalService: MainModalService = inject(MainModalService);
+  public dataStore: DataStoreServiceService = inject(DataStoreServiceService);
 
   // closes main modal and its children
   public closeMainModal() {
@@ -49,12 +51,14 @@ export class WithdrawmoneyPotModalComponent {
     this.targetAmount = this.currentPot.target.toLocaleString('en-US', {
       maximumFractionDigits: 0,
     });
-    this.percentageNumber = Math.trunc((this.currentPot.total / this.currentPot.target) * 1000) / 10;
+    this.percentageNumber =
+      Math.trunc((this.currentPot.total / this.currentPot.target) * 1000) / 10;
     this.percentage = (
       Math.trunc((this.currentPot.total / this.currentPot.target) * 1000) / 10
     ).toFixed(1);
-    this.progressBarPercentage = (
-      Math.trunc((this.currentPot.total / this.currentPot.target) * 1000) / 10
-    ).toFixed(0) + "%";
+    this.progressBarPercentage =
+      (
+        Math.trunc((this.currentPot.total / this.currentPot.target) * 1000) / 10
+      ).toFixed(0) + '%';
   }
 }
