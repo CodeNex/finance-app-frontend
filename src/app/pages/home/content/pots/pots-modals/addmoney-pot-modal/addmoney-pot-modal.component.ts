@@ -116,6 +116,9 @@ export class AddmoneyPotModalComponent {
       Math.trunc(
         ((this.currentPot.total + inputAmount) / this.currentPot.target) * 100
       ).toFixed(0) + '%';
+      this.percentage = (
+        Math.trunc(((this.currentPot.total + inputAmount) / this.currentPot.target) * 1000) / 10
+      ).toFixed(1);
 
     console.log(inputAmount);
   }
