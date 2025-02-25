@@ -88,4 +88,10 @@ export class WithdrawmoneyPotModalComponent {
 
     return inputAmount;
   }
+
+  updatePercentageBar() {
+    let inputAmount = this.validateInputValue();
+    console.log(inputAmount);
+    
+  }
 }
