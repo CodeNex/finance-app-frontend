@@ -3,6 +3,8 @@ import { Component, inject } from '@angular/core';
 import { MainModalService } from '../../../services/main-modal.service';
 import { Subscription } from 'rxjs';
 
+import "../../../shared/interfaces.ts";
+
 import { AddBudgetModalComponent } from '../content/budgets/budgets-modals/add-budget-modal/add-budget-modal.component';
 import { DeleteBudgetModalComponent } from '../content/budgets/budgets-modals/delete-budget-modal/delete-budget-modal.component';
 import { EditBudgetModalComponent } from '../content/budgets/budgets-modals/edit-budget-modal/edit-budget-modal.component';
@@ -44,7 +46,15 @@ export class MainModalComponent {
   public subModalSubscription!: Subscription;
   public currentShownSubModal: string = '';
   public subModalObjectSubscription!: Subscription;
-  public subModalObject: Object = {};
+  public subModalObject: Object = {
+    id: -1,
+    name: '',
+    target: -1,
+    total: -1,
+    theme: '',
+    createdAt: null,
+    deletedAt: null,
+  };
 
   private subscribeSubModal() {
     this.subModalSubscription =
