@@ -1,11 +1,12 @@
 import { Component, inject, Input } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 import { MainModalService } from '../../../../../../services/main-modal.service';
-import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-withdrawmoney-pot-modal',
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './withdrawmoney-pot-modal.component.html',
   styleUrl: './withdrawmoney-pot-modal.component.scss',
 })
