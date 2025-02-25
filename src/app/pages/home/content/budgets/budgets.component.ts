@@ -5,23 +5,26 @@ import { LoadingScreenComponent } from '../../../../components/loading-screen/lo
 import { WarningScreenComponent } from '../../../../components/warning-screen/warning-screen.component';
 
 import { DataStoreServiceService } from '../../../../services/data-store-service.service';
-import { AuthentificationService } from '../../../../services/authentification.service';
+import { AuthenticationService } from '../../../../services/authentication.service';
 import { APIService } from '../../../../services/api.service';
-
+import { MainModalService } from '../../../../services/main-modal.service';
 
 @Component({
   selector: 'app-budgets',
-  imports: [ LoadingScreenComponent, WarningScreenComponent, CommonModule ],
+  imports: [LoadingScreenComponent, WarningScreenComponent, CommonModule],
   templateUrl: './budgets.component.html',
-  styleUrl: './budgets.component.scss'
+  styleUrl: './budgets.component.scss',
 })
 export class BudgetsComponent {
-
   private apiService: APIService = inject(APIService);
   private dataStore: DataStoreServiceService = inject(DataStoreServiceService);
-  public authService: AuthentificationService = inject(AuthentificationService);
+  public authService: AuthenticationService = inject(AuthenticationService);
+  public mainModalService: MainModalService = inject(MainModalService);
 
   isLoadingScreenVisible: boolean = false;
   isWarningScreenVisible: boolean = false;
 
+  public openSubModal(subModal: string, subModalObject: Object) {
+    this.mainModalService.chooseSubModal(subModal, subModalObject);
+  }
 }

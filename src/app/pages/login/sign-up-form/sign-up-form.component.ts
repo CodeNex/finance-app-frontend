@@ -1,39 +1,132 @@
 import { Component, EventEmitter, Output, inject } from '@angular/core';
-import { FormsModule, FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
+import {
+  FormsModule,
+  Validators,
+  FormBuilder,
+  ReactiveFormsModule,
+  AbstractControl,
+  ValidationErrors,
+  ValidatorFn,
+} from '@angular/forms';
+import { NgClass } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
 import { IconsComponent } from '../../../components/icons/icons.component';
 
-import { AuthentificationService } from '../../../services/authentification.service';
+import { AuthenticationService } from '../../../services/authentication.service';
 
 @Component({
   selector: 'app-sign-up-form',
-  imports: [FormsModule, ReactiveFormsModule, IconsComponent],
+  imports: [
+    FormsModule,
+    RouterModule,
+    NgClass,
+    ReactiveFormsModule,
+    IconsComponent,
+  ],
   templateUrl: './sign-up-form.component.html',
   styleUrl: './sign-up-form.component.scss',
 })
 export class SignUpFormComponent {
-
   @Output() changeWindow = new EventEmitter();
 
- private authentificationService: AuthentificationService = inject(AuthentificationService);
+  @Output() public switchToImprintComponent: EventEmitter<string> =
+    new EventEmitter<string>();
 
- isCreatePasswordVisible: boolean = false;
+  private AuthenticationService: AuthenticationService = inject(
+    AuthenticationService
+  );
 
- isConfirmPasswordVisible: boolean = false;
+  private formBuilder: FormBuilder = inject(FormBuilder);
 
- isFormValid: boolean = false;
+  public isPrivacyPolicyAccepted: boolean = false;
 
-  public signUpBody = new FormGroup({
-    name: new FormControl(''),
-    email: new FormControl(''),
-    password: new FormControl(''),
-    confirmPassword: new FormControl('')
-  })
-  
+  public isPrivacyPolicyValidationMessageVisible: boolean = false;
 
-  doRegistration() {
-    console.log("SignUp-Body: ", this.signUpBody.value);
-    
+  isCreatePasswordVisible: boolean = false;
+
+  isConfirmPasswordVisible: boolean = false;
+
+  isFormValid: boolean = false;
+
+  public signUpBody = this.formBuilder.group({
+    name: [
+      '',
+      {
+        validators: [Validators.required, this.validateName],
+        updateOn: 'blur',
+      },
+    ],
+    email: [
+      '',
+      { validators: [Validators.required, Validators.email], updateOn: 'blur' },
+    ],
+    password: [
+      '',
+      {
+        validators: [Validators.required, this.validateStrongPassword],
+        updateOn: 'blur',
+      },
+    ],
+    confirmPassword: [
+      '',
+      {
+        validators: [Validators.required, this.validatePasswordMatch],
+        updateOn: 'blur',
+      },
+    ],
+  });
+
+  async doRegistration() {
+    if (this.signUpBody.valid && this.isPrivacyPolicyAccepted) {
+      console.log('SignUpBody is valid:', this.signUpBody.valid);
+      console.log('SignUp-Body: ', this.signUpBody.value);
+      await this.AuthenticationService.doAuthenticationRequest(
+        'register',
+        this.signUpBody.value
+      );
+    } else {
+      this.isPrivacyPolicyValidationMessageVisible = true;
+      this.signUpBody.markAllAsTouched();
+      Object.values(this.signUpBody.controls).forEach((control) =>
+        control.updateValueAndValidity()
+      );
+      console.log('SignUpBody is valid:', this.signUpBody.valid);
+    }
+  }
+
+  goToImprintComponent() {
+    this.switchToImprintComponent.emit('signUpForm');
+  }
+
+  validateName(control: AbstractControl): ValidationErrors | null {
+    if (!control.value) return null;
+    let words = control.value.split(' ');
+    return words.length > 1 ? null : { invalidName: true };
+  }
+
+  validateStrongPassword(control: AbstractControl): ValidationErrors | null {
+    const password = control.value;
+    const regex =
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d!@#$%^&*(),.?":{}|<>]{8,}$/;
+    if (!password) return null;
+    return regex.test(password) ? null : { weakPassword: true };
+  }
+
+  validatePasswordMatch(control: AbstractControl): ValidationErrors | null {
+    if (!control.value) return null;
+    return control.value === control.parent?.get('password')?.value
+      ? null
+      : { passwordDismatch: true };
+  }
+
+  toggleAcceptPrivacyPolicy() {
+    if (!this.isPrivacyPolicyAccepted) {
+      this.isPrivacyPolicyAccepted = true;
+      this.isPrivacyPolicyValidationMessageVisible = false;
+    } else {
+      this.isPrivacyPolicyAccepted = false;
+    }
   }
 
   /**
@@ -47,12 +140,15 @@ export class SignUpFormComponent {
    * Toggles the visibility of the password input field
    */
   changePasswordVisibility(type: string) {
-    type === 'create' ? this.isCreatePasswordVisible = !this.isCreatePasswordVisible : this.isConfirmPasswordVisible = !this.isConfirmPasswordVisible;
+    type === 'create'
+      ? (this.isCreatePasswordVisible = !this.isCreatePasswordVisible)
+      : (this.isConfirmPasswordVisible = !this.isConfirmPasswordVisible);
     let passwordInputRef = document.getElementById(
-      type === 'create' ? 'singupCreatePasswordInput' : 'singupConfirmPasswordInput'
+      type === 'create'
+        ? 'singupCreatePasswordInput'
+        : 'singupConfirmPasswordInput'
     ) as HTMLInputElement;
     passwordInputRef.type =
-        passwordInputRef.type === 'password' ? 'text' : 'password';
+      passwordInputRef.type === 'password' ? 'text' : 'password';
   }
-
 }

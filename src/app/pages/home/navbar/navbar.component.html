@@ -108,7 +108,7 @@
       </div>
     </a>
     }
-    <button class="logoutButton">
+    <button class="logoutButton" (click)="this.authService.doLogOut()">
       <div class="iconBox">
         <app-icons [iconName]="'logout'"></app-icons>
       </div>

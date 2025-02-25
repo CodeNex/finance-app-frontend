@@ -1,30 +1,33 @@
 import { Injectable, inject, Injector } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BehaviorSubject } from 'rxjs';
+import { Router } from '@angular/router';
 
 import { APIService } from './api.service';
+import { BasedataService } from './basedata.service';
 
 @Injectable({
   providedIn: 'root',
 })
-export class AuthentificationService {
+export class AuthenticationService {
   private http: HttpClient = inject(HttpClient);
+  private injector: Injector = inject(Injector);
+  private baseData: BasedataService = inject(BasedataService);
+  private router: Router = inject(Router);
 
-  private injector = inject(Injector);
-
-  private baseUrl: string = 'https://finance.code-nex.de/api';
-
-  // private baseUrl: string = 'http://localhost:3000';
+  private baseUrl: string = this.baseData.financeApp.basics.apiData.baseUrl;
 
   private loginPath: string = '/login';
 
   private registerPath: string = '/register';
 
+  private logoutPath: string = '/logout';
+
   public isWarningScreenVisible = new BehaviorSubject<boolean>(false);
   isWarningScreenVisible$ = this.isWarningScreenVisible.asObservable();
   setWarningScreen(value: boolean) {
     this.isWarningScreenVisible.next(value);
-  } 
+  }
 
   public isLoadingScreenVisible = new BehaviorSubject<boolean>(false);
   isloadingScreenVisible$ = this.isLoadingScreenVisible.asObservable();
@@ -38,13 +41,16 @@ export class AuthentificationService {
 
   public isFirstRender: boolean = true;
 
+  public saveTokenInLocalStorage: boolean = false;
+
   headers = new HttpHeaders({
     'Content-Type': 'application/json',
     Accept: 'application/json',
+    withCredentials: 'true',
   });
 
   //authOption: 'login' | 'register' | 'guest'
-  doAuthentificationRequest(authOption: string, body: any) {
+  doAuthenticationRequest(authOption: string, body: any) {
     setTimeout(() => {
       if (this.authToken === '') this.setLoadingScreen(true);
     }, 250);
@@ -57,10 +63,12 @@ export class AuthentificationService {
       })
       .subscribe({
         next: (response) => {
+          if (this.saveTokenInLocalStorage)
+            this.setTokenToLocalStorage(response.token);
           this.authWarningMessage = '';
           this.authToken = response.token;
           this.startApiFirstDataLoading();
-          console.log('Auth-Token:', this.authToken); 
+          console.log('Auth-Token:', this.authToken);
         },
         error: (error) => {
           this.setLoadingScreen(false);
@@ -73,6 +81,38 @@ export class AuthentificationService {
 
   startApiFirstDataLoading() {
     const apiService = this.injector.get(APIService);
-    return apiService.loadDataFirstTime();
+    return apiService.initialDataLoading();
+  }
+
+  setTokenToLocalStorage(token: string) {
+    let jsonToken = JSON.stringify(token);
+    localStorage.setItem(
+      this.baseData.financeApp.basics.apiData.localStorage.tokenKey,
+      jsonToken
+    );
+  }
+
+  doLogOut() {
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${this.authToken}`,
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+    });
+
+    this.http
+      .post<{ token: string }>(this.baseUrl + this.logoutPath, {}, { headers })
+      .subscribe({
+        next: (response) => {
+          console.log('Logout successful', response);
+          this.authToken = '';
+          localStorage.removeItem(
+            `${this.baseData.financeApp.basics.apiData.localStorage.tokenKey}`
+          );
+          this.router.navigate(['']);
+        },
+        error: (error) => {
+          console.error('Fail to logout', error);
+        },
+      });
   }
 }

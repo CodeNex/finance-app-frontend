@@ -1,10 +1,13 @@
 import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+
 import { LoginFormComponent } from './login-form/login-form.component';
 import { SignUpFormComponent } from './sign-up-form/sign-up-form.component';
 import { LoadingScreenComponent } from '../../components/loading-screen/loading-screen.component';
 import { WarningScreenComponent } from '../../components/warning-screen/warning-screen.component';
-import { AuthentificationService } from '../../services/authentification.service';
+import { ImprintComponent } from '../imprint/imprint.component';
+
+import { AuthenticationService } from '../../services/authentication.service';
 
 @Component({
   selector: 'app-login',
@@ -14,20 +17,22 @@ import { AuthentificationService } from '../../services/authentification.service
     SignUpFormComponent,
     LoadingScreenComponent,
     WarningScreenComponent,
+    ImprintComponent,
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
 })
 export class LoginComponent {
-  public authService: AuthentificationService = inject(AuthentificationService);
+  public authService: AuthenticationService = inject(AuthenticationService);
 
-  currentShownLoginWindow: string = 'loginForm';
+  public currentShownLoginWindow: string = 'loginForm';
   // loginForm, signUpForm
 
   public isLoadingScreenVisible: boolean = false;
 
   public isWarningScreenVisible: boolean = false;
 
+  public isImprintComponentVisible: boolean = false;
 
   /**
    * Subscribes to observables from the AuthService to update the visibility of loading and warning screens.
@@ -47,5 +52,15 @@ export class LoginComponent {
    */
   chooseLoginWindow(windowName: string) {
     this.currentShownLoginWindow = windowName;
+  }
+
+  switchToLogInComponent(currentShownLoginWindow: string) {
+    this.currentShownLoginWindow = currentShownLoginWindow;
+    this.isImprintComponentVisible = false;
+  }
+
+  switchToImprintComponent($event: string) {
+    this.isImprintComponentVisible = true;
+    this.currentShownLoginWindow = $event;
   }
 }
