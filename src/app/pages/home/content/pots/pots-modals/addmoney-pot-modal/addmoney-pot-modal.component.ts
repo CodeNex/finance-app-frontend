@@ -86,39 +86,39 @@ export class AddmoneyPotModalComponent {
       }, 10);
     }
 
+    // I > Rest
+    // Current > Rest
+    // --> Amount = Rest
+
     if (
       this.inputValue &&
-      // I >= Rest
-      this.inputValue >= this.currentPot.target - this.currentPot.total &&
-      // I <= Current
-      this.inputValue <= this.dataStore.balance().current
+      // I > Rest
+      this.inputValue > this.currentPot.target - this.currentPot.total &&
+      // Current >= Rest
+      this.dataStore.balance().current >=
+        this.currentPot.target - this.currentPot.total
     ) {
+      // --> Amount = Rest
       inputAmount = this.currentPot.target - this.currentPot.total;
       setTimeout(() => {
         this.inputValue = inputAmount;
       }, 10);
     }
 
+    // I > Current
+    // Rest > Current
+    // --> Amount = Current
+
     if (
       this.inputValue &&
-      this.inputValue <= this.currentPot.target - this.currentPot.total &&
-      this.inputValue >= this.dataStore.balance().current
+      // I > Current
+      this.inputValue > this.dataStore.balance().current &&
+      // Rest > Current
+      this.currentPot.target - this.currentPot.total >
+        this.dataStore.balance().current
     ) {
+      // --> Amount = Current
       inputAmount = this.dataStore.balance().current;
-      setTimeout(() => {
-        this.inputValue = inputAmount;
-      }, 10);
-    }
-
-    if (
-      this.inputValue &&
-      // I >= Rest
-      this.inputValue >= this.currentPot.target - this.currentPot.total &&
-      // I >= Current
-      this.inputValue >= this.dataStore.balance().current
-    ) {
-      // Amount = Rest
-      inputAmount = this.currentPot.target - this.currentPot.total;
       setTimeout(() => {
         this.inputValue = inputAmount;
       }, 10);
