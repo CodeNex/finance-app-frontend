@@ -87,8 +87,7 @@ export class AddmoneyPotModalComponent {
     if (
       this.inputValue &&
       this.inputValue > remainingAmount &&
-      balance >=
-      remainingAmount
+      balance >= remainingAmount
     ) {
       inputAmount = remainingAmount;
       setTimeout(
@@ -100,8 +99,7 @@ export class AddmoneyPotModalComponent {
     if (
       this.inputValue &&
       this.inputValue > balance &&
-      remainingAmount >
-      balance
+      remainingAmount > balance
     ) {
       inputAmount = balance;
       setTimeout(

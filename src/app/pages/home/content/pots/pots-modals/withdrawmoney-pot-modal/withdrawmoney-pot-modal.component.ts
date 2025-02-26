@@ -63,8 +63,6 @@ export class WithdrawmoneyPotModalComponent {
 
   validateInputValue() {
     let inputAmount: any;
-    let balance = this.dataStore.balance().current;
-    let remainingAmount = this.currentPot.target - this.currentPot.total;
 
     if (
       this.inputValue === null ||
