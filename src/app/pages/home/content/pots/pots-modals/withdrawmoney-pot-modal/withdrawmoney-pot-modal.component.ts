@@ -67,25 +67,14 @@ export class WithdrawmoneyPotModalComponent {
   }
 
   validateInputValue() {
-    let inputAmount: any;
-
-    if (
-      this.inputValue === null ||
-      this.inputValue <= 0 ||
-      this.inputValue === undefined
-    )
-      inputAmount = 0;
-
-    if (this.inputValue && this.inputValue <= this.currentPot.total) {
-      inputAmount = parseFloat(this.inputValue.toFixed(2));
+    let inputAmount = this.formatInputValue(this.inputValue);
+    if (inputAmount && inputAmount <= this.currentPot.total) {
       setTimeout(() => (this.inputValue = inputAmount), 10);
     }
-
-    if (this.inputValue && this.inputValue > this.currentPot.total) {
+    if (inputAmount && inputAmount > this.currentPot.total) {
       inputAmount = parseFloat(this.currentPot.total.toFixed(2));
       setTimeout(() => (this.inputValue = inputAmount), 10);
     }
-
     return inputAmount;
   }
 
