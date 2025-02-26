@@ -35,8 +35,13 @@ export class ApiPotsService {
     });
 
     this.http.post(`${this.baseUrl}/${path}`, body, { headers }).subscribe({
-      next: (response) => {},
-      error: (error) => {},
+      next: (response: any) => {
+        if (response.message === 'Pot created') {}
+      },
+      error: (error) => {
+        console.error(error);
+        return;
+      },
     });
   }
 
@@ -52,8 +57,13 @@ export class ApiPotsService {
     });
 
     this.http.put(`${this.baseUrl}/${path}`, body, { headers }).subscribe({
-      next: (response) => {},
-      error: (error) => {},
+      next: (response: any) => {
+        if (response.message === 'Pot updated') {}
+      },
+      error: (error) => {
+        console.error(error);
+        return;
+      },
     });
   }
 
@@ -68,8 +78,13 @@ export class ApiPotsService {
     });
 
     this.http.delete(`${this.baseUrl}/${path}`, { headers }).subscribe({
-      next: (response) => {},
-      error: (error) => {},
+      next: (response: any) => {
+        if (response.message === 'Pot deleted') {}
+      },
+      error: (error) => {
+        console.error(error);
+        return;
+      },
     });
   }
 }
