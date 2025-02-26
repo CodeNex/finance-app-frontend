@@ -61,6 +61,11 @@ export class WithdrawmoneyPotModalComponent {
       ).toFixed(0) + '%';
   }
 
+  formatInputValue(value: number | null): number {
+    if (value === null || value === undefined) return 0;
+    return Number(value.toFixed(2));
+  }
+
   validateInputValue() {
     let inputAmount: any;
 
