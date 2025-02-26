@@ -33,6 +33,8 @@ export class SinglePotComponent {
 
   @Input() public potIndex: number = -1;
 
+  public isPopUpOpen: boolean = false;
+
   public totalAmount: string = '';
   public targetAmount: string = '';
   public percentageNumber: number = 0;
@@ -51,5 +53,11 @@ export class SinglePotComponent {
 
   public openSubModal(subModal: string, subModalObject: Object) {
     this.mainModalService.chooseSubModal(subModal, subModalObject);
+  }
+
+  public openClosePopUp() {
+    this.isPopUpOpen = !this.isPopUpOpen;
+    console.log(this.isPopUpOpen);
+    
   }
 }
