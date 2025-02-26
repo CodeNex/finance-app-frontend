@@ -63,6 +63,8 @@ export class AddmoneyPotModalComponent {
 
   validateInputValue() {
     let inputAmount: any;
+    let balance = this.dataStore.balance().current;
+    let remainingAmount = this.currentPot.target - this.currentPot.total;
     if (
       this.inputValue === null ||
       this.inputValue <= 0 ||
@@ -72,8 +74,8 @@ export class AddmoneyPotModalComponent {
 
     if (
       this.inputValue &&
-      this.inputValue <= this.currentPot.target - this.currentPot.total &&
-      this.inputValue <= this.dataStore.balance().current
+      this.inputValue <= remainingAmount &&
+      this.inputValue <= balance
     ) {
       inputAmount = this.inputValue;
       setTimeout(
@@ -84,11 +86,11 @@ export class AddmoneyPotModalComponent {
 
     if (
       this.inputValue &&
-      this.inputValue > this.currentPot.target - this.currentPot.total &&
-      this.dataStore.balance().current >=
-        this.currentPot.target - this.currentPot.total
+      this.inputValue > remainingAmount &&
+      balance >=
+      remainingAmount
     ) {
-      inputAmount = this.currentPot.target - this.currentPot.total;
+      inputAmount = remainingAmount;
       setTimeout(
         () => (this.inputValue = Math.round(inputAmount * 100) / 100),
         10
@@ -97,11 +99,11 @@ export class AddmoneyPotModalComponent {
 
     if (
       this.inputValue &&
-      this.inputValue > this.dataStore.balance().current &&
-      this.currentPot.target - this.currentPot.total >
-        this.dataStore.balance().current
+      this.inputValue > balance &&
+      remainingAmount >
+      balance
     ) {
-      inputAmount = this.dataStore.balance().current;
+      inputAmount = balance;
       setTimeout(
         () => (this.inputValue = Math.round(inputAmount * 100) / 100),
         10
