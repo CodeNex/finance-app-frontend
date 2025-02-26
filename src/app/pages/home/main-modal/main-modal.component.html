@@ -13,7 +13,7 @@
     } @if (currentShownSubModal === "addPot") {
     <app-add-pot-modal [modalObject]="subModalObject"></app-add-pot-modal>
     } @if (currentShownSubModal === "editPot") {
-    <app-edit-pot-modal [modalObject]="subModalObject"></app-edit-pot-modal>
+    <app-edit-pot-modal [modalObject]="subModalObject" [potIndex]="index"></app-edit-pot-modal>
     } @if (currentShownSubModal === "deletePot") {
     <app-delete-pot-modal [modalObject]="subModalObject" [potIndex]="index"></app-delete-pot-modal>
     } @if (currentShownSubModal === "addMoneyPot") {

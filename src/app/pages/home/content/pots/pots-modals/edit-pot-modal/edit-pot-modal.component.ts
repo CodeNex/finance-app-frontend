@@ -25,6 +25,7 @@ export class EditPotModalComponent {
   }
 
   @Input() public modalObject: Object = {};
+  @Input() public potIndex: number = -1;
 
   public currentPot: any = {
     id: -1,
@@ -36,8 +37,13 @@ export class EditPotModalComponent {
     deletedAt: null,
   };
 
+  public currentPotIndex: number = -1;
+
   ngOnInit() {
     this.currentPot = this.modalObject;
+    this.currentPotIndex = this.potIndex;
     console.log(this.currentPot);
+    console.log(this.potIndex);
+    
   }
 }
