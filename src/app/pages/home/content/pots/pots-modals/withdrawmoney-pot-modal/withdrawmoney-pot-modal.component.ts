@@ -61,11 +61,13 @@ export class WithdrawmoneyPotModalComponent {
       ).toFixed(0) + '%';
   }
 
+  // formats the input value to 2 decimal places
   formatInputValue(value: number | null): number {
     if (value === null || value === undefined) return 0;
     return Number(value.toFixed(2));
   }
 
+  // validates the input value and returns the value if it is valid
   validateInputValue() {
     let inputAmount = this.formatInputValue(this.inputValue);
     if (inputAmount && inputAmount <= this.currentPot.total) {
@@ -78,6 +80,7 @@ export class WithdrawmoneyPotModalComponent {
     return inputAmount;
   }
 
+  // updates the percentage bar when the user types in the input field
   updatePercentageBar() {
     let inputAmount = this.validateInputValue();
     this.percentage = (
@@ -92,6 +95,7 @@ export class WithdrawmoneyPotModalComponent {
     this.newAmount = (this.currentPot.total - inputAmount).toFixed(2);
   }
 
+  // commits the withdrawal of money from the pot
   commitWithdrawMoney() {
     if (this.inputValue && this.inputValue > 0) {
       this.currentPot.total = this.currentPot.total - this.validateInputValue();
