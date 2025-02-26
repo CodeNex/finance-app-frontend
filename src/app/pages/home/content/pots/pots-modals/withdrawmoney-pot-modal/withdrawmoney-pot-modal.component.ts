@@ -97,4 +97,10 @@ export class WithdrawmoneyPotModalComponent {
       Math.floor((inputAmount / this.currentPot.total) * 100);
     this.newAmount = (this.currentPot.total - inputAmount).toFixed(2);
   }
+
+  commitWithdrawMoney() {
+    this.currentPot.total = this.currentPot.total - this.validateInputValue();
+    console.log(this.currentPot);
+    
+  }
 }
