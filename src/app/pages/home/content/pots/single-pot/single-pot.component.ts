@@ -53,6 +53,7 @@ export class SinglePotComponent {
 
   public openSubModal(subModal: string, subModalObject: Object) {
     this.mainModalService.chooseSubModal(subModal, subModalObject);
+    this.isPopUpOpen = false;
   }
 
   public openPopUp() {
