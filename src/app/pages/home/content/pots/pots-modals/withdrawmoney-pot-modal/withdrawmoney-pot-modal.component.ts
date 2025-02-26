@@ -86,6 +86,10 @@ export class WithdrawmoneyPotModalComponent {
 
   updatePercentageBar() {
     let inputAmount = this.validateInputValue();
-    console.log(inputAmount);
+    this.percentage = (
+      Math.trunc(
+        ((this.currentPot.total - inputAmount) / this.currentPot.target) * 1000
+      ) / 10
+    ).toFixed(1);
   }
 }
