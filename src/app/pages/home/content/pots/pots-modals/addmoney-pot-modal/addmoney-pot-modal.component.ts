@@ -61,6 +61,11 @@ export class AddmoneyPotModalComponent {
       ).toFixed(0) + '%';
   }
 
+  formatInputValue(value: number | null): number {
+    if (value === null || value === undefined) return 0;
+    return Number(value.toFixed(2));
+  }
+
   validateInputValue() {
     let inputAmount: any;
     let balance = this.dataStore.balance().current;
