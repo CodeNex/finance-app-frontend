@@ -103,15 +103,15 @@ export class DataStoreServiceService {
 
   // chose what kind of data to soft delete and update the signal and UI
   choseDataAndSoftDelete(endpoint: string, index: number) {
-    if (endpoint === 'budgets' && index)
+    if (endpoint === 'budgets' && index >= 0)
       this.budgets.update((prev) => {
         return this.softDeleteData(prev, index);
       });
-    if (endpoint === 'pots' && index)
+    if (endpoint === 'pots' && index >= 0)
       this.pots.update((prev) => {
         return this.softDeleteData(prev, index);
       });
-    if (endpoint === 'transactions/recurring' && index)
+    if (endpoint === 'transactions/recurring' && index >= 0)
       this.transactionsRecurring.update((prev) => {
         return this.softDeleteData(prev, index);
       });

@@ -84,12 +84,13 @@ export class ApiPotsService {
     this.http.delete(`${this.baseUrl}/${path}`, { headers }).subscribe({
       next: (response: any) => {
         if (response.message === 'Pot deleted') {
-          this.dataStore.choseDataAndSoftDelete('pots', index);
+          
           console.log('Pot deleted');
         }
       },
       error: (error) => {
         console.error(error);
+        this.dataStore.choseDataAndSoftDelete('pots', index);
         this.mainModalService.hideMainModal();
         return;
       },
