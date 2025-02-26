@@ -33,6 +33,7 @@ export class AddBudgetModalComponent implements OnInit {
     this.categories = Object.values(
       this.basedataService.financeApp.budgets.categories
     );
+    this.basedataService.financeApp.basics.colors;
   }
 
   // closes main modal and its children
