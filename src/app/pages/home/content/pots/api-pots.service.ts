@@ -7,10 +7,9 @@ import { BasedataService } from '../../../../services/basedata.service';
 import { DataStoreServiceService } from '../../../../services/data-store-service.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ApiPotsService {
-
   private baseData: BasedataService = inject(BasedataService);
   private http: HttpClient = inject(HttpClient);
   private AuthenticationService: AuthenticationService = inject(
@@ -22,12 +21,12 @@ export class ApiPotsService {
 
   public warningMessage: string = '';
 
-  constructor() { }
+  constructor() {}
 
   // function to add new pots
   // response: {message: "Pot created"}
 
-  addNewPot(potObject: any){
+  addNewPot(potObject: any) {
     const path = 'pots';
     const body = potObject;
     const headers = new HttpHeaders({
@@ -35,16 +34,42 @@ export class ApiPotsService {
       Accept: 'application/json',
     });
 
-    this.http.post(`${this.baseUrl}/${path}`, body, { headers}).subscribe({
+    this.http.post(`${this.baseUrl}/${path}`, body, { headers }).subscribe({
       next: (response) => {},
-      error: (error) => {}
-    })
-    
+      error: (error) => {},
+    });
   }
 
   // function to update existing specific pot
   // response: {message: "Pot updated"}
 
+  updatePot(potObject: any) {
+    const path = `pots/${potObject.id}`;
+    const body = potObject;
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${this.AuthenticationService.authToken}`,
+      Accept: 'application/json',
+    });
+
+    this.http.put(`${this.baseUrl}/${path}`, body, { headers }).subscribe({
+      next: (response) => {},
+      error: (error) => {},
+    });
+  }
+
   // function to delete specific pot
-  // response: {message: "Pot deleted"} 
+  // response: {message: "Pot deleted"}
+
+  deletePot(potObject: any) {
+    const path = `pots/${potObject.id}`;
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${this.AuthenticationService.authToken}`,
+      Accept: 'application/json',
+    });
+
+    this.http.delete(`${this.baseUrl}/${path}`, { headers }).subscribe({
+      next: (response) => {},
+      error: (error) => {},
+    });
+  }
 }
