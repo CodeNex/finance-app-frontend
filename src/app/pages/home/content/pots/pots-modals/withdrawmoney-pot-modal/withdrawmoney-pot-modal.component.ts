@@ -91,5 +91,9 @@ export class WithdrawmoneyPotModalComponent {
         ((this.currentPot.total - inputAmount) / this.currentPot.target) * 1000
       ) / 10
     ).toFixed(1);
+    this.amountPercentageBar = Math.floor(
+      (inputAmount / (this.currentPot.total + inputAmount)) * 100
+    );
+    this.newAmount = (this.currentPot.total - inputAmount).toFixed(2);
   }
 }
