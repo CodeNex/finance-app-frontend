@@ -36,7 +36,6 @@ export class SinglePotComponent {
   public totalAmount: string = '';
   public targetAmount: string = '';
   public percentageNumber: number = 0;
-  public percentage: string = '';
   public progressBarPercentage: string = '';
 
   ngOnInit() {
@@ -45,12 +44,9 @@ export class SinglePotComponent {
       maximumFractionDigits: 0,
     });
     this.percentageNumber = Math.trunc((this.pot.total / this.pot.target) * 1000) / 10;
-    this.percentage = (
-      Math.trunc((this.pot.total / this.pot.target) * 1000) / 10
-    ).toFixed(1);
     this.progressBarPercentage = (
       Math.trunc((this.pot.total / this.pot.target) * 1000) / 10
-    ).toFixed(0) + "%";
+    ).toFixed(1) + "%";
   }
 
   public openSubModal(subModal: string, subModalObject: Object) {
