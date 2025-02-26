@@ -40,7 +40,7 @@ export class WithdrawmoneyPotModalComponent {
   public progressBarPercentage: string = '';
 
   public prevPercentageBar: string = '';
-  public amountPercentageBar: number = 0;
+  public amountPercentageBar: number = 100;
 
   public inputValue: number | null = null;
 
