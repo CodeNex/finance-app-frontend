@@ -67,9 +67,8 @@ export class AddmoneyPotModalComponent {
       this.inputValue === null ||
       this.inputValue <= 0 ||
       this.inputValue === undefined
-    ) {
+    )
       inputAmount = 0;
-    }
 
     if (
       this.inputValue &&
@@ -77,9 +76,10 @@ export class AddmoneyPotModalComponent {
       this.inputValue <= this.dataStore.balance().current
     ) {
       inputAmount = this.inputValue;
-      setTimeout(() => {
-        this.inputValue = Math.round(inputAmount * 100) / 100;
-      }, 10);
+      setTimeout(
+        () => (this.inputValue = Math.round((inputAmount * 100) / 100)),
+        10
+      );
     }
 
     if (
@@ -89,9 +89,10 @@ export class AddmoneyPotModalComponent {
         this.currentPot.target - this.currentPot.total
     ) {
       inputAmount = this.currentPot.target - this.currentPot.total;
-      setTimeout(() => {
-        this.inputValue = Math.round(inputAmount * 100) / 100;
-      }, 10);
+      setTimeout(
+        () => (this.inputValue = Math.round(inputAmount * 100) / 100),
+        10
+      );
     }
 
     if (
@@ -101,9 +102,10 @@ export class AddmoneyPotModalComponent {
         this.dataStore.balance().current
     ) {
       inputAmount = this.dataStore.balance().current;
-      setTimeout(() => {
-        this.inputValue = Math.round(inputAmount * 100) / 100;
-      }, 10);
+      setTimeout(
+        () => (this.inputValue = Math.round(inputAmount * 100) / 100),
+        10
+      );
     }
 
     return inputAmount;
