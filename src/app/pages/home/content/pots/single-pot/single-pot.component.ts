@@ -55,8 +55,31 @@ export class SinglePotComponent {
     this.mainModalService.chooseSubModal(subModal, subModalObject);
   }
 
-  public openClosePopUp() {
-    this.isPopUpOpen = !this.isPopUpOpen;
+  public openPopUp() {
+    if (this.isPopUpOpen) {
+      this.isPopUpOpen = false;
+      console.log("Pot with index " + this.potIndex + " is open: " + this.isPopUpOpen);
+      return;
+    } 
+    this.isPopUpOpen = true;
+     
+    setTimeout(() => {
+      document.addEventListener('click', this.closePopUp.bind(this));
+    }, 200);
+
+    console.log("Pot with index " + this.potIndex + " is open: " + this.isPopUpOpen);
+    return;
+  }
+
+  public closePopUp(event: MouseEvent) {
+    if (!this.isPopUpOpen) return;
+    let target = event.target as HTMLElement;
+    if (!target) return;
+    let allowedIDs = ['editPotButton', 'deletePotButton', 'potPopUp'];
+    if (allowedIDs.includes(target.id)) return;
+
+    this.isPopUpOpen = false;
+    document.removeEventListener('click', this.closePopUp.bind(this));
     console.log("Pot with index " + this.potIndex + " is open: " + this.isPopUpOpen); 
   }
 }
