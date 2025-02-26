@@ -1,7 +1,8 @@
 import { Component, inject, Input } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 import { MainModalService } from '../../../../../../services/main-modal.service';
-import { CommonModule } from '@angular/common';
+import { ApiPotsService } from '../../api-pots.service';
 
 @Component({
   selector: 'app-delete-pot-modal',
@@ -11,6 +12,7 @@ import { CommonModule } from '@angular/common';
 })
 export class DeletePotModalComponent {
   public mainModalService: MainModalService = inject(MainModalService);
+  public apiPotService: ApiPotsService = inject(ApiPotsService);
 
   // closes main modal and its children
   public closeMainModal() {
@@ -40,5 +42,9 @@ export class DeletePotModalComponent {
     this.currentPotIndex = this.potIndex;
     console.log(this.currentPot);
     console.log(this.potIndex);
+  }
+
+  deleteCurrentPot() {
+    this.apiPotService.deletePot(this.currentPot, this.currentPotIndex);
   }
 }
