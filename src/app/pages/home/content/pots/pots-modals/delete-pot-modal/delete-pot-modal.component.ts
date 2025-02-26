@@ -32,9 +32,13 @@ export class DeletePotModalComponent {
     deletedAt: null,
   };
 
+  public currentPotIndex: number = -1;
+
   ngOnInit() {
     this.currentPot = this.modalObject;
     this.currentPotToDelete = this.currentPot.name;
+    this.currentPotIndex = this.potIndex;
     console.log(this.currentPot);
+    console.log(this.potIndex);
   }
 }
