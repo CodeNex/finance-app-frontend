@@ -20,4 +20,20 @@ export class DeletePotModalComponent {
   public currentPotToDelete: string = 'CurrentPot';
 
   @Input() public modalObject: Object = {};
+
+  public currentPot: any = {
+    id: -1,
+    name: '',
+    target: -1,
+    total: -1,
+    theme: '',
+    createdAt: null,
+    deletedAt: null,
+  };
+
+  ngOnInit() {
+    this.currentPot = this.modalObject;
+    this.currentPotToDelete = this.currentPot.name;
+    console.log(this.currentPot);
+  }
 }

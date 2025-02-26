@@ -40,8 +40,7 @@ export class AddmoneyPotModalComponent {
   public progressBarPercentage: string = '';
 
   public prevPercentageBar: string = '';
-  public amountPercentageBar: string = '';
-  public differencePercentageBar: string = '';
+  public amountPercentageBar: number = 0;
 
   public inputValue: number | null = null;
 
@@ -62,66 +61,56 @@ export class AddmoneyPotModalComponent {
       ).toFixed(0) + '%';
   }
 
+  formatInputValue(value: number | null): number {
+    if (value === null || value === undefined) return 0;
+    return Number(value.toFixed(2));
+  }
+
   validateInputValue() {
     let inputAmount: any;
+    let balance = this.dataStore.balance().current;
+    let remainingAmount = this.currentPot.target - this.currentPot.total;
     if (
       this.inputValue === null ||
       this.inputValue <= 0 ||
       this.inputValue === undefined
-    ) {
+    )
       inputAmount = 0;
-    }
 
     if (
       this.inputValue &&
-      // I <= Rest
-      this.inputValue <= this.currentPot.target - this.currentPot.total &&
-      // I <= Current
-      this.inputValue <= this.dataStore.balance().current
+      this.inputValue <= remainingAmount &&
+      this.inputValue <= balance
     ) {
-      // Amount = I
       inputAmount = this.inputValue;
-      setTimeout(() => {
-        this.inputValue = inputAmount;
-      }, 10);
+      setTimeout(
+        () => (this.inputValue = Math.round((inputAmount * 100) / 100)),
+        10
+      );
     }
 
     if (
       this.inputValue &&
-      // I >= Rest
-      this.inputValue >= this.currentPot.target - this.currentPot.total &&
-      // I <= Current
-      this.inputValue <= this.dataStore.balance().current
+      this.inputValue > remainingAmount &&
+      balance >= remainingAmount
     ) {
-      inputAmount = this.currentPot.target - this.currentPot.total;
-      setTimeout(() => {
-        this.inputValue = inputAmount;
-      }, 10);
+      inputAmount = remainingAmount;
+      setTimeout(
+        () => (this.inputValue = Math.round(inputAmount * 100) / 100),
+        10
+      );
     }
 
     if (
       this.inputValue &&
-      this.inputValue <= this.currentPot.target - this.currentPot.total &&
-      this.inputValue >= this.dataStore.balance().current
+      this.inputValue > balance &&
+      remainingAmount > balance
     ) {
-      inputAmount = this.dataStore.balance().current;
-      setTimeout(() => {
-        this.inputValue = inputAmount;
-      }, 10);
-    }
-
-    if (
-      this.inputValue &&
-      // I >= Rest
-      this.inputValue >= this.currentPot.target - this.currentPot.total &&
-      // I >= Current
-      this.inputValue >= this.dataStore.balance().current
-    ) {
-      // Amount = Rest
-      inputAmount = this.currentPot.target - this.currentPot.total;
-      setTimeout(() => {
-        this.inputValue = inputAmount;
-      }, 10);
+      inputAmount = balance;
+      setTimeout(
+        () => (this.inputValue = Math.round(inputAmount * 100) / 100),
+        10
+      );
     }
 
     return inputAmount;
@@ -133,7 +122,21 @@ export class AddmoneyPotModalComponent {
       Math.trunc(
         ((this.currentPot.total + inputAmount) / this.currentPot.target) * 100
       ).toFixed(0) + '%';
+    this.percentage = (
+      Math.trunc(
+        ((this.currentPot.total + inputAmount) / this.currentPot.target) * 1000
+      ) / 10
+    ).toFixed(1);
+    this.amountPercentageBar = Math.floor(
+      (inputAmount / (this.currentPot.total + inputAmount)) * 100
+    );
+    this.newAmount = (inputAmount + this.currentPot.total).toFixed(2);
+  }
 
-    console.log(inputAmount);
+  commitAddMoney() {
+    if (this.inputValue && this.inputValue > 0) {
+      this.currentPot.total = this.currentPot.total + this.validateInputValue();
+      console.log(this.currentPot);
+    }
   }
 }

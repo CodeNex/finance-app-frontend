@@ -25,4 +25,19 @@ export class EditPotModalComponent {
   }
 
   @Input() public modalObject: Object = {};
+
+  public currentPot: any = {
+    id: -1,
+    name: '',
+    target: -1,
+    total: -1,
+    theme: '',
+    createdAt: null,
+    deletedAt: null,
+  };
+
+  ngOnInit() {
+    this.currentPot = this.modalObject;
+    console.log(this.currentPot);
+  }
 }

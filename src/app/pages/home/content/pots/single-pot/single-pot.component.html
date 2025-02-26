@@ -6,7 +6,7 @@
 <div
   class="singlePot p-6 rounded-xl min-h-[250px] flex flex-col gap-8 bg-white"
 >
-  <div class="potHeader flex items-center justify-between">
+  <div class=" relative potHeader flex items-center justify-between">
     <div class="flex items-center gap-4">
       <div
         class="themeDot w-4 h-4 rounded-full"
@@ -14,9 +14,18 @@
       ></div>
       <p class="text2b">{{ pot.name }}</p>
     </div>
-    <button>
+    <button (click)="openPopUp()">
       <app-icons [iconName]="'dotsThree'"></app-icons>
     </button>
+
+    @if (isPopUpOpen) {
+      <div id="potPopUp" class="absolute right-0 top-6 z-10 flex flex-col gap-2 bg-white shadow-[0px_4px_24px_0px_rgba(0,0,0,0.25)] rounded-lg w-28 pr-5 pl-5 pb-3 pt-3">
+        <button (click)="openSubModal('editPot', pot)" id="editPotButton" class="text4r text-grey-900 text-left">Edit Pot</button>
+        <hr class="bg-grey-100 h-[1px] w-full">
+        <button (click)="openSubModal('deletePot', pot)" id="deletePotButton" class="text4r text-secondary-red text-left">Delete Pot</button>
+      </div>
+    }
+
   </div>
 
   <div class="potContent">
@@ -31,14 +40,19 @@
     <div
       class="potContentProgressBarContainer w-[100%] h-[8px] rounded-[4px] bg-beige-100 overflow-hidden relative"
     >
-      <div class="potContentProgressBar absolute top-0 left-0 z-10 h-full rounded-[4px]" [ngStyle]="{'background-color': pot.theme, 'width': percentageNumber >= 100 ? '100%' : progressBarPercentage }"></div>
+      <div
+        class="potContentProgressBar absolute top-0 left-0 z-10 h-full rounded-[4px]"
+        [ngStyle]="{
+          'background-color': pot.theme,
+          width: percentageNumber >= 100 ? '100%' : progressBarPercentage
+        }"
+      ></div>
     </div>
     <div
       class="potContentPercentContainer flex items-center justify-between pt-[13px]"
     >
       <p class="text5b text-grey-500">
-        <span>{{ percentage }}</span
-        ><span>%</span>
+        {{ progressBarPercentage }}
       </p>
       <p class="text5r text-grey-500">
         <span>Target of $</span><span>{{ targetAmount }}</span>
