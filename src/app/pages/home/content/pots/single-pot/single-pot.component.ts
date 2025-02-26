@@ -57,7 +57,6 @@ export class SinglePotComponent {
 
   public openClosePopUp() {
     this.isPopUpOpen = !this.isPopUpOpen;
-    console.log(this.isPopUpOpen);
-    
+    console.log("Pot with index " + this.potIndex + " is open: " + this.isPopUpOpen); 
   }
 }
