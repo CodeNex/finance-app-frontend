@@ -25,7 +25,6 @@ export class ApiPotsService {
 
   // function to add new pots
   // response: {message: "Pot created"}
-
   addNewPot(potObject: any) {
     const path = 'pots';
     const body = potObject;
@@ -36,7 +35,10 @@ export class ApiPotsService {
 
     this.http.post(`${this.baseUrl}/${path}`, body, { headers }).subscribe({
       next: (response: any) => {
-        if (response.message === 'Pot created') {}
+        if (response.message === 'Pot created') {
+          this.dataStore.addToStoredData('pots', potObject);
+          console.log('Pot created');
+        }
       },
       error: (error) => {
         console.error(error);
@@ -47,8 +49,7 @@ export class ApiPotsService {
 
   // function to update existing specific pot
   // response: {message: "Pot updated"}
-
-  updatePot(potObject: any) {
+  updatePot(potObject: any, amount: number) {
     const path = `pots/${potObject.id}`;
     const body = potObject;
     const headers = new HttpHeaders({
@@ -58,7 +59,9 @@ export class ApiPotsService {
 
     this.http.put(`${this.baseUrl}/${path}`, body, { headers }).subscribe({
       next: (response: any) => {
-        if (response.message === 'Pot updated') {}
+        if (response.message === 'Pot updated') {
+          // CREATE NEW TRANSACTION
+        }
       },
       error: (error) => {
         console.error(error);
@@ -69,8 +72,7 @@ export class ApiPotsService {
 
   // function to delete specific pot
   // response: {message: "Pot deleted"}
-
-  deletePot(potObject: any) {
+  deletePot(potObject: any, index: number) {
     const path = `pots/${potObject.id}`;
     const headers = new HttpHeaders({
       Authorization: `Bearer ${this.AuthenticationService.authToken}`,
@@ -79,7 +81,10 @@ export class ApiPotsService {
 
     this.http.delete(`${this.baseUrl}/${path}`, { headers }).subscribe({
       next: (response: any) => {
-        if (response.message === 'Pot deleted') {}
+        if (response.message === 'Pot deleted') {
+          this.dataStore.choseDataAndSoftDelete('pots', index);
+          console.log('Pot deleted');
+        }
       },
       error: (error) => {
         console.error(error);
