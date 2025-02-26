@@ -5,6 +5,7 @@ import { catchError, Observable, tap, throwError } from 'rxjs';
 import { AuthenticationService } from '../../../../services/authentication.service';
 import { BasedataService } from '../../../../services/basedata.service';
 import { DataStoreServiceService } from '../../../../services/data-store-service.service';
+import { MainModalService } from '../../../../services/main-modal.service';
 
 @Injectable({
   providedIn: 'root',
@@ -16,6 +17,7 @@ export class ApiPotsService {
     AuthenticationService
   );
   private dataStore: DataStoreServiceService = inject(DataStoreServiceService);
+  private mainModalService: MainModalService = inject(MainModalService);
 
   private baseUrl: string = this.baseData.financeApp.basics.apiData.baseUrl;
 
@@ -88,6 +90,7 @@ export class ApiPotsService {
       },
       error: (error) => {
         console.error(error);
+        this.mainModalService.hideMainModal();
         return;
       },
     });
