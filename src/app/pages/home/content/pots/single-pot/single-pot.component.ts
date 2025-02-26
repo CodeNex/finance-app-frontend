@@ -54,7 +54,7 @@ export class SinglePotComponent {
 
   // Open the modal when the user clicks on any button which opens a modal, givs the modal name as a string and the current pot object as "subModalObject" to the function as arguments
   public openSubModal(subModal: string, subModalObject: Object) {
-    this.mainModalService.chooseSubModal(subModal, subModalObject);
+    this.mainModalService.chooseSubModal(subModal, subModalObject, this.potIndex);
     this.isPopUpOpen = false;
   }
 
