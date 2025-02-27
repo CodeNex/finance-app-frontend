@@ -149,13 +149,15 @@ export class DataStoreServiceService {
 
   editBudgets(prev: any, index: number, data: any) {
     let budgetsArray = [...prev];
-    budgetsArray[index] = data;
+    budgetsArray[index].total = data.total;
     return budgetsArray;
   }
 
   editPots(prev: any, index: number, data: any) {
     let potsArray = [...prev];
-    potsArray[index] = data;
+    potsArray[index].total = data.total;
+    console.log(this.pots);
+
     return potsArray;
   }
 }
