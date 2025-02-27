@@ -17,9 +17,9 @@
     } @if (currentShownSubModal === "deletePot") {
     <app-delete-pot-modal [modalObject]="subModalObject" [potIndex]="index"></app-delete-pot-modal>
     } @if (currentShownSubModal === "addMoneyPot") {
-    <app-addmoney-pot-modal [modalObject]="subModalObject"></app-addmoney-pot-modal>
+    <app-addmoney-pot-modal [modalObject]="subModalObject" [potIndex]="index"></app-addmoney-pot-modal>
     } @if (currentShownSubModal === "withdrawMoneyPot") {
-    <app-withdrawmoney-pot-modal [modalObject]="subModalObject"></app-withdrawmoney-pot-modal>
+    <app-withdrawmoney-pot-modal [modalObject]="subModalObject" [potIndex]="index"></app-withdrawmoney-pot-modal>
     }
   </div>
 </section>
