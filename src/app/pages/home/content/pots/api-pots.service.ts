@@ -51,21 +51,24 @@ export class ApiPotsService {
 
   // function to update existing specific pot
   // response: {message: "Pot updated"}
-  updatePot(potObject: any, amount: number) {
+  updatePot(endpoint: string, type: string, index: number, potObject: any) {
     const path = `pots/${potObject.id}`;
     const body = potObject;
     const headers = new HttpHeaders({
       Authorization: `Bearer ${this.AuthenticationService.authToken}`,
       Accept: 'application/json',
+      typeOfUpdate: `${type}` // typeOfUpdate: 'editPot' or 'addMoneyPot' or 'withdrawMoneyPot'
     });
 
     this.http.put(`${this.baseUrl}/${path}`, body, { headers }).subscribe({
       next: (response: any) => {
         if (response.message === 'Pot updated') {
-          // CREATE NEW TRANSACTION
+          // CREATE NEW TRANSACTION --->LOCAL in Datastore and at the same time remote at the server
+          
         }
       },
       error: (error) => {
+        this.dataStore.editStoredData(endpoint, index, potObject);
         console.error(error);
         return;
       },
