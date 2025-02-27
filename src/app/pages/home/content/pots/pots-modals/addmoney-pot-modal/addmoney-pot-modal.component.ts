@@ -53,7 +53,6 @@ export class AddmoneyPotModalComponent {
   ngOnInit() {
     this.currentPot = this.modalObject;
     this.currentPotIndex = this.potIndex;
-    console.log(this.currentPotIndex);
     
     this.newAmount = this.currentPot.total.toFixed(2);
     this.targetAmount = this.currentPot.target.toLocaleString('en-US', {
