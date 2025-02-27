@@ -106,6 +106,7 @@ export class WithdrawmoneyPotModalComponent {
   commitWithdrawMoney() {
     if (this.inputValue && this.inputValue > 0) {
       this.currentPot.total = this.currentPot.total - this.validateInputValue();
+      this.apiPotService.updatePot('pots', 'withdrawMoneyPot', this.currentPotIndex, this.currentPot);
       console.log(this.currentPot);
     }
   }
