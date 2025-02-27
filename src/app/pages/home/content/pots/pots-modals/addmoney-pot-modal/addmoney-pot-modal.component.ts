@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 
 import { MainModalService } from '../../../../../../services/main-modal.service';
 import { DataStoreServiceService } from '../../../../../../services/data-store-service.service';
+import { ApiPotsService } from '../../api-pots.service';
 
 @Component({
   selector: 'app-addmoney-pot-modal',
@@ -14,6 +15,7 @@ import { DataStoreServiceService } from '../../../../../../services/data-store-s
 export class AddmoneyPotModalComponent {
   public mainModalService: MainModalService = inject(MainModalService);
   public dataStore: DataStoreServiceService = inject(DataStoreServiceService);
+  public apiPotService: ApiPotsService = inject(ApiPotsService); 
 
   // closes main modal and its children
   public closeMainModal() {
