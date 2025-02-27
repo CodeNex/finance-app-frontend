@@ -13,7 +13,7 @@
     @for (item of this.potsArray(); let index = $index; track item.id) { @if
     (!item.deletedAt) {
     <app-single-pot
-      [pot]="item"
+      [pot]="this.potsArray()[index]"
       [potIndex]="index"
       class="min-w-[500px] max-w-[700px] flex-1"
     ></app-single-pot>
