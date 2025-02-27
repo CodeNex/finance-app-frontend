@@ -137,25 +137,25 @@ export class DataStoreServiceService {
 
   // update the existing data and update the signal and UI
   editStoredData(endpoint: string, index: number, data: any) {
-    
-    
     if (endpoint === 'budgets' && data && index >= 0)
-      this.budgets.update((prev) => {
-        let budgetsArray = [...prev];
-        budgetsArray[index].category = data.category;
-        budgetsArray[index].maximum = data.maximum;
-        budgetsArray[index].theme = data.theme;
-        return budgetsArray;
+      this.budgets.update((prevBudgets) => {
+        return this.editBudgets(prevBudgets, index, data);
       });
     if (endpoint === 'pots' && data && index >= 0)
-      this.pots.update((prev) => {
-        console.log('hallo welt', prev);
-        let potsArray = [...prev];
-        potsArray[index].name = data.name;
-        potsArray[index].target = data.target;
-        potsArray[index].total = data.total;
-        potsArray[index].theme = data.theme;
-        return potsArray;
+      this.pots.update((prevPots) => {
+        return this.editBudgets(prevPots, index, data);
       });
+  }
+
+  editBudgets(prev: any, index: number, data: any) {
+    let budgetsArray = [...prev];
+    budgetsArray[index] = data;
+    return budgetsArray;
+  }
+
+  editPots(prev: any, index: number, data: any) {
+    let potsArray = [...prev];
+    potsArray[index] = data;
+    return potsArray;
   }
 }

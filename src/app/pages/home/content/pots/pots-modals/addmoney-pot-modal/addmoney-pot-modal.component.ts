@@ -145,8 +145,9 @@ export class AddmoneyPotModalComponent {
   commitAddMoney() {
     if (this.inputValue && this.inputValue > 0) {
       this.currentPot.total = this.currentPot.total + this.validateInputValue();
+      console.log(this.currentPot.total);
+      
       this.apiPotService.updatePot('pots', 'addMoneyPot', this.currentPotIndex, this.currentPot);
-      console.log(this.currentPot);
     }
   }
 }
