@@ -21,6 +21,7 @@ export class AddmoneyPotModalComponent {
   }
 
   @Input() public modalObject: Object = {};
+  @Input() public potIndex: number = -1;
 
   public currentPot: any = {
     id: -1,
@@ -31,6 +32,9 @@ export class AddmoneyPotModalComponent {
     createdAt: null,
     deletedAt: null,
   };
+
+  public currentPotIndex: number = -1;
+
 
   public newAmount: string = '';
   public targetAmount: string = '';
@@ -46,6 +50,7 @@ export class AddmoneyPotModalComponent {
 
   ngOnInit() {
     this.currentPot = this.modalObject;
+    this.currentPotIndex = this.potIndex;
     this.newAmount = this.currentPot.total.toFixed(2);
     this.targetAmount = this.currentPot.target.toLocaleString('en-US', {
       maximumFractionDigits: 0,
