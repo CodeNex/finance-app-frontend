@@ -28,10 +28,6 @@ export class EditPotModalComponent {
     this.mainModalService.hideMainModal();
   }
 
-  public potNameValue: string = '';
-  public potTargetValue: string = '';
-  public potThemeValue: string = '';
-
   @Input() public modalObject: Object = {};
   @Input() public potIndex: number = -1;
 
@@ -48,15 +44,22 @@ export class EditPotModalComponent {
   public currentPotIndex: number = -1;
 
   public themes: any;
-  public isThemeDropdownOpen: boolean = false; 
+  public isThemeDropdownOpen: boolean = false;
+  public potNameValue: string = '';
+  public potTargetValue: string = '';
+  public potThemeValue: string = ''; 
 
   ngOnInit() {
     this.themes = Object.values(this.baseData.financeApp.basics.colors);
-
     this.currentPot = this.modalObject;
     this.currentPotIndex = this.potIndex;
     console.log(this.currentPot);
     console.log(this.potIndex);
-    
   }
+
+  closeHideThemeDropdown() {
+    this.isThemeDropdownOpen = !this.isThemeDropdownOpen;
+  }
+
+  controlNameLength() {}
 }
