@@ -24,6 +24,10 @@ export class AddPotModalComponent {
   public mainModalService: MainModalService = inject(MainModalService);
   public baseData: BasedataService = inject(BasedataService);
 
+  public potNameValue: string = '';
+  public potTargetValue: string = '';
+  public potThemeValue: string = '';
+
   // closes main modal and its children
   public closeMainModal() {
     this.mainModalService.hideMainModal();

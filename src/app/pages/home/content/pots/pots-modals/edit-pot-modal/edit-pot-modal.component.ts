@@ -28,6 +28,10 @@ export class EditPotModalComponent {
     this.mainModalService.hideMainModal();
   }
 
+  public potNameValue: string = '';
+  public potTargetValue: string = '';
+  public potThemeValue: string = '';
+
   @Input() public modalObject: Object = {};
   @Input() public potIndex: number = -1;
 
