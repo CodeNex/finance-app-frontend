@@ -8,6 +8,7 @@ import {
 } from '@angular/forms';
 
 import { MainModalService } from '../../../../../../services/main-modal.service';
+import { BasedataService } from '../../../../../../services/basedata.service';
 
 
 @Component({
@@ -18,6 +19,7 @@ import { MainModalService } from '../../../../../../services/main-modal.service'
 })
 export class AddPotModalComponent {
   public mainModalService: MainModalService = inject(MainModalService);
+  public baseData: BasedataService = inject(BasedataService);
 
   // closes main modal and its children
   public closeMainModal() {
