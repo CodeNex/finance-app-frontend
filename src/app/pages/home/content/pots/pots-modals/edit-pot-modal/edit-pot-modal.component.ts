@@ -1,4 +1,5 @@
 import { Component, inject, Input } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 import {
   FormsModule,
@@ -8,7 +9,8 @@ import {
 } from '@angular/forms';
 
 import { MainModalService } from '../../../../../../services/main-modal.service';
-import { CommonModule } from '@angular/common';
+import { BasedataService } from '../../../../../../services/basedata.service';
+
 
 @Component({
   selector: 'app-edit-pot-modal',
@@ -18,6 +20,7 @@ import { CommonModule } from '@angular/common';
 })
 export class EditPotModalComponent {
   public mainModalService: MainModalService = inject(MainModalService);
+  public baseData: BasedataService = inject(BasedataService);
 
   // closes main modal and its children
   public closeMainModal() {
@@ -39,7 +42,11 @@ export class EditPotModalComponent {
 
   public currentPotIndex: number = -1;
 
+  public themes: any;
+
   ngOnInit() {
+    this.themes = Object.values(this.baseData.financeApp.basics.colors);
+
     this.currentPot = this.modalObject;
     this.currentPotIndex = this.potIndex;
     console.log(this.currentPot);

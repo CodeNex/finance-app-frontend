@@ -27,4 +27,12 @@ export class AddPotModalComponent {
   }
 
   @Input() public modalObject: Object = {};
+
+  public themes: any; 
+
+  ngOnInit() {
+    this.themes = Object.values(this.baseData.financeApp.basics.colors);
+    console.log(this.themes);
+    
+  }
 }

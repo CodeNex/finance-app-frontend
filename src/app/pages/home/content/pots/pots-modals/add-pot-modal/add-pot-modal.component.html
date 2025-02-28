@@ -58,12 +58,22 @@
     </div>
 
     <!-- Theme Input -->
+     <div>
+      <p class="text5b text-grey-500">Theme</p>
      <select name="" id="" class="w-full text4r text-grey-900 border-[1px] outline-none border-beige-500 rounded-lg pl-10 pt-3 pb-3 mb-5 mt-1 appearance-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none placeholder:text-beige-500">
       
-      
+      @for (item of this.themes; let index = $index; track item) {
+        <option value="" class="w-full">
+          <div class="w-full flex items-center">
+            <div class="h-4 w-4" [ngStyle]="{'background-color': item.hex}"></div>
+            <p>{{ item.name }}</p>
+          </div>
+          <hr>
+        </option>
+      }
 
      </select>
-
+    </div>
     <!-- Add Pot Button -->
     <button
       class="bg-grey-900 w-full pt-4 pb-4 rounded-lg text4b transition-all duration-300 ease-in-out hover:bg-grey-500 text-white text-center"
