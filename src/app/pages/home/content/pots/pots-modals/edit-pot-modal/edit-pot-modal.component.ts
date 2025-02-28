@@ -1,5 +1,4 @@
 import { Component, inject, Input } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import {
   FormsModule,
   FormBuilder,
@@ -11,11 +10,12 @@ import { IconsComponent } from '../../../../../../components/icons/icons.compone
 
 import { MainModalService } from '../../../../../../services/main-modal.service';
 import { BasedataService } from '../../../../../../services/basedata.service';
+import { CommonModule } from '@angular/common';
 
 
 @Component({
   selector: 'app-edit-pot-modal',
-  imports: [FormsModule, ReactiveFormsModule, CommonModule],
+  imports: [ CommonModule, FormsModule, ReactiveFormsModule],
   templateUrl: './edit-pot-modal.component.html',
   styleUrl: './edit-pot-modal.component.scss',
 })

@@ -1,15 +1,15 @@
 import { Component, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { IconsComponent } from '../../../../../../components/icons/icons.component';
 
 import { MainModalService } from '../../../../../../services/main-modal.service';
 import { BasedataService } from '../../../../../../services/basedata.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-add-pot-modal',
-  imports: [FormsModule, ReactiveFormsModule, CommonModule, IconsComponent],
+  imports: [CommonModule ,FormsModule, ReactiveFormsModule, IconsComponent],
   templateUrl: './add-pot-modal.component.html',
   styleUrl: './add-pot-modal.component.scss',
 })
