@@ -145,17 +145,23 @@ export class DataStoreServiceService {
       });
     }
 
-    if (endpoint === 'pots' && data && index >= 0) {
-      this.pots.update(() => {
-        let potsArray = this.pots();
-        // potsArray[index].deletedAt = new Date().toISOString();
-        // potsArray[index].deletedAt = null;
-        potsArray[index].total = data.total;
-        console.log(this.pots());
+    // if (endpoint === 'pots' && data && index >= 0) {
+    //   this.pots.update((prev) => {
+    //     let potsArray = [...prev];
+    //     potsArray[index].total = data.total;
+    //     console.log(this.pots());
         
-        return potsArray;
-      });
+    //     return potsArray;
+    //   });
+    // }
+
+    if (endpoint === 'pots' && data && index >= 0) {
+      this.pots.update((prev) => {
+        prev[index]= {...prev[index], total: data.total};
+        return prev;
+      })
     }
+
   }
 
 }

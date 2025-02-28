@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, Input, signal } from '@angular/core';
+import { Component, inject, Input, signal, effect } from '@angular/core';
 
 import { IconsComponent } from '../../../../../components/icons/icons.component';
 
@@ -21,18 +21,13 @@ export class SinglePotComponent {
   public authService: AuthenticationService = inject(AuthenticationService);
   public apiService: APIService = inject(APIService);
 
-  private _potSignal = signal<PotsObject>({
-    id: -1,
-    name: '',
-    target: -1,
-    total: -1,
-    theme: '',
-    createdAt: null,
-    deletedAt: null,
-  });
+  public potSignal = this.dataStore.pots;
 
-  @Input() set potSignal(value: PotsObject) {
-    this._potSignal.set(value);
+  constructor() {
+    effect(() => {
+      console.log('Pot signal changed', this.potSignal());
+      
+    })
   }
 
   @Input() public pot: PotsObject = {
