@@ -75,9 +75,9 @@
         <div class="leftBox flex items-center gap-3">
           <div
             class="dot w-4 h-4 rounded-full"
-            [ngStyle]="{ 'background-color': themes[0].hex }"
+            [ngStyle]="{ 'background-color': chosenTheme.hex }"
           ></div>
-          <p class="text4r text-grey-900">{{ themes[0].name }}</p>
+          <p class="text4r text-grey-900">{{ chosenTheme.name }}</p>
         </div>
         <div class="rightBox flex items-center">
           @if (!isThemeDropdownOpen) {
@@ -120,6 +120,9 @@
           <div>
             @if (usedPotThemes.includes(item.hex)) {
               <p class="text5r text-grey-500 text-right whitespace-nowrap">Already used</p>
+            }
+            @if (item.hex === chosenTheme.hex) {
+              <app-icons [iconName]="'themeCheck'"></app-icons>
             }
           </div>
 
