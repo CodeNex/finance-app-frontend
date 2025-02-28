@@ -60,7 +60,7 @@
     <!-- Theme Input -->
     <div class="relative">
       <p class="text5b text-grey-500">Theme</p>
-      <div
+      <div (click)="closeHideThemeDropdown()"
         class="w-full flex justify-between border-[1px] border-beige-500 hover:border-grey-900 focus:border-grey-900 transition-all duration-300 ease-in-out rounded-lg pl-5 pr-5 pt-3 pb-3 mb-5 mt-1 cursor-pointer"
       >
         <div class="leftBox flex items-center gap-3">
@@ -79,7 +79,9 @@
         </div>
       </div>
 
-      <div class="w-full absolute z-10 left-0 top-3 d_none">
+      @if (isThemeDropdownOpen) {
+
+      <div class="w-full absolute z-10 left-0 top-3">
         @for (item of this.themes; let index = $index; track item) {
         <option value="" class="w-full">
           <div class="w-full flex items-center">
@@ -93,6 +95,8 @@
         </option>
         }
       </div>
+    }
+
     </div>
 
     <!-- Add Pot Button -->
