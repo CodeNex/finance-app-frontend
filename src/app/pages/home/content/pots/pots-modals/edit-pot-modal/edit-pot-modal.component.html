@@ -22,7 +22,7 @@
     <!-- Name Input -->
     <div class="pb-4">
       <p class="text5b text-grey-500">Pot Name</p>
-      <input [(ngModel)]="potNameValue" [ngModelOptions]="{standalone: true}"
+      <input [(ngModel)]="potNameValue" [ngModelOptions]="{standalone: true}" (input)="controlNameLength()"
         class="w-full text4r text-grey-900 border-[1px] outline-none border-beige-500 rounded-lg pl-5 pt-3 pb-3 mt-1 appearance-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none placeholder:text-beige-500"
         type="text"
         placeholder="e.g. Hobby Fund"

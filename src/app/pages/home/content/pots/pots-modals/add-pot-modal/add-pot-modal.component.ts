@@ -9,7 +9,7 @@ import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-add-pot-modal',
-  imports: [CommonModule ,FormsModule, ReactiveFormsModule, IconsComponent],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, IconsComponent],
   templateUrl: './add-pot-modal.component.html',
   styleUrl: './add-pot-modal.component.scss',
 })
@@ -50,8 +50,14 @@ export class AddPotModalComponent {
 
   controlNameLength() {
     if (this.potNameValue.length > 30) {
-      this.potNameValue = this.potNameValue.slice(0, 30);
+      let potNameSliced = this.potNameValue.slice(0, 30);
+      setTimeout(() => {
+        this.potNameValue = potNameSliced;
+        this.potNameCharactersLeft = 30 - this.potNameValue.length;
+      }, 10);
     }
-    this.potNameCharactersLeft = 30 - this.potNameValue.length;
+    else {
+      this.potNameCharactersLeft = 30 - this.potNameValue.length;
+    }
   }
 }

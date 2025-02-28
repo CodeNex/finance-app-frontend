@@ -62,5 +62,16 @@ export class EditPotModalComponent {
     this.isThemeDropdownOpen = !this.isThemeDropdownOpen;
   }
 
-  controlNameLength() {}
+  controlNameLength() {
+    if (this.potNameValue.length > 30) {
+      let potNameSliced = this.potNameValue.slice(0, 30);
+      setTimeout(() => {
+        this.potNameValue = potNameSliced;
+        this.potNameCharactersLeft = 30 - this.potNameValue.length;
+      }, 10);
+    }
+    else {
+      this.potNameCharactersLeft = 30 - this.potNameValue.length;
+    }
+  }
 }
