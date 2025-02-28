@@ -44,10 +44,12 @@ export class AddPotModalComponent {
     console.log(this.themes);
   }
 
+  // closes or opens theme dropdown
   closeHideThemeDropdown() {
     this.isThemeDropdownOpen = !this.isThemeDropdownOpen;
   }
 
+  // controls the maximum length of the pot name
   controlNameLength() {
     if (this.potNameValue.length > 30) {
       let potNameSliced = this.potNameValue.slice(0, 30);

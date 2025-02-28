@@ -12,10 +12,9 @@ import { MainModalService } from '../../../../../../services/main-modal.service'
 import { BasedataService } from '../../../../../../services/basedata.service';
 import { CommonModule } from '@angular/common';
 
-
 @Component({
   selector: 'app-edit-pot-modal',
-  imports: [ CommonModule, FormsModule, ReactiveFormsModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule],
   templateUrl: './edit-pot-modal.component.html',
   styleUrl: './edit-pot-modal.component.scss',
 })
@@ -48,7 +47,7 @@ export class EditPotModalComponent {
   public potNameValue: string = '';
   public potNameCharactersLeft: number = 30;
   public potTargetValue: string = '';
-  public potThemeValue: string = ''; 
+  public potThemeValue: string = '';
 
   ngOnInit() {
     this.themes = Object.values(this.baseData.financeApp.basics.colors);
@@ -58,10 +57,12 @@ export class EditPotModalComponent {
     this.potNameCharactersLeft = 30 - this.currentPot.name.length;
   }
 
+  // closes or opens theme dropdown
   closeHideThemeDropdown() {
     this.isThemeDropdownOpen = !this.isThemeDropdownOpen;
   }
 
+  // controls the maximum length of the pot name
   controlNameLength() {
     if (this.potNameValue.length > 30) {
       let potNameSliced = this.potNameValue.slice(0, 30);
@@ -69,8 +70,7 @@ export class EditPotModalComponent {
         this.potNameValue = potNameSliced;
         this.potNameCharactersLeft = 30 - this.potNameValue.length;
       }, 10);
-    }
-    else {
+    } else {
       this.potNameCharactersLeft = 30 - this.potNameValue.length;
     }
   }
