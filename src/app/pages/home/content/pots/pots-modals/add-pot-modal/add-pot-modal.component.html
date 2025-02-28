@@ -4,26 +4,45 @@
   <!-- Modal Headline -->
   <div class="modalHeadline flex justify-between items-center">
     <p class="text1b text-grey-900">Add New Pot</p>
-    <div (click)="closeMainModal()"
+    <div
+      (click)="closeMainModal()"
       class="w-[26px] h-[26px] rounded-[100vh] border-solid border-2 border-grey-500 flex justify-center items-center cursor-pointer transition-all duration-300 ease-in-out group hover:bg-grey-500"
     >
-    <svg width="16px" height="16px" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg"><path class="fill-grey-500 group-hover:fill-white transition-all duration-300 ease-in-out" d="M195.2 195.2a64 64 0 0 1 90.496 0L512 421.504 738.304 195.2a64 64 0 0 1 90.496 90.496L602.496 512 828.8 738.304a64 64 0 0 1-90.496 90.496L512 602.496 285.696 828.8a64 64 0 0 1-90.496-90.496L421.504 512 195.2 285.696a64 64 0 0 1 0-90.496z"/></svg>
+      <svg
+        width="16px"
+        height="16px"
+        viewBox="0 0 1024 1024"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          class="fill-grey-500 group-hover:fill-white transition-all duration-300 ease-in-out"
+          d="M195.2 195.2a64 64 0 0 1 90.496 0L512 421.504 738.304 195.2a64 64 0 0 1 90.496 90.496L602.496 512 828.8 738.304a64 64 0 0 1-90.496 90.496L512 602.496 285.696 828.8a64 64 0 0 1-90.496-90.496L421.504 512 195.2 285.696a64 64 0 0 1 0-90.496z"
+        />
+      </svg>
     </div>
   </div>
 
   <!-- Modal info text -->
   <p class="text4r text-grey-500">
-    Create a pot to set savings targets. These can help keep you on track as you save for special purchases.
+    Create a pot to set savings targets. These can help keep you on track as you
+    save for special purchases.
   </p>
 
   <!-- Modal Form -->
   <form action="">
-
     <!-- Name Input -->
-
+    <div class="pb-4">
+      <p class="text5b text-grey-500">Pot Name</p>
+      <input
+        class="w-full text4r text-grey-900 border-[1px] outline-none border-beige-500 rounded-lg pl-5 pt-3 pb-3 mt-1 appearance-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none placeholder:text-beige-500"
+        type="text"
+        placeholder="e.g. Hobby Fund"
+      />
+      <p class="w-full text-end text5r text-beige-500 pt-1">Hello World</p>
+    </div>
 
     <!-- Target Input -->
-    <div>
+    <div class="pb-4">
       <p class="text5b text-grey-500">Target</p>
       <div class="relative">
         <span
@@ -32,7 +51,8 @@
         >
         <input
           class="w-full text4r text-grey-900 border-[1px] outline-none border-beige-500 rounded-lg pl-10 pt-3 pb-3 mt-1 appearance-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none placeholder:text-beige-500"
-          type="number" placeholder="e.g. 2000"
+          type="number"
+          placeholder="e.g. 2000"
         />
       </div>
     </div>
@@ -47,4 +67,3 @@
     </button>
   </form>
 </div>
-
