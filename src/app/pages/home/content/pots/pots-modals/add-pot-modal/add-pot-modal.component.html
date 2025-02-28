@@ -87,13 +87,15 @@
         <div class="w-full">
           <div class="w-full flex items-center">
             <div
-              class="h-4 w-4"
-              [ngStyle]="{ 'background-color': item.hex }"
+              class="h-4 w-4 rounded-full"
+              [ngStyle]="{ 'background-color': item.hex, 'opacity': !usedPotThemes.includes(item.hex) ? '1' : '0.15' }"
             ></div>
             <p class="text4r text-grey-900" [ngStyle]="{ 'color': !usedPotThemes.includes(item.hex) ? '#201f24' : '#696868' }"
             >{{ item.name }}</p>
           </div>
-          <hr />
+          @if (index < this.themes.length - 1) {
+            <hr />
+          }
         </div>
         }
       </div>
