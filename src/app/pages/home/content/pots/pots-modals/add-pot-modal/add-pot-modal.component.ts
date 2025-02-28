@@ -48,5 +48,10 @@ export class AddPotModalComponent {
     this.isThemeDropdownOpen = !this.isThemeDropdownOpen;
   }
 
-  controlNameLength() {}
+  controlNameLength() {
+    if (this.potNameValue.length > 30) {
+      this.potNameValue = this.potNameValue.slice(0, 30);
+    }
+    this.potNameCharactersLeft = 30 - this.potNameValue.length;
+  }
 }
