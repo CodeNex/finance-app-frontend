@@ -75,4 +75,20 @@ export class EditPotModalComponent {
       this.potNameCharactersLeft = 30 - this.potNameValue.length;
     }
   }
+
+  // controls the maximum amount of the pot target
+  controlMaxTarget() {
+    if (this.potTargetInputValue > 999999999) {
+      setTimeout(() => {
+        this.potTargetInputValue = 999999999;
+        this.potTargetValue = this.potTargetInputValue.toLocaleString('en-US', {
+          maximumFractionDigits: 0,
+        });
+      }, 10);
+    } else {
+      this.potTargetValue = this.potTargetInputValue.toLocaleString('en-US', {
+        maximumFractionDigits: 0,
+      });
+    }
+  }
 }

@@ -38,7 +38,7 @@
           class="absolute left-[20px] top-[50%] -translate-y-[calc(50%-2px)] text4r text-beige-500"
           >$</span
         >
-        <input [(ngModel)]="potTargetInputValue" [ngModelOptions]="{standalone: true}"
+        <input [(ngModel)]="potTargetInputValue" [ngModelOptions]="{standalone: true}" (input)="controlMaxTarget()"
           class="w-full text4r text-grey-900 border-[1px] outline-none border-beige-500 rounded-lg pl-10 pt-3 pb-3 mt-1 appearance-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none placeholder:text-beige-500"
           type="number"
           placeholder="e.g. 2000"
