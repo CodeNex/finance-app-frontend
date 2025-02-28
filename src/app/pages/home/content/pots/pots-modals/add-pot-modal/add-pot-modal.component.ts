@@ -36,6 +36,8 @@ export class AddPotModalComponent {
 
   public themes: any;
   public usedPotThemes: any;
+  public unusedPotThemes: any;
+  public chosenTheme: string = '';
   public isThemeDropdownOpen: boolean = false;
   public potNameValue: string = '';
   public potNameCharactersLeft: number = 30;
@@ -46,7 +48,11 @@ export class AddPotModalComponent {
   ngOnInit() {
     this.themes = Object.values(this.baseData.financeApp.basics.colors);
     this.usedPotThemes = this.dataStore.pots().map((pot: any) => pot.theme);
+    this.unusedPotThemes = this.themes.filter((theme: any) => !this.usedPotThemes.includes(theme.hex));
+    this.chosenTheme = this.unusedPotThemes[Math.floor(Math.random() * this.unusedPotThemes.length)].hex;
     console.log(this.usedPotThemes);
+    console.log(this.unusedPotThemes);
+    console.log(this.chosenTheme);
   }
 
   // closes or opens theme dropdown
