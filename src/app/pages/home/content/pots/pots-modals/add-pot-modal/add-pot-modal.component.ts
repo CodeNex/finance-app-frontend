@@ -25,6 +25,7 @@ export class AddPotModalComponent {
   public baseData: BasedataService = inject(BasedataService);
 
   public potNameValue: string = '';
+  private potNameMaxLength: number = 30;
   public potTargetValue: string = '';
   public potThemeValue: string = '';
 
@@ -34,6 +35,16 @@ export class AddPotModalComponent {
   }
 
   @Input() public modalObject: Object = {};
+
+  public currentPot: any = {
+    id: -1,
+    name: '',
+    target: -1,
+    total: -1,
+    theme: '',
+    createdAt: null,
+    deletedAt: null,
+  };
 
   public themes: any;
   public isThemeDropdownOpen: boolean = false; 
