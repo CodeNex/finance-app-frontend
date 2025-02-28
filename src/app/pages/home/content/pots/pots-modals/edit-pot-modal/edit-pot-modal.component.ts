@@ -44,6 +44,7 @@ export class EditPotModalComponent {
   public currentPotIndex: number = -1;
 
   public themes: any;
+  public isThemeDropdownOpen: boolean = false; 
 
   ngOnInit() {
     this.themes = Object.values(this.baseData.financeApp.basics.colors);

@@ -67,7 +67,14 @@
         <div class="dot w-4 h-4 rounded-full" [ngStyle]="{'background-color': themes[0].hex}"></div>
         <p class="text4r text-grey-900">{{ themes[0].name }}</p>
       </div>
-      <div class="rightBox"></div>
+      <div class="rightBox">
+         @if (!isThemeDropdownOpen) {
+          <app-icons (iconName)="dropOpen"></app-icons>
+         }
+         @else {
+          <app-icons (iconName)="dropClose"></app-icons>
+         }
+      </div>
     </div>
 
       <div class="w-full absolute z-10 left-0 top-3 d_none">
