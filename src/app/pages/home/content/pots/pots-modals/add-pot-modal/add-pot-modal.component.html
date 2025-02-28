@@ -33,7 +33,7 @@
     <!-- Name Input -->
     <div class="pb-4">
       <p class="text5b text-grey-500">Pot Name</p>
-      <input [(ngModel)]="potNameValue"
+      <input [(ngModel)]="potNameValue" [ngModelOptions]="{standalone: true}"
         class="w-full text4r text-grey-900 border-[1px] outline-none border-beige-500 rounded-lg pl-5 pt-3 pb-3 mt-1 hover:border-grey-900 focus:border-grey-900 transition-all duration-300 ease-in-out" 
         type="text"
         placeholder="e.g. Hobby Fund"

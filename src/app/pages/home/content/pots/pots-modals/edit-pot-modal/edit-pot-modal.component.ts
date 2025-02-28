@@ -46,6 +46,7 @@ export class EditPotModalComponent {
   public themes: any;
   public isThemeDropdownOpen: boolean = false;
   public potNameValue: string = '';
+  public potNameCharactersLeft: number = 30;
   public potTargetValue: string = '';
   public potThemeValue: string = ''; 
 
@@ -53,8 +54,8 @@ export class EditPotModalComponent {
     this.themes = Object.values(this.baseData.financeApp.basics.colors);
     this.currentPot = this.modalObject;
     this.currentPotIndex = this.potIndex;
-    console.log(this.currentPot);
-    console.log(this.potIndex);
+    this.potNameValue = this.currentPot.name;
+    this.potNameCharactersLeft = 30 - this.currentPot.name.length;
   }
 
   closeHideThemeDropdown() {

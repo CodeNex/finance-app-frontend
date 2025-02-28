@@ -22,12 +22,12 @@
     <!-- Name Input -->
     <div class="pb-4">
       <p class="text5b text-grey-500">Pot Name</p>
-      <input
+      <input [(ngModel)]="potNameValue" [ngModelOptions]="{standalone: true}"
         class="w-full text4r text-grey-900 border-[1px] outline-none border-beige-500 rounded-lg pl-5 pt-3 pb-3 mt-1 appearance-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none placeholder:text-beige-500"
         type="text"
         placeholder="e.g. Hobby Fund"
       />
-      <p class="w-full text-end text5r text-beige-500 pt-1">Hello World</p>
+      <p class="w-full text-end text5r text-beige-500 pt-1"><span>{{ potNameCharactersLeft }} characters left</span></p>
     </div>
 
     <!-- Target Input -->

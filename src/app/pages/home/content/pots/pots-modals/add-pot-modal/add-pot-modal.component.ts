@@ -35,7 +35,7 @@ export class AddPotModalComponent {
   public themes: any;
   public isThemeDropdownOpen: boolean = false;
   public potNameValue: string = '';
-  private potNameMaxLength: number = 30;
+  public potNameCharactersLeft: number = 30;
   public potTargetValue: string = '';
   public potThemeValue: string = '';
 
