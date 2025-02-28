@@ -55,9 +55,6 @@ export class AddPotModalComponent {
       this.unusedPotThemes[
         Math.floor(Math.random() * this.unusedPotThemes.length)
       ];
-    console.log(this.usedPotThemes);
-    console.log(this.unusedPotThemes);
-    console.log(this.chosenTheme);
   }
 
   // closes or opens theme dropdown
