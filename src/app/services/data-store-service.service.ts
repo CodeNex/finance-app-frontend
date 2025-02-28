@@ -139,14 +139,14 @@ export class DataStoreServiceService {
   editStoredData(endpoint: string, index: number, data: any) {
     if (endpoint === 'budgets' && data && index >= 0) {
       this.budgets.update((prev) => {
-        prev[index] = data;
+        prev[index] = {...data};
         return prev;
       });
     }
 
     if (endpoint === 'pots' && data && index >= 0) {
       this.pots.update((prev) => {
-        prev[index]= {...prev[index], total: data.total};
+        prev[index]= {...data};
         return prev;
       })
     }
