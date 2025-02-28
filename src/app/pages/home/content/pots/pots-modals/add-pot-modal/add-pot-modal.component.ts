@@ -1,5 +1,5 @@
 import { Component, inject, Input } from '@angular/core';
-
+import { CommonModule } from '@angular/common';
 import {
   FormsModule,
   FormBuilder,
@@ -8,7 +8,7 @@ import {
 } from '@angular/forms';
 
 import { MainModalService } from '../../../../../../services/main-modal.service';
-import { CommonModule } from '@angular/common';
+
 
 @Component({
   selector: 'app-add-pot-modal',
