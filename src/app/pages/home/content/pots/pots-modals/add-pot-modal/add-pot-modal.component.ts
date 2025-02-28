@@ -93,4 +93,12 @@ export class AddPotModalComponent {
       });
     }
   }
+
+  // choose a theme from the dropdown
+  chooseTheme(theme: any) {
+    if (this.unusedPotThemes.includes(theme)) {
+      this.chosenTheme = theme;
+      this.closeHideThemeDropdown();
+    }
+  }
 }
