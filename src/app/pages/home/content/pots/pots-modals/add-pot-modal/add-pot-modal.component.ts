@@ -5,6 +5,7 @@ import { IconsComponent } from '../../../../../../components/icons/icons.compone
 
 import { MainModalService } from '../../../../../../services/main-modal.service';
 import { BasedataService } from '../../../../../../services/basedata.service';
+import { DataStoreServiceService } from '../../../../../../services/data-store-service.service';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -16,6 +17,7 @@ import { CommonModule } from '@angular/common';
 export class AddPotModalComponent {
   public mainModalService: MainModalService = inject(MainModalService);
   public baseData: BasedataService = inject(BasedataService);
+  public dataStore: DataStoreServiceService = inject(DataStoreServiceService);
 
   // closes main modal and its children
   public closeMainModal() {
@@ -33,6 +35,7 @@ export class AddPotModalComponent {
   };
 
   public themes: any;
+  public usedPotThemes: any;
   public isThemeDropdownOpen: boolean = false;
   public potNameValue: string = '';
   public potNameCharactersLeft: number = 30;
