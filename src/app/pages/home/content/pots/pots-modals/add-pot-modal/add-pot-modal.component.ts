@@ -45,7 +45,8 @@ export class AddPotModalComponent {
 
   ngOnInit() {
     this.themes = Object.values(this.baseData.financeApp.basics.colors);
-    console.log(this.themes);
+    this.usedPotThemes = this.dataStore.pots().map((pot: any) => pot.theme);
+    console.log(this.usedPotThemes);
   }
 
   // closes or opens theme dropdown

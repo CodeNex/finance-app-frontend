@@ -45,6 +45,7 @@ export class EditPotModalComponent {
   public currentPotIndex: number = -1;
 
   public themes: any;
+  public usedPotThemes: any;
   public isThemeDropdownOpen: boolean = false;
   public potNameValue: string = '';
   public potNameCharactersLeft: number = 30;
@@ -54,6 +55,7 @@ export class EditPotModalComponent {
 
   ngOnInit() {
     this.themes = Object.values(this.baseData.financeApp.basics.colors);
+    this.usedPotThemes = this.dataStore.pots().map((pot: any) => pot.theme);
     this.currentPot = this.modalObject;
     this.currentPotIndex = this.potIndex;
     this.potNameValue = this.currentPot.name;
