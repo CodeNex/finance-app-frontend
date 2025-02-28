@@ -25,8 +25,8 @@ export class SinglePotComponent {
 
   constructor() {
     effect(() => {
-      console.log('Pot signal changed', this.potSignal());
-      
+      let signal = this.potSignal();
+      this.ngOnInit();
     })
   }
 
