@@ -36,6 +36,7 @@ export class AddPotModalComponent {
   public isThemeDropdownOpen: boolean = false;
   public potNameValue: string = '';
   public potNameCharactersLeft: number = 30;
+  public potTargetInputValue: number = 0;
   public potTargetValue: string = '';
   public potThemeValue: string = '';
 
@@ -61,5 +62,10 @@ export class AddPotModalComponent {
     else {
       this.potNameCharactersLeft = 30 - this.potNameValue.length;
     }
+  }
+
+  // controls the maximum amount of the pot target
+  controlMaxTarget() {
+
   }
 }

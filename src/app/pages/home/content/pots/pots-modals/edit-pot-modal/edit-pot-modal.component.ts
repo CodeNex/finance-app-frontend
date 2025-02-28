@@ -46,6 +46,7 @@ export class EditPotModalComponent {
   public isThemeDropdownOpen: boolean = false;
   public potNameValue: string = '';
   public potNameCharactersLeft: number = 30;
+  public potTargetInputValue: number = 0;
   public potTargetValue: string = '';
   public potThemeValue: string = '';
 
