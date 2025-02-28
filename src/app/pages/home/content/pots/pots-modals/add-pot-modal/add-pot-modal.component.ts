@@ -95,7 +95,7 @@ export class AddPotModalComponent {
   chooseTheme(theme: any) {
     if (this.unusedPotThemes.includes(theme)) {
       this.chosenTheme = theme;
-      this.closeHideThemeDropdown();
+      // this.closeHideThemeDropdown();
     }
   }
 }
