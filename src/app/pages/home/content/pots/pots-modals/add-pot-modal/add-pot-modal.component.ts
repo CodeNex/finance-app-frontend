@@ -41,7 +41,7 @@ export class AddPotModalComponent {
   public isThemeDropdownOpen: boolean = false;
   public potNameValue: string = '';
   public potNameCharactersLeft: number = 30;
-  public potTargetInputValue: number = 0;
+  public potTargetInputValue: string = '0.00';
   public potThemeValue: string = '';
 
   ngOnInit() {
@@ -75,6 +75,8 @@ export class AddPotModalComponent {
   // controls the maximum amount of the pot target
   controlMaxTarget(event: any) {
     console.log(event);
+
+
     
 
 
@@ -109,7 +111,7 @@ export class AddPotModalComponent {
   // add a new pot to the pots array in data-store-service, submit the new pot to the API and close the modal
   submitAddPot() {
     this.currentPot.name = this.potNameValue;
-    this.currentPot.target = this.potTargetInputValue;
+    this.currentPot.target = parseFloat(this.potTargetInputValue);
     this.currentPot.theme = this.chosenTheme.hex;
     console.log(this.currentPot);
   }
