@@ -107,4 +107,11 @@ export class EditPotModalComponent {
       // this.closeHideThemeDropdown();
     }
   }
+
+  // submit the changed pot to the pots array in data-store-service, submit the changed pot to the API and close the modal 
+  submitEditPot() {
+    console.log(this.currentPot);
+    
+  }
+  
 }

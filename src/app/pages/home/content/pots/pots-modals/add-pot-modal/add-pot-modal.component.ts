@@ -98,4 +98,10 @@ export class AddPotModalComponent {
       // this.closeHideThemeDropdown();
     }
   }
+
+  // add a new pot to the pots array in data-store-service, submit the new pot to the API and close the modal
+  submitAddPot() {
+    console.log(this.currentPot);
+    
+  }
 }
