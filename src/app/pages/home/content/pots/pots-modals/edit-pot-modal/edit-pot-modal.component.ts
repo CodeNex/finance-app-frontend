@@ -51,6 +51,11 @@ export class EditPotModalComponent {
   public potThemeValue: string = '';
 
   ngOnInit() {
+    this.currentPot = this.modalObject;
+    this.currentPotIndex = this.potIndex;
+    this.potNameValue = this.currentPot.name;
+    this.potNameCharactersLeft = 30 - this.currentPot.name.length;
+    
     this.themes = Object.values(this.baseData.financeApp.basics.colors);
     this.usedPotThemes = this.dataStore.pots().map((pot: any) => pot.theme);
     this.unusedPotThemes = this.themes.filter(
@@ -60,10 +65,6 @@ export class EditPotModalComponent {
       this.unusedPotThemes[
         Math.floor(Math.random() * this.unusedPotThemes.length)
       ];
-    this.currentPot = this.modalObject;
-    this.currentPotIndex = this.potIndex;
-    this.potNameValue = this.currentPot.name;
-    this.potNameCharactersLeft = 30 - this.currentPot.name.length;
   }
 
   // closes or opens theme dropdown
@@ -110,8 +111,8 @@ export class EditPotModalComponent {
 
   // submit the changed pot to the pots array in data-store-service, submit the changed pot to the API and close the modal 
   submitEditPot() {
+
     console.log(this.currentPot);
-    
   }
   
 }

@@ -46,11 +46,7 @@ export class AddPotModalComponent {
   public potThemeValue: string = '';
 
   ngOnInit() {
-    this.themes = Object.values(this.baseData.financeApp.basics.colors);
-    this.usedPotThemes = this.dataStore.pots().map((pot: any) => pot.theme);
-    this.unusedPotThemes = this.themes.filter(
-      (theme: any) => !this.usedPotThemes.includes(theme.hex)
-    );
+    this.getThemeArrays();
     this.chosenTheme =
       this.unusedPotThemes[
         Math.floor(Math.random() * this.unusedPotThemes.length)
@@ -90,6 +86,15 @@ export class AddPotModalComponent {
         maximumFractionDigits: 0,
       });
     }
+  }
+
+  // get all the themes from the data-store-service and split them into used and unused theme arrays
+  getThemeArrays() {
+    this.themes = Object.values(this.baseData.financeApp.basics.colors);
+    this.usedPotThemes = this.dataStore.pots().map((pot: any) => pot.theme);
+    this.unusedPotThemes = this.themes.filter(
+      (theme: any) => !this.usedPotThemes.includes(theme.hex)
+    );
   }
 
   // choose a theme from the dropdown
