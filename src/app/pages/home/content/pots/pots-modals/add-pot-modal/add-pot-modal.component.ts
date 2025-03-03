@@ -28,7 +28,7 @@ export class AddPotModalComponent {
     id: -1,
     name: '',
     target: -1,
-    total: -1,
+    total: 0,
     theme: '',
     createdAt: null,
     deletedAt: null,
@@ -55,6 +55,7 @@ export class AddPotModalComponent {
       this.unusedPotThemes[
         Math.floor(Math.random() * this.unusedPotThemes.length)
       ];
+    this.currentPot.theme = this.chosenTheme.hex;
   }
 
   // closes or opens theme dropdown
@@ -101,7 +102,9 @@ export class AddPotModalComponent {
 
   // add a new pot to the pots array in data-store-service, submit the new pot to the API and close the modal
   submitAddPot() {
+    this.currentPot.name = this.potNameValue;
+    this.currentPot.target = this.potTargetInputValue;
+    this.currentPot.theme = this.chosenTheme.hex;
     console.log(this.currentPot);
-    
   }
 }
