@@ -74,8 +74,13 @@ export class AddPotModalComponent {
 
   // controls the maximum amount of the pot target
   controlMaxTarget(event: any) {
-    console.log(event);
+    let currentTargetValue = this.potTargetInputValue;
 
+    if (event.data.inputType === 'deleteContentBackward' || /[0-9]/.test(event.data)) {
+      this.potTargetInputValue = this.formatTargetInput(event.data);
+    } else setTimeout(() => {
+      this.potTargetInputValue = currentTargetValue;
+    }, 10);
 
     
 
@@ -90,6 +95,14 @@ export class AddPotModalComponent {
     // } else {
     // }
   }
+
+  formatTargetInput(value: string) {
+    return value;
+  }
+
+  addNumberToTargetInput() {}
+
+  deleteNumberFromTargetInput() {}
 
   // get all the themes from the data-store-service and split them into used and unused theme arrays
   getThemeArrays() {
