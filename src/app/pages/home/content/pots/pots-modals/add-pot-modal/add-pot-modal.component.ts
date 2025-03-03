@@ -42,7 +42,6 @@ export class AddPotModalComponent {
   public potNameValue: string = '';
   public potNameCharactersLeft: number = 30;
   public potTargetInputValue: number = 0;
-  public potTargetValue: string = '';
   public potThemeValue: string = '';
 
   ngOnInit() {
@@ -72,20 +71,22 @@ export class AddPotModalComponent {
     }
   }
 
+
   // controls the maximum amount of the pot target
-  controlMaxTarget() {
-    if (this.potTargetInputValue > 999999999) {
-      setTimeout(() => {
-        this.potTargetInputValue = 999999999;
-        this.potTargetValue = this.potTargetInputValue.toLocaleString('en-US', {
-          maximumFractionDigits: 0,
-        });
-      }, 10);
-    } else {
-      this.potTargetValue = this.potTargetInputValue.toLocaleString('en-US', {
-        maximumFractionDigits: 0,
-      });
-    }
+  controlMaxTarget(event: any) {
+    console.log(event);
+    
+
+
+
+    // console.log(this.potTargetInputValue);
+    
+    // if (this.potTargetInputValue > 999999999) {
+    //   setTimeout(() => {
+    //     this.potTargetInputValue = 999999999;
+    //   }, 10);
+    // } else {
+    // }
   }
 
   // get all the themes from the data-store-service and split them into used and unused theme arrays

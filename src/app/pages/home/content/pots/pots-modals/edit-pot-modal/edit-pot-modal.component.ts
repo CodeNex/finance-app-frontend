@@ -47,7 +47,6 @@ export class EditPotModalComponent {
   public potNameValue: string = '';
   public potNameCharactersLeft: number = 30;
   public potTargetInputValue: number = 0;
-  public potTargetValue: string = '';
   public potThemeValue: string = '';
 
   ngOnInit() {
@@ -55,6 +54,7 @@ export class EditPotModalComponent {
     this.currentPotIndex = this.potIndex;
     this.potNameValue = this.currentPot.name;
     this.potNameCharactersLeft = 30 - this.currentPot.name.length;
+    this.potTargetInputValue = this.currentPot.target;
     this.getThemeArrays();
     
   }
@@ -77,19 +77,20 @@ export class EditPotModalComponent {
     }
   }
 
+  formatTargetInput(value: number): string {
+    return new Intl.NumberFormat('en-US').format(value);
+  }
+
   // controls the maximum amount of the pot target
   controlMaxTarget() {
     if (this.potTargetInputValue > 999999999) {
       setTimeout(() => {
         this.potTargetInputValue = 999999999;
-        this.potTargetValue = this.potTargetInputValue.toLocaleString('en-US', {
-          maximumFractionDigits: 0,
-        });
+        
       }, 10);
     } else {
-      this.potTargetValue = this.potTargetInputValue.toLocaleString('en-US', {
-        maximumFractionDigits: 0,
-      });
+     console.log(this.formatTargetInput(this.potTargetInputValue));
+     
     }
   }
 
