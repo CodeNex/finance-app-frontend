@@ -1,10 +1,5 @@
 import { Component, inject, Input } from '@angular/core';
-import {
-  FormsModule,
-  FormBuilder,
-  Validators,
-  ReactiveFormsModule,
-} from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { IconsComponent } from '../../../../../../components/icons/icons.component';
 
@@ -15,7 +10,7 @@ import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-edit-pot-modal',
-  imports: [CommonModule, FormsModule, ReactiveFormsModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, IconsComponent],
   templateUrl: './edit-pot-modal.component.html',
   styleUrl: './edit-pot-modal.component.scss',
 })
@@ -46,6 +41,8 @@ export class EditPotModalComponent {
 
   public themes: any;
   public usedPotThemes: any;
+  public unusedPotThemes: any;
+  public chosenTheme: any;
   public isThemeDropdownOpen: boolean = false;
   public potNameValue: string = '';
   public potNameCharactersLeft: number = 30;
@@ -56,6 +53,13 @@ export class EditPotModalComponent {
   ngOnInit() {
     this.themes = Object.values(this.baseData.financeApp.basics.colors);
     this.usedPotThemes = this.dataStore.pots().map((pot: any) => pot.theme);
+    this.unusedPotThemes = this.themes.filter(
+      (theme: any) => !this.usedPotThemes.includes(theme.hex)
+    );
+    this.chosenTheme =
+      this.unusedPotThemes[
+        Math.floor(Math.random() * this.unusedPotThemes.length)
+      ];
     this.currentPot = this.modalObject;
     this.currentPotIndex = this.potIndex;
     this.potNameValue = this.currentPot.name;
@@ -93,6 +97,14 @@ export class EditPotModalComponent {
       this.potTargetValue = this.potTargetInputValue.toLocaleString('en-US', {
         maximumFractionDigits: 0,
       });
+    }
+  }
+
+  // choose a theme from the dropdown
+  chooseTheme(theme: any) {
+    if (this.unusedPotThemes.includes(theme)) {
+      this.chosenTheme = theme;
+      // this.closeHideThemeDropdown();
     }
   }
 }
