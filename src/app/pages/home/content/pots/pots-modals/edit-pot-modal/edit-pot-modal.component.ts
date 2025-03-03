@@ -55,12 +55,8 @@ export class EditPotModalComponent {
     this.currentPotIndex = this.potIndex;
     this.potNameValue = this.currentPot.name;
     this.potNameCharactersLeft = 30 - this.currentPot.name.length;
-
     this.getThemeArrays();
-    this.chosenTheme =
-      this.unusedPotThemes[
-        Math.floor(Math.random() * this.unusedPotThemes.length)
-      ];
+    
   }
 
   // closes or opens theme dropdown
@@ -100,10 +96,14 @@ export class EditPotModalComponent {
   // get all the themes from the data-store-service and split them into used and unused theme arrays
   getThemeArrays() {
     this.themes = Object.values(this.baseData.financeApp.basics.colors);
+    
     this.usedPotThemes = this.dataStore.pots().map((pot: any) => pot.theme);
     this.unusedPotThemes = this.themes.filter(
       (theme: any) => !this.usedPotThemes.includes(theme.hex)
     );
+    this.themes.forEach((theme: any) => {
+      if (this.currentPot.theme === theme.hex) this.chosenTheme = theme;
+    });
   }
 
   // choose a theme from the dropdown
