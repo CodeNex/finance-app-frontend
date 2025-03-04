@@ -82,29 +82,26 @@ export class AddPotModalComponent {
     const isNumberKey = /^[0-9]$/.test(event.key);
 
     if (isNumberKey) {
-      console.log('ADD NUMBER');
-      return;
+      this.addNumberToTargetInput(event)
     } else if (deleteKeys.includes(event.key)) {
-      console.log('DELETE NUMBER');
-    } 
-    else if (otherKeys.includes(event.key)) {
-      console.log('OTHER KEYS');
+      this.deleteNumberFromTargetInput();
+    } else if (otherKeys.includes(event.key)) {
       return;
-    }
-    else {
+    } else {
       event.preventDefault();
-      console.log('Prevent');
       return;
     }
   }
 
-  formatTargetInput(value: string) {
-    return value;
+  addNumberToTargetInput(event: any) {
+    console.log(event.key);
+
+    console.log('ADD NUMBER');
   }
 
-  addNumberToTargetInput() {}
-
-  deleteNumberFromTargetInput() {}
+  deleteNumberFromTargetInput() {
+    console.log('DELETE NUMBER');
+  }
 
   // get all the themes from the data-store-service and split them into used and unused theme arrays
   getThemeArrays() {
