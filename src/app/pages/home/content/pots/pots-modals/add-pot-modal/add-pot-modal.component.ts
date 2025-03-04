@@ -76,10 +76,12 @@ export class AddPotModalComponent {
   controlMaxTarget(event: any) {
     let currentTargetValue = this.potTargetInputValue;
 
-    if (event.data.inputType === 'deleteContentBackward' || /[0-9]/.test(event.data)) {
-      this.potTargetInputValue = this.formatTargetInput(event.data);
+    if (event.inputType === 'deleteContentBackward' || /[0-9]/.test(event.data)) {
+      // this.potTargetInputValue = this.formatTargetInput(event.data);
+      console.log("OK");
+      
     } else setTimeout(() => {
-      this.potTargetInputValue = currentTargetValue;
+      // this.potTargetInputValue = currentTargetValue;
     }, 10);
 
     
