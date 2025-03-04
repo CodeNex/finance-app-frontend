@@ -46,7 +46,8 @@ export class EditPotModalComponent {
   public isThemeDropdownOpen: boolean = false;
   public potNameValue: string = '';
   public potNameCharactersLeft: number = 30;
-  public potTargetInputValue: number = 0;
+  public potTargetInputValue: string = '0.00';
+  public potTargetString: string = '0.00';
   public potThemeValue: string = '';
 
   ngOnInit() {
@@ -54,9 +55,11 @@ export class EditPotModalComponent {
     this.currentPotIndex = this.potIndex;
     this.potNameValue = this.currentPot.name;
     this.potNameCharactersLeft = 30 - this.currentPot.name.length;
-    this.potTargetInputValue = this.currentPot.target;
+    this.potTargetInputValue = this.currentPot.target.toLocaleString('en-US', {
+      minimumFractionDigits: 2,
+    });
+    this.potTargetString = this.potTargetInputValue;
     this.getThemeArrays();
-    
   }
 
   // closes or opens theme dropdown
@@ -66,13 +69,13 @@ export class EditPotModalComponent {
 
   // controls the maximum length of the pot name
   controlNameLength(event: any) {
-    const deleteKeys = ["Backspace", "Delete"];
+    const deleteKeys = ['Backspace', 'Delete'];
     if (deleteKeys.includes(event.key)) {
-      if (this.potNameCharactersLeft < 30) this.potNameCharactersLeft = 30 - (this.potNameValue.length - 1);
-        return;
-    }
-    else if (this.potNameValue.length >= 30) {
-      event.preventDefault(); 
+      if (this.potNameCharactersLeft < 30)
+        this.potNameCharactersLeft = 30 - (this.potNameValue.length - 1);
+      return;
+    } else if (this.potNameValue.length >= 30) {
+      event.preventDefault();
     } else {
       setTimeout(() => {
         this.potNameCharactersLeft = 30 - this.potNameValue.length;
@@ -80,32 +83,77 @@ export class EditPotModalComponent {
     }
   }
 
-  formatTargetInput(value: number): string {
-    return new Intl.NumberFormat('en-US').format(value);
-  }
-
   // controls the maximum amount of the pot target
   controlMaxTarget(event: any) {
+    const deleteKeys = ['Backspace', 'Delete'];
+    const otherKeys = ['ArrowLeft', 'ArrowRight', 'Tab'];
+    const isNumberKey = /^[0-9]$/.test(event.key);
 
-    if (!/[0-9]/.test(event.data) || event.inputType === 'deleteContentBackward') {
+    if (isNumberKey) {
       event.preventDefault();
-    }
-
-    if (this.potTargetInputValue > 999999999) {
-      setTimeout(() => {
-        this.potTargetInputValue = 999999999;
-        
-      }, 10);
+      this.addNumberToTargetInput(event);
+    } else if (deleteKeys.includes(event.key)) {
+      event.preventDefault();
+      this.deleteNumberFromTargetInput();
+    } else if (otherKeys.includes(event.key)) {
+      return;
     } else {
-     console.log(this.formatTargetInput(this.potTargetInputValue));
-     
+      event.preventDefault();
+      return;
     }
+  }
+
+  // add a number to the target input
+  addNumberToTargetInput(event: any) {
+    let currentTarget = this.potTargetString;
+    let numbersArray = currentTarget.replace(/[.,]/g, '').split('');
+    if (numbersArray.length === 3 && numbersArray[0] === '0') {
+      numbersArray.shift();
+      numbersArray.push(event.key);
+      numbersArray.splice(numbersArray.length - 2, 0, '.');
+      this.potTargetString = parseFloat(numbersArray.join('')).toLocaleString(
+        'en-US',
+        {
+          minimumFractionDigits: 2,
+        }
+      );
+      this.potTargetInputValue = this.potTargetString;
+    } else if (
+      numbersArray.length >= 3 &&
+      numbersArray.length < 11 &&
+      numbersArray[0] !== '0'
+    ) {
+      numbersArray.push(event.key);
+      numbersArray.splice(numbersArray.length - 2, 0, '.');
+      this.potTargetString = parseFloat(numbersArray.join('')).toLocaleString(
+        'en-US',
+        {
+          minimumFractionDigits: 2,
+        }
+      );
+      this.potTargetInputValue = this.potTargetString;
+    }
+  }
+
+  // delete a number from the target input
+  deleteNumberFromTargetInput() {
+    let currentTarget = this.potTargetString;
+    let numbersArray = currentTarget.replace(/[.,]/g, '').split('');
+    numbersArray.pop();
+    numbersArray.splice(numbersArray.length - 2, 0, '.');
+    this.potTargetString = parseFloat(numbersArray.join('')).toLocaleString(
+      'en-US',
+      {
+        minimumFractionDigits: 2,
+      }
+    );
+    this.potTargetInputValue = this.potTargetString;
   }
 
   // get all the themes from the data-store-service and split them into used and unused theme arrays
   getThemeArrays() {
     this.themes = Object.values(this.baseData.financeApp.basics.colors);
-    
+
     this.usedPotThemes = this.dataStore.pots().map((pot: any) => pot.theme);
     this.unusedPotThemes = this.themes.filter(
       (theme: any) => !this.usedPotThemes.includes(theme.hex)
@@ -119,14 +167,12 @@ export class EditPotModalComponent {
   chooseTheme(theme: any) {
     if (this.unusedPotThemes.includes(theme)) {
       this.chosenTheme = theme;
-      // this.closeHideThemeDropdown();
+      this.closeHideThemeDropdown();
     }
   }
 
-  // submit the changed pot to the pots array in data-store-service, submit the changed pot to the API and close the modal 
+  // submit the changed pot to the pots array in data-store-service, submit the changed pot to the API and close the modal
   submitEditPot() {
-
     console.log(this.currentPot);
   }
-  
 }
