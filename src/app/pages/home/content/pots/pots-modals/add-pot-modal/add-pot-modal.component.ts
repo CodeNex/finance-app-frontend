@@ -46,7 +46,6 @@ export class AddPotModalComponent {
   public potThemeValue: string = '';
 
   ngOnInit() {
-
     this.getThemeArrays();
     this.chosenTheme =
       this.unusedPotThemes[
@@ -84,9 +83,10 @@ export class AddPotModalComponent {
 
     if (isNumberKey) {
       event.preventDefault();
-      this.addNumberToTargetInput(event)
+      this.addNumberToTargetInput(event);
     } else if (deleteKeys.includes(event.key)) {
-      this.deleteNumberFromTargetInput(event);
+      event.preventDefault();
+      this.deleteNumberFromTargetInput();
     } else if (otherKeys.includes(event.key)) {
       return;
     } else {
@@ -102,22 +102,44 @@ export class AddPotModalComponent {
     if (numbersArray.length === 3 && numbersArray[0] === '0') {
       numbersArray.shift();
       numbersArray.push(event.key);
-      numbersArray.splice((numbersArray.length - 2), 0, '.');
-      this.potTargetString = parseFloat(numbersArray.join('')).toLocaleString('en-US', {
-        minimumFractionDigits: 2,});
+      numbersArray.splice(numbersArray.length - 2, 0, '.');
+      this.potTargetString = parseFloat(numbersArray.join('')).toLocaleString(
+        'en-US',
+        {
+          minimumFractionDigits: 2,
+        }
+      );
       this.potTargetInputValue = this.potTargetString;
-    } else if (numbersArray.length >= 3 && numbersArray.length < 15 && numbersArray[0] !== '0') {
+    } else if (
+      numbersArray.length >= 3 &&
+      numbersArray.length < 11 &&
+      numbersArray[0] !== '0'
+    ) {
       numbersArray.push(event.key);
-      numbersArray.splice((numbersArray.length - 2), 0, '.');
-      this.potTargetString = parseFloat(numbersArray.join('')).toLocaleString('en-US', {
-        minimumFractionDigits: 2,});
+      numbersArray.splice(numbersArray.length - 2, 0, '.');
+      this.potTargetString = parseFloat(numbersArray.join('')).toLocaleString(
+        'en-US',
+        {
+          minimumFractionDigits: 2,
+        }
+      );
       this.potTargetInputValue = this.potTargetString;
     }
   }
 
-  deleteNumberFromTargetInput(event: any) {
-    event.preventDefault();
-    console.log('DELETE NUMBER');
+  // delete a number from the target input
+  deleteNumberFromTargetInput() {
+    let currentTarget = this.potTargetString;
+    let numbersArray = currentTarget.replace(/[.,]/g, '').split('');
+    numbersArray.pop();
+    numbersArray.splice(numbersArray.length - 2, 0, '.');
+    this.potTargetString = parseFloat(numbersArray.join('')).toLocaleString(
+      'en-US',
+      {
+        minimumFractionDigits: 2,
+      }
+    );
+    this.potTargetInputValue = this.potTargetString;
   }
 
   // get all the themes from the data-store-service and split them into used and unused theme arrays
@@ -140,7 +162,7 @@ export class AddPotModalComponent {
   // add a new pot to the pots array in data-store-service, submit the new pot to the API and close the modal
   submitAddPot() {
     this.currentPot.name = this.potNameValue;
-    this.currentPot.target = parseFloat(this.potTargetInputValue);
+    this.currentPot.target = parseFloat(this.potTargetInputValue.replace(/,/g, ''));
     this.currentPot.theme = this.chosenTheme.hex;
     console.log(this.currentPot);
   }
