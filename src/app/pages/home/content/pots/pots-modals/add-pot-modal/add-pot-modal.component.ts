@@ -75,14 +75,6 @@ export class AddPotModalComponent {
     }
   }
 
-
-  // let potNameSliced = this.potNameValue.slice(0, 30);
-      // setTimeout(() => {
-      //   this.potNameValue = potNameSliced;
-      //   this.potNameCharactersLeft = 30 - this.potNameValue.length;
-      // }, 10);
-
-
   // controls the maximum amount of the pot target
   controlMaxTarget(event: any) {
     let currentTargetValue = this.potTargetInputValue;
