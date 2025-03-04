@@ -86,7 +86,7 @@ export class AddPotModalComponent {
       event.preventDefault();
       this.addNumberToTargetInput(event)
     } else if (deleteKeys.includes(event.key)) {
-      this.deleteNumberFromTargetInput();
+      this.deleteNumberFromTargetInput(event);
     } else if (otherKeys.includes(event.key)) {
       return;
     } else {
@@ -95,10 +95,10 @@ export class AddPotModalComponent {
     }
   }
 
+  // add a number to the target input
   addNumberToTargetInput(event: any) {
     let currentTarget = this.potTargetString;
     let numbersArray = currentTarget.replace(/[.,]/g, '').split('');
-
     if (numbersArray.length === 3 && numbersArray[0] === '0') {
       numbersArray.shift();
       numbersArray.push(event.key);
@@ -113,10 +113,10 @@ export class AddPotModalComponent {
         minimumFractionDigits: 2,});
       this.potTargetInputValue = this.potTargetString;
     }
-    
   }
 
-  deleteNumberFromTargetInput() {
+  deleteNumberFromTargetInput(event: any) {
+    event.preventDefault();
     console.log('DELETE NUMBER');
   }
 
