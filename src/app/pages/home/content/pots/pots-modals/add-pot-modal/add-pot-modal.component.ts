@@ -42,7 +42,7 @@ export class AddPotModalComponent {
   public potNameValue: string = '';
   public potNameCharactersLeft: number = 30;
   public potTargetInputValue: string = '0.00';
-  public potTargetString: string = '';
+  public potTargetString: string = '0.00';
   public potThemeValue: string = '';
 
   ngOnInit() {
@@ -77,26 +77,22 @@ export class AddPotModalComponent {
   controlMaxTarget(event: any) {
     let currentTargetValue = this.potTargetInputValue;
 
-    if (event.inputType === 'deleteContentBackward' || /[0-9]/.test(event.data)) {
+    if (!/[0-9]/.test(event.data) || event.inputType === 'deleteContentBackward') {
+      event.preventDefault();
+    }
+
+    if (/[0-9]/.test(event.data)) {
       // this.potTargetInputValue = this.formatTargetInput(event.data);
-      console.log("OK");
+      console.log("ADD NUMBER");
+       
+    } else if (event.inputType === 'deleteContentBackward') {
+      console.log("DELETE");
       
-    } else setTimeout(() => {
-      this.potTargetInputValue = currentTargetValue;
-    }, 10);
-
-    
-
-
-
-    // console.log(this.potTargetInputValue);
-    
-    // if (this.potTargetInputValue > 999999999) {
-    //   setTimeout(() => {
-    //     this.potTargetInputValue = 999999999;
-    //   }, 10);
-    // } else {
-    // }
+    } else {
+      this.potTargetInputValue = this.potTargetString;
+      console.log("ELSE");
+    }
+  
   }
 
   formatTargetInput(value: string) {
