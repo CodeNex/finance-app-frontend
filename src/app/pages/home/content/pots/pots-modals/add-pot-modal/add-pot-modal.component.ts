@@ -45,7 +45,7 @@ export class AddPotModalComponent {
   public potThemeValue: string = '';
 
   ngOnInit() {
-    
+
     this.getThemeArrays();
     this.chosenTheme =
       this.unusedPotThemes[
@@ -95,7 +95,6 @@ export class AddPotModalComponent {
 
   addNumberToTargetInput(event: any) {
     console.log(event.key);
-
     console.log('ADD NUMBER');
   }
 
