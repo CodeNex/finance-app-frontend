@@ -42,7 +42,6 @@ export class AddPotModalComponent {
   public potNameValue: string = '';
   public potNameCharactersLeft: number = 30;
   public potTargetInputValue: string = '0.00';
-  public potTargetString: string = '0.00';
   public potThemeValue: string = '';
 
   ngOnInit() {
