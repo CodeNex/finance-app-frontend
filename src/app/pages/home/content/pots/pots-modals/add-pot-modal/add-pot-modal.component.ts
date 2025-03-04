@@ -42,6 +42,7 @@ export class AddPotModalComponent {
   public potNameValue: string = '';
   public potNameCharactersLeft: number = 30;
   public potTargetInputValue: string = '0.00';
+  public potTargetString: string = '0.00';
   public potThemeValue: string = '';
 
   ngOnInit() {
@@ -82,6 +83,7 @@ export class AddPotModalComponent {
     const isNumberKey = /^[0-9]$/.test(event.key);
 
     if (isNumberKey) {
+      event.preventDefault();
       this.addNumberToTargetInput(event)
     } else if (deleteKeys.includes(event.key)) {
       this.deleteNumberFromTargetInput();
@@ -94,8 +96,24 @@ export class AddPotModalComponent {
   }
 
   addNumberToTargetInput(event: any) {
-    console.log(event.key);
-    console.log('ADD NUMBER');
+    let currentTarget = this.potTargetString;
+    let numbersArray = currentTarget.replace(/[.,]/g, '').split('');
+
+    if (numbersArray.length === 3 && numbersArray[0] === '0') {
+      numbersArray.shift();
+      numbersArray.push(event.key);
+      numbersArray.splice((numbersArray.length - 2), 0, '.');
+      this.potTargetString = parseFloat(numbersArray.join('')).toLocaleString('en-US', {
+        minimumFractionDigits: 2,});
+      this.potTargetInputValue = this.potTargetString;
+    } else if (numbersArray.length >= 3 && numbersArray.length < 15 && numbersArray[0] !== '0') {
+      numbersArray.push(event.key);
+      numbersArray.splice((numbersArray.length - 2), 0, '.');
+      this.potTargetString = parseFloat(numbersArray.join('')).toLocaleString('en-US', {
+        minimumFractionDigits: 2,});
+      this.potTargetInputValue = this.potTargetString;
+    }
+    
   }
 
   deleteNumberFromTargetInput() {
