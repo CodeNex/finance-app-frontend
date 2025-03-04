@@ -45,6 +45,7 @@ export class AddPotModalComponent {
   public potThemeValue: string = '';
 
   ngOnInit() {
+    
     this.getThemeArrays();
     this.chosenTheme =
       this.unusedPotThemes[
