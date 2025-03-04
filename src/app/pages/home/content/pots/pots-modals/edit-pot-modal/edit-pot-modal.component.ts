@@ -82,7 +82,12 @@ export class EditPotModalComponent {
   }
 
   // controls the maximum amount of the pot target
-  controlMaxTarget() {
+  controlMaxTarget(event: any) {
+
+    if (!/[0-9]/.test(event.data) || event.inputType === 'deleteContentBackward') {
+      event.preventDefault();
+    }
+
     if (this.potTargetInputValue > 999999999) {
       setTimeout(() => {
         this.potTargetInputValue = 999999999;
