@@ -61,13 +61,13 @@ export class AddPotModalComponent {
 
   // controls the maximum length of the pot name
   controlNameLength(event: any) {
-    const deleteKeys = ["Backspace", "Delete"];
+    const deleteKeys = ['Backspace', 'Delete'];
     if (deleteKeys.includes(event.key)) {
-      if (this.potNameCharactersLeft < 30) this.potNameCharactersLeft = 30 - (this.potNameValue.length - 1);
-        return;
-    }
-    else if (this.potNameValue.length >= 30) {
-      event.preventDefault(); 
+      if (this.potNameCharactersLeft < 30)
+        this.potNameCharactersLeft = 30 - (this.potNameValue.length - 1);
+      return;
+    } else if (this.potNameValue.length >= 30) {
+      event.preventDefault();
     } else {
       setTimeout(() => {
         this.potNameCharactersLeft = 30 - this.potNameValue.length;
@@ -77,24 +77,25 @@ export class AddPotModalComponent {
 
   // controls the maximum amount of the pot target
   controlMaxTarget(event: any) {
-    let currentTargetValue = this.potTargetInputValue;
+    const deleteKeys = ['Backspace', 'Delete'];
+    const otherKeys = ['ArrowLeft', 'ArrowRight', 'Tab'];
+    const isNumberKey = /^[0-9]$/.test(event.key);
 
-    if (!/[0-9]/.test(event.data) || event.inputType === 'deleteContentBackward') {
+    if (isNumberKey) {
+      console.log('ADD NUMBER');
+      return;
+    } else if (deleteKeys.includes(event.key)) {
+      console.log('DELETE NUMBER');
+    } 
+    else if (otherKeys.includes(event.key)) {
+      console.log('OTHER KEYS');
+      return;
+    }
+    else {
       event.preventDefault();
+      console.log('Prevent');
+      return;
     }
-
-    if (/[0-9]/.test(event.data)) {
-      // this.potTargetInputValue = this.formatTargetInput(event.data);
-      console.log("ADD NUMBER");
-       
-    } else if (event.inputType === 'deleteContentBackward') {
-      console.log("DELETE");
-      
-    } else {
-      this.potTargetInputValue = this.potTargetString;
-      console.log("ELSE");
-    }
-  
   }
 
   formatTargetInput(value: string) {
