@@ -34,15 +34,25 @@ export class AddPotModalComponent {
     deletedAt: null,
   };
 
+  // array of all themes
   public themes: any;
+  // array of used themes
   public usedPotThemes: any;
+  // array of unused themes
   public unusedPotThemes: any;
+  // the current chosen theme
   public chosenTheme: any;
+  // boolean to control the theme dropdown
   public isThemeDropdownOpen: boolean = false;
+  // the value of the pot name input
   public potNameValue: string = '';
+  // the number of characters left for the pot name
   public potNameCharactersLeft: number = 30;
+  // the value of the pot target input binded by ngModel
   public potTargetInputValue: string = '0.00';
+  // a cached string of the pot target input value
   public potTargetString: string = '0.00';
+  // the value of the pot theme input
   public potThemeValue: string = '';
 
   ngOnInit() {

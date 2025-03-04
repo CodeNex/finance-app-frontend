@@ -141,7 +141,7 @@ export class AddmoneyPotModalComponent {
     this.newAmount = (inputAmount + this.currentPot.total).toFixed(2);
   }
 
-  commitAddMoney() {
+  submitAddMoney() {
     if (this.inputValue && this.inputValue > 0) {
       this.currentPot.total = this.currentPot.total + this.validateInputValue();
       this.apiPotService.updatePot('pots', 'addMoneyPot', this.currentPotIndex, this.currentPot);
