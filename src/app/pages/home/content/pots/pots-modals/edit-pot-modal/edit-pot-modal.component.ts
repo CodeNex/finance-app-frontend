@@ -173,6 +173,9 @@ export class EditPotModalComponent {
 
   // submit the changed pot to the pots array in data-store-service, submit the changed pot to the API and close the modal
   submitEditPot() {
+    this.currentPot.name = this.potNameValue;
+    this.currentPot.target = parseFloat(this.potTargetInputValue.replace(/,/g, ''));
+    this.currentPot.theme = this.chosenTheme.hex;
     console.log(this.currentPot);
   }
 }
