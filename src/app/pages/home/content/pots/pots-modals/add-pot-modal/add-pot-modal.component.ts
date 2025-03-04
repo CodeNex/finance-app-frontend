@@ -42,6 +42,7 @@ export class AddPotModalComponent {
   public potNameValue: string = '';
   public potNameCharactersLeft: number = 30;
   public potTargetInputValue: string = '0.00';
+  public potTargetString: string = '';
   public potThemeValue: string = '';
 
   ngOnInit() {
@@ -81,7 +82,7 @@ export class AddPotModalComponent {
       console.log("OK");
       
     } else setTimeout(() => {
-      // this.potTargetInputValue = currentTargetValue;
+      this.potTargetInputValue = currentTargetValue;
     }, 10);
 
     
