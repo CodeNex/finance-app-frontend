@@ -70,13 +70,12 @@ export class AddmoneyPotModalComponent {
       ).toFixed(0) + '%';
   }
 
-  //
-  newFunction(event: any) {
+  // controls the money input field
+  controlMoneyInput(event: any) {
     this.formatInputValue(event);
     let inputValueNumber = Number(this.inputValueCache.replace(/,/g, ''));
     let inputAmount: number = this.validateInputValue(inputValueNumber);
     this.updatePercentageBar(inputAmount);
-    console.log(inputValueNumber);
   }
 
   // controls the maximum amount of the pot target
