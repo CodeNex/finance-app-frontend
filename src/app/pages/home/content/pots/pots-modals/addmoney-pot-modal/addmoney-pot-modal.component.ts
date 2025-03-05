@@ -69,6 +69,11 @@ export class AddmoneyPotModalComponent {
       ).toFixed(0) + '%';
   }
 
+  // input type text
+  // take input value ---> to number
+  //number --> array of numbers
+  
+
   validateInputValue() {
     let inputAmount: any;
     let balance = this.dataStore.balance().current;
