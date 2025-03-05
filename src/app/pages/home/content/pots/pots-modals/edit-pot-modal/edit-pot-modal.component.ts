@@ -35,8 +35,8 @@ export class EditPotModalComponent {
     target: -1,
     total: -1,
     theme: '',
-    createdAt: null,
-    deletedAt: null,
+    created_at: null,
+    deleted_at: null,
   };
 
   public currentPotIndex: number = -1;
@@ -179,7 +179,12 @@ export class EditPotModalComponent {
     potObject.name = this.potNameValue;
     potObject.target = parseFloat(this.potTargetInputValue.replace(/,/g, ''));
     potObject.theme = this.chosenTheme.hex;
-    this.apiPotsService.updatePot('pots', 'editPot', this.currentPotIndex, potObject);
+    this.apiPotsService.updatePot(
+      'pots',
+      'editPot',
+      this.currentPotIndex,
+      potObject
+    );
     this.mainModalService.hideMainModal();
     console.log(potObject);
   }

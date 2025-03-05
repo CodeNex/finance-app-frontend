@@ -30,8 +30,8 @@ export class DeletePotModalComponent {
     target: -1,
     total: -1,
     theme: '',
-    createdAt: null,
-    deletedAt: null,
+    created_at: null,
+    deleted_at: null,
   };
 
   public currentPotIndex: number = -1;

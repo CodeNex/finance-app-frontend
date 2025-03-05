@@ -31,8 +31,8 @@ export class AddmoneyPotModalComponent {
     target: -1,
     total: -1,
     theme: '',
-    createdAt: null,
-    deletedAt: null,
+    created_at: null,
+    deleted_at: null,
   };
 
   public currentPotIndex: number = -1;
@@ -158,13 +158,13 @@ export class AddmoneyPotModalComponent {
       inputValueNumber === undefined
     )
       inputAmount = 0;
-      setTimeout(() => {
-        let value = inputAmount.toLocaleString('en-US', {
-          minimumFractionDigits: 2,
-        });
-        [this.inputValue, this.inputValueCache] = [value, value];
-      }, 10);
-    // if the input value is greater than 0 and less than or equal to the remaining amount and the balance, set the input amount to the input value  
+    setTimeout(() => {
+      let value = inputAmount.toLocaleString('en-US', {
+        minimumFractionDigits: 2,
+      });
+      [this.inputValue, this.inputValueCache] = [value, value];
+    }, 10);
+    // if the input value is greater than 0 and less than or equal to the remaining amount and the balance, set the input amount to the input value
     if (
       inputValueNumber &&
       inputValueNumber <= remainingAmount &&
@@ -235,17 +235,17 @@ export class AddmoneyPotModalComponent {
 
   // submit the add money modal and new pot Object
   submitAddMoney() {
-      if (this.inputValue && this.inputValue > '0.00') {
-        this.currentPot.total = this.currentPot.total + Number(this.inputValueCache.replace(/,/g, ''));
-        this.apiPotService.updatePot(
-          'pots',
-          'addMoneyPot',
-          this.currentPotIndex,
-          this.currentPot
-        );
-        this.mainModalService.hideMainModal();
-        console.log(this.currentPot);
-        
-      }
+    if (this.inputValue && this.inputValue > '0.00') {
+      this.currentPot.total =
+        this.currentPot.total + Number(this.inputValueCache.replace(/,/g, ''));
+      this.apiPotService.updatePot(
+        'pots',
+        'addMoneyPot',
+        this.currentPotIndex,
+        this.currentPot
+      );
+      this.mainModalService.hideMainModal();
+      console.log(this.currentPot);
+    }
   }
 }

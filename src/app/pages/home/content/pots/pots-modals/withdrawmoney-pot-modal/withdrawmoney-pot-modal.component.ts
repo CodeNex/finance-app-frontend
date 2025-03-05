@@ -15,7 +15,7 @@ import { ApiPotsService } from '../../api-pots.service';
 export class WithdrawmoneyPotModalComponent {
   public mainModalService: MainModalService = inject(MainModalService);
   public dataStore: DataStoreServiceService = inject(DataStoreServiceService);
-  public apiPotService: ApiPotsService = inject(ApiPotsService); 
+  public apiPotService: ApiPotsService = inject(ApiPotsService);
 
   // closes main modal and its children
   public closeMainModal() {
@@ -31,8 +31,8 @@ export class WithdrawmoneyPotModalComponent {
     target: -1,
     total: -1,
     theme: '',
-    createdAt: null,
-    deletedAt: null,
+    created_at: null,
+    deleted_at: null,
   };
 
   public currentPotIndex: number = -1;
@@ -194,11 +194,16 @@ export class WithdrawmoneyPotModalComponent {
   // commits the withdrawal of money from the pot
   commitWithdrawMoney() {
     if (this.inputValue && this.inputValue > '0.00') {
-      this.currentPot.total = this.currentPot.total - Number(this.inputValueCache.replace(/,/g, ''));
-      this.apiPotService.updatePot('pots', 'withdrawMoneyPot', this.currentPotIndex, this.currentPot);
+      this.currentPot.total =
+        this.currentPot.total - Number(this.inputValueCache.replace(/,/g, ''));
+      this.apiPotService.updatePot(
+        'pots',
+        'withdrawMoneyPot',
+        this.currentPotIndex,
+        this.currentPot
+      );
       this.mainModalService.hideMainModal();
       console.log(this.currentPot);
-      
     }
   }
 }

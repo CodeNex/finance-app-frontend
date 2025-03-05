@@ -27,7 +27,7 @@ export class SinglePotComponent {
     effect(() => {
       let signal = this.potSignal();
       this.ngOnInit();
-    })
+    });
   }
 
   @Input() public pot: PotsObject = {
@@ -36,8 +36,8 @@ export class SinglePotComponent {
     target: -1,
     total: -1,
     theme: '',
-    createdAt: null,
-    deletedAt: null,
+    created_at: null,
+    deleted_at: null,
   };
 
   @Input() public potIndex: number = -1;
@@ -67,7 +67,11 @@ export class SinglePotComponent {
 
   // Open the modal when the user clicks on any button which opens a modal, givs the modal name as a string and the current pot object as "subModalObject" to the function as arguments
   public openSubModal(subModal: string, subModalObject: Object) {
-    this.mainModalService.chooseSubModal(subModal, subModalObject, this.potIndex);
+    this.mainModalService.chooseSubModal(
+      subModal,
+      subModalObject,
+      this.potIndex
+    );
     this.isPopUpOpen = false;
   }
 

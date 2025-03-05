@@ -32,8 +32,8 @@ export class AddPotModalComponent {
     target: -1,
     total: 0,
     theme: '',
-    createdAt: null,
-    deletedAt: null,
+    created_at: null,
+    deleted_at: null,
   };
 
   // array of all themes
@@ -174,7 +174,9 @@ export class AddPotModalComponent {
   // add a new pot to the pots array in data-store-service, submit the new pot to the API and close the modal
   submitAddPot() {
     this.currentPot.name = this.potNameValue;
-    this.currentPot.target = parseFloat(this.potTargetInputValue.replace(/,/g, ''));
+    this.currentPot.target = parseFloat(
+      this.potTargetInputValue.replace(/,/g, '')
+    );
     this.currentPot.theme = this.chosenTheme.hex;
     this.apiPotsService.addNewPot(this.currentPot);
     this.mainModalService.hideMainModal();
