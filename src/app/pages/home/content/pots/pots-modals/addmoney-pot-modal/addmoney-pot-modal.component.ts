@@ -67,12 +67,7 @@ export class AddmoneyPotModalComponent {
       (
         Math.trunc((this.currentPot.total / this.currentPot.target) * 1000) / 10
       ).toFixed(0) + '%';
-  }
-
-  // input type text
-  // take input value ---> to number
-  //number --> array of numbers
-  
+  } 
 
   validateInputValue() {
     let inputAmount: any;
@@ -125,7 +120,11 @@ export class AddmoneyPotModalComponent {
   }
 
   updatePercentageBar() {
-    let inputAmount = this.validateInputValue();
+
+    // STEP 1: catch the input value and validate it
+    let inputAmount = this.validateInputValue(); // return value is a number
+
+
     this.progressBarPercentage =
       Math.trunc(
         ((this.currentPot.total + inputAmount) / this.currentPot.target) * 100
@@ -138,7 +137,12 @@ export class AddmoneyPotModalComponent {
     this.amountPercentageBar = Math.floor(
       (inputAmount / (this.currentPot.total + inputAmount)) * 100
     );
-    this.newAmount = (inputAmount + this.currentPot.total).toFixed(2);
+    this.newAmount = (inputAmount + this.currentPot.total).toLocaleString(
+      'en-US',
+      {
+        minimumFractionDigits: 2,
+      }
+    );
   }
 
   submitAddMoney() {
