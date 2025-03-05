@@ -3,6 +3,8 @@ interface BalanceObject {
   current: number;
   income: number;
   expenses: number;
+  deleted_at: string | null,
+  created_at: string | null 
 }
 
 interface BudgetsObject {

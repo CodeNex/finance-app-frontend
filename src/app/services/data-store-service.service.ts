@@ -7,9 +7,11 @@ import '../shared/interfaces.ts';
 export class DataStoreServiceService {
   public balance = signal<BalanceObject>({
     id: 1,
-    current: 500.0,
-    income: 3250.0,
-    expenses: 2188.0,
+    current: 10060.98,
+    income: 5669.00,
+    expenses: 2798.00,
+    deleted_at: null,
+    created_at: '2025-02-24T16:14:01.000000Z',
   });
 
   // public budgets = signal<BudgetsObject[]>([]);
