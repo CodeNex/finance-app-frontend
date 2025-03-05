@@ -38,11 +38,11 @@ export class ApiPotsService {
     this.http.post(`${this.baseUrl}/${path}`, body, { headers }).subscribe({
       next: (response: any) => {
         if (response.message === 'Pot created') {
-          this.dataStore.addToStoredData('pots', potObject);
-          console.log('Pot created');
         }
       },
       error: (error) => {
+        this.dataStore.addToStoredData('pots', potObject);
+        console.log('Pot created');
         console.error(error);
         return;
       },
@@ -57,14 +57,13 @@ export class ApiPotsService {
     const headers = new HttpHeaders({
       Authorization: `Bearer ${this.AuthenticationService.authToken}`,
       Accept: 'application/json',
-      typeOfUpdate: `${type}` // typeOfUpdate: 'editPot' or 'addMoneyPot' or 'withdrawMoneyPot'
+      typeOfUpdate: `${type}`, // typeOfUpdate: 'editPot' or 'addMoneyPot' or 'withdrawMoneyPot'
     });
 
     this.http.put(`${this.baseUrl}/${path}`, body, { headers }).subscribe({
       next: (response: any) => {
         if (response.message === 'Pot updated') {
           // CREATE NEW TRANSACTION --->LOCAL in Datastore and at the same time remote at the server
-          
         }
       },
       error: (error) => {
@@ -88,7 +87,6 @@ export class ApiPotsService {
     this.http.delete(`${this.baseUrl}/${path}`, { headers }).subscribe({
       next: (response: any) => {
         if (response.message === 'Pot deleted') {
-          
           console.log('Pot deleted');
         }
       },

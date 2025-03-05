@@ -6,6 +6,7 @@ import { IconsComponent } from '../../../../../../components/icons/icons.compone
 import { MainModalService } from '../../../../../../services/main-modal.service';
 import { BasedataService } from '../../../../../../services/basedata.service';
 import { DataStoreServiceService } from '../../../../../../services/data-store-service.service';
+import { ApiPotsService } from '../../api-pots.service';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -18,6 +19,7 @@ export class EditPotModalComponent {
   public mainModalService: MainModalService = inject(MainModalService);
   public baseData: BasedataService = inject(BasedataService);
   public dataStore: DataStoreServiceService = inject(DataStoreServiceService);
+  public apiPotsService: ApiPotsService = inject(ApiPotsService);
 
   // closes main modal and its children
   public closeMainModal() {
@@ -177,6 +179,8 @@ export class EditPotModalComponent {
     potObject.name = this.potNameValue;
     potObject.target = parseFloat(this.potTargetInputValue.replace(/,/g, ''));
     potObject.theme = this.chosenTheme.hex;
+    this.apiPotsService.updatePot('pots', 'editPot', this.currentPotIndex, potObject);
+    this.mainModalService.hideMainModal();
     console.log(potObject);
   }
 }
