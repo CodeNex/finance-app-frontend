@@ -60,7 +60,7 @@
       <p
         class="text5b"
         [ngStyle]="
-          inputValue! > 0 ? { color: '#277c78' } : { color: '#696868' }
+          inputValue! > '0.00' ? { color: '#277c78' } : { color: '#696868' }
         "
       >
         <span>{{ percentage }}</span
@@ -81,9 +81,9 @@
         >$</span
       >
       <input
-        (input)="updatePercentageBar()"
+        (keydown)="newFunction($event)"
         class="w-full text4r text-grey-900 border-[1px] outline-none border-beige-500 rounded-lg pl-10 pt-3 pb-3 mt-1 appearance-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
-        type="number"
+        type="text"
         [(ngModel)]="inputValue"
       />
     </div>
