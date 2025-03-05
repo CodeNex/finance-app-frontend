@@ -70,6 +70,7 @@ export class AddmoneyPotModalComponent {
       ).toFixed(0) + '%';
   }
 
+  //
   newFunction(event: any) {
     this.formatInputValue(event);
     let inputValueNumber = Number(this.inputValueCache.replace(/,/g, ''));
