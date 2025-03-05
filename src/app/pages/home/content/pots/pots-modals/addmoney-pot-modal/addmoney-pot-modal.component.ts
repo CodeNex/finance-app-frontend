@@ -15,7 +15,7 @@ import { ApiPotsService } from '../../api-pots.service';
 export class AddmoneyPotModalComponent {
   public mainModalService: MainModalService = inject(MainModalService);
   public dataStore: DataStoreServiceService = inject(DataStoreServiceService);
-  public apiPotService: ApiPotsService = inject(ApiPotsService); 
+  public apiPotService: ApiPotsService = inject(ApiPotsService);
 
   // closes main modal and its children
   public closeMainModal() {
@@ -37,7 +37,6 @@ export class AddmoneyPotModalComponent {
 
   public currentPotIndex: number = -1;
 
-
   public newAmount: string = '';
   public targetAmount: string = '';
 
@@ -53,8 +52,9 @@ export class AddmoneyPotModalComponent {
   ngOnInit() {
     this.currentPot = this.modalObject;
     this.currentPotIndex = this.potIndex;
-    
-    this.newAmount = this.currentPot.total.toFixed(2);
+    this.newAmount = this.currentPot.total.toLocaleString('en-US', {
+      minimumFractionDigits: 2,
+    });
     this.targetAmount = this.currentPot.target.toLocaleString('en-US', {
       maximumFractionDigits: 0,
     });
@@ -67,7 +67,7 @@ export class AddmoneyPotModalComponent {
       (
         Math.trunc((this.currentPot.total / this.currentPot.target) * 1000) / 10
       ).toFixed(0) + '%';
-  } 
+  }
 
   validateInputValue() {
     let inputAmount: any;
@@ -120,10 +120,8 @@ export class AddmoneyPotModalComponent {
   }
 
   updatePercentageBar() {
-
     // STEP 1: catch the input value and validate it
     let inputAmount = this.validateInputValue(); // return value is a number
-
 
     this.progressBarPercentage =
       Math.trunc(
@@ -148,7 +146,12 @@ export class AddmoneyPotModalComponent {
   submitAddMoney() {
     if (this.inputValue && this.inputValue > 0) {
       this.currentPot.total = this.currentPot.total + this.validateInputValue();
-      this.apiPotService.updatePot('pots', 'addMoneyPot', this.currentPotIndex, this.currentPot);
+      this.apiPotService.updatePot(
+        'pots',
+        'addMoneyPot',
+        this.currentPotIndex,
+        this.currentPot
+      );
     }
   }
 }
