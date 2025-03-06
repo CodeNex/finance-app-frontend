@@ -7,13 +7,15 @@ import { WarningScreenComponent } from '../../../../components/warning-screen/wa
 import { DataStoreServiceService } from '../../../../services/data-store-service.service';
 import { AuthenticationService } from '../../../../services/authentication.service';
 import { APIService } from '../../../../services/api.service';
-import { IconsComponent } from '../../../../components/icons/icons.component';
+
+import { BalanceComponent } from './balance/balance.component';
+import { PotsSummaryComponent } from './pots-summary/pots-summary.component';
 
 
 
 @Component({
   selector: 'app-overview',
-  imports: [LoadingScreenComponent, WarningScreenComponent, CommonModule, IconsComponent],
+  imports: [LoadingScreenComponent, WarningScreenComponent, CommonModule, BalanceComponent, PotsSummaryComponent],
   templateUrl: './overview.component.html',
   styleUrl: './overview.component.scss',
 })
