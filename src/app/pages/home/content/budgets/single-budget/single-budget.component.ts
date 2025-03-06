@@ -60,6 +60,7 @@ export class SingleBudgetComponent {
 
   public maximum: string = '';
   public spent: string = '';
+  public isTooMuchSpent: boolean = false;
   public remaining: string = '';
   public percentageProgress: string = '';
 
@@ -72,12 +73,7 @@ export class SingleBudgetComponent {
       minimumFractionDigits: 2,
       maximumFractionDigits: 2,
     })}`;
-    this.remaining = `$${(
-      this.budget.maximum - this.budget.amount
-    ).toLocaleString('en-US', {
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2,
-    })}`;
+    this.remaining = this.calculateRemaining();
     this.percentageProgress = this.calculatePercentageProgress();
   }
 
@@ -89,6 +85,21 @@ export class SingleBudgetComponent {
       return '100%';
     } else {
       return `${Math.trunc(this.budget.amount / this.budget.maximum * 100)}%`
+    }
+  }
+
+  calculateRemaining() {
+    if (this.budget.maximum - this.budget.amount <= 0) {
+      this.isTooMuchSpent = true;
+      return '0';
+    } else {
+      this.isTooMuchSpent = false;
+      return `$${(
+      this.budget.maximum - this.budget.amount
+    ).toLocaleString('en-US', {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    })}`;
     }
   }
 
