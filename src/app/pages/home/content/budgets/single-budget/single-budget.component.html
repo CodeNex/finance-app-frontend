@@ -1,4 +1,24 @@
 <div
   aria-label="Single Budget Card"
   class="p-6 rounded-xl min-h-[250px] flex flex-col gap-8 bg-white"
-></div>
+>
+
+<div aria-label="single Budget Card Head">
+
+
+  @if (isPopUpOpen) {
+    <div id="budgetPopUp" class="absolute right-0 top-6 z-10 flex flex-col gap-2 bg-white shadow-[0px_4px_24px_0px_rgba(0,0,0,0.25)] rounded-lg w-28 pr-5 pl-5 pb-3 pt-3">
+      <button (click)="openSubModal('editBudget', this.budget)" id="editBudgetButton" class="text4r text-grey-900 text-left">Edit Pot</button>
+      <hr class="bg-grey-100 h-[1px] w-full">
+      <button (click)="openSubModal('deleteBudget', this.budget)" id="deleteBudgetButton" class="text4r text-secondary-red text-left">Delete Pot</button>
+    </div>
+  }
+</div>
+
+<div aria-label="single Budget Card Amount Overview"></div>
+
+<div aria-label="single Budget Card latest spendings"> </div>
+
+
+
+</div>
