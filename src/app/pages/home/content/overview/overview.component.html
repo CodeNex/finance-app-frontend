@@ -1,4 +1,4 @@
-<section class="relative w-full min-h-[100%]">
+<section class="relative w-full min-h-[100%]" aria-label="Overview Section">
 
   @if (isLoadingScreenVisible)
   {
@@ -11,8 +11,24 @@
 
   @if (!isLoadingScreenVisible && !isWarningScreenVisible)
   {
-    <div class="overview-container">
-      <p>Hello World</p>
+    <div class="overview-container min-h-[100%] flex flex-col gap-8" aria-label="Overview Wrapper">
+      <h2 class="text1b">Overview</h2>
+
+      <div class="overview-balance-container min-w-[100%] flex justify-between gap-6" aria-label="Overview Balance Container">
+        <div class="overview-balance bg-grey-900 text-white flex flex-col gap-4 flex-1 p-6 rounded-xl" aria-label="Current Balance">
+          <p class="text4r">Current Balance</p>
+          <p class="text1b ">$4,836.00</p>
+        </div>
+        <div class="overview-income bg-white flex flex-col gap-4 flex-1 p-6 rounded-xl" aria-label="Income">
+          <p class="text4r text-grey-500">Income</p>
+          <p class="text1b">$3,814.25</p>
+        </div>
+        <div class="overview-expenses bg-white flex flex-col gap-4 flex-1 p-6 rounded-xl" aria-label="Total Expenses">
+          <p class="text4r text-grey-500">Expenses</p>
+          <p class="text1b">$1,700.50</p>
+        </div>
+      </div>
     </div>
+
   }
 </section>
