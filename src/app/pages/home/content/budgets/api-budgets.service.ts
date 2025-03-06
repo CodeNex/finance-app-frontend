@@ -8,9 +8,9 @@ import { DataStoreServiceService } from '../../../../services/data-store-service
 import { MainModalService } from '../../../../services/main-modal.service';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
-export class ApiPotsService {
+export class ApiBudgetsService {
   private baseData: BasedataService = inject(BasedataService);
   private http: HttpClient = inject(HttpClient);
   private AuthenticationService: AuthenticationService = inject(
@@ -21,13 +21,13 @@ export class ApiPotsService {
 
   private baseUrl: string = this.baseData.financeApp.basics.apiData.baseUrl;
 
-  constructor() {}
+  constructor() { }
 
-  // function to add new pots
-  // response: {message: "Pot created"}
-  addNewPot(potObject: any) {
-    const path = 'pots';
-    const body = potObject;
+  // function to add new budgets
+  // response: {message: "Budget created"}
+  addNewBudget(budgetObject: any) {
+    const path = 'budgets';
+    const body = budgetObject;
     const headers = new HttpHeaders({
       Authorization: `Bearer ${this.AuthenticationService.authToken}`,
       Accept: 'application/json',
@@ -39,33 +39,34 @@ export class ApiPotsService {
         }
       },
       error: (error) => {
-        this.dataStore.addToStoredData('pots', potObject);
-        console.log('Pot created');
+        // this.dataStore.addToStoredData('budgets', budgetObject);
+        // console.log('Pot created');
+        console.log('Budget created');
         console.error(error);
         return;
       },
     });
   }
 
-  // function to update existing specific pot
-  // response: {message: "Pot updated"}
-  updatePot(endpoint: string, type: string, index: number, potObject: any) {
-    const path = `pots/${potObject.id}`;
-    const body = potObject;
+  // function to update existing specific budget
+  // response: {message: "Budget updated"}
+  updatePot(endpoint: string, type: string, index: number, budgetObject: any) {
+    const path = `budgets/${budgetObject.id}`;
+    const body = budgetObject;
     const headers = new HttpHeaders({
       Authorization: `Bearer ${this.AuthenticationService.authToken}`,
       Accept: 'application/json',
-      typeOfUpdate: `${type}`, // typeOfUpdate: 'editPot' or 'addMoneyPot' or 'withdrawMoneyPot'
+      typeOfUpdate: `${type}`, // typeOfUpdate: 'editBudget'
     });
 
     this.http.put(`${this.baseUrl}/${path}`, body, { headers }).subscribe({
       next: (response: any) => {
-        if (response.message === 'Pot updated') {
+        if (response.message === 'Budget updated') {
           // CREATE NEW TRANSACTION --->LOCAL in Datastore and at the same time remote at the server
         }
       },
       error: (error) => {
-        this.dataStore.editStoredData(endpoint, index, potObject);
+        this.dataStore.editStoredData(endpoint, index, budgetObject);
         this.mainModalService.hideMainModal();
         console.error(error);
         return;
@@ -73,10 +74,10 @@ export class ApiPotsService {
     });
   }
 
-  // function to delete specific pot
-  // response: {message: "Pot deleted"}
-  deletePot(potObject: any, index: number) {
-    const path = `pots/${potObject.id}`;
+  // function to delete specific budget
+  // response: {message: "Budget deleted"}
+  deletePot(budgetObject: any, index: number) {
+    const path = `budgets/${budgetObject.id}`;
     const headers = new HttpHeaders({
       Authorization: `Bearer ${this.AuthenticationService.authToken}`,
       Accept: 'application/json',
@@ -84,16 +85,17 @@ export class ApiPotsService {
 
     this.http.delete(`${this.baseUrl}/${path}`, { headers }).subscribe({
       next: (response: any) => {
-        if (response.message === 'Pot deleted') {
-          console.log('Pot deleted');
+        if (response.message === 'Budget deleted') {
+          console.log('Budget deleted');
         }
       },
       error: (error) => {
         console.error(error);
-        this.dataStore.choseDataAndSoftDelete('pots', index);
+        this.dataStore.choseDataAndSoftDelete('budgets', index);
         this.mainModalService.hideMainModal();
         return;
       },
     });
   }
+
 }

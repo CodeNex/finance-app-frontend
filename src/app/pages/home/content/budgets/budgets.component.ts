@@ -1,17 +1,16 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { LoadingScreenComponent } from '../../../../components/loading-screen/loading-screen.component';
-import { WarningScreenComponent } from '../../../../components/warning-screen/warning-screen.component';
 
 import { DataStoreServiceService } from '../../../../services/data-store-service.service';
 import { AuthenticationService } from '../../../../services/authentication.service';
 import { APIService } from '../../../../services/api.service';
+
 import { MainModalService } from '../../../../services/main-modal.service';
 
 @Component({
   selector: 'app-budgets',
-  imports: [LoadingScreenComponent, WarningScreenComponent, CommonModule],
+  imports: [CommonModule],
   templateUrl: './budgets.component.html',
   styleUrl: './budgets.component.scss',
 })
