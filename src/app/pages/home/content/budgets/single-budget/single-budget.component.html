@@ -11,7 +11,7 @@
         class="themeDot w-4 h-4 rounded-full"
         [ngStyle]="{ 'background-color': this.budget.theme }"
       ></div>
-      <p class="text2b">{{ this.budget.name }}</p>
+      <p class="text2b text-grey-900">{{ this.budget.name }}</p>
     </div>
     <button (click)="openPopUp()">
       <app-icons [iconName]="'dotsThree'"></app-icons>
@@ -41,8 +41,9 @@
     }
   </div>
 
-  <div aria-label="single Budget Card Amount Overview">
-    <p></p>
+  <div aria-label="single Budget Card Amount Overview"
+  class="w-full flex flex-col gap-4">
+    <p class="text4r text-grey-500">Maximum of <span>{{ this.maximum }}</span></p>
     <div aria-label="progress bar"></div>
     <div aria-label="counting">
       <div aria-label="Spent"></div>

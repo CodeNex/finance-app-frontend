@@ -65,15 +65,18 @@ export class SingleBudgetComponent {
 
   ngOnInit() {
     this.maximum = `$${this.budget.maximum.toLocaleString('en-US', {
-      maximumFractionDigits: 0,
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
     })}`;
     this.spent = `$${this.budget.amount.toLocaleString('en-US', {
-      maximumFractionDigits: 0,
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
     })}`;
     this.remaining = `$${(
       this.budget.maximum - this.budget.amount
     ).toLocaleString('en-US', {
-      maximumFractionDigits: 0,
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
     })}`;
     this.percentageProgress = this.calculatePercentageProgress();
   }

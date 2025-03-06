@@ -21,7 +21,7 @@ export class DataStoreServiceService {
       id: 1,
       name: 'Transportation',
       amount: 56.26,
-      maximum: 419.89,
+      maximum: 419,
       theme: '#93674F',
       deleted_at: null,
       created_at: '2025-02-24T16:14:01.000000Z',
