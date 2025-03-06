@@ -92,9 +92,13 @@
 
   <div
     aria-label="single Budget Card latest spendings"
-    class="w-full bg-beige-100 rounded-xl"
+    class="w-full bg-beige-100 rounded-xl p-5 flex flex-col gap-5"
   >
-    <div aria-label="Latest Spending head"></div>
+    <div aria-label="Latest Spending head"
+    class="flex items-center justify-between">
+      <p class="text3b text-grey-900">Latest Spending</p>
+      <button id="seeAllButton" class="flex items-center gap-3"><span class="text4r text-grey-500">See all</span><app-icons [iconName]="'smallArrowRight'"></app-icons></button>
+    </div>
     <ul aria-label="latest spending list">
       @for (item of this.budget.last_spendings; let index = $index; track item)
       {
