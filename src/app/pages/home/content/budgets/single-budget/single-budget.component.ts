@@ -61,6 +61,7 @@ export class SingleBudgetComponent {
   public maximum: string = '';
   public spent: string = '';
   public remaining: string = '';
+  public percentageProgress: string = '';
 
   ngOnInit() {
     this.maximum = `$${this.budget.maximum.toLocaleString('en-US', {
@@ -74,6 +75,18 @@ export class SingleBudgetComponent {
     ).toLocaleString('en-US', {
       maximumFractionDigits: 0,
     })}`;
+    this.percentageProgress = this.calculatePercentageProgress();
+  }
+
+  // Calculate the percentage of the progress of the budget
+  calculatePercentageProgress() {
+    if (this.budget.amount <= 0) {
+      return '0%';
+    } else if (this.budget.amount >= this.budget.maximum) {
+      return '100%';
+    } else {
+      return `${Math.trunc(this.budget.amount / this.budget.maximum * 100)}%`
+    }
   }
 
   // Open the modal when the user clicks on any button which opens a modal, givs the modal name as a string and the current pot object as "subModalObject" to the function as arguments
