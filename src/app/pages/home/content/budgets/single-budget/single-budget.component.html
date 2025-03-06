@@ -44,7 +44,11 @@
   <div aria-label="single Budget Card Amount Overview"
   class="w-full flex flex-col gap-4">
     <p class="text4r text-grey-500">Maximum of <span>{{ this.maximum }}</span></p>
-    <div aria-label="progress bar"></div>
+    <div aria-label="progress bar">
+      <div class="w-full h-8 bg-beige-100 rounded-[4px] p-1 flex items-center justify-start">
+        <div class="h-full rounded-[4px]" [ngStyle]="{'background-color': this.budget.theme, 'width': this.percentageProgress}"></div>
+      </div>
+    </div>
     <div aria-label="counting">
       <div aria-label="Spent"></div>
       <div aria-label="Remaining"></div>
