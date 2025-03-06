@@ -108,16 +108,46 @@ export class BasedataService {
     },
     budgets: {
       categories: {
-        entertainment: 'Entertainment',
-        bills: 'Bills',
-        groceries: 'Groceries',
-        diningOut: 'Dining Out',
-        transportation: 'Transportation',
-        personalCare: 'Personal Care',
-        education: 'Education',
-        lifestyle: 'Lifestyle',
-        shopping: 'Shopping',
-        general: 'General',
+        entertainment: {
+          name: 'Entertainment',
+          iconName: ''
+        },
+        bills: {
+          name: 'Bills',
+          iconName: ''
+        },
+        groceries: {
+          name: 'Groceries',
+          iconName: ''
+        },
+        diningOut: {
+          name: 'Dining Out',
+          iconName: ''
+        },
+        transportation: {
+          name: 'Transportation',
+          iconName: ''
+        },
+        personalCare: {
+          name: 'Personal Care',
+          iconName: ''
+        },
+        education: {
+          name: 'Education',
+          iconName: ''
+        },
+        lifestyle: {
+          name: 'Lifestyle',
+          iconName: ''
+        },
+        shopping: {
+          name: 'Shopping',
+          iconName: ''
+        },
+        general: {
+          name: 'General',
+          iconName: ''
+        }
       },
     },
   };

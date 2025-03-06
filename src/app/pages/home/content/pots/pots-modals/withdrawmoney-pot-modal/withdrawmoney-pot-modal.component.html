@@ -4,16 +4,28 @@
   <!-- Modal Headline -->
   <div class="modalHeadline flex justify-between items-center">
     <p class="text1b text-grey-900">Withdraw from '{{ currentPot.name }}'</p>
-    <div (click)="closeMainModal()"
+    <div
+      (click)="closeMainModal()"
       class="w-[26px] h-[26px] rounded-[100vh] border-solid border-2 border-grey-500 flex justify-center items-center cursor-pointer transition-all duration-300 ease-in-out group hover:bg-grey-500"
     >
-    <svg width="16px" height="16px" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg"><path class="fill-grey-500 group-hover:fill-white transition-all duration-300 ease-in-out" d="M195.2 195.2a64 64 0 0 1 90.496 0L512 421.504 738.304 195.2a64 64 0 0 1 90.496 90.496L602.496 512 828.8 738.304a64 64 0 0 1-90.496 90.496L512 602.496 285.696 828.8a64 64 0 0 1-90.496-90.496L421.504 512 195.2 285.696a64 64 0 0 1 0-90.496z"/></svg>
+      <svg
+        width="16px"
+        height="16px"
+        viewBox="0 0 1024 1024"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          class="fill-grey-500 group-hover:fill-white transition-all duration-300 ease-in-out"
+          d="M195.2 195.2a64 64 0 0 1 90.496 0L512 421.504 738.304 195.2a64 64 0 0 1 90.496 90.496L602.496 512 828.8 738.304a64 64 0 0 1-90.496 90.496L512 602.496 285.696 828.8a64 64 0 0 1-90.496-90.496L421.504 512 195.2 285.696a64 64 0 0 1 0-90.496z"
+        />
+      </svg>
     </div>
   </div>
 
   <!-- Modal info text -->
   <p class="text4r text-grey-500">
-    Add money to your pot to keep it separate from your main balance. As soon as you add this money, it will be deducted from your current balance.
+    Add money to your pot to keep it separate from your main balance. As soon as
+    you add this money, it will be deducted from your current balance.
   </p>
 
   <!-- Modal content block -->
@@ -29,12 +41,28 @@
     <div
       class="potContentProgressBarContainer w-[100%] h-[8px] rounded-[4px] bg-beige-100 overflow-hidden relative"
     >
-      <div class="potContentProgressBar absolute top-0 left-0 z-10 h-full rounded-[4px] bg-grey-900" [ngStyle]="{'width': percentageNumber >= 100 ? '100%' : progressBarPercentage }"></div>
+      <div
+        class="potContentProgressBar absolute top-0 left-0 z-10 h-full rounded-[4px]"
+        [ngStyle]="{
+          width: percentageNumber >= 100 ? '100%' : progressBarPercentage,
+          background:
+            'linear-gradient(to right, #696868 ' +
+            amountPercentageBar +
+            '%, #c94736 ' +
+            amountPercentageBar +
+            '%)'
+        }"
+      ></div>
     </div>
     <div
       class="potContentPercentContainer flex items-center justify-between pt-[13px]"
     >
-      <p class="text5b text-grey-500">
+      <p
+        class="text5b"
+        [ngStyle]="
+          inputValue! > '0.00' ? { color: '#c94736' } : { color: '#696868' }
+        "
+      >
         <span>{{ percentage }}</span
         ><span>%</span>
       </p>
@@ -45,18 +73,26 @@
   </div>
 
   <!-- Modal Input -->
-   <div>
+  <div>
     <p class="text5b text-grey-500">Amount to Withdraw</p>
     <div class="relative">
-      <span class="absolute left-[20px] top-[50%] -translate-y-[calc(50%-2px)] text4r text-beige-500">$</span>
-      <input class="w-full text4r text-grey-900 border-[1px] outline-none border-beige-500 rounded-lg pl-10 pt-3 pb-3 mt-1" type="text" [(ngModel)]="inputValue">
+      <span
+        class="absolute left-[20px] top-[50%] -translate-y-[calc(50%-2px)] text4r text-beige-500"
+        >$</span
+      >
+      <input
+        (keydown)="controlMoneyInput($event)"
+        class="w-full text4r text-grey-900 border-[1px] outline-none border-beige-500 rounded-lg pl-10 pt-3 pb-3 mt-1 appearance-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
+        type="text"
+        [(ngModel)]="inputValue"
+      />
     </div>
-   </div>
+  </div>
 
   <!-- Confirm Button -->
-    <button
-      class="bg-grey-900 w-full pt-4 pb-4 rounded-lg text4b transition-all duration-300 ease-in-out hover:bg-grey-500 text-white text-center"
-    >
-      Confirm Withdrawal
-    </button>
+  <button (click)="commitWithdrawMoney()"
+    class="bg-grey-900 w-full pt-4 pb-4 rounded-lg text4b transition-all duration-300 ease-in-out hover:bg-grey-500 text-white text-center"
+  >
+    Confirm Withdrawal
+  </button>
 </div>

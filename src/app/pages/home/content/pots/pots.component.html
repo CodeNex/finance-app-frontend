@@ -1,6 +1,4 @@
 <section class="w-full min-h-[100%] flex flex-col gap-8">
-  
-
   <div class="potsHeader flex items-center justify-between">
     <p class="text1b">Pots</p>
     <button
@@ -12,9 +10,14 @@
   </div>
 
   <div class="potsContent flex flex-wrap gap-6">
-    @for (item of this.potsArray(); let index = $index; track item.id) {
-    <app-single-pot [pot]="item" [potIndex]="index" class="min-w-[500px] max-w-[700px] flex-1"></app-single-pot>
-    } 
+    @for (item of this.potsArray(); let index = $index; track item) { @if
+    (!item.deleted_at) {
+    <app-single-pot
+      [pot]="item"
+      [potIndex]="index"
+      class="min-w-[500px] max-w-[700px] flex-1"
+    ></app-single-pot>
+    } }
     <div class="min-w-[500px] max-w-[700px] flex-1"></div>
   </div>
 </section>

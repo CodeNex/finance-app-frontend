@@ -22,6 +22,6 @@ export class PotsComponent {
   public potsArray: any = this.dataStore.pots; 
 
   public openSubModal(subModal: string, subModalObject: Object) {
-    this.mainModalService.chooseSubModal(subModal, subModalObject);
+    this.mainModalService.chooseSubModal(subModal, subModalObject, null);
   }
 }

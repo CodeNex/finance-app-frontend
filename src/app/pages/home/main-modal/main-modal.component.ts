@@ -3,7 +3,7 @@ import { Component, inject } from '@angular/core';
 import { MainModalService } from '../../../services/main-modal.service';
 import { Subscription } from 'rxjs';
 
-import "../../../shared/interfaces.ts";
+import '../../../shared/interfaces.ts';
 
 import { AddBudgetModalComponent } from '../content/budgets/budgets-modals/add-budget-modal/add-budget-modal.component';
 import { DeleteBudgetModalComponent } from '../content/budgets/budgets-modals/delete-budget-modal/delete-budget-modal.component';
@@ -47,6 +47,8 @@ export class MainModalComponent {
   public currentShownSubModal: string = '';
   public subModalObjectSubscription!: Subscription;
   public subModalObject: Object = {};
+  public indexSubscription!: Subscription;
+  public index: number = -1;
 
   private subscribeSubModal() {
     this.subModalSubscription =
@@ -57,6 +59,9 @@ export class MainModalComponent {
       this.mainModalService.subModalObject$.subscribe(
         (subModalObject: Object) => (this.subModalObject = subModalObject)
       );
+    this.indexSubscription = this.mainModalService.index$.subscribe(
+      (potIndex: number) => (this.index = potIndex)
+    );
   }
 
   // unsubscribe sub modal to avoid memory leak
