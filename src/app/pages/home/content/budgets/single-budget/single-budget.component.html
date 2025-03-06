@@ -92,7 +92,8 @@
 
   <div
     aria-label="single Budget Card latest spendings"
-    class="w-full bg-beige-100 rounded-xl p-5 flex flex-col gap-[8px]"
+    class="w-full bg-beige-100 rounded-xl p-5 flex flex-col"
+    [ngStyle]="{'gap': this.budget.last_spendings ? '8px' : '0px'}"
   >
     <div aria-label="Latest Spending head"
     class="flex items-center justify-between">
