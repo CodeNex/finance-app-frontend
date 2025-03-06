@@ -7,10 +7,13 @@ import { WarningScreenComponent } from '../../../../components/warning-screen/wa
 import { DataStoreServiceService } from '../../../../services/data-store-service.service';
 import { AuthenticationService } from '../../../../services/authentication.service';
 import { APIService } from '../../../../services/api.service';
+import { IconsComponent } from '../../../../components/icons/icons.component';
+
+
 
 @Component({
   selector: 'app-overview',
-  imports: [LoadingScreenComponent, WarningScreenComponent, CommonModule],
+  imports: [LoadingScreenComponent, WarningScreenComponent, CommonModule, IconsComponent],
   templateUrl: './overview.component.html',
   styleUrl: './overview.component.scss',
 })

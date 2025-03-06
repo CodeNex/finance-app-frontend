@@ -28,7 +28,35 @@
           <p class="text1b">$1,700.50</p>
         </div>
       </div>
+
+      <div class="overview-summary-container flex gap-6" aria-label="Overview Summary Container">
+        <div class="summary-left flex flex-col gap-6" aria-label="Left Half of the Overview Summary">
+
+
+          <div class="pots-summary bg-white flex flex-col gap-4 p-8 rounded-xl" aria-label="Pots Summary">
+            <p class="summary-header flex items-center justify-between">
+              <span class="text2b">Pots</span>
+              <button class="details-Btn text4r text-grey-500 flex items-center gap-4">See Details
+                <app-icons [iconName]="'smallArrowRight'"></app-icons>
+              </button>
+            </p>
+          </div>
+
+
+          <div class="transaction-summary bg-white flex flex-col gap-4 p-6 rounded-xl"></div>
+        </div>
+        <div class="summary-right flex flex-col gap-6" aria-label="Right Half of the Overview Summary">
+
+
+          <div class="budget-summary bg-white flex flex-col gap-4 p-6 rounded-xl"></div>
+
+
+          <div class="bills-summary bg-white flex flex-col gap-4 p-6 rounded-xl"></div>
+        </div>
+      </div>
     </div>
 
+
+    
   }
 </section>
