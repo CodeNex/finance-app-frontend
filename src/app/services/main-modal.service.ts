@@ -24,10 +24,12 @@ export class MainModalService {
   // Types of sub modal: addBudget, deleteBudget, editBudget, addPot, editPot, deletePot, addMoneyPot, withdrawMoneyPot
   @Output() public currentSubModal$ = new BehaviorSubject<string>('');
   @Output() public subModalObject$ = new BehaviorSubject<Object>({});
+  @Output() public index$ = new BehaviorSubject<number>(-1);
 
-  public chooseSubModal(subModal: string, subModalObject: Object) {
+  public chooseSubModal(subModal: string, subModalObject: Object, index: number | null) {
     this.showMainModal();
     this.currentSubModal$.next(subModal);
     this.subModalObject$.next(subModalObject);
+    if (index !== null) this.index$.next(index);
   }
 }

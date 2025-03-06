@@ -5,7 +5,7 @@
     "target": 2000.0,
     "total": 159.0,
     "theme": "#277C78",
-    "deletedAt": null
+    "deleted_at": null
   },
   {
     "id": 1,
@@ -13,7 +13,7 @@
     "target": 150.0,
     "total": 110.0,
     "theme": "#626070",
-    "deletedAt": null
+    "deleted_at": null
   },
   {
     "id": 2,
@@ -21,7 +21,7 @@
     "target": 150.0,
     "total": 110.0,
     "theme": "#82C9D7",
-    "deletedAt": null
+    "deleted_at": null
   },
   {
     "id": 3,
@@ -29,7 +29,7 @@
     "target": 1000.0,
     "total": 10.0,
     "theme": "#F2CDAC",
-    "deletedAt": null
+    "deleted_at": null
   },
   {
     "id": 4,
@@ -37,6 +37,6 @@
     "target": 1440.0,
     "total": 531.0,
     "theme": "#826CB0",
-    "deletedAt": null
+    "deleted_at": null
   }
 ]

@@ -7,12 +7,71 @@ import '../shared/interfaces.ts';
 export class DataStoreServiceService {
   public balance = signal<BalanceObject>({
     id: 1,
-    current: 2500.0,
-    income: 3250.0,
-    expenses: 2188.0,
+    current: 10060.98,
+    income: 5669.00,
+    expenses: 2798.00,
+    deleted_at: null,
+    created_at: '2025-02-24T16:14:01.000000Z',
   });
 
-  public budgets = signal<BudgetsObject[]>([]);
+  // public budgets = signal<BudgetsObject[]>([]);
+
+  public budgets = signal<BudgetsObject[]>([
+    {
+      id: 1,
+      name: 'Transportation',
+      amount: 56.26,
+      maximum: 419.89,
+      theme: '#93674F',
+      deleted_at: null,
+      created_at: '2025-02-24T16:14:01.000000Z',
+    },
+    {
+      id: 2,
+      name: 'Groceries',
+      amount: 197.54,
+      maximum: 327.99,
+      theme: '#82C9D7',
+      deleted_at: null,
+      created_at: '2025-02-24T16:14:01.000000Z',
+    },
+    {
+      id: 3,
+      name: 'Bills',
+      amount: 69.29,
+      maximum: 267.59,
+      theme: '#934F6F',
+      deleted_at: null,
+      created_at: '2025-02-24T16:14:01.000000Z',
+    },
+    {
+      id: 4,
+      name: 'Shopping',
+      amount: 207.74,
+      maximum: 602.07,
+      theme: '#F2CDAC',
+      deleted_at: null,
+      created_at: '2025-02-24T16:14:01.000000Z',
+    },
+    {
+      id: 5,
+      name: 'Dining Out',
+      amount: 229.81,
+      maximum: 258.82,
+      theme: '#277C78',
+      deleted_at: null,
+      created_at: '2025-02-24T16:14:01.000000Z',
+    },
+    {
+      id: 6,
+      name: 'Entertainment',
+      amount: 316.83,
+      maximum: 929.42,
+      theme: '#826CB0',
+      deleted_at: null,
+      created_at: '2025-02-24T16:14:01.000000Z',
+    },
+  ]);
 
   // public pots = signal<PotsObject[]>([]);
 
@@ -23,8 +82,8 @@ export class DataStoreServiceService {
       target: 2000.0,
       total: 159.0,
       theme: '#277C78',
-      createdAt: null,
-      deletedAt: null,
+      created_at: null,
+      deleted_at: null,
     },
     {
       id: 1,
@@ -32,8 +91,8 @@ export class DataStoreServiceService {
       target: 150.0,
       total: 110.0,
       theme: '#626070',
-      createdAt: null,
-      deletedAt: null,
+      created_at: null,
+      deleted_at: null,
     },
     {
       id: 2,
@@ -41,8 +100,8 @@ export class DataStoreServiceService {
       target: 150.0,
       total: 110.0,
       theme: '#82C9D7',
-      createdAt: null,
-      deletedAt: null,
+      created_at: null,
+      deleted_at: null,
     },
     {
       id: 3,
@@ -50,8 +109,8 @@ export class DataStoreServiceService {
       target: 1750.0,
       total: 10.0,
       theme: '#F2CDAC',
-      createdAt: null,
-      deletedAt: null,
+      created_at: null,
+      deleted_at: null,
     },
     {
       id: 4,
@@ -59,8 +118,8 @@ export class DataStoreServiceService {
       target: 1440.0,
       total: 531.0,
       theme: '#826CB0',
-      createdAt: null,
-      deletedAt: null,
+      created_at: null,
+      deleted_at: null,
     },
   ]);
 
@@ -94,7 +153,7 @@ export class DataStoreServiceService {
   // add new data to the existing dataArray and update the signal and UI
   addToStoredData(endpoint: string, data: any) {
     if (endpoint === 'budgets') this.budgets.update((prev) => [...prev, data]);
-    if (endpoint === 'pots') this.pots.update((prev) => [...prev, data]);
+    if (endpoint === 'pots') this.pots.update((prev) => [data, ...prev]);
     if (endpoint === 'transactions')
       this.transactions.update((prev) => [...prev, data]);
     if (endpoint === 'transactions/recurring')
@@ -103,24 +162,24 @@ export class DataStoreServiceService {
 
   // chose what kind of data to soft delete and update the signal and UI
   choseDataAndSoftDelete(endpoint: string, index: number) {
-    if (endpoint === 'budgets' && index)
+    if (endpoint === 'budgets' && index >= 0)
       this.budgets.update((prev) => {
-        return this.softDeleteData(prev, index);
+        return this.softdeleted_ata(prev, index);
       });
-    if (endpoint === 'pots' && index)
+    if (endpoint === 'pots' && index >= 0)
       this.pots.update((prev) => {
-        return this.softDeleteData(prev, index);
+        return this.softdeleted_ata(prev, index);
       });
-    if (endpoint === 'transactions/recurring' && index)
+    if (endpoint === 'transactions/recurring' && index >= 0)
       this.transactionsRecurring.update((prev) => {
-        return this.softDeleteData(prev, index);
+        return this.softdeleted_ata(prev, index);
       });
   }
 
   // soft delete data
-  softDeleteData(prev: any, index: number) {
+  softdeleted_ata(prev: any, index: number) {
     let array = [...prev];
-    array[index].deletedAt = new Date().toISOString();
+    array[index].deleted_at = new Date().toISOString();
     return array;
   }
 
@@ -136,22 +195,19 @@ export class DataStoreServiceService {
   }
 
   // update the existing data and update the signal and UI
-  editStoredData(endpoint: string, index: number | null, data: any) {
-    if (endpoint === 'budgets' && data && index)
+  editStoredData(endpoint: string, index: number, data: any) {
+    if (endpoint === 'budgets' && data && index >= 0) {
       this.budgets.update((prev) => {
-        let budgetsArray = [...prev];
-        budgetsArray[index].category = data.category;
-        budgetsArray[index].maximum = data.maximum;
-        budgetsArray[index].theme = data.theme;
-        return budgetsArray;
+        prev[index] = { ...data };
+        return prev;
       });
-    if (endpoint === 'pots' && data && index)
+    }
+
+    if (endpoint === 'pots' && data && index >= 0) {
       this.pots.update((prev) => {
-        let potsArray = [...prev];
-        potsArray[index].name = data.name;
-        potsArray[index].target = data.target;
-        potsArray[index].theme = data.theme;
-        return potsArray;
+        prev[index] = { ...data };
+        return prev;
       });
+    }
   }
 }
