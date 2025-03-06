@@ -1,12 +1,30 @@
-<section class= "w-full min-h-[100%]">
+<section aria-label="Budgets Main Section" class="w-full min-h-[100%]">
+  <header
+    aria-label="Budgets Header. Theres a button at the right side to create new Budgets."
+    class="potsHeader flex items-center justify-between"
+  >
+    <p class="text1b">Budgets</p>
+    <button
+      (click)="openSubModal('addBudget', {})"
+      class="border-solid bg-grey-900 text4b text-white p-4 rounded-lg transition-all duration-300 hover:bg-grey-500"
+    >
+      + Add New Budget
+    </button>
+  </header>
 
- 
-    <div class="budgets-container">
-      <p>budgets works!</p>
-      <button (click)="openSubModal('addBudget', {})" class="border-solid border-black border-2 mb-4">Add New Budget</button>
-      <button (click)="openSubModal('editBudget', {})" class="border-solid border-black border-2 mb-4">Edit Budget</button>
-      <button (click)="openSubModal('deleteBudget', {})" class="border-solid border-black border-2 mb-4">Delete Budget</button>
-    </div>
-  
-  
+  <div class="budgets-container">
+    <p>budgets works!</p>
+    <button
+      (click)="openSubModal('editBudget', {})"
+      class="border-solid border-black border-2 mb-4"
+    >
+      Edit Budget
+    </button>
+    <button
+      (click)="openSubModal('deleteBudget', {})"
+      class="border-solid border-black border-2 mb-4"
+    >
+      Delete Budget
+    </button>
+  </div>
 </section>

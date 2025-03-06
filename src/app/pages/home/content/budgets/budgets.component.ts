@@ -20,8 +20,7 @@ export class BudgetsComponent {
   public authService: AuthenticationService = inject(AuthenticationService);
   public mainModalService: MainModalService = inject(MainModalService);
 
-  isLoadingScreenVisible: boolean = false;
-  isWarningScreenVisible: boolean = false;
+  public budgetsArray$ = this.dataStore.budgets;
 
   public openSubModal(subModal: string, subModalObject: Object) {
     this.mainModalService.chooseSubModal(subModal, subModalObject, null);
