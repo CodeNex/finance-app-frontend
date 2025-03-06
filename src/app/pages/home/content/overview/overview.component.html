@@ -33,13 +33,23 @@
         <div class="summary-left flex flex-col gap-6" aria-label="Left Half of the Overview Summary">
 
 
-          <div class="pots-summary bg-white flex flex-col gap-4 p-8 rounded-xl" aria-label="Pots Summary">
-            <p class="summary-header flex items-center justify-between">
+          <div class="pots-summary bg-white flex flex-col gap-5 p-8 rounded-xl" aria-label="Pots Summary">
+            <p class="pots-summary-header flex items-center justify-between" aria-label="Pots Summary Header">
               <span class="text2b">Pots</span>
-              <button class="details-Btn text4r text-grey-500 flex items-center gap-4">See Details
+              <button class="details-Btn text4r text-grey-500 flex items-center gap-4 transition-all duration-300 ease-in-out hover:text-grey-900" aria-label="Button to be redirected to the pots page">See Details
                 <app-icons [iconName]="'smallArrowRight'"></app-icons>
               </button>
             </p>
+
+            <div class="pots-summary-content flex" aria-label="Pots Summary Content">
+              <div class="total-saved-container bg-beige-100 min-w-[247px] flex gap-4 items-center p-4 rounded-xl">
+                <app-icons [iconName]="'potsTransparentGreen'"></app-icons>
+                <div class="total-saved flex flex-col gap-3">
+                  <p class="text4r text-grey-500">Total Saved</p>
+                  <p class="text1b">$850</p>
+                </div>
+              </div>
+            </div>
           </div>
 
 
