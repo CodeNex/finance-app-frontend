@@ -15,6 +15,7 @@ interface BudgetsObject {
   theme: string;
   created_at: string | null;
   deleted_at: string | null;
+  last_spendings: TransactionsObject[] | null;
 }
 
 interface PotsObject {
@@ -30,10 +31,14 @@ interface PotsObject {
 interface TransactionsObject {
   id: number;
   user: number | null;
+  amount: number | null;
+  budget_id: number	| null;
   created_at: string | null;
   deleted_at: string | null;
   recurring: string | null;
   name: string;
   category: string;
-  amount: number;
+  budget: {
+    name: string;
+  } | null;
 }

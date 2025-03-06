@@ -25,6 +25,32 @@ export class DataStoreServiceService {
       theme: '#93674F',
       deleted_at: null,
       created_at: '2025-02-24T16:14:01.000000Z',
+      last_spendings: [{
+        id: 1,
+        user: 1,
+        name: "Initial Deposit",
+        amount: 100.00,
+        recurring: null,
+        budget_id: null,
+        deleted_at: null,
+        created_at: "2025-02-24T16:14:01.000000Z",
+        category: '',
+        budget: {
+          name: "Entertainment"
+        }
+      },
+      {
+        id: 2,
+        user: 1,
+        name: "Veum-Dare",
+        amount: 20.26,
+        recurring: null,
+        budget_id: 4,
+        deleted_at: null,
+        created_at: "2025-02-24T16:14:01.000000Z",
+        category: '',
+        budget: null
+      }]
     },
     {
       id: 2,
@@ -34,6 +60,32 @@ export class DataStoreServiceService {
       theme: '#82C9D7',
       deleted_at: null,
       created_at: '2025-02-24T16:14:01.000000Z',
+      last_spendings: [{
+        id: 1,
+        user: 1,
+        name: "Initial Deposit",
+        amount: 100.00,
+        recurring: null,
+        budget_id: null,
+        deleted_at: null,
+        created_at: "2025-02-24T16:14:01.000000Z",
+        category: '',
+        budget: {
+          name: "Entertainment"
+        }
+      },
+      {
+        id: 2,
+        user: 1,
+        name: "Veum-Dare",
+        amount: 20.26,
+        recurring: null,
+        budget_id: 4,
+        deleted_at: null,
+        created_at: "2025-02-24T16:14:01.000000Z",
+        category: '',
+        budget: null
+      }],
     },
     {
       id: 3,
@@ -43,6 +95,7 @@ export class DataStoreServiceService {
       theme: '#934F6F',
       deleted_at: null,
       created_at: '2025-02-24T16:14:01.000000Z',
+      last_spendings: null
     },
     {
       id: 4,
@@ -52,6 +105,32 @@ export class DataStoreServiceService {
       theme: '#F2CDAC',
       deleted_at: null,
       created_at: '2025-02-24T16:14:01.000000Z',
+      last_spendings: [{
+        id: 1,
+        user: 1,
+        name: "Initial Deposit",
+        amount: 100.00,
+        recurring: null,
+        budget_id: null,
+        deleted_at: null,
+        created_at: "2025-02-24T16:14:01.000000Z",
+        category: '',
+        budget: {
+          name: "Entertainment"
+        }
+      },
+      {
+        id: 2,
+        user: 1,
+        name: "Veum-Dare",
+        amount: 20.26,
+        recurring: null,
+        budget_id: 4,
+        deleted_at: null,
+        created_at: "2025-02-24T16:14:01.000000Z",
+        category: '',
+        budget: null
+      }],
     },
     {
       id: 5,
@@ -61,6 +140,32 @@ export class DataStoreServiceService {
       theme: '#277C78',
       deleted_at: null,
       created_at: '2025-02-24T16:14:01.000000Z',
+      last_spendings: [{
+        id: 1,
+        user: 1,
+        name: "Initial Deposit",
+        amount: 100.00,
+        recurring: null,
+        budget_id: null,
+        deleted_at: null,
+        created_at: "2025-02-24T16:14:01.000000Z",
+        category: '',
+        budget: {
+          name: "Entertainment"
+        }
+      },
+      {
+        id: 2,
+        user: 1,
+        name: "Veum-Dare",
+        amount: 20.26,
+        recurring: null,
+        budget_id: 4,
+        deleted_at: null,
+        created_at: "2025-02-24T16:14:01.000000Z",
+        category: '',
+        budget: null
+      }],
     },
     {
       id: 6,
@@ -70,6 +175,32 @@ export class DataStoreServiceService {
       theme: '#826CB0',
       deleted_at: null,
       created_at: '2025-02-24T16:14:01.000000Z',
+      last_spendings: [{
+        id: 1,
+        user: 1,
+        name: "Initial Deposit",
+        amount: 100.00,
+        recurring: null,
+        budget_id: null,
+        deleted_at: null,
+        created_at: "2025-02-24T16:14:01.000000Z",
+        category: '',
+        budget: {
+          name: "Entertainment"
+        }
+      },
+      {
+        id: 2,
+        user: 1,
+        name: "Veum-Dare",
+        amount: 20.26,
+        recurring: null,
+        budget_id: 4,
+        deleted_at: null,
+        created_at: "2025-02-24T16:14:01.000000Z",
+        category: '',
+        budget: null
+      }],
     },
   ]);
 
