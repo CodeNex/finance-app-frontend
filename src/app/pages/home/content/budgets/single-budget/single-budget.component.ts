@@ -88,10 +88,11 @@ export class SingleBudgetComponent {
     }
   }
 
+  // Calculate the remaining amount
   calculateRemaining() {
     if (this.budget.maximum - this.budget.amount <= 0) {
       this.isTooMuchSpent = true;
-      return '0';
+      return '$0.00';
     } else {
       this.isTooMuchSpent = false;
       return `$${(

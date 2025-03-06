@@ -55,8 +55,8 @@ export class DataStoreServiceService {
     {
       id: 2,
       name: 'Groceries',
-      amount: 197.54,
-      maximum: 327.99,
+      amount: 397.54,
+      maximum: 350,
       theme: '#82C9D7',
       deleted_at: null,
       created_at: '2025-02-24T16:14:01.000000Z',

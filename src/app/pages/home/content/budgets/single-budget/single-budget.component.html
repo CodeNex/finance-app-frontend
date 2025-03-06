@@ -66,7 +66,7 @@
       <div aria-label="Spent" class="flex items-center gap-4 flex-1">
         <div
           class="bar w-1 h-[43px] rounded-lg"
-          [ngStyle]="{ 'background-color': this.budget.theme }"
+          [ngStyle]="{ 'background-color': this.isTooMuchSpent ? '#f8f4f0' : this.budget.theme}"
         ></div>
         <div class="flex flex-col gap-1">
           <p class="text5r text-grey-500">Spent</p>
@@ -76,11 +76,15 @@
       <div aria-label="Remaining" class="flex items-center gap-4 flex-1">
         <div
           class="bar w-1 h-[43px] rounded-lg"
-          [ngStyle]="{ 'background-color': this.budget.theme }"
+          [ngStyle]="{ 'background-color': this.isTooMuchSpent ? '#c94736' : '#f8f4f0'}"
         ></div>
         <div class="flex flex-col gap-1">
-          <p class="text5r text-grey-500">Remaining</p>
-          <p class="text4b text-grey-900">{{ this.remaining }}</p>
+          <p class="text5r"
+          [ngStyle]="{'color': this.isTooMuchSpent ? '#c94736' : '#696868'}"
+          >Remaining</p>
+          <p class="text4b"
+          [ngStyle]="{ 'color': this.isTooMuchSpent ? '#c94736' : '#201f24'}"
+          >{{ this.remaining }}</p>
         </div>
       </div>
     </div>
