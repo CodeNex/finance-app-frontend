@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 
 import { MainModalService } from '../../../../../../services/main-modal.service';
 import { DataStoreServiceService } from '../../../../../../services/data-store-service.service';
+import { ApiPotsService } from '../../api-pots.service';
 
 @Component({
   selector: 'app-addmoney-pot-modal',
@@ -14,6 +15,7 @@ import { DataStoreServiceService } from '../../../../../../services/data-store-s
 export class AddmoneyPotModalComponent {
   public mainModalService: MainModalService = inject(MainModalService);
   public dataStore: DataStoreServiceService = inject(DataStoreServiceService);
+  public apiPotService: ApiPotsService = inject(ApiPotsService);
 
   // closes main modal and its children
   public closeMainModal() {
@@ -21,6 +23,7 @@ export class AddmoneyPotModalComponent {
   }
 
   @Input() public modalObject: Object = {};
+  @Input() public potIndex: number = -1;
 
   public currentPot: any = {
     id: -1,
@@ -28,9 +31,11 @@ export class AddmoneyPotModalComponent {
     target: -1,
     total: -1,
     theme: '',
-    createdAt: null,
-    deletedAt: null,
+    created_at: null,
+    deleted_at: null,
   };
+
+  public currentPotIndex: number = -1;
 
   public newAmount: string = '';
   public targetAmount: string = '';
@@ -42,11 +47,15 @@ export class AddmoneyPotModalComponent {
   public prevPercentageBar: string = '';
   public amountPercentageBar: number = 0;
 
-  public inputValue: number | null = null;
+  public inputValue: string = '0.00';
+  public inputValueCache: string = '0.00';
 
   ngOnInit() {
     this.currentPot = this.modalObject;
-    this.newAmount = this.currentPot.total.toFixed(2);
+    this.currentPotIndex = this.potIndex;
+    this.newAmount = this.currentPot.total.toLocaleString('en-US', {
+      minimumFractionDigits: 2,
+    });
     this.targetAmount = this.currentPot.target.toLocaleString('en-US', {
       maximumFractionDigits: 0,
     });
@@ -61,63 +70,149 @@ export class AddmoneyPotModalComponent {
       ).toFixed(0) + '%';
   }
 
-  formatInputValue(value: number | null): number {
-    if (value === null || value === undefined) return 0;
-    return Number(value.toFixed(2));
+  // controls the money input field
+  controlMoneyInput(event: any) {
+    this.formatInputValue(event);
+    let inputValueNumber = Number(this.inputValueCache.replace(/,/g, ''));
+    let inputAmount: number = this.validateInputValue(inputValueNumber);
+    this.updatePercentageBar(inputAmount);
   }
 
-  validateInputValue() {
+  // controls the maximum amount of the pot target
+  formatInputValue(event: any) {
+    const deleteKeys = ['Backspace', 'Delete'];
+    const otherKeys = ['ArrowLeft', 'ArrowRight', 'Tab'];
+    const isNumberKey = /^[0-9]$/.test(event.key);
+
+    let formatInputValue: number = 0;
+
+    if (isNumberKey) {
+      event.preventDefault();
+      this.addNumberToTargetInput(event);
+    } else if (deleteKeys.includes(event.key)) {
+      event.preventDefault();
+      this.deleteNumberFromTargetInput();
+    } else if (otherKeys.includes(event.key)) {
+      return;
+    } else {
+      event.preventDefault();
+      return;
+    }
+
+    return formatInputValue;
+  }
+
+  // add a number to the target input
+  addNumberToTargetInput(event: any) {
+    let currentTarget = this.inputValueCache;
+    let numbersArray = currentTarget.replace(/[.,]/g, '').split('');
+    if (numbersArray.length === 3 && numbersArray[0] === '0') {
+      numbersArray.shift();
+      numbersArray.push(event.key);
+      numbersArray.splice(numbersArray.length - 2, 0, '.');
+      this.inputValueCache = parseFloat(numbersArray.join('')).toLocaleString(
+        'en-US',
+        {
+          minimumFractionDigits: 2,
+        }
+      );
+    } else if (
+      numbersArray.length >= 3 &&
+      numbersArray.length < 11 &&
+      numbersArray[0] !== '0'
+    ) {
+      numbersArray.push(event.key);
+      numbersArray.splice(numbersArray.length - 2, 0, '.');
+      this.inputValueCache = parseFloat(numbersArray.join('')).toLocaleString(
+        'en-US',
+        {
+          minimumFractionDigits: 2,
+        }
+      );
+    }
+  }
+
+  // delete a number from the target input
+  deleteNumberFromTargetInput() {
+    let currentTarget = this.inputValueCache;
+    let numbersArray = currentTarget.replace(/[.,]/g, '').split('');
+    numbersArray.pop();
+    numbersArray.splice(numbersArray.length - 2, 0, '.');
+    this.inputValueCache = parseFloat(numbersArray.join('')).toLocaleString(
+      'en-US',
+      {
+        minimumFractionDigits: 2,
+      }
+    );
+  }
+
+  // validate the input value
+  validateInputValue(inputValueNumber: number) {
     let inputAmount: any;
     let balance = this.dataStore.balance().current;
     let remainingAmount = this.currentPot.target - this.currentPot.total;
+    // if the input value is null, less than or equal to 0, or undefined, set the input amount to 0
     if (
-      this.inputValue === null ||
-      this.inputValue <= 0 ||
-      this.inputValue === undefined
+      inputValueNumber === null ||
+      inputValueNumber <= 0 ||
+      inputValueNumber === undefined
     )
       inputAmount = 0;
-
+    setTimeout(() => {
+      let value = inputAmount.toLocaleString('en-US', {
+        minimumFractionDigits: 2,
+      });
+      [this.inputValue, this.inputValueCache] = [value, value];
+    }, 10);
+    // if the input value is greater than 0 and less than or equal to the remaining amount and the balance, set the input amount to the input value
     if (
-      this.inputValue &&
-      this.inputValue <= remainingAmount &&
-      this.inputValue <= balance
+      inputValueNumber &&
+      inputValueNumber <= remainingAmount &&
+      inputValueNumber <= balance
     ) {
-      inputAmount = this.inputValue;
-      setTimeout(
-        () => (this.inputValue = Math.round((inputAmount * 100) / 100)),
-        10
-      );
+      inputAmount = inputValueNumber;
+      setTimeout(() => {
+        let value = inputAmount.toLocaleString('en-US', {
+          minimumFractionDigits: 2,
+        });
+        [this.inputValue, this.inputValueCache] = [value, value];
+      }, 10);
     }
-
+    // if the input value is greater than 0 and greater than the remaining amount and the balance, set the input amount to the remaining amount
     if (
-      this.inputValue &&
-      this.inputValue > remainingAmount &&
+      inputValueNumber &&
+      inputValueNumber > remainingAmount &&
       balance >= remainingAmount
     ) {
       inputAmount = remainingAmount;
-      setTimeout(
-        () => (this.inputValue = Math.round(inputAmount * 100) / 100),
-        10
-      );
+      setTimeout(() => {
+        let value = inputAmount.toLocaleString('en-US', {
+          minimumFractionDigits: 2,
+        });
+        [this.inputValue, this.inputValueCache] = [value, value];
+      }, 10);
     }
-
+    // if the input value is greater than 0 and greater than the remaining amount and the balance, set the input amount to
     if (
-      this.inputValue &&
-      this.inputValue > balance &&
+      inputValueNumber &&
+      inputValueNumber > balance &&
       remainingAmount > balance
     ) {
       inputAmount = balance;
-      setTimeout(
-        () => (this.inputValue = Math.round(inputAmount * 100) / 100),
-        10
-      );
+      setTimeout(() => {
+        let value = inputAmount.toLocaleString('en-US', {
+          minimumFractionDigits: 2,
+        });
+        [this.inputValue, this.inputValueCache] = [value, value];
+      }, 10);
     }
 
     return inputAmount;
   }
 
-  updatePercentageBar() {
-    let inputAmount = this.validateInputValue();
+  // update the percentage bar
+  updatePercentageBar(value: number) {
+    let inputAmount = value;
     this.progressBarPercentage =
       Math.trunc(
         ((this.currentPot.total + inputAmount) / this.currentPot.target) * 100
@@ -130,12 +225,26 @@ export class AddmoneyPotModalComponent {
     this.amountPercentageBar = Math.floor(
       (inputAmount / (this.currentPot.total + inputAmount)) * 100
     );
-    this.newAmount = (inputAmount + this.currentPot.total).toFixed(2);
+    this.newAmount = (inputAmount + this.currentPot.total).toLocaleString(
+      'en-US',
+      {
+        minimumFractionDigits: 2,
+      }
+    );
   }
 
-  commitAddMoney() {
-    if (this.inputValue && this.inputValue > 0) {
-      this.currentPot.total = this.currentPot.total + this.validateInputValue();
+  // submit the add money modal and new pot Object
+  submitAddMoney() {
+    if (this.inputValue && this.inputValue > '0.00') {
+      this.currentPot.total =
+        this.currentPot.total + Number(this.inputValueCache.replace(/,/g, ''));
+      this.apiPotService.updatePot(
+        'pots',
+        'addMoneyPot',
+        this.currentPotIndex,
+        this.currentPot
+      );
+      this.mainModalService.hideMainModal();
       console.log(this.currentPot);
     }
   }

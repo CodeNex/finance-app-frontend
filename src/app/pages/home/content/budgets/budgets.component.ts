@@ -25,6 +25,6 @@ export class BudgetsComponent {
   isWarningScreenVisible: boolean = false;
 
   public openSubModal(subModal: string, subModalObject: Object) {
-    this.mainModalService.chooseSubModal(subModal, subModalObject);
+    this.mainModalService.chooseSubModal(subModal, subModalObject, null);
   }
 }

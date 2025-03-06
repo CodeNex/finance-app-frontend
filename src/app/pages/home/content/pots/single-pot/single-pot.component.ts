@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, Input } from '@angular/core';
+import { Component, inject, Input, signal, effect } from '@angular/core';
 
 import { IconsComponent } from '../../../../../components/icons/icons.component';
 
@@ -21,14 +21,23 @@ export class SinglePotComponent {
   public authService: AuthenticationService = inject(AuthenticationService);
   public apiService: APIService = inject(APIService);
 
+  public potSignal = this.dataStore.pots;
+
+  constructor() {
+    effect(() => {
+      let signal = this.potSignal();
+      this.ngOnInit();
+    });
+  }
+
   @Input() public pot: PotsObject = {
     id: -1,
     name: '',
     target: -1,
     total: -1,
     theme: '',
-    createdAt: null,
-    deletedAt: null,
+    created_at: null,
+    deleted_at: null,
   };
 
   @Input() public potIndex: number = -1;
@@ -52,9 +61,17 @@ export class SinglePotComponent {
       '%';
   }
 
+  viewTotalAmount() {
+    return this.pot.total.toFixed(2);
+  }
+
   // Open the modal when the user clicks on any button which opens a modal, givs the modal name as a string and the current pot object as "subModalObject" to the function as arguments
   public openSubModal(subModal: string, subModalObject: Object) {
-    this.mainModalService.chooseSubModal(subModal, subModalObject);
+    this.mainModalService.chooseSubModal(
+      subModal,
+      subModalObject,
+      this.potIndex
+    );
     this.isPopUpOpen = false;
   }
 
