@@ -92,7 +92,7 @@
 
   <div
     aria-label="single Budget Card latest spendings"
-    class="w-full bg-beige-100 rounded-xl p-5 flex flex-col gap-5"
+    class="w-full bg-beige-100 rounded-xl p-5 flex flex-col gap-[8px]"
   >
     <div aria-label="Latest Spending head"
     class="flex items-center justify-between">
@@ -102,9 +102,9 @@
     <ul aria-label="latest spending list">
       @for (item of this.budget.last_spendings; let index = $index; track item)
       {
-      <li><p>Hello World</p></li>
+      <li><p class="pt-3 pb-3">Hello World</p></li>
       @if (this.budget.last_spendings && index < this.budget.last_spendings.length - 1) {
-        <hr class="w-full h-[1px] bg-grey-500 border-color-grey-500" />
+        <div class="w-full h-[2px] rounded-full bg-[#e3e0dc]"></div>
       }
       }
     </ul>
