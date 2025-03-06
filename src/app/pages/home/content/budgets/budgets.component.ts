@@ -7,10 +7,11 @@ import { AuthenticationService } from '../../../../services/authentication.servi
 import { APIService } from '../../../../services/api.service';
 
 import { MainModalService } from '../../../../services/main-modal.service';
+import { SingleBudgetComponent } from './single-budget/single-budget.component';
 
 @Component({
   selector: 'app-budgets',
-  imports: [CommonModule],
+  imports: [CommonModule, SingleBudgetComponent],
   templateUrl: './budgets.component.html',
   styleUrl: './budgets.component.scss',
 })

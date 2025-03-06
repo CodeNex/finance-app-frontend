@@ -19,7 +19,11 @@
 
     <div aria-label="Single Budgets area" class="w-full flex flex-col gap-6">
       @for (item of this.budgetsArray$(); let index = $index; track item) {
-        <p>{{ item.name }}</p>
+        <!-- <p>{{ item.name }}</p> -->
+         <app-single-budget
+          [budget]="item"
+          [budgetIndex]="index"
+          class="min-w-[500px] max-w-[700px] flex-1"></app-single-budget>
       }
     </div>
 
