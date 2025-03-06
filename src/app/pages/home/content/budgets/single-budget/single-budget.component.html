@@ -2,33 +2,63 @@
   aria-label="Single Budget Card"
   class="p-6 rounded-xl min-h-[250px] flex flex-col gap-8 bg-white"
 >
-
-<div aria-label="single Budget Card Head"
-  class="relative flex items-center justify-between">
-  <div class="flex items-center gap-4">
-    <div
-      class="themeDot w-4 h-4 rounded-full"
-      [ngStyle]="{ 'background-color': this.budget.theme }"
-    ></div>
-    <p class="text2b">{{ this.budget.name }}</p>
-  </div>
-  <button (click)="openPopUp()">
-    <app-icons [iconName]="'dotsThree'"></app-icons>
-  </button>
-
-  @if (isPopUpOpen) {
-    <div id="budgetPopUp" class="absolute right-0 top-6 z-10 flex flex-col gap-2 bg-white shadow-[0px_4px_24px_0px_rgba(0,0,0,0.25)] rounded-lg  pr-5 pl-5 pb-3 pt-3">
-      <button (click)="openSubModal('editBudget', this.budget)" id="editBudgetButton" class="text4r text-grey-900 text-left">Edit Budget</button>
-      <hr class="bg-grey-100 h-[1px] w-full">
-      <button (click)="openSubModal('deleteBudget', this.budget)" id="deleteBudgetButton" class="text4r text-secondary-red text-nowrap">Delete Budget</button>
+  <div
+    aria-label="single Budget Card Head"
+    class="relative flex items-center justify-between"
+  >
+    <div class="flex items-center gap-4">
+      <div
+        class="themeDot w-4 h-4 rounded-full"
+        [ngStyle]="{ 'background-color': this.budget.theme }"
+      ></div>
+      <p class="text2b">{{ this.budget.name }}</p>
     </div>
-  }
+    <button (click)="openPopUp()">
+      <app-icons [iconName]="'dotsThree'"></app-icons>
+    </button>
+
+    @if (isPopUpOpen) {
+    <div
+      id="budgetPopUp"
+      class="absolute right-0 top-6 z-10 flex flex-col gap-2 bg-white shadow-[0px_4px_24px_0px_rgba(0,0,0,0.25)] rounded-lg pr-5 pl-5 pb-3 pt-3"
+    >
+      <button
+        (click)="openSubModal('editBudget', this.budget)"
+        id="editBudgetButton"
+        class="text4r text-grey-900 text-left"
+      >
+        Edit Budget
+      </button>
+      <hr class="bg-grey-100 h-[1px] w-full" />
+      <button
+        (click)="openSubModal('deleteBudget', this.budget)"
+        id="deleteBudgetButton"
+        class="text4r text-secondary-red text-nowrap"
+      >
+        Delete Budget
+      </button>
+    </div>
+    }
+  </div>
+
+  <div aria-label="single Budget Card Amount Overview">
+    <p></p>
+    <div aria-label="progress bar"></div>
+    <div aria-label="counting">
+      <div aria-label="Spent"></div>
+      <div aria-label="Remaining"></div>
+    </div>
+  </div>
+
+  <div
+    aria-label="single Budget Card latest spendings"
+    class="w-full bg-beige-100 rounded-xl"
+  >
+  <div aria-label="Latest Spending head"></div>
+  <ul aria-label="latest spending list">
+    @for (item of this.budget.last_spendings; let index = $index; track item) {
+      <li><p>Hello World</p></li>
+    }
+  </ul>
 </div>
-
-<div aria-label="single Budget Card Amount Overview"></div>
-
-<div aria-label="single Budget Card latest spendings"> </div>
-
-
-
 </div>
