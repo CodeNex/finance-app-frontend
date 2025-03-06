@@ -103,6 +103,9 @@
       @for (item of this.budget.last_spendings; let index = $index; track item)
       {
       <li><p>Hello World</p></li>
+      @if (this.budget.last_spendings && index < this.budget.last_spendings.length - 1) {
+        <hr class="w-full h-[1px] bg-grey-500 border-color-grey-500" />
+      }
       }
     </ul>
   </div>
