@@ -97,7 +97,7 @@
     <div aria-label="Latest Spending head"
     class="flex items-center justify-between">
       <p class="text3b text-grey-900">Latest Spending</p>
-      <button id="seeAllButton" class="flex items-center gap-3"><span class="text4r text-grey-500">See all</span><app-icons [iconName]="'smallArrowRight'"></app-icons></button>
+      <a [routerLink]="'/transactions'" id="seeAllButton" class="flex items-center gap-3"><span class="text4r text-grey-500">See all</span><app-icons [iconName]="'smallArrowRight'"></app-icons></a>
     </div>
     <ul aria-label="latest spending list">
       @for (item of this.budget.last_spendings; let index = $index; track item)

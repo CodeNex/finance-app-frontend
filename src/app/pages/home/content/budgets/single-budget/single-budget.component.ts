@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, Input, signal, effect } from '@angular/core';
 import { IconsComponent } from '../../../../../components/icons/icons.component';
+import { Router, RouterModule } from '@angular/router';
 
 import { DataStoreServiceService } from '../../../../../services/data-store-service.service';
 import { AuthenticationService } from '../../../../../services/authentication.service';
@@ -9,7 +10,7 @@ import { MainModalService } from '../../../../../services/main-modal.service';
 
 @Component({
   selector: 'app-single-budget',
-  imports: [CommonModule, IconsComponent],
+  imports: [CommonModule, IconsComponent, RouterModule],
   templateUrl: './single-budget.component.html',
   styleUrl: './single-budget.component.scss',
 })
