@@ -1,6 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, Input, inject } from '@angular/core';
 import { IconsComponent } from '../../../../../../components/icons/icons.component';
+
+import { BasedataService } from '../../../../../../services/basedata.service';
 
 @Component({
   selector: 'app-last-spending',
@@ -23,6 +25,8 @@ export class LastSpendingComponent {
       category: 'entertainment',
     },
   };
+
+  public baseData: BasedataService = inject(BasedataService);
 
   public amount: string = '';
   public date: string = '';
