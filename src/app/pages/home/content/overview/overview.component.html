@@ -16,22 +16,25 @@
 
       <app-balance></app-balance>
 
-      <div class="overview-summary-container flex gap-6" aria-label="Overview Summary Container">
-        <div class="summary-left flex flex-col gap-6" aria-label="Left Half of the Overview Summary">
+      <div class="overview-summary-container min-w-[100%] flex gap-6" aria-label="Overview Summary Container">
+
+        <div class="summary-left min-w-[55%] flex flex-2 flex-col gap-6" aria-label="Left Half of the Overview Summary">
 
 
           <app-pots-summary></app-pots-summary>
 
 
-          <div class="transaction-summary bg-white flex flex-col gap-4 p-6 rounded-xl"></div>
+          <app-transactions-summary></app-transactions-summary>
         </div>
-        <div class="summary-right flex flex-col gap-6" aria-label="Right Half of the Overview Summary">
 
 
-          <div class="budget-summary bg-white flex flex-col gap-4 p-6 rounded-xl"></div>
+        <div class="summary-right min-w-[40%] flex flex-1 flex-col gap-6" aria-label="Right Half of the Overview Summary">
+
+          <app-budgets-summary></app-budgets-summary>
+          <app-recurring-bills-summary></app-recurring-bills-summary>
 
 
-          <div class="bills-summary bg-white flex flex-col gap-4 p-6 rounded-xl"></div>
+          
         </div>
       </div>
     </div>

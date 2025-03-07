@@ -10,12 +10,15 @@ import { APIService } from '../../../../services/api.service';
 
 import { BalanceComponent } from './balance/balance.component';
 import { PotsSummaryComponent } from './pots-summary/pots-summary.component';
+import { TransactionsSummaryComponent } from './transactions-summary/transactions-summary.component';
+import { BudgetsSummaryComponent } from './budgets-summary/budgets-summary.component';
+import { RecurringBillsSummaryComponent } from './recurring-bills-summary/recurring-bills-summary.component';
 
 
 
 @Component({
   selector: 'app-overview',
-  imports: [LoadingScreenComponent, WarningScreenComponent, CommonModule, BalanceComponent, PotsSummaryComponent],
+  imports: [LoadingScreenComponent, WarningScreenComponent, CommonModule, BalanceComponent, PotsSummaryComponent, TransactionsSummaryComponent, BudgetsSummaryComponent, RecurringBillsSummaryComponent],
   templateUrl: './overview.component.html',
   styleUrl: './overview.component.scss',
 })
