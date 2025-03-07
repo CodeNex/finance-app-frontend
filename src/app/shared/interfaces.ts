@@ -39,6 +39,6 @@ interface TransactionsObject {
   name: string;
   category: string;
   budget: {
-    name: string;
+    category: string;
   } | null;
 }

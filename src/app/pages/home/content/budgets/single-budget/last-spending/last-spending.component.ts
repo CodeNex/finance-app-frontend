@@ -1,9 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
+import { IconsComponent } from '../../../../../../components/icons/icons.component';
 
 @Component({
   selector: 'app-last-spending',
-  imports: [CommonModule],
+  imports: [CommonModule, IconsComponent],
   templateUrl: './last-spending.component.html',
   styleUrl: './last-spending.component.scss',
 })
@@ -19,7 +20,7 @@ export class LastSpendingComponent {
     created_at: '2025-02-24T16:14:01.000000Z',
     category: '',
     budget: {
-      name: 'Entertainment',
+      category: 'Entertainment',
     },
   };
 

@@ -110,43 +110,43 @@ export class BasedataService {
       categories: {
         entertainment: {
           name: 'Entertainment',
-          iconName: ''
+          iconName: 'entertainment'
         },
         bills: {
           name: 'Bills',
-          iconName: ''
+          iconName: 'bills'
         },
         groceries: {
           name: 'Groceries',
-          iconName: ''
+          iconName: 'groceries'
         },
         diningOut: {
           name: 'Dining Out',
-          iconName: ''
+          iconName: 'diningOut'
         },
         transportation: {
           name: 'Transportation',
-          iconName: ''
+          iconName: 'transportation'
         },
         personalCare: {
           name: 'Personal Care',
-          iconName: ''
+          iconName: 'personalCare'
         },
         education: {
           name: 'Education',
-          iconName: ''
+          iconName: 'education'
         },
         lifestyle: {
           name: 'Lifestyle',
-          iconName: ''
+          iconName: 'lifestyle'
         },
         shopping: {
           name: 'Shopping',
-          iconName: ''
+          iconName: 'shopping'
         },
         general: {
           name: 'General',
-          iconName: ''
+          iconName: 'general'
         }
       },
     },

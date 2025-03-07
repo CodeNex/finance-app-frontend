@@ -36,7 +36,7 @@ export class DataStoreServiceService {
         created_at: "2025-02-24T16:14:01.000000Z",
         category: '',
         budget: {
-          name: "Entertainment"
+          category: "Entertainment"
         }
       },
       {
@@ -71,7 +71,7 @@ export class DataStoreServiceService {
         created_at: "2025-02-24T16:14:01.000000Z",
         category: '',
         budget: {
-          name: "Entertainment"
+          category: "Entertainment"
         }
       },
       {
@@ -116,7 +116,7 @@ export class DataStoreServiceService {
         created_at: "2025-02-24T16:14:01.000000Z",
         category: '',
         budget: {
-          name: "Entertainment"
+          category: "Entertainment"
         }
       },
       {
@@ -151,7 +151,7 @@ export class DataStoreServiceService {
         created_at: "2025-02-24T16:14:01.000000Z",
         category: '',
         budget: {
-          name: "Entertainment"
+          category: "Entertainment"
         }
       },
       {
@@ -186,7 +186,7 @@ export class DataStoreServiceService {
         created_at: "2025-02-24T16:14:01.000000Z",
         category: '',
         budget: {
-          name: "Entertainment"
+          category: "Entertainment"
         }
       },
       {

@@ -50,7 +50,7 @@ export class SingleBudgetComponent {
         created_at: null,
         category: '',
         budget: {
-          name: '',
+          category: '',
         },
       },
     ],
