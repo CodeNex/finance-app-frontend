@@ -25,6 +25,7 @@ export class LastSpendingComponent {
 
   public amount: string = '';
   public date: string = '';
+  public logoBackground: string = '#d46c5e';
 
 
   ngOnInit() {
@@ -32,6 +33,7 @@ export class LastSpendingComponent {
     this.date = this.formatDate(this.spending.created_at);
   }
 
+  // private function to format amount
   private formatAmount(amount: number): string {
     return amount.toLocaleString('en-US', {
       minimumFractionDigits: 2,
@@ -39,6 +41,7 @@ export class LastSpendingComponent {
     })
   }
 
+  // private function to format date
   private formatDate(date: string): string {
     return new Date(date).toLocaleDateString('en-US', {
       month: 'short',

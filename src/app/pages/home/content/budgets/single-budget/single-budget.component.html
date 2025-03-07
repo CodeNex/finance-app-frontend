@@ -123,6 +123,7 @@
       @for (item of this.budget.last_spendings; let index = $index; track item)
       {
       <li
+        aria-label="spending item"
         class="pt-3 pb-3"
         [ngStyle]="{
           'padding-bottom':
@@ -132,7 +133,7 @@
               : '0px'
         }"
       >
-        <app-last-spending [spending]="item" ></app-last-spending>
+        <app-last-spending [spending]="item"></app-last-spending>
       </li>
       @if (this.budget.last_spendings && index <
       this.budget.last_spendings.length - 1) {
