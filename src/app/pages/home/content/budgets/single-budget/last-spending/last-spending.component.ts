@@ -22,4 +22,28 @@ export class LastSpendingComponent {
       name: 'Entertainment',
     },
   };
+
+  public amount: string = '';
+  public date: string = '';
+
+
+  ngOnInit() {
+    this.amount = this.formatAmount(this.spending.amount);
+    this.date = this.formatDate(this.spending.created_at);
+  }
+
+  private formatAmount(amount: number): string {
+    return amount.toLocaleString('en-US', {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    })
+  }
+
+  private formatDate(date: string): string {
+    return new Date(date).toLocaleDateString('en-US', {
+      month: 'short',
+      day: 'numeric',
+      year: 'numeric',
+    });
+  }
 }
