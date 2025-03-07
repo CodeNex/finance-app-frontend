@@ -35,10 +35,10 @@ export class LastSpendingComponent {
 
   // private function to format amount
   private formatAmount(amount: number): string {
-    return amount.toLocaleString('en-US', {
+    return `-$${amount.toLocaleString('en-US', {
       minimumFractionDigits: 2,
       maximumFractionDigits: 2,
-    })
+    })}`;
   }
 
   // private function to format date
