@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { LoadingScreenComponent } from '../../../../components/loading-screen/loading-screen.component';
@@ -29,4 +29,10 @@ export class OverviewComponent {
 
   isLoadingScreenVisible: boolean = false;
   isWarningScreenVisible: boolean = false;
+
+  public balanceData: any = this.dataStore.balance();
+  
+  // ngOnInit() {
+  //   this.balanceData = this.dataStore.balance();
+  // }
 }
