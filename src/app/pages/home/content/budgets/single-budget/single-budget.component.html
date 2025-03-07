@@ -132,7 +132,7 @@
               : '0px'
         }"
       >
-        <p>Hello World</p>
+        <app-last-spending [spending]="item" ></app-last-spending>
       </li>
       @if (this.budget.last_spendings && index <
       this.budget.last_spendings.length - 1) {
