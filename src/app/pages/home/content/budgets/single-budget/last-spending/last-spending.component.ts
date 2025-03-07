@@ -31,15 +31,14 @@ export class LastSpendingComponent {
 
   public amount: string = '';
   public date: string = '';
-  public logoBackground: string = '';
+  public iconBackground: string = '';
   public iconName: string = '';
 
   ngOnInit() {
     this.amount = this.formatAmount(this.spending.amount);
     this.date = this.formatDate(this.spending.created_at);
     this.iconName = this.getCategoryIcon(this.spending.budget.category);
-    console.log(this.iconName);
-    
+    this.iconBackground = this.spending.theme;
   }
 
   // private function to format amount
