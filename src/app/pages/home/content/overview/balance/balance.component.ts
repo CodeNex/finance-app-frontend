@@ -1,4 +1,4 @@
-import { Component, inject, Input, SimpleChanges } from '@angular/core';
+import { Component, inject, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { DataStoreServiceService } from '../../../../../services/data-store-service.service';
 import { AuthenticationService } from '../../../../../services/authentication.service';
 import { APIService } from '../../../../../services/api.service';
@@ -9,7 +9,7 @@ import { APIService } from '../../../../../services/api.service';
   templateUrl: './balance.component.html',
   styleUrl: './balance.component.scss'
 })
-export class BalanceComponent {
+export class BalanceComponent implements OnInit, OnChanges {
   public dataStore: DataStoreServiceService = inject(DataStoreServiceService);
   public authService: AuthenticationService = inject(AuthenticationService);
   public apiService: APIService = inject(APIService);
@@ -27,29 +27,28 @@ export class BalanceComponent {
   public formattedIncome: string = '';
   public formattedExpenses: string = '';
 
-  // ngOnChanges(changes: SimpleChanges) {
-  //   if (changes['balance']) {
-  //     this.updateBalance(this.balance);
-  //   }
-  // }
-
   ngOnInit() {
-    // this.updateBalance(this.balance);
-    this.formattedCurrent = this.balance.current.toLocaleString('en-US', {
-      maximumFractionDigits: 2,
-    });
-    this.formattedIncome = this.balance.income.toLocaleString('en-US', {
-      maximumFractionDigits: 2,
-    });
-    this.formattedExpenses = this.balance.expenses.toLocaleString('en-US', {
+    this.updateBalance(this.balance);
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['balance']) {
+      this.updateBalance(this.balance);
+    }
+  }
+
+  updateBalance(balance: BalanceObject) {
+    this.formattedCurrent = this.getformattedValue(this.balance.current);
+    this.formattedIncome = this.getformattedValue(this.balance.income);
+    this.formattedExpenses = this.getformattedValue(this.balance.expenses);
+    
+  }
+
+  getformattedValue(value: number): string {
+    return value.toLocaleString('en-US', {
+      minimumFractionDigits: 2,
       maximumFractionDigits: 2,
     });
   }
-
-  // updateBalance(balance: BalanceObject) {
-  //   this.formattedCurrent = balance.current !== undefined ? balance.current.toFixed(2) : '0.00';
-  //   this.formattedIncome = balance.income !== undefined ? balance.income.toFixed(2) : '0.00';
-  //   this.formattedExpenses = balance.expenses !== undefined ? balance.expenses.toFixed(2) : '0.00';
-  // }
 }
 
