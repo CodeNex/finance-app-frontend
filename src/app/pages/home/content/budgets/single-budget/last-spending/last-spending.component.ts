@@ -31,10 +31,14 @@ export class LastSpendingComponent {
   public amount: string = '';
   public date: string = '';
   public logoBackground: string = '#d46c5e';
+  public iconName: string = '';
 
   ngOnInit() {
     this.amount = this.formatAmount(this.spending.amount);
     this.date = this.formatDate(this.spending.created_at);
+    this.iconName = this.getCategoryIcon(this.spending.budget.category);
+    console.log(this.iconName);
+    
   }
 
   // private function to format amount
@@ -52,5 +56,10 @@ export class LastSpendingComponent {
       day: 'numeric',
       year: 'numeric',
     });
+  }
+
+  // public function to get category icon
+  private getCategoryIcon(category: string): string {
+    return this.baseData.financeApp.budgets.categories[category].iconName;
   }
 }

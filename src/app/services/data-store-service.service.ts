@@ -36,7 +36,7 @@ export class DataStoreServiceService {
         created_at: "2025-02-24T16:14:01.000000Z",
         category: '',
         budget: {
-          category: "entertainment"
+          category: "transportation"
         }
       },
       {
@@ -49,7 +49,9 @@ export class DataStoreServiceService {
         deleted_at: null,
         created_at: "2025-02-24T16:14:01.000000Z",
         category: '',
-        budget: null
+        budget: {
+          category: "transportation"
+        }
       }]
     },
     {
@@ -71,7 +73,7 @@ export class DataStoreServiceService {
         created_at: "2025-02-24T16:14:01.000000Z",
         category: '',
         budget: {
-          category: "entertainment"
+          category: "groceries"
         }
       },
       {
@@ -84,7 +86,9 @@ export class DataStoreServiceService {
         deleted_at: null,
         created_at: "2025-02-24T16:14:01.000000Z",
         category: '',
-        budget: null
+        budget: {
+          category: "groceries"
+        }
       }],
     },
     {
@@ -116,7 +120,7 @@ export class DataStoreServiceService {
         created_at: "2025-02-24T16:14:01.000000Z",
         category: '',
         budget: {
-          category: "entertainment"
+          category: "shopping"
         }
       },
       {
@@ -129,7 +133,9 @@ export class DataStoreServiceService {
         deleted_at: null,
         created_at: "2025-02-24T16:14:01.000000Z",
         category: '',
-        budget: null
+        budget: {
+          category: "shopping"
+        }
       }],
     },
     {
@@ -151,7 +157,7 @@ export class DataStoreServiceService {
         created_at: "2025-02-24T16:14:01.000000Z",
         category: '',
         budget: {
-          category: "entertainment"
+          category: "diningOut"
         }
       },
       {
@@ -164,7 +170,9 @@ export class DataStoreServiceService {
         deleted_at: null,
         created_at: "2025-02-24T16:14:01.000000Z",
         category: '',
-        budget: null
+        budget: {
+          category: "diningOut"
+        }
       }],
     },
     {
@@ -199,7 +207,9 @@ export class DataStoreServiceService {
         deleted_at: null,
         created_at: "2025-02-24T16:14:01.000000Z",
         category: '',
-        budget: null
+        budget: {
+          category: "entertainment"
+        }
       }],
     },
   ]);
