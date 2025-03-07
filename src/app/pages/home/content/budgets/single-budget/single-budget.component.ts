@@ -7,10 +7,11 @@ import { DataStoreServiceService } from '../../../../../services/data-store-serv
 import { AuthenticationService } from '../../../../../services/authentication.service';
 import { APIService } from '../../../../../services/api.service';
 import { MainModalService } from '../../../../../services/main-modal.service';
+import { LastSpendingComponent } from './last-spending/last-spending.component';
 
 @Component({
   selector: 'app-single-budget',
-  imports: [CommonModule, IconsComponent, RouterModule],
+  imports: [CommonModule, RouterModule, IconsComponent, LastSpendingComponent ],
   templateUrl: './single-budget.component.html',
   styleUrl: './single-budget.component.scss',
 })

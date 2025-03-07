@@ -61,12 +61,15 @@
         ></div>
       </div>
     </div>
-    <div aria-label="counting"
-    class="flex flex-row gap-4">
+    <div aria-label="counting" class="flex flex-row gap-4">
       <div aria-label="Spent" class="flex items-center gap-4 flex-1">
         <div
           class="bar w-1 h-[43px] rounded-lg"
-          [ngStyle]="{ 'background-color': this.isTooMuchSpent ? '#f8f4f0' : this.budget.theme}"
+          [ngStyle]="{
+            'background-color': this.isTooMuchSpent
+              ? '#f8f4f0'
+              : this.budget.theme
+          }"
         ></div>
         <div class="flex flex-col gap-1">
           <p class="text5r text-grey-500">Spent</p>
@@ -76,15 +79,23 @@
       <div aria-label="Remaining" class="flex items-center gap-4 flex-1">
         <div
           class="bar w-1 h-[43px] rounded-lg"
-          [ngStyle]="{ 'background-color': this.isTooMuchSpent ? '#c94736' : '#f8f4f0'}"
+          [ngStyle]="{
+            'background-color': this.isTooMuchSpent ? '#c94736' : '#f8f4f0'
+          }"
         ></div>
         <div class="flex flex-col gap-1">
-          <p class="text5r"
-          [ngStyle]="{'color': this.isTooMuchSpent ? '#c94736' : '#696868'}"
-          >Remaining</p>
-          <p class="text4b"
-          [ngStyle]="{ 'color': this.isTooMuchSpent ? '#c94736' : '#201f24'}"
-          >{{ this.remaining }}</p>
+          <p
+            class="text5r"
+            [ngStyle]="{ color: this.isTooMuchSpent ? '#c94736' : '#696868' }"
+          >
+            Remaining
+          </p>
+          <p
+            class="text4b"
+            [ngStyle]="{ color: this.isTooMuchSpent ? '#c94736' : '#201f24' }"
+          >
+            {{ this.remaining }}
+          </p>
         </div>
       </div>
     </div>
@@ -93,22 +104,40 @@
   <div
     aria-label="single Budget Card latest spendings"
     class="w-full bg-beige-100 rounded-xl p-5 flex flex-col"
-    [ngStyle]="{'gap': this.budget.last_spendings ? '8px' : '0px'}"
+    [ngStyle]="{ gap: this.budget.last_spendings ? '8px' : '0px' }"
   >
-    <div aria-label="Latest Spending head"
-    class="flex items-center justify-between">
+    <div
+      aria-label="Latest Spending head"
+      class="flex items-center justify-between"
+    >
       <p class="text3b text-grey-900">Latest Spending</p>
-      <a [routerLink]="'/transactions'" id="seeAllButton" class="flex items-center gap-3"><span class="text4r text-grey-500">See all</span><app-icons [iconName]="'smallArrowRight'"></app-icons></a>
+      <a
+        [routerLink]="'/transactions'"
+        id="seeAllButton"
+        class="flex items-center gap-3"
+        ><span class="text4r text-grey-500">See all</span
+        ><app-icons [iconName]="'smallArrowRight'"></app-icons
+      ></a>
     </div>
-    <ul aria-label="latest spending list">
+    <ul aria-label="list of latest spendings">
       @for (item of this.budget.last_spendings; let index = $index; track item)
       {
-      <li class="pt-3 pb-3" 
-      [ngStyle]="{'padding-bottom': (this.budget.last_spendings && index < this.budget.last_spendings.length - 1) ? '12px' : '0px'}"><p>Hello World</p></li>
-      @if (this.budget.last_spendings && index < this.budget.last_spendings.length - 1) {
-        <div class="w-full h-[1.5px] rounded-full bg-[#e3e0dc]"></div>
-      }
-      }
+      <li
+        class="pt-3 pb-3"
+        [ngStyle]="{
+          'padding-bottom':
+            this.budget.last_spendings &&
+            index < this.budget.last_spendings.length - 1
+              ? '12px'
+              : '0px'
+        }"
+      >
+        <p>Hello World</p>
+      </li>
+      @if (this.budget.last_spendings && index <
+      this.budget.last_spendings.length - 1) {
+      <div class="w-full h-[1.5px] rounded-full bg-[#e3e0dc]"></div>
+      } }
     </ul>
   </div>
 </div>
