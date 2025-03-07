@@ -17,6 +17,7 @@ export class LastSpendingComponent {
     name: 'Spending Address',
     amount: 100.0,
     recurring: null,
+    theme: '',
     budget_id: null,
     deleted_at: null,
     created_at: '2025-02-24T16:14:01.000000Z',
@@ -30,7 +31,7 @@ export class LastSpendingComponent {
 
   public amount: string = '';
   public date: string = '';
-  public logoBackground: string = '#d46c5e';
+  public logoBackground: string = '';
   public iconName: string = '';
 
   ngOnInit() {

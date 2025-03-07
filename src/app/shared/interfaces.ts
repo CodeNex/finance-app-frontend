@@ -36,6 +36,7 @@ interface TransactionsObject {
   created_at: string | null;
   deleted_at: string | null;
   recurring: string | null;
+  theme: string,
   name: string;
   category: string;
   budget: {

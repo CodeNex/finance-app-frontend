@@ -45,6 +45,7 @@ export class SingleBudgetComponent {
         name: '',
         amount: -1,
         recurring: null,
+        theme: '',
         budget_id: null,
         deleted_at: null,
         created_at: null,
