@@ -27,7 +27,6 @@ export class LastSpendingComponent {
   public date: string = '';
   public logoBackground: string = '#d46c5e';
 
-
   ngOnInit() {
     this.amount = this.formatAmount(this.spending.amount);
     this.date = this.formatDate(this.spending.created_at);
