@@ -11,7 +11,7 @@ export class LastSpendingComponent {
   @Input() public spending: any = {
     id: 1,
     user: 1,
-    name: 'Initial Deposit',
+    name: 'Spending Address',
     amount: 100.0,
     recurring: null,
     budget_id: null,
