@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { LoadingScreenComponent } from '../../../../components/loading-screen/loading-screen.component';
@@ -22,7 +22,7 @@ import { RecurringBillsSummaryComponent } from './recurring-bills-summary/recurr
   templateUrl: './overview.component.html',
   styleUrl: './overview.component.scss',
 })
-export class OverviewComponent {
+export class OverviewComponent implements OnInit, OnChanges {
   private apiService: APIService = inject(APIService);
   private dataStore: DataStoreServiceService = inject(DataStoreServiceService);
   public authService: AuthenticationService = inject(AuthenticationService);
@@ -30,9 +30,28 @@ export class OverviewComponent {
   isLoadingScreenVisible: boolean = false;
   isWarningScreenVisible: boolean = false;
 
-  public balanceData: any = this.dataStore.balance();
-  
-  // ngOnInit() {
-  //   this.balanceData = this.dataStore.balance();
-  // }
+  public balanceData: any;
+  public potsData: any;
+  public transactionsData: any;
+  public budgetsData: any;
+  public recurringBillsData: any;
+
+  ngOnInit() {
+    this.updateData();
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['balanceData'] || changes['potsData'] || changes['transactionsData'] || changes['budgetsData'] || changes['recurringBillsData']) {
+      this.updateData();
+    }
+  }
+
+  updateData() {
+    this.balanceData = this.dataStore.balance();
+    this.potsData = this.dataStore.pots();
+    this.transactionsData = this.dataStore.transactions();
+    this.budgetsData = this.dataStore.budgets();
+    this.recurringBillsData = this.dataStore.transactionsRecurring();
+  }
 }
+
