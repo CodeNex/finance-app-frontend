@@ -29,6 +29,7 @@ export class BudgetChartComponent {
     this.budgetsSpendAmount = this.getBudgetsSpendAmount();
     this.budgetPercentages = this.getBudgetsPercentages();
     this.budgetsColors = this.getBudgetsColors();
+    this.doughnutChartData = this.getDoughnutChartData();
   }
 
   public budgetsArray: any[] = [];
@@ -38,6 +39,8 @@ export class BudgetChartComponent {
   public budgetsLimitAsNumber: number = 0;
   public budgetPercentages: number[] = [0];
   public budgetsColors: string[] = [''];
+
+  public doughnutChartData: any = {};
 
   private getBudgetsArray() {
     return this.budgetsSignal$();
@@ -94,15 +97,17 @@ export class BudgetChartComponent {
     cutout: '68%', 
   };
 
-  public doughnutChartData: ChartData<'doughnut'> = {
-    datasets: [
-      {
-        data: this.budgetPercentages,
-        backgroundColor: this.budgetsColors,
-        borderWidth: 0,
-      },
-    ],
-  };
+  public getDoughnutChartData() {
+    return {
+      datasets: [
+        {
+          data: this.budgetPercentages,
+          backgroundColor: this.budgetsColors,
+          borderWidth: 0,
+        },
+      ],
+    };
+  }
 
   public doughnutChartType: ChartType = "doughnut";
 
