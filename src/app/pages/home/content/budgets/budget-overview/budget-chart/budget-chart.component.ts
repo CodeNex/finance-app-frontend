@@ -44,13 +44,14 @@ export class BudgetChartComponent {
   public budgetsLimitAsNumber: number = 0;
   public budgetPercentages: number[] = [0];
   public budgetsColors: string[] = [''];
-
   public doughnutChartData: any = {};
 
+  // get the budgets array from the signal
   private getBudgetsArray() {
     return this.budgetsSignal$();
   }
 
+  // get the total amount of all budgets
   private getBudgetsSpendAmount() {
     let amount = 0;
     this.budgetsArray.forEach((element: any) => {
@@ -63,6 +64,7 @@ export class BudgetChartComponent {
     });;
   }
 
+  // get the maximum limit over all budgets
   private getBudgetsLimit() {
     let limit = 0;
     this.budgetsArray.forEach((element: any) => {
@@ -75,6 +77,7 @@ export class BudgetChartComponent {
     });;
   }
 
+  // get the percentage of each budget and save them in an array to use them in the chart
   private getBudgetsPercentages() {
     let arrayCache: number[] = []; 
     this.budgetsArray.forEach((element: any) => {
@@ -84,6 +87,7 @@ export class BudgetChartComponent {
     return arrayCache;
   }
 
+  // get the colors of the budgets and save them in an array to use them in the chart
   private getBudgetsColors() {
     let arrayCache: string[] = [];
     this.budgetsArray.forEach((element: any) => {
@@ -102,6 +106,7 @@ export class BudgetChartComponent {
     cutout: '68%', 
   };
 
+  // get the data for the chart
   public getDoughnutChartData() {
     return {
       datasets: [
