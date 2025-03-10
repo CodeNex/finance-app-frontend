@@ -26,12 +26,13 @@ export class BudgetChartComponent {
   ngOnInit() {
     this.budgetsArray = this.getBudgetsArray();
     this.budgetsLimit = this.getBudgetsLimit();
-    this.getBudgetsPercentages();
+    this.budgetsSpendAmount = this.getBudgetsSpendAmount();
+    this.budgetPercentages = this.getBudgetsPercentages();
     this.getBudgetsColors();
   }
 
   public budgetsArray: any[] = [];
-  public budgetsSpendAmount: number = 0;
+  public budgetsSpendAmount: string = '';
   public budgetsLimit: string = '';
   public budgetPercentages: number[] = [0];
   public budgetsColors: string[] = [''];
@@ -40,7 +41,16 @@ export class BudgetChartComponent {
     return this.budgetsSignal$();
   }
 
-  private getBudgetsSpendAmount() {}
+  private getBudgetsSpendAmount() {
+    let amount = 0;
+    this.budgetsArray.forEach((element: any) => {
+      amount += element.amount;
+    })
+    return amount.toLocaleString('en-US', {
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0,
+    });;
+  }
 
   private getBudgetsLimit() {
     let limit = 0;
@@ -54,7 +64,11 @@ export class BudgetChartComponent {
   }
 
   private getBudgetsPercentages() {
-    let arrayCache: number[] = [];  
+    let arrayCache: number[] = []; 
+    this.budgetsArray.forEach((element: any) => {
+      arrayCache.push(Math.trunc((element.amount / Number(this.budgetsLimit)) * 100));
+    }); 
+    return arrayCache;
   }
 
   private getBudgetsColors() {
