@@ -1,0 +1,12 @@
+#seeAllButton {
+
+  span {
+    transition: all 0.3s ease-in-out;
+  }
+
+  &:hover {
+    span {
+      color: var(--color-grey-900)
+    }
+  }
+}
