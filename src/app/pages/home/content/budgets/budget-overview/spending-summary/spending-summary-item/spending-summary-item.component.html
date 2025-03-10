@@ -1,1 +1,10 @@
-<p>spending-summary-item works!</p>
+<div aria-label="spending summary item" class="w-full flex items-center justify-between">
+  <div class="flex items-center gap-4">
+    <div class="h-full min-h-[21px] w-1 rounded-full" [ngStyle]="{'background-color': summaryItem.theme}"></div>
+    <p class="text4r text-grey-500">{{ summaryItem.name }}</p>
+  </div>
+  <div>
+    <p class="text3b text-grey-900">${{ spendedAmount }}</p>
+    <p class="text4r text-grey-500">${{ maximumAmount }}</p>
+  </div>
+</div>

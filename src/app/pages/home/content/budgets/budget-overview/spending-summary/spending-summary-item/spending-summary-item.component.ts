@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, Input } from '@angular/core';
+import { __classPrivateFieldGet } from 'tslib';
 
 @Component({
   selector: 'app-spending-summary-item',
@@ -19,7 +20,26 @@ export class SpendingSummaryItemComponent {
     theme: '#93674F',
   };
 
+  public spendedAmount: string = '';
+  public maximumAmount: string = '';
+
   ngOnInit() {
     console.log(this.summaryItem);
+    this.spendedAmount = this.getSpendedAmount();
+    this.maximumAmount = this.getMaximumAmount();
+  }
+
+  private getSpendedAmount() {
+    return this.summaryItem.amount.toLocaleString('en-US', {
+      minimumFractionDigits: 2,
+      macimumFractionDigits: 2,
+    });
+  }
+
+  private getMaximumAmount() {
+    return this.summaryItem.maximum.toLocaleString('en-US', {
+      minimumFractionDigits: 2,
+      macimumFractionDigits: 2,
+    });
   }
 }
