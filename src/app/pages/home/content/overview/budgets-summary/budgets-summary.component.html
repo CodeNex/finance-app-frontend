@@ -1,0 +1,13 @@
+<section class="budget-summary bg-white flex flex-col gap-4 p-6 rounded-xl">
+    <p class="pots-summary-header flex items-center justify-between">
+        <span class="text2b">Budgets</span>
+        <span
+          [routerLink]="['/budgets']"
+          class="details-Btn text4r text-grey-500 flex items-center gap-4 transition-all duration-300 ease-in-out hover:text-grey-900 hover:cursor-pointer"
+          aria-label="Button to be redirected to the budgets page"
+        >
+          See Details
+          <app-icons [iconName]="'smallArrowRight'"></app-icons>
+      </span>
+    </p>
+</section>
