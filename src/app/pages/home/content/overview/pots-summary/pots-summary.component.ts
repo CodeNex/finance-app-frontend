@@ -25,7 +25,7 @@ export class PotsSummaryComponent implements OnInit {
 
   constructor() {
     effect(() => {
-      this.potsArray = this.potsArray();
+      let potsSignal = this.potsArray();
       this.ngOnInit();
     });
   }
@@ -34,15 +34,8 @@ export class PotsSummaryComponent implements OnInit {
     this.updateTotalSavings();
   }
 
-  // ngOnChanges(changes: SimpleChanges) {
-  //   console.log(changes);
-  //   if (changes['pots']) {
-  //     this.updateTotalSavings();
-  //   }
-  // }
-
   updateTotalSavings() {
-    this.totalSavings = this.getTotalSavedAmount(this.potsArray);
+    this.totalSavings = this.getTotalSavedAmount(this.potsArray());
     this.formattedTotalSavings = this.getformattedValue(this.totalSavings);
   }
 
