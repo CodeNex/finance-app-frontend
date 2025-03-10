@@ -24,6 +24,7 @@ export class BudgetsSummaryComponent {
     theme: '#93674F',
     deleted_at: null,
     created_at: '2025-02-24T16:14:01.000000Z',
+    last_spendings: null
   };
 
   
