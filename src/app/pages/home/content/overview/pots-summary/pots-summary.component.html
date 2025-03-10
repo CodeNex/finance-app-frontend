@@ -22,11 +22,11 @@
       <app-icons [iconName]="'potsTransparentGreen'"></app-icons>
       <div class="total-saved flex flex-col gap-3">
         <p class="text4r text-grey-500">Total Saved</p>
-        <p class="text1b">$850</p>
+        <p class="text1b">${{ formattedTotalSavings }}</p>
       </div>
     </div>
 
-    <div class="pots-listing max-h-[100%] flex flex-wrap gap-4" aria-label="The first four Pots of the list">
+    <div class="pots-listing min-h-[110px] flex flex-wrap gap-4" aria-label="The first four Pots of the list">
         <div class="list-element min-w-[45%] flex gap-4">
             <div class="theme-element bg-grey-900 w-1 rounded-full"></div>
             <p class="list-element-content flex flex-col gap-1">

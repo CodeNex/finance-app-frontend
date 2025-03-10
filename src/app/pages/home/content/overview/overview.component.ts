@@ -22,7 +22,7 @@ import { RecurringBillsSummaryComponent } from './recurring-bills-summary/recurr
   templateUrl: './overview.component.html',
   styleUrl: './overview.component.scss',
 })
-export class OverviewComponent implements OnInit, OnChanges {
+export class OverviewComponent implements OnInit {
   private apiService: APIService = inject(APIService);
   private dataStore: DataStoreServiceService = inject(DataStoreServiceService);
   public authService: AuthenticationService = inject(AuthenticationService);
@@ -40,15 +40,19 @@ export class OverviewComponent implements OnInit, OnChanges {
     this.updateData();
   }
 
-  ngOnChanges(changes: SimpleChanges) {
-    if (changes['balanceData'] || changes['potsData'] || changes['transactionsData'] || changes['budgetsData'] || changes['recurringBillsData']) {
-      this.updateData();
-    }
-  }
+  // ngOnChanges(changes: SimpleChanges) {
+  //   console.log(changes);
+  //   if (changes['balanceData'] || changes['potsData'] || changes['transactionsData'] || changes['budgetsData'] || changes['recurringBillsData']) {
+  //     this.updateData();
+  //   }
+  // }
 
   updateData() {
     this.balanceData = this.dataStore.balance();
+
     this.potsData = this.dataStore.pots();
+    
+    
     this.transactionsData = this.dataStore.transactions();
     this.budgetsData = this.dataStore.budgets();
     this.recurringBillsData = this.dataStore.transactionsRecurring();
