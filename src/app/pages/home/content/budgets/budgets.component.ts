@@ -8,10 +8,12 @@ import { APIService } from '../../../../services/api.service';
 
 import { MainModalService } from '../../../../services/main-modal.service';
 import { SingleBudgetComponent } from './single-budget/single-budget.component';
+import { BudgetOverviewComponent } from './budget-overview/budget-overview.component';
+
 
 @Component({
   selector: 'app-budgets',
-  imports: [CommonModule, SingleBudgetComponent],
+  imports: [CommonModule, SingleBudgetComponent, BudgetOverviewComponent],
   templateUrl: './budgets.component.html',
   styleUrl: './budgets.component.scss',
 })
