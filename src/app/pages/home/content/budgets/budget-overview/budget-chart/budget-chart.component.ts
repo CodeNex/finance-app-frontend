@@ -11,19 +11,14 @@ import { ChartData, ChartEvent, ChartType } from 'chart.js';
 export class BudgetChartComponent {
   // Doughnut
  public doughnutChartLabels: string[] = [
-  'Download Sales',
-  'In-Store Sales',
-  'Mail-Order Sales',
 ];
-public doughnutChartData: ChartData<'doughnut'> = {
+public doughnutChartData: ChartData<'pie'> = {
   labels: this.doughnutChartLabels,
   datasets: [
     { data: [350, 450, 100] },
-    { data: [50, 150, 120] },
-    { data: [250, 130, 70] },
   ],
 };
-public doughnutChartType: ChartType = 'doughnut';
+public pieChartType: ChartType = 'pie';
 
 // events
 public chartClicked({
