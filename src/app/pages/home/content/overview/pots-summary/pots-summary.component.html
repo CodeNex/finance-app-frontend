@@ -27,7 +27,21 @@
     </div>
 
     <div class="pots-listing min-h-[110px] flex flex-wrap gap-4" aria-label="The first four Pots of the list">
-        <div class="list-element min-w-[45%] flex gap-4">
+        @for (pot of potsArray; track $index) {
+          <div class="list-element min-w-[45%] flex gap-4">
+            <div class="theme-element bg-grey-900 w-1 h-[43px] rounded-full"
+            [ngStyle]="{
+              'background-color': pot.theme
+            }"
+            ></div>
+            <p class="list-element-content flex flex-col gap-1">
+                <span class="text5r text-grey-500">{{ pot.name }}</span>
+                <span class="text3b">{{ pot.total }}</span>
+            </p>
+          </div>
+        }
+        
+        <!-- <div class="list-element min-w-[45%] flex gap-4">
             <div class="theme-element bg-grey-900 w-1 rounded-full"></div>
             <p class="list-element-content flex flex-col gap-1">
                 <span class="text5r text-grey-500">Savings</span>
@@ -47,14 +61,7 @@
                 <span class="text5r text-grey-500">Savings</span>
                 <span class="text3b">$159</span>
             </p>
-        </div>
-        <div class="list-element min-w-[45%] flex gap-4">
-            <div class="theme-element bg-grey-900 w-1 rounded-full"></div>
-            <p class="list-element-content flex flex-col gap-1">
-                <span class="text5r text-grey-500">Savings</span>
-                <span class="text3b">$159</span>
-            </p>
-        </div>
+        </div> -->
         
     </div>
   </div>

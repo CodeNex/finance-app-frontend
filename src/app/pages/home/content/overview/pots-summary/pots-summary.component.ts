@@ -1,13 +1,14 @@
-import { Component, inject, Input, OnInit, SimpleChanges } from '@angular/core';
+import { Component, effect, inject, Input, OnInit, SimpleChanges } from '@angular/core';
 import { IconsComponent } from '../../../../../components/icons/icons.component';
 import { RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
 import { DataStoreServiceService } from '../../../../../services/data-store-service.service';
 import { AuthenticationService } from '../../../../../services/authentication.service';
 import { APIService } from '../../../../../services/api.service';
 
 @Component({
   selector: 'app-pots-summary',
-  imports: [IconsComponent, RouterModule],
+  imports: [IconsComponent, RouterModule, CommonModule],
   templateUrl: './pots-summary.component.html',
   styleUrl: './pots-summary.component.scss'
 })
@@ -16,27 +17,32 @@ export class PotsSummaryComponent implements OnInit {
   public authService: AuthenticationService = inject(AuthenticationService);
   public apiService: APIService = inject(APIService);
 
-  @Input() public pots: PotsObject[] = [];
+  public potsArray: any = this.dataStore.pots;
 
   public totalSavings: number = 0;
 
   public formattedTotalSavings: string = '';
 
+  constructor() {
+    effect(() => {
+      this.potsArray = this.potsArray();
+      this.ngOnInit();
+    });
+  }
+
   ngOnInit() {
     this.updateTotalSavings();
-    console.log(this.totalSavings);
-    
   }
 
-  ngOnChanges(changes: SimpleChanges) {
-    console.log(changes);
-    if (changes['pots']) {
-      this.updateTotalSavings();
-    }
-  }
+  // ngOnChanges(changes: SimpleChanges) {
+  //   console.log(changes);
+  //   if (changes['pots']) {
+  //     this.updateTotalSavings();
+  //   }
+  // }
 
   updateTotalSavings() {
-    this.totalSavings = this.getTotalSavedAmount(this.pots);
+    this.totalSavings = this.getTotalSavedAmount(this.potsArray);
     this.formattedTotalSavings = this.getformattedValue(this.totalSavings);
   }
 

@@ -31,7 +31,7 @@ export class OverviewComponent implements OnInit {
   isWarningScreenVisible: boolean = false;
 
   public balanceData: any;
-  public potsData: any;
+  public potsData$: any;
   public transactionsData: any;
   public budgetsData: any;
   public recurringBillsData: any;
@@ -50,7 +50,7 @@ export class OverviewComponent implements OnInit {
   updateData() {
     this.balanceData = this.dataStore.balance();
 
-    this.potsData = this.dataStore.pots();
+    // this.potsData = this.dataStore.pots;
     
     
     this.transactionsData = this.dataStore.transactions();
