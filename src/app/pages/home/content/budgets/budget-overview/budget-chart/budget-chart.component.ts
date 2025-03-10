@@ -16,10 +16,12 @@ export class BudgetChartComponent {
 
   public budgetsSignal$ = this.dataStoreService.budgets;
 
+  private isComponentInitialized: boolean = false;
+
   constructor() {
     effect(() => {
       let signal = this.budgetsSignal$();
-      this.ngOnInit();
+      if (this.isComponentInitialized) this.ngOnInit();
     })
   }
 
@@ -30,6 +32,9 @@ export class BudgetChartComponent {
     this.budgetPercentages = this.getBudgetsPercentages();
     this.budgetsColors = this.getBudgetsColors();
     this.doughnutChartData = this.getDoughnutChartData();
+    setTimeout(() => {
+      this.isComponentInitialized = true;
+    }, 100);
   }
 
   public budgetsArray: any[] = [];
