@@ -1,4 +1,4 @@
-<section class="bills-summary bg-white min-h-[327px] flex flex-col gap-4 p-6 rounded-xl">
+<section class="bills-summary bg-white min-h-[327px] flex flex-col gap-7 p-6 rounded-xl">
     <p class="pots-summary-header flex items-center justify-between">
         <span class="text2b">Recurring Bills</span>
         <span
@@ -10,4 +10,27 @@
           <app-icons [iconName]="'smallArrowRight'"></app-icons>
       </span>
     </p>
+
+    <div class="bills-data-wrapper flex flex-col gap-4">
+      <div class="theme-element">
+        <div class="summary-element flex items-center justify-between bg-beige-100 p-4 pb-5 pt-5">
+          <p>Paid Bills</p>
+          <p>{{ totalPaid }}</p>
+        </div>
+      </div>
+
+      <div class="theme-element">
+        <div class="summary-element flex items-center justify-between bg-beige-100 p-4 pb-5 pt-5">
+          <p>Total Upcoming</p>
+          <p>{{ totalUpcoming }}</p>
+        </div>
+      </div>
+
+      <div class="theme-element">
+        <div class="summary-element flex items-center justify-between bg-beige-100 p-4 pb-5 pt-5">
+          <p>Due Soon</p>
+          <p>{{ dueSoon }}</p>
+        </div>
+      </div>
+    </div>
 </section>

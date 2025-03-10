@@ -1,4 +1,4 @@
-import { Component, inject, Input } from '@angular/core';
+import { Component, effect, inject, Input, OnInit } from '@angular/core';
 import { IconsComponent } from '../../../../../components/icons/icons.component';
 import { RouterModule } from '@angular/router';
 import { APIService } from '../../../../../services/api.service';
@@ -11,10 +11,88 @@ import { DataStoreServiceService } from '../../../../../services/data-store-serv
   templateUrl: './recurring-bills-summary.component.html',
   styleUrl: './recurring-bills-summary.component.scss'
 })
-export class RecurringBillsSummaryComponent {
+export class RecurringBillsSummaryComponent implements OnInit {
   public dataStore: DataStoreServiceService = inject(DataStoreServiceService);
   public authService: AuthenticationService = inject(AuthenticationService);
   public apiService: APIService = inject(APIService);
 
-  @Input() recurringBills : any;
+  public recurringBillsArray : any = this.dataStore.transactionsRecurring;
+
+  public totalPaid: number = 0;
+  public totalUpcoming: number = 0;
+  public dueSoon: number = 0;
+
+
+  constructor() {
+    effect(() => {
+      let recurringBillsSignal = this.recurringBillsArray();
+      this.ngOnInit();
+    });
+  }
+  ngOnInit() {
+
+    
+    this.totalPaid = this.getTotalPaidAmount(this.recurringBillsArray());
+    this.totalUpcoming = this.getTotalUpcomingAmount(this.recurringBillsArray());
+    this.dueSoon = this.getDueSoonAmount(this.recurringBillsArray());
+  
+    
+  }
+
+  getDueSoonAmount(recurringBillsArray: TransactionsObject[]): number {
+    let sum = 0;
+    const currentDate = new Date();
+    const nextWeekDate = new Date();
+    nextWeekDate.setDate(currentDate.getDate() + 7);
+
+    recurringBillsArray.forEach(bill => {
+      if (bill.recurring) {
+        const recurringDate = new Date(bill.recurring);
+        if (recurringDate > currentDate && recurringDate <= nextWeekDate && bill.amount) {
+          sum += bill.amount;
+        }
+      }
+    });
+
+    return sum;
+  }
+
+  getTotalUpcomingAmount(recurringBillsArray: TransactionsObject[]): number {
+    let sum = 0;
+    const currentDate = new Date();
+    const currentMonth = currentDate.getMonth();
+    const currentYear = currentDate.getFullYear();
+
+    recurringBillsArray.forEach(bill => {
+      if (bill.recurring) {
+        const recurringDate = new Date(bill.recurring);
+        if (
+          recurringDate.getMonth() === currentMonth &&
+          recurringDate.getFullYear() === currentYear &&
+          recurringDate > currentDate &&
+          bill.amount
+        ) {
+          sum += bill.amount;
+        }
+      }
+    });
+
+    return sum;
+  }
+
+  getTotalPaidAmount(recurringBillsArray: TransactionsObject[]): number {
+    let sum = 0;
+    const currentDate = new Date();
+
+    recurringBillsArray.forEach(bill => {
+      if (bill.recurring) {
+        const recurringDate = new Date(bill.recurring);
+        if (recurringDate < currentDate && bill.amount) {
+          sum += bill.amount;
+        }
+      }
+    });
+
+    return sum;
+  }
 }
