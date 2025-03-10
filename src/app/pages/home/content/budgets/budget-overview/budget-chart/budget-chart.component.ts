@@ -23,15 +23,43 @@ export class BudgetChartComponent {
     })
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.budgetsArray = this.getBudgetsArray();
+    this.budgetsLimit = this.getBudgetsLimit();
+    this.getBudgetsPercentages();
+    this.getBudgetsColors();
+  }
 
+  public budgetsArray: any[] = [];
+  public budgetsSpendAmount: number = 0;
+  public budgetsLimit: string = '';
   public budgetPercentages: number[] = [0];
-
   public budgetsColors: string[] = [''];
 
-  private getBudgetsPercentages() {}
+  private getBudgetsArray() {
+    return this.budgetsSignal$();
+  }
 
-  private getBudgetsColors() {}
+  private getBudgetsSpendAmount() {}
+
+  private getBudgetsLimit() {
+    let limit = 0;
+    this.budgetsArray.forEach((element: any) => {
+      limit += element.maximum;
+    })
+    return limit.toLocaleString('en-US', {
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0,
+    });;
+  }
+
+  private getBudgetsPercentages() {
+    let arrayCache: number[] = [];  
+  }
+
+  private getBudgetsColors() {
+    let arrayCache: string[] = [];
+  }
 
   public doughnutChartOptions: ChartOptions<'doughnut'> = {
     responsive: true,
