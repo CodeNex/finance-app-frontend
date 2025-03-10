@@ -11,8 +11,9 @@ import { DataStoreServiceService } from '../../../../../../services/data-store-s
   styleUrl: './budget-chart.component.scss',
 })
 export class BudgetChartComponent {
-
-  public dataStoreService: DataStoreServiceService = inject(DataStoreServiceService);
+  public dataStoreService: DataStoreServiceService = inject(
+    DataStoreServiceService
+  );
 
   public budgetsSignal$ = this.dataStoreService.budgets;
 
@@ -22,7 +23,7 @@ export class BudgetChartComponent {
     effect(() => {
       let signal = this.budgetsSignal$();
       if (this.isComponentInitialized) this.ngOnInit();
-    })
+    });
   }
 
   ngOnInit() {
@@ -56,12 +57,12 @@ export class BudgetChartComponent {
     let amount = 0;
     this.budgetsArray.forEach((element: any) => {
       amount += element.amount;
-    })
+    });
     this.budgetsSpendAmountAsNumber = Math.trunc(amount);
     return amount.toLocaleString('en-US', {
       minimumFractionDigits: 0,
       maximumFractionDigits: 0,
-    });;
+    });
   }
 
   // get the maximum limit over all budgets
@@ -69,20 +70,22 @@ export class BudgetChartComponent {
     let limit = 0;
     this.budgetsArray.forEach((element: any) => {
       limit += element.maximum;
-    })
+    });
     this.budgetsLimitAsNumber = Math.trunc(limit);
     return limit.toLocaleString('en-US', {
       minimumFractionDigits: 0,
       maximumFractionDigits: 0,
-    });;
+    });
   }
 
   // get the percentage of each budget and save them in an array to use them in the chart
   private getBudgetsPercentages() {
-    let arrayCache: number[] = []; 
+    let arrayCache: number[] = [];
     this.budgetsArray.forEach((element: any) => {
-      arrayCache.push(Math.trunc((element.amount / this.budgetsSpendAmountAsNumber) * 100));
-    }); 
+      arrayCache.push(
+        Math.trunc((element.amount / this.budgetsSpendAmountAsNumber) * 100)
+      );
+    });
     console.log(arrayCache);
     return arrayCache;
   }
@@ -92,18 +95,26 @@ export class BudgetChartComponent {
     let arrayCache: string[] = [];
     this.budgetsArray.forEach((element: any) => {
       arrayCache.push(element.theme);
-    })
+    });
     return arrayCache;
   }
 
   public doughnutChartOptions: ChartOptions<'doughnut'> = {
     responsive: true,
-    maintainAspectRatio: false, 
+    maintainAspectRatio: false,
     layout: { padding: 0 },
     plugins: {
       legend: { position: 'center' },
+      tooltip: {
+        callbacks: {
+          label: (tooltipItem) => {
+            let value = tooltipItem.raw as number; // Wert aus Dataset holen
+            return ` ${value}%`; // Zahl + % zurückgeben
+          },
+        },
+      },
     },
-    cutout: '68%', 
+    cutout: '68%',
   };
 
   // get the data for the chart
@@ -119,7 +130,7 @@ export class BudgetChartComponent {
     };
   }
 
-  public doughnutChartType: ChartType = "doughnut";
+  public doughnutChartType: ChartType = 'doughnut';
 
   public chartClicked({
     event,
