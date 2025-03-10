@@ -21,19 +21,79 @@ export class DataStoreServiceService {
       id: 1,
       name: 'Transportation',
       amount: 56.26,
-      maximum: 419.89,
+      maximum: 419,
       theme: '#93674F',
       deleted_at: null,
       created_at: '2025-02-24T16:14:01.000000Z',
+      last_spendings: [{
+        id: 1,
+        user: 1,
+        name: "Initial Deposit",
+        amount: 100.00,
+        recurring: null,
+        theme: '#d46c5e',
+        budget_id: null,
+        deleted_at: null,
+        created_at: "2025-02-24T16:14:01.000000Z",
+        category: '',
+        budget: {
+          category: "transportation"
+        }
+      },
+      {
+        id: 2,
+        user: 1,
+        name: "Veum-Dare",
+        amount: 20.26,
+        recurring: null,
+        theme: '#3f82b2',
+        budget_id: 4,
+        deleted_at: null,
+        created_at: "2025-02-24T16:14:01.000000Z",
+        category: '',
+        budget: {
+          category: "transportation"
+        }
+      }]
     },
     {
       id: 2,
       name: 'Groceries',
-      amount: 197.54,
-      maximum: 327.99,
+      amount: 397.54,
+      maximum: 350,
       theme: '#82C9D7',
       deleted_at: null,
       created_at: '2025-02-24T16:14:01.000000Z',
+      last_spendings: [{
+        id: 1,
+        user: 1,
+        name: "Initial Deposit",
+        amount: 100.00,
+        recurring: null,
+        theme: '#626070',
+        budget_id: null,
+        deleted_at: null,
+        created_at: "2025-02-24T16:14:01.000000Z",
+        category: '',
+        budget: {
+          category: "groceries"
+        }
+      },
+      {
+        id: 2,
+        user: 1,
+        name: "Veum-Dare",
+        amount: 20.26,
+        recurring: null,
+        theme: '#277c78',
+        budget_id: 4,
+        deleted_at: null,
+        created_at: "2025-02-24T16:14:01.000000Z",
+        category: '',
+        budget: {
+          category: "groceries"
+        }
+      }],
     },
     {
       id: 3,
@@ -43,6 +103,7 @@ export class DataStoreServiceService {
       theme: '#934F6F',
       deleted_at: null,
       created_at: '2025-02-24T16:14:01.000000Z',
+      last_spendings: null
     },
     {
       id: 4,
@@ -52,6 +113,36 @@ export class DataStoreServiceService {
       theme: '#F2CDAC',
       deleted_at: null,
       created_at: '2025-02-24T16:14:01.000000Z',
+      last_spendings: [{
+        id: 1,
+        user: 1,
+        name: "Initial Deposit",
+        amount: 100.00,
+        recurring: null,
+        theme: '#be6c49',
+        budget_id: null,
+        deleted_at: null,
+        created_at: "2025-02-24T16:14:01.000000Z",
+        category: '',
+        budget: {
+          category: "shopping"
+        }
+      },
+      {
+        id: 2,
+        user: 1,
+        name: "Veum-Dare",
+        amount: 20.26,
+        recurring: null,
+        theme: '#934f6f',
+        budget_id: 4,
+        deleted_at: null,
+        created_at: "2025-02-24T16:14:01.000000Z",
+        category: '',
+        budget: {
+          category: "shopping"
+        }
+      }],
     },
     {
       id: 5,
@@ -61,6 +152,36 @@ export class DataStoreServiceService {
       theme: '#277C78',
       deleted_at: null,
       created_at: '2025-02-24T16:14:01.000000Z',
+      last_spendings: [{
+        id: 1,
+        user: 1,
+        name: "Initial Deposit",
+        amount: 100.00,
+        recurring: null,
+        theme: '#c94736',
+        budget_id: null,
+        deleted_at: null,
+        created_at: "2025-02-24T16:14:01.000000Z",
+        category: '',
+        budget: {
+          category: "diningOut"
+        }
+      },
+      {
+        id: 2,
+        user: 1,
+        name: "Veum-Dare",
+        amount: 20.26,
+        recurring: null,
+        theme: '#82c9d7',
+        budget_id: 4,
+        deleted_at: null,
+        created_at: "2025-02-24T16:14:01.000000Z",
+        category: '',
+        budget: {
+          category: "diningOut"
+        }
+      }],
     },
     {
       id: 6,
@@ -70,6 +191,36 @@ export class DataStoreServiceService {
       theme: '#826CB0',
       deleted_at: null,
       created_at: '2025-02-24T16:14:01.000000Z',
+      last_spendings: [{
+        id: 1,
+        user: 1,
+        name: "Initial Deposit",
+        amount: 100.00,
+        recurring: null,
+        theme: '#f2cdac',
+        budget_id: null,
+        deleted_at: null,
+        created_at: "2025-02-24T16:14:01.000000Z",
+        category: '',
+        budget: {
+          category: "entertainment"
+        }
+      },
+      {
+        id: 2,
+        user: 1,
+        name: "Veum-Dare",
+        amount: 20.26,
+        recurring: null,
+        theme: '#826cb0',
+        budget_id: 4,
+        deleted_at: null,
+        created_at: "2025-02-24T16:14:01.000000Z",
+        category: '',
+        budget: {
+          category: "entertainment"
+        }
+      }],
     },
   ]);
 

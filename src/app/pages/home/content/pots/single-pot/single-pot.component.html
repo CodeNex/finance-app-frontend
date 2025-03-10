@@ -1,12 +1,7 @@
-<!-- <button (click)="openSubModal('editPot', {})" class="border-solid border-black border-2 mb-4">Edit Pot</button>
-
-      <button (click)="openSubModal('deletePot', {})" class="border-solid border-black border-2 mb-4">Delete Pot</button>
-       -->
-
-<div
+<div aria-label="Single Pot Card"
   class="singlePot p-6 rounded-xl min-h-[250px] flex flex-col gap-8 bg-white"
 >
-  <div class=" relative potHeader flex items-center justify-between">
+  <div class="relative potHeader flex items-center justify-between">
     <div class="flex items-center gap-4">
       <div
         class="themeDot w-4 h-4 rounded-full"
@@ -19,7 +14,7 @@
     </button>
 
     @if (isPopUpOpen) {
-      <div id="potPopUp" class="absolute right-0 top-6 z-10 flex flex-col gap-2 bg-white shadow-[0px_4px_24px_0px_rgba(0,0,0,0.25)] rounded-lg w-28 pr-5 pl-5 pb-3 pt-3">
+      <div id="potPopUp" class="absolute right-0 top-6 z-10 flex flex-col gap-2 bg-white shadow-[0px_4px_24px_0px_rgba(0,0,0,0.25)] rounded-lg pr-5 pl-5 pb-3 pt-3">
         <button (click)="openSubModal('editPot', pot)" id="editPotButton" class="text4r text-grey-900 text-left">Edit Pot</button>
         <hr class="bg-grey-100 h-[1px] w-full">
         <button (click)="openSubModal('deletePot', pot)" id="deletePotButton" class="text4r text-secondary-red text-left">Delete Pot</button>
