@@ -28,12 +28,14 @@ export class BudgetChartComponent {
     this.budgetsLimit = this.getBudgetsLimit();
     this.budgetsSpendAmount = this.getBudgetsSpendAmount();
     this.budgetPercentages = this.getBudgetsPercentages();
-    this.getBudgetsColors();
+    this.budgetsColors = this.getBudgetsColors();
   }
 
   public budgetsArray: any[] = [];
   public budgetsSpendAmount: string = '';
+  public budgetsSpendAmountAsNumber: number = 0;
   public budgetsLimit: string = '';
+  public budgetsLimitAsNumber: number = 0;
   public budgetPercentages: number[] = [0];
   public budgetsColors: string[] = [''];
 
@@ -46,6 +48,7 @@ export class BudgetChartComponent {
     this.budgetsArray.forEach((element: any) => {
       amount += element.amount;
     })
+    this.budgetsSpendAmountAsNumber = Math.trunc(amount);
     return amount.toLocaleString('en-US', {
       minimumFractionDigits: 0,
       maximumFractionDigits: 0,
@@ -57,6 +60,7 @@ export class BudgetChartComponent {
     this.budgetsArray.forEach((element: any) => {
       limit += element.maximum;
     })
+    this.budgetsLimitAsNumber = Math.trunc(limit);
     return limit.toLocaleString('en-US', {
       minimumFractionDigits: 0,
       maximumFractionDigits: 0,
@@ -66,13 +70,18 @@ export class BudgetChartComponent {
   private getBudgetsPercentages() {
     let arrayCache: number[] = []; 
     this.budgetsArray.forEach((element: any) => {
-      arrayCache.push(Math.trunc((element.amount / Number(this.budgetsLimit)) * 100));
+      arrayCache.push(Math.trunc((element.amount / this.budgetsSpendAmountAsNumber) * 100));
     }); 
+    console.log(arrayCache);
     return arrayCache;
   }
 
   private getBudgetsColors() {
     let arrayCache: string[] = [];
+    this.budgetsArray.forEach((element: any) => {
+      arrayCache.push(element.theme);
+    })
+    return arrayCache;
   }
 
   public doughnutChartOptions: ChartOptions<'doughnut'> = {
@@ -88,8 +97,8 @@ export class BudgetChartComponent {
   public doughnutChartData: ChartData<'doughnut'> = {
     datasets: [
       {
-        data: [350, 450, 100],
-        backgroundColor: ['#d46c5e', '#3f82b2', '#93674F'],
+        data: this.budgetPercentages,
+        backgroundColor: this.budgetsColors,
         borderWidth: 0,
       },
     ],
