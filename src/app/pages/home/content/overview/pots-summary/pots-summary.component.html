@@ -14,7 +14,7 @@
   </span>
   </p>
 
-  <div class="pots-summary-content flex items-center gap-4" aria-label="Pots Summary Content">
+  <div class="pots-summary-content flex justify-center items-center gap-4" aria-label="Pots Summary Content">
 
     <div
       class="total-saved-container bg-beige-100 min-w-[247px] min-h-[110px] flex gap-4 items-center p-4 rounded-xl"
@@ -28,7 +28,7 @@
 
     <div class="pots-listing h-[110px] flex flex-wrap gap-4 overflow-auto" aria-label="The first four Pots of the list">
         @for (pot of potsArray(); track $index) {
-          <div class="list-element min-w-[130px] flex gap-4">
+          <div class="list-element min-w-[130px] flex items-center gap-4">
             <div class="theme-element bg-grey-900 w-1 h-[43px] rounded-full"
             [ngStyle]="{
               'background-color': pot.theme

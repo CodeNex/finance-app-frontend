@@ -1,0 +1,16 @@
+<div class="w-full flex items-center justify-between">
+    <div class="flex items-center gap-4">
+      <div
+        aria-labelledby="logo"
+        class="w-10 h-10 rounded-full flex items-center justify-center"
+        [ngStyle]="{ 'background-color': iconBackground }"
+      >
+        <app-icons [iconName]="iconName"></app-icons>
+      </div>
+      <p class="text5b text-grey-900">{{ this.name }}</p>
+    </div>
+    <div>
+      <p class="text-right text5b text-grey-900">{{ this.amount }}</p>
+      <p class="text-right text5r text-grey-500">{{ this.date }}</p>
+    </div>
+  </div>
