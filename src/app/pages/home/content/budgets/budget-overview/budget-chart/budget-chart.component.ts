@@ -108,8 +108,8 @@ export class BudgetChartComponent {
       tooltip: {
         callbacks: {
           label: (tooltipItem) => {
-            let value = tooltipItem.raw as number; // Wert aus Dataset holen
-            return ` ${value}%`; // Zahl + % zurückgeben
+            let value = tooltipItem.raw as number;
+            return ` ${value}%`;
           },
         },
       },
