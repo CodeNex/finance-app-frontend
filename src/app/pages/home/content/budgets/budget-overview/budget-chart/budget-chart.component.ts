@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, effect, inject } from '@angular/core';
 import { BaseChartDirective } from 'ng2-charts';
 import { ChartData, ChartEvent, ChartOptions, ChartType } from 'chart.js';
+
+import { DataStoreServiceService } from '../../../../../../services/data-store-service.service';
 
 @Component({
   selector: 'app-budget-chart',
@@ -9,7 +11,28 @@ import { ChartData, ChartEvent, ChartOptions, ChartType } from 'chart.js';
   styleUrl: './budget-chart.component.scss',
 })
 export class BudgetChartComponent {
-  // 🛠 Korrekte Typisierung für Doughnut-Chart
+
+  public dataStoreService: DataStoreServiceService = inject(DataStoreServiceService);
+
+  public budgetsSignal$ = this.dataStoreService.budgets;
+
+  constructor() {
+    effect(() => {
+      let signal = this.budgetsSignal$();
+      this.ngOnInit();
+    })
+  }
+
+  ngOnInit() {}
+
+  public budgetPercentages: number[] = [0];
+
+  public budgetsColors: string[] = [''];
+
+  private getBudgetsPercentages() {}
+
+  private getBudgetsColors() {}
+
   public doughnutChartOptions: ChartOptions<'doughnut'> = {
     responsive: true,
     maintainAspectRatio: false, 
@@ -20,7 +43,6 @@ export class BudgetChartComponent {
     cutout: '68%', 
   };
 
-  // 🛠 Korrekte Typisierung für Chart-Daten
   public doughnutChartData: ChartData<'doughnut'> = {
     datasets: [
       {
@@ -31,11 +53,8 @@ export class BudgetChartComponent {
     ],
   };
 
-  // 🛠 Korrekte Typisierung für Chart-Typ
   public doughnutChartType: ChartType = "doughnut";
 
-
-  // events
   public chartClicked({
     event,
     active,
