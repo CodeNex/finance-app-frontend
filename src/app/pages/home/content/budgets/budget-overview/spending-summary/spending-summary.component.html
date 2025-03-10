@@ -1,3 +1,27 @@
-<section aria-label="Spending Summary Overview">
-  <p>Hallo Welt</p>
+<section class="w-full min-h-[100%] flex flex-col gap-8">
+  <div aria-label="Spending Summary Header" class="flex items-center justify-between">
+    <p class="text1b">Pots</p>
+  </div>
+
+  <ul aria-label="list of latest spendings">
+    @for (item of this.budgetsArray; let index = $index; track item)
+    {
+    <li
+      aria-label="spending item"
+      class="pt-3 pb-3"
+      [ngStyle]="{
+        'padding-bottom':
+          this.budgetsArray &&
+          index < this.budgetsArray.length - 1
+            ? '12px'
+            : '0px'
+      }"
+    >
+      <p>Huhu</p>
+    </li>
+    @if (this.budgetsArray && index <
+    this.budgetsArray.length - 1) {
+    <div class="w-full h-[1.5px] rounded-full bg-[#e3e0dc]"></div>
+    } }
+  </ul>
 </section>
