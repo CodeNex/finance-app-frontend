@@ -17,7 +17,7 @@ export class BudgetChartComponent {
     plugins: {
       legend: { position: 'center' },
     },
-    cutout: '70%', 
+    cutout: '68%', 
   };
 
   // 🛠 Korrekte Typisierung für Chart-Daten
