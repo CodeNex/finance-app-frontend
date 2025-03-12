@@ -26,7 +26,7 @@ export class AddBudgetModalComponent {
       this.mainModalService.hideMainModal();
     }
   
-    public currentPot: any = {
+    public currentBudget: any = {
       id: -1,
       name: '',
       amount: 0,
@@ -64,7 +64,7 @@ export class AddBudgetModalComponent {
         this.unusedBudgetThemes[
           Math.floor(Math.random() * this.unusedBudgetThemes.length)
         ];
-      this.currentPot.theme = this.chosenTheme.hex;
+      this.currentBudget.theme = this.chosenTheme.hex;
     }
   
     // closes or opens theme dropdown
@@ -160,14 +160,14 @@ export class AddBudgetModalComponent {
   
     // add a new pot to the pots array in data-store-service, submit the new pot to the API and close the modal
     submitAddPot() {
-      this.currentPot.name = this.potNameValue;
-      this.currentPot.maximum = parseFloat(
+      this.currentBudget.name = this.potNameValue;
+      this.currentBudget.maximum = parseFloat(
         this.potTargetInputValue.replace(/,/g, '')
       );
-      this.currentPot.theme = this.chosenTheme.hex;
-      // this.apiBudgetsService.addNewBudget(this.currentPot);
+      this.currentBudget.theme = this.chosenTheme.hex;
+      // this.apiBudgetsService.addNewBudget(this.currentBudget);
       this.mainModalService.hideMainModal();
-      console.log(this.currentPot);
+      console.log(this.currentBudget);
     }
   }
   
