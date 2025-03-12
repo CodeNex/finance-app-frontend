@@ -32,17 +32,13 @@
 
     <!-- Name Input -->
     <div class="relative">
-      <p class="text5b text-grey-500">Theme</p>
+      <p class="text5b text-grey-500">Budget Category</p>
       <div
-        (click)="closeHideThemeDropdown()"
+        (click)="closeHideBudgetDropdown()"
         class="w-full flex justify-between border-[1px] border-beige-500 hover:border-grey-900 focus:border-grey-900 transition-all duration-300 ease-in-out rounded-lg pl-5 pr-5 pt-3 pb-3 mb-5 mt-1 cursor-pointer"
       >
         <div class="leftBox flex items-center gap-3">
-          <div
-            class="dot w-4 h-4 rounded-full"
-            [ngStyle]="{ 'background-color': chosenTheme.hex }"
-          ></div>
-          <p class="text4r text-grey-900">{{ chosenTheme.name }}</p>
+          <p class="text4r text-grey-900">{{ chosenCategory }}</p>
         </div>
         <div class="rightBox flex items-center">
           @if (!isBudgetDropdownOpen) {

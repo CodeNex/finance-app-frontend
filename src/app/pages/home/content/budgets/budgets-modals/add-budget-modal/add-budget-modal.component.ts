@@ -91,6 +91,11 @@ export class AddBudgetModalComponent {
       console.log('UNUSED: ', this.unusedBudgetCategories);
       
     }
+
+    // closes or opens budget dropdown
+    closeHideBudgetDropdown() {
+      this.isBudgetDropdownOpen = !this.isBudgetDropdownOpen;
+    }
   
     // closes or opens theme dropdown
     closeHideThemeDropdown() {
