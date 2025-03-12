@@ -48,11 +48,11 @@ export class AddBudgetModalComponent {
     // boolean to control the theme dropdown
     public isThemeDropdownOpen: boolean = false;
     // the value of the pot name input
-    public potNameValue: string = '';
+    public budgetNameValue: string = '';
     // the number of characters left for the pot name
     public potNameCharactersLeft: number = 30;
     // the value of the pot target input binded by ngModel
-    public potTargetInputValue: string = '0.00';
+    public maxBudgetInputValue: string = '0.00';
     // a cached string of the pot target input value
     public potTargetString: string = '0.00';
     // the value of the pot theme input
@@ -106,7 +106,7 @@ export class AddBudgetModalComponent {
             minimumFractionDigits: 2,
           }
         );
-        this.potTargetInputValue = this.potTargetString;
+        this.maxBudgetInputValue = this.potTargetString;
       } else if (
         numbersArray.length >= 3 &&
         numbersArray.length < 11 &&
@@ -120,7 +120,7 @@ export class AddBudgetModalComponent {
             minimumFractionDigits: 2,
           }
         );
-        this.potTargetInputValue = this.potTargetString;
+        this.maxBudgetInputValue = this.potTargetString;
       }
     }
   
@@ -136,7 +136,7 @@ export class AddBudgetModalComponent {
           minimumFractionDigits: 2,
         }
       );
-      this.potTargetInputValue = this.potTargetString;
+      this.maxBudgetInputValue = this.potTargetString;
     }
   
     // get all the themes from the data-store-service and split them into used and unused theme arrays
@@ -160,9 +160,9 @@ export class AddBudgetModalComponent {
   
     // add a new pot to the pots array in data-store-service, submit the new pot to the API and close the modal
     submitAddPot() {
-      this.currentBudget.name = this.potNameValue;
+      this.currentBudget.name = this.budgetNameValue;
       this.currentBudget.maximum = parseFloat(
-        this.potTargetInputValue.replace(/,/g, '')
+        this.maxBudgetInputValue.replace(/,/g, '')
       );
       this.currentBudget.theme = this.chosenTheme.hex;
       // this.apiBudgetsService.addNewBudget(this.currentBudget);
