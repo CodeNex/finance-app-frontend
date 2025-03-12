@@ -32,20 +32,7 @@
   <form action="">
 
     <!-- Name Input -->
-    <div class="pb-4">
-      <p class="text5b text-grey-500">Pot Name</p>
-      <input
-        [(ngModel)]="potNameValue"
-        [ngModelOptions]="{ standalone: true }"
-        (keydown)="controlNameLength($event)"
-        class="w-full text4r text-grey-900 border-[1px] outline-none border-beige-500 rounded-lg pl-5 pt-3 pb-3 mt-1 hover:border-grey-900 focus:border-grey-900 transition-all duration-300 ease-in-out"
-        type="text"
-        placeholder="e.g. Hobby Fund"
-      />
-      <p class="w-full text-end text5r text-beige-500 pt-1">
-        <span>{{ potNameCharactersLeft }}</span> characters left
-      </p>
-    </div>
+    
 
     <!-- Target Input -->
     <div class="pb-4">
@@ -97,7 +84,7 @@
         <div
           (click)="chooseTheme(item)"
           class="w-full flex items-center justify-between pt-3 transition-all duration-300 ease-in-out rounded-lg"
-          [ngClass]="usedPotThemes.includes(item.hex) ? '' : 'cursor-pointer'"
+          [ngClass]="usedBudgetThemes.includes(item.hex) ? '' : 'cursor-pointer'"
         >
           <!-- Theme Box Left Part -->
           <div class="w-full flex gap-3 items-center mb-3">
@@ -105,13 +92,13 @@
               class="h-4 w-4 rounded-full"
               [ngStyle]="{
                 'background-color': item.hex,
-                opacity: !usedPotThemes.includes(item.hex) ? '1' : '0.1'
+                opacity: !usedBudgetThemes.includes(item.hex) ? '1' : '0.1'
               }"
             ></div>
             <p
               class="text4r text-grey-900"
               [ngStyle]="{
-                color: !usedPotThemes.includes(item.hex) ? '#201f24' : '#696868'
+                color: !usedBudgetThemes.includes(item.hex) ? '#201f24' : '#696868'
               }"
             >
               {{ item.name }}
@@ -120,7 +107,7 @@
 
           <!-- Theme Box Right Part -->
           <div>
-            @if (usedPotThemes.includes(item.hex)) {
+            @if (usedBudgetThemes.includes(item.hex)) {
             <p class="text5r text-grey-500 text-right whitespace-nowrap">
               Already used
             </p>
