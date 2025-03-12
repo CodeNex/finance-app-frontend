@@ -20,7 +20,7 @@
             : '0px'
       }"
     >
-      <app-spending-summary-item [summaryItem]="item"></app-spending-summary-item>
+      <app-spending-summary-item [inWhichSection]="inWhichSection" [summaryItem]="item"></app-spending-summary-item>
     </li>
     @if (this.budgetsArray && index <
     this.budgetsArray.length - 1) {
