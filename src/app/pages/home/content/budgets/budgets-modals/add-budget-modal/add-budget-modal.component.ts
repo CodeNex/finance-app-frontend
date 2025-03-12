@@ -41,6 +41,8 @@ export class AddBudgetModalComponent {
     public categories: any = [];
     // array of used categories in budgets
     public usedBudgetCategories: any;
+    // array of unused categories
+    public unusedBudgetCategories: any;
     // current chosen category
     public chosenCategory: string = '';
 
@@ -75,8 +77,16 @@ export class AddBudgetModalComponent {
       Object.values(this.baseData.financeApp.budgets.categories).forEach((category: any) => {
         this.categories.push(category.name);
       })
+      this.usedBudgetCategories = this.dataStore.budgets().map((budget: any) => {
+        if (!budget.deleted_at) return budget.name;
+      });
+      this.unusedBudgetCategories = this.categories.filter(
+        (category: any) => !this.usedBudgetCategories.includes(category)
+      );
 
-      console.log(this.categories);
+      console.log('ALL: ', this.categories);
+      console.log('USED: ', this.usedBudgetCategories);
+      console.log('UNUSED: ', this.unusedBudgetCategories);
       
     }
   
