@@ -331,8 +331,6 @@ export class DataStoreServiceService {
   softdeleted_ata(prev: any, index: number) {
     let array = [...prev];
     array[index].deleted_at = new Date().toISOString();
-    console.log(array[index].deleted_at);
-    
     return array;
   }
 
