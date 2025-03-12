@@ -29,14 +29,11 @@ export class RecurringBillsSummaryComponent implements OnInit {
       this.ngOnInit();
     });
   }
-  ngOnInit() {
 
-    
+  ngOnInit() {
     this.totalPaid = this.getTotalPaidAmount(this.recurringBillsArray());
     this.totalUpcoming = this.getTotalUpcomingAmount(this.recurringBillsArray());
     this.dueSoon = this.getDueSoonAmount(this.recurringBillsArray());
-  
-    
   }
 
   getDueSoonAmount(recurringBillsArray: TransactionsObject[]): number {
