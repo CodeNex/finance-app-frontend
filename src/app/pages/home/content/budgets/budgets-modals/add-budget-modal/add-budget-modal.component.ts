@@ -37,6 +37,8 @@ export class AddBudgetModalComponent {
       last_spendings: [{}]
     };
   
+    // boolean to control the budget dropdown
+    public isBudgetDropdownOpen: boolean = false;
     // array of all categories in the application
     public categories: any = [];
     // array of used categories in budgets
