@@ -40,13 +40,6 @@ export class OverviewComponent implements OnInit {
     this.updateData();
   }
 
-  // ngOnChanges(changes: SimpleChanges) {
-  //   console.log(changes);
-  //   if (changes['balanceData'] || changes['potsData'] || changes['transactionsData'] || changes['budgetsData'] || changes['recurringBillsData']) {
-  //     this.updateData();
-  //   }
-  // }
-
   updateData() {
     this.balanceData = this.dataStore.balance();
 

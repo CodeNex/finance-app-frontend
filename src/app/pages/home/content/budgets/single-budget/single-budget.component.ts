@@ -123,9 +123,6 @@ export class SingleBudgetComponent {
     setTimeout(() => {
       this.isPopUpOpen = true;
       document.addEventListener('click', this.closePopUp.bind(this));
-      console.log(
-        'Budget with index ' + this.budgetIndex + ' is open: ' + this.isPopUpOpen
-      );
     }, 20);
     return;
   }
@@ -139,8 +136,5 @@ export class SingleBudgetComponent {
     if (allowedIDs.includes(target.id)) return;
     this.isPopUpOpen = false;
     document.removeEventListener('click', this.closePopUp.bind(this));
-    console.log(
-      'Budget with index ' + this.budgetIndex + ' is open: ' + this.isPopUpOpen
-    );
   }
 }

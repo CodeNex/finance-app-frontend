@@ -86,7 +86,6 @@ export class BudgetChartComponent {
         Math.trunc((element.amount / this.budgetsSpendAmountAsNumber) * 100)
       );
     });
-    console.log(arrayCache);
     return arrayCache;
   }
 
@@ -139,7 +138,6 @@ export class BudgetChartComponent {
     event: ChartEvent;
     active: object[];
   }): void {
-    console.log(event, active);
   }
 
   public chartHovered({
@@ -149,6 +147,5 @@ export class BudgetChartComponent {
     event: ChartEvent;
     active: object[];
   }): void {
-    console.log(event, active);
   }
 }

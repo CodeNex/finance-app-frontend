@@ -24,7 +24,6 @@ export class SpendingSummaryItemComponent {
   public maximumAmount: string = '';
 
   ngOnInit() {
-    console.log(this.summaryItem);
     this.spendedAmount = this.getSpendedAmount();
     this.maximumAmount = this.getMaximumAmount();
   }
