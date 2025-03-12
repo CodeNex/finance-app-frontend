@@ -37,34 +37,47 @@ export class AddBudgetModalComponent {
       last_spendings: [{}]
     };
   
-    // array of all themes
+    // array of all categories in the application
+    public categories: any = [];
+    // array of used categories in budgets
+    public usedBudgetCategories: any;
+    // current chosen category
+    public chosenCategory: string = '';
+
+    // the value of the pot target input binded by ngModel
+    public maxBudgetInputValue: string = '0.00';
+    // a cached string of the pot target input value
+    public maxBudgetString: string = '0.00';
+    // boolean to control the theme dropdown
+    public isThemeDropdownOpen: boolean = false;
+    // array of all themes in the application
     public themes: any;
-    // array of used themes
+    // array of used themes in budgets
     public usedBudgetThemes: any;
     // array of unused themes
     public unusedBudgetThemes: any;
     // the current chosen theme
     public chosenTheme: any;
-    // boolean to control the theme dropdown
-    public isThemeDropdownOpen: boolean = false;
-    // the value of the pot name input
-    public budgetNameValue: string = '';
-    // the number of characters left for the pot name
-    public potNameCharactersLeft: number = 30;
-    // the value of the pot target input binded by ngModel
-    public maxBudgetInputValue: string = '0.00';
-    // a cached string of the pot target input value
-    public maxBudgetString: string = '0.00';
     // the value of the pot theme input
     public potThemeValue: string = '';
   
     ngOnInit() {
       this.getThemeArrays();
+      this.getCategoryArrays();
       this.chosenTheme =
         this.unusedBudgetThemes[
           Math.floor(Math.random() * this.unusedBudgetThemes.length)
         ];
       this.currentBudget.theme = this.chosenTheme.hex;
+    }
+
+    getCategoryArrays() {
+      Object.values(this.baseData.financeApp.budgets.categories).forEach((category: any) => {
+        this.categories.push(category.name);
+      })
+
+      console.log(this.categories);
+      
     }
   
     // closes or opens theme dropdown
@@ -160,7 +173,7 @@ export class AddBudgetModalComponent {
   
     // add a new pot to the pots array in data-store-service, submit the new pot to the API and close the modal
     submitAddPot() {
-      this.currentBudget.name = this.budgetNameValue;
+      // this.currentBudget.name = this.budgetNameValue;
       this.currentBudget.maximum = parseFloat(
         this.maxBudgetInputValue.replace(/,/g, '')
       );
