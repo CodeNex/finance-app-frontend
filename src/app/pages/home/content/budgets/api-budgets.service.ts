@@ -40,7 +40,6 @@ export class ApiBudgetsService {
       },
       error: (error) => {
         // this.dataStore.addToStoredData('budgets', budgetObject);
-        // console.log('Pot created');
         console.log('Budget created');
         console.error(error);
         return;
@@ -50,7 +49,7 @@ export class ApiBudgetsService {
 
   // function to update existing specific budget
   // response: {message: "Budget updated"}
-  updatePot(endpoint: string, type: string, index: number, budgetObject: any) {
+  updateBudget(endpoint: string, type: string, index: number, budgetObject: any) {
     const path = `budgets/${budgetObject.id}`;
     const body = budgetObject;
     const headers = new HttpHeaders({
@@ -76,7 +75,7 @@ export class ApiBudgetsService {
 
   // function to delete specific budget
   // response: {message: "Budget deleted"}
-  deletePot(budgetObject: any, index: number) {
+  deleteBudget(budgetObject: any, index: number) {
     const path = `budgets/${budgetObject.id}`;
     const headers = new HttpHeaders({
       Authorization: `Bearer ${this.AuthenticationService.authToken}`,
@@ -91,6 +90,8 @@ export class ApiBudgetsService {
       },
       error: (error) => {
         console.error(error);
+        console.log("BUDGET INDEX: ", index);
+        
         this.dataStore.choseDataAndSoftDelete('budgets', index);
         this.mainModalService.hideMainModal();
         return;

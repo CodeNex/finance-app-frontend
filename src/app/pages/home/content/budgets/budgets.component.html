@@ -1,4 +1,7 @@
-<section aria-label="Budgets Main Section" class="w-full min-h-[100%] flex flex-col gap-8">
+<section
+  aria-label="Budgets Main Section"
+  class="w-full min-h-[100%] flex flex-col gap-8"
+>
   <header
     aria-label="Budgets Header. Theres a button at the right side to create new Budgets."
     class="potsHeader flex items-center justify-between"
@@ -12,20 +15,29 @@
     </button>
   </header>
 
-  <main class="flex flex-col items-center gap-6" aria-label="Main section of Budgets with an overview on top and single budget cards below.">
+  <main
+    class="flex flex-col items-center gap-6"
+    aria-label="Main section of Budgets with an overview on top and single budget cards below."
+  >
+    <div
+      aria-label="Budgets overview"
+      class="w-full p-6 rounded-xl min-h-[250px] min-w-[500px] max-w-[700px] bg-white"
+    >
+      <app-budget-overview></app-budget-overview>
+    </div>
 
-    <div aria-label="Budgets overview"
-    class="w-full p-6 rounded-xl min-h-[250px] min-w-[500px] max-w-[700px] bg-white"><app-budget-overview></app-budget-overview></div>
-
-    <ul aria-label="Single Budgets area" class="w-full flex flex-col items-center gap-6">
-      @for (item of this.budgetsArray$(); let index = $index; track item) {
-        <!-- <p>{{ item.name }}</p> -->
-         <app-single-budget
-          [budget]="item"
-          [budgetIndex]="index"
-          class="min-w-[500px] w-full max-w-[700px] flex-1"></app-single-budget>
-      }
+    <ul
+      aria-label="Single Budgets area"
+      class="w-full flex flex-col items-center gap-6"
+    >
+      @for (item of this.budgetsArray$(); let index = $index; track item) { @if
+      (!item.deleted_at) {
+      <app-single-budget
+        [budget]="item"
+        [budgetIndex]="index"
+        class="min-w-[500px] w-full max-w-[700px] flex-1"
+      ></app-single-budget>
+      }}
     </ul>
-
   </main>
 </section>

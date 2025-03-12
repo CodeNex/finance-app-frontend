@@ -8,6 +8,7 @@ import {
 } from '@angular/forms';
 
 import { MainModalService } from '../../../../../../services/main-modal.service';
+import { ApiBudgetsService } from '../../api-budgets.service';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -18,6 +19,7 @@ import { CommonModule } from '@angular/common';
 })
 export class EditBudgetModalComponent {
   public mainModalService: MainModalService = inject(MainModalService);
+  public apiBudgetsService: ApiBudgetsService = inject(ApiBudgetsService);
 
   // closes main modal and its children
   public closeMainModal() {
@@ -25,4 +27,7 @@ export class EditBudgetModalComponent {
   }
 
   @Input() public modalObject: Object = {};
+  @Input() public budgetIndex: number = 1;
+
+  
 }

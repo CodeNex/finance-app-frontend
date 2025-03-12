@@ -7,9 +7,9 @@
     @if (currentShownSubModal === "addBudget") {
     <app-add-budget-modal [modalObject]="subModalObject"></app-add-budget-modal>
     } @if (currentShownSubModal === "deleteBudget") {
-    <app-delete-budget-modal [modalObject]="subModalObject"></app-delete-budget-modal>
+    <app-delete-budget-modal [modalObject]="subModalObject" [budgetIndex]="index"></app-delete-budget-modal>
     } @if (currentShownSubModal === "editBudget") {
-    <app-edit-budget-modal [modalObject]="subModalObject"></app-edit-budget-modal>
+    <app-edit-budget-modal [modalObject]="subModalObject" [budgetIndex]="index"></app-edit-budget-modal>
     } @if (currentShownSubModal === "addPot") {
     <app-add-pot-modal></app-add-pot-modal>
     } @if (currentShownSubModal === "editPot") {
