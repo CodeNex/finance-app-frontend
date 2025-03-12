@@ -29,11 +29,5 @@ export class EditBudgetModalComponent {
   @Input() public modalObject: Object = {};
   @Input() public budgetIndex: number = 1;
 
-  public currentBudgetIndex: number = -1;
-
-  ngOnInit() {
-    this.currentBudgetIndex = this.budgetIndex;
-  }
-
-  deleteCurrentBudget() {}
+  
 }

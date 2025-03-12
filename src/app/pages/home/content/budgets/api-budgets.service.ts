@@ -91,6 +91,8 @@ export class ApiBudgetsService {
       },
       error: (error) => {
         console.error(error);
+        console.log("BUDGET INDEX: ", index);
+        
         this.dataStore.choseDataAndSoftDelete('budgets', index);
         this.mainModalService.hideMainModal();
         return;
