@@ -18,9 +18,9 @@ export class RecurringBillsSummaryComponent implements OnInit {
 
   public recurringBillsArray : any = this.dataStore.transactionsRecurring;
 
-  public totalPaid: number = 0;
-  public totalUpcoming: number = 0;
-  public dueSoon: number = 0;
+  public totalPaid: string = "";
+  public totalUpcoming: string = "";
+  public dueSoon: string = "";
 
 
   constructor() {
@@ -31,9 +31,9 @@ export class RecurringBillsSummaryComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.totalPaid = this.getTotalPaidAmount(this.recurringBillsArray());
-    this.totalUpcoming = this.getTotalUpcomingAmount(this.recurringBillsArray());
-    this.dueSoon = this.getDueSoonAmount(this.recurringBillsArray());
+    this.totalPaid = this.getformattedValue(this.getTotalPaidAmount(this.recurringBillsArray())) ;
+    this.totalUpcoming = this.getformattedValue(this.getTotalUpcomingAmount(this.recurringBillsArray()));
+    this.dueSoon = this.getformattedValue(this.getDueSoonAmount(this.recurringBillsArray()));
   }
 
   getDueSoonAmount(recurringBillsArray: TransactionsObject[]): number {
@@ -91,5 +91,12 @@ export class RecurringBillsSummaryComponent implements OnInit {
     });
 
     return sum;
+  }
+
+  getformattedValue(value: number): string {
+    return value.toLocaleString('en-US', {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    });
   }
 }

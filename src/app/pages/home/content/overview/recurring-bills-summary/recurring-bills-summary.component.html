@@ -12,24 +12,24 @@
     </p>
 
     <div class="bills-data-wrapper flex flex-col gap-4">
-      <div class="theme-element">
-        <div class="summary-element flex items-center justify-between bg-beige-100 p-4 pb-5 pt-5">
-          <p>Paid Bills</p>
-          <p>{{ totalPaid }}</p>
+      <div class="theme-element bg-pink-500 rounded-xl flex justify-end">
+        <div class="summary-element w-[99%] flex items-center justify-between bg-beige-100 p-4 pb-5 pt-5 rounded-lg">
+          <p class="text3r text-grey-500">Paid Bills</p>
+          <p class="text3b text-grey-900">${{ totalPaid }}</p>
         </div>
       </div>
 
-      <div class="theme-element">
-        <div class="summary-element flex items-center justify-between bg-beige-100 p-4 pb-5 pt-5">
-          <p>Total Upcoming</p>
-          <p>{{ totalUpcoming }}</p>
+      <div class="theme-element bg-cyan-500 rounded-xl flex justify-end">
+        <div class="summary-element w-[99%] flex items-center justify-between bg-beige-100 p-4 pb-5 pt-5 rounded-lg">
+          <p class="text3r text-grey-500">Total Upcoming</p>
+          <p class="text3b text-grey-900">${{ totalUpcoming }}</p>
         </div>
       </div>
 
-      <div class="theme-element">
-        <div class="summary-element flex items-center justify-between bg-beige-100 p-4 pb-5 pt-5">
-          <p>Due Soon</p>
-          <p>{{ dueSoon }}</p>
+      <div class="theme-element bg-green-500 rounded-xl flex justify-end">
+        <div class="summary-element w-[99%] flex items-center justify-between bg-beige-100 p-4 pb-5 pt-5 rounded-lg">
+          <p class="text3r text-grey-500">Due Soon</p>
+          <p class="text3b text-grey-900">${{ dueSoon }}</p>
         </div>
       </div>
     </div>
