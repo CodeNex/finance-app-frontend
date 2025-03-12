@@ -274,9 +274,163 @@ export class DataStoreServiceService {
     },
   ]);
 
-  public transactions = signal<TransactionsObject[]>([]);
+  // public transactions = signal<TransactionsObject[]>([]);
+  public transactions = signal<TransactionsObject[]>([
+    {
+      id: 0,
+      user: 0,
+      amount: 40.24,
+      budget_id: null,
+      created_at: "2025-02-24T16:14:01.000000Z",
+      deleted_at: null,
+      recurring: null,
+      theme: "#277C78",
+      name: "Test Transaction 1",
+      category: "entertainment",
+      budget: {
+        category: ""
+      }
+    },
+    {
+      id: 1,
+      user: 1,
+      amount: 75.65,
+      budget_id: null,
+      created_at: "2025-02-24T16:14:01.000000Z",
+      deleted_at: null,
+      recurring: null,
+      theme: "#C94736",
+      name: "Test Transaction 2",
+      category: "groceries",
+      budget: {
+        category: ""
+      }
+    },
+    {
+      id: 2,
+      user: 2,
+      amount: 12.79,
+      budget_id: null,
+      created_at: "2025-02-24T16:14:01.000000Z",
+      deleted_at: null,
+      recurring: null,
+      theme: "#af81ba",
+      name: "Test Transaction 3",
+      category: "education",
+      budget: {
+        category: ""
+      }
+    },
+    {
+      id: 3,
+      user: 3,
+      amount: 60.20,
+      budget_id: null,
+      created_at: "2025-02-24T16:14:01.000000Z",
+      deleted_at: null,
+      recurring: null,
+      theme: "#934F6F",
+      name: "Test Transaction 4",
+      category: "lifestyle",
+      budget: {
+        category: ""
+      }
+    },
+    {
+      id: 4,
+      user: 4,
+      amount: 4.79,
+      budget_id: null,
+      created_at: "2025-02-24T16:14:01.000000Z",
+      deleted_at: null,
+      recurring: null,
+      theme: "#97a0ac",
+      name: "Test Transaction 5",
+      category: "general",
+      budget: {
+        category: ""
+      }
+    }
+  ]);
 
-  public transactionsRecurring = signal<TransactionsObject[]>([]);
+  // public transactionsRecurring = signal<TransactionsObject[]>([]); 
+  public transactionsRecurring = signal<TransactionsObject[]>([
+    {
+      id: 0,
+      user: 0,
+      amount: 40.24,
+      budget_id: null,
+      created_at: "2025-02-24T16:14:01.000000Z",
+      deleted_at: null,
+      recurring: "2025-03-24T16:14:01.000000Z",
+      theme: "#277C78",
+      name: "Test Transaction 1",
+      category: "entertainment",
+      budget: {
+        category: ""
+      }
+    },
+    {
+      id: 1,
+      user: 1,
+      amount: 75.65,
+      budget_id: null,
+      created_at: "2025-02-24T16:14:01.000000Z",
+      deleted_at: null,
+      recurring: "2025-03-08T16:14:01.000000Z",
+      theme: "#C94736",
+      name: "Test Transaction 2",
+      category: "groceries",
+      budget: {
+        category: ""
+      }
+    },
+    {
+      id: 2,
+      user: 2,
+      amount: 12.79,
+      budget_id: null,
+      created_at: "2025-02-24T16:14:01.000000Z",
+      deleted_at: null,
+      recurring: "2025-03-02T16:14:01.000000Z",
+      theme: "#af81ba",
+      name: "Test Transaction 3",
+      category: "education",
+      budget: {
+        category: ""
+      }
+    },
+    {
+      id: 3,
+      user: 3,
+      amount: 60.20,
+      budget_id: null,
+      created_at: "2025-02-24T16:14:01.000000Z",
+      deleted_at: null,
+      recurring: "2025-03-29T16:14:01.000000Z",
+      theme: "#934F6F",
+      name: "Test Transaction 4",
+      category: "lifestyle",
+      budget: {
+        category: ""
+      }
+    },
+    {
+      id: 4,
+      user: 4,
+      amount: 4.79,
+      budget_id: null,
+      created_at: "2025-02-24T16:14:01.000000Z",
+      deleted_at: null,
+      recurring: "2025-03-16T16:14:01.000000Z",
+      theme: "#97a0ac",
+      name: "Test Transaction 5",
+      category: "general",
+      budget: {
+        category: ""
+      }
+    }
+  ]);
 
   constructor() {}
 

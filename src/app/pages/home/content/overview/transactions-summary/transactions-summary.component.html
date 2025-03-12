@@ -1,4 +1,4 @@
-<section class="transaction-summary bg-white flex flex-col gap-5 p-8 rounded-xl">
+<section class="transaction-summary min-h-[519px] bg-white flex flex-col gap-8 p-8 rounded-xl">
 
   <p class="transactions-summary-header flex items-center justify-between">
       <span class="text2b">Last Transactions</span>
@@ -12,18 +12,25 @@
     </span>
   </p>
 
-  <ul class="transactions-list" aria-label="List of Transactions">
-    <li class="single-transaction">
-      
-      <div class="icon-and-name flex items-center gap-4">
-        <div class="icon w-10 h-10 rounded-full border-black border-2 flex items-center justify-center">
-          <app-icons [iconName]="'pots'"></app-icons>
-        </div>
-        <p class="name text3b">Emma Richardson</p>
-      </div>
-
-      <div class="amount-and-date"></div>
+  <ul aria-label="list of latest spendings">
+    @for (item of this.transactionsArray(); let index = $index; track item)
+    {
+    <li
+      aria-label="spending item"
+      class="pt-5 pb-3"
+      [ngStyle]="{
+        'padding-bottom':
+          this.transactionsArray &&
+          index < 4
+            ? '20px'
+            : '0px'
+      }"
+    >
+      <app-single-transaction [transaction]="item"></app-single-transaction>
     </li>
+    @if (this.transactionsArray && index < 4) {
+    <div class="w-full h-[2px] rounded-full bg-grey-100"></div>
+    } }
   </ul>
 
 
