@@ -161,7 +161,7 @@ export class AddBudgetModalComponent {
     // add a new pot to the pots array in data-store-service, submit the new pot to the API and close the modal
     submitAddPot() {
       this.currentPot.name = this.potNameValue;
-      this.currentPot.target = parseFloat(
+      this.currentPot.maximum = parseFloat(
         this.potTargetInputValue.replace(/,/g, '')
       );
       this.currentPot.theme = this.chosenTheme.hex;
