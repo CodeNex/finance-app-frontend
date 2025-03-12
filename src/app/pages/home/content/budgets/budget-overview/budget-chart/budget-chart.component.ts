@@ -49,7 +49,11 @@ export class BudgetChartComponent {
 
   // get the budgets array from the signal
   private getBudgetsArray() {
-    return this.budgetsSignal$();
+    let array: any[] = [];
+    this.budgetsSignal$().forEach((element) => {
+      if (!element.deleted_at) array.push(element);
+    })
+    return array;
   }
 
   // get the total amount of all budgets
