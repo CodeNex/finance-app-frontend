@@ -5,7 +5,7 @@
 >
   <div class="subModalContainer">
     @if (currentShownSubModal === "addBudget") {
-    <app-add-budget-modal [modalObject]="subModalObject"></app-add-budget-modal>
+    <app-add-budget-modal></app-add-budget-modal>
     } @if (currentShownSubModal === "deleteBudget") {
     <app-delete-budget-modal [modalObject]="subModalObject" [budgetIndex]="index"></app-delete-budget-modal>
     } @if (currentShownSubModal === "editBudget") {
