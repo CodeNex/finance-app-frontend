@@ -20,4 +20,5 @@ export class DeleteBudgetModalComponent {
   public currentBudgetToDelete: string = 'CurrentBudget';
 
   @Input() public modalObject: Object = {};
+  @Input() public budgetIndex: number = 1;
 }
