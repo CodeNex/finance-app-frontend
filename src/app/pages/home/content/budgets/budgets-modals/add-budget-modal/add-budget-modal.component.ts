@@ -54,7 +54,7 @@ export class AddBudgetModalComponent {
     // the value of the pot target input binded by ngModel
     public maxBudgetInputValue: string = '0.00';
     // a cached string of the pot target input value
-    public potTargetString: string = '0.00';
+    public maxBudgetString: string = '0.00';
     // the value of the pot theme input
     public potThemeValue: string = '';
   
@@ -94,19 +94,19 @@ export class AddBudgetModalComponent {
   
     // add a number to the target input
     addNumberToTargetInput(event: any) {
-      let currentTarget = this.potTargetString;
+      let currentTarget = this.maxBudgetString;
       let numbersArray = currentTarget.replace(/[.,]/g, '').split('');
       if (numbersArray.length === 3 && numbersArray[0] === '0') {
         numbersArray.shift();
         numbersArray.push(event.key);
         numbersArray.splice(numbersArray.length - 2, 0, '.');
-        this.potTargetString = parseFloat(numbersArray.join('')).toLocaleString(
+        this.maxBudgetString = parseFloat(numbersArray.join('')).toLocaleString(
           'en-US',
           {
             minimumFractionDigits: 2,
           }
         );
-        this.maxBudgetInputValue = this.potTargetString;
+        this.maxBudgetInputValue = this.maxBudgetString;
       } else if (
         numbersArray.length >= 3 &&
         numbersArray.length < 11 &&
@@ -114,29 +114,29 @@ export class AddBudgetModalComponent {
       ) {
         numbersArray.push(event.key);
         numbersArray.splice(numbersArray.length - 2, 0, '.');
-        this.potTargetString = parseFloat(numbersArray.join('')).toLocaleString(
+        this.maxBudgetString = parseFloat(numbersArray.join('')).toLocaleString(
           'en-US',
           {
             minimumFractionDigits: 2,
           }
         );
-        this.maxBudgetInputValue = this.potTargetString;
+        this.maxBudgetInputValue = this.maxBudgetString;
       }
     }
   
     // delete a number from the target input
     deleteNumberFromTargetInput() {
-      let currentTarget = this.potTargetString;
+      let currentTarget = this.maxBudgetString;
       let numbersArray = currentTarget.replace(/[.,]/g, '').split('');
       numbersArray.pop();
       numbersArray.splice(numbersArray.length - 2, 0, '.');
-      this.potTargetString = parseFloat(numbersArray.join('')).toLocaleString(
+      this.maxBudgetString = parseFloat(numbersArray.join('')).toLocaleString(
         'en-US',
         {
           minimumFractionDigits: 2,
         }
       );
-      this.maxBudgetInputValue = this.potTargetString;
+      this.maxBudgetInputValue = this.maxBudgetString;
     }
   
     // get all the themes from the data-store-service and split them into used and unused theme arrays
