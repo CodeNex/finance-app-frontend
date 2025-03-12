@@ -3,7 +3,7 @@
 >
   <!-- Modal Headline -->
   <div class="modalHeadline flex justify-between items-center">
-    <p class="text1b text-grey-900">Add New Pot</p>
+    <p class="text1b text-grey-900">Add New Budget</p>
     <div
       (click)="closeMainModal()"
       class="w-[26px] h-[26px] rounded-[100vh] border-solid border-2 border-grey-500 flex justify-center items-center cursor-pointer transition-all duration-300 ease-in-out group hover:bg-grey-500"
@@ -24,8 +24,7 @@
 
   <!-- Modal info text -->
   <p class="text4r text-grey-500">
-    Create a pot to set savings targets. These can help keep you on track as you
-    save for special purchases.
+    Choose a category to set a spending budget. These categories can help you monitor spending.
   </p>
 
   <!-- Modal Form -->
@@ -36,7 +35,7 @@
 
     <!-- Maximum Budget Input -->
     <div class="pb-4">
-      <p class="text5b text-grey-500">Target</p>
+      <p class="text5b text-grey-500">Maximum Spend</p>
       <div class="relative">
         <span
           class="absolute left-[20px] top-[50%] -translate-y-[calc(50%-2px)] text4r text-beige-500"
@@ -123,11 +122,11 @@
       }
     </div>
 
-    <!-- Add Pot Button -->
+    <!-- Add Budget Button -->
     <button (click)="submitAddPot()"
       class="bg-grey-900 w-full pt-4 pb-4 rounded-lg text4b transition-all duration-300 ease-in-out hover:bg-grey-500 text-white text-center"
     >
-      Add Pot
+      Add Budget
     </button>
   </form>
 </div>
