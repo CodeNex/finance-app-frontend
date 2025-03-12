@@ -1,4 +1,4 @@
-<section class="relative w-full min-h-[100%]" aria-label="Overview Section">
+<section class="relative w-full min-h-[100%] flex justify-center"  aria-label="Overview Section">
 
   @if (isLoadingScreenVisible)
   {
@@ -11,7 +11,7 @@
 
   @if (!isLoadingScreenVisible && !isWarningScreenVisible)
   {
-    <div class="overview-container min-h-[761px] flex flex-col gap-8" aria-label="Overview Wrapper">
+    <div class="overview-container min-h-[761px] max-w-[1440px] flex flex-col gap-8" aria-label="Overview Wrapper">
       <h2 class="text1b">Overview</h2>
   
       <app-balance [balance]="balanceData"></app-balance>
@@ -22,7 +22,7 @@
           <app-transactions-summary></app-transactions-summary>
         </div>
         <div class="summary-right min-w-[40%] min-h-[100%] flex flex-1 flex-col gap-6" aria-label="Right Half of the Overview Summary">
-          <app-budgets-summary [budgets]="budgetsData"></app-budgets-summary>
+          <app-budgets-summary></app-budgets-summary>
           <app-recurring-bills-summary></app-recurring-bills-summary>
         </div>
       </div>

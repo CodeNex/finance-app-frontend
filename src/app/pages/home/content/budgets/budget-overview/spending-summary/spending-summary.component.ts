@@ -1,4 +1,4 @@
-import { Component, computed, effect, inject, Signal } from '@angular/core';
+import { Component, computed, effect, inject, Input, Signal } from '@angular/core';
 
 import { DataStoreServiceService } from '../../../../../../services/data-store-service.service';
 import { CommonModule } from '@angular/common';
@@ -16,6 +16,8 @@ export class SpendingSummaryComponent {
   public budgetsArraySignal$: any = this.dataStore.budgets;
  
   public budgetsArray: any[] = [];
+
+  @Input() public inWhichSection: string = '';
    
   constructor() {
     effect(() => {
