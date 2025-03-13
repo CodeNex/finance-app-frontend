@@ -73,6 +73,11 @@ export class AddBudgetModalComponent {
           Math.floor(Math.random() * this.unusedBudgetThemes.length)
         ];
       this.currentBudget.theme = this.chosenTheme.hex;
+      this.chosenCategory =
+        this.unusedBudgetCategories[
+          Math.floor(Math.random() * this.unusedBudgetCategories.length)
+        ];
+      this.currentBudget.name = this.chosenCategory;
     }
 
     getCategoryArrays() {
@@ -92,10 +97,11 @@ export class AddBudgetModalComponent {
       
     }
 
-    // choose a theme from the dropdown
+    // choose a category by click from the dropdown
     chooseCategory(category: string) {
       if (this.unusedBudgetCategories.includes(category)) {
         this.chosenCategory = category;
+        this.currentBudget.name = this.chosenCategory;
         this.closeHideBudgetDropdown();
       }
     }
@@ -188,7 +194,7 @@ export class AddBudgetModalComponent {
       );
     }
   
-    // choose a theme from the dropdown
+    // choose a theme by click from the dropdown
     chooseTheme(theme: any) {
       if (this.unusedBudgetThemes.includes(theme)) {
         this.chosenTheme = theme;
