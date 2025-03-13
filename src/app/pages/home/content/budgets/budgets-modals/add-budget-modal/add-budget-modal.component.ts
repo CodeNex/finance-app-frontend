@@ -92,6 +92,14 @@ export class AddBudgetModalComponent {
       
     }
 
+    // choose a theme from the dropdown
+    chooseCategory(category: string) {
+      if (this.unusedBudgetCategories.includes(category)) {
+        this.chosenCategory = category;
+        this.closeHideBudgetDropdown();
+      }
+    }
+
     // closes or opens budget dropdown
     closeHideBudgetDropdown() {
       this.isBudgetDropdownOpen = !this.isBudgetDropdownOpen;
