@@ -16,7 +16,7 @@
 
       <div class="recurring-bills-summary flex gap-8" aria-label="Recurring Bills Summary Container">
 
-        <div class="w-[50%] h-[204px] bg-gray-900 rounded-xl p-6 flex flex-col justify-between gap-8 text-white">
+        <div class="w-[50%] bg-gray-900 rounded-xl p-6 flex flex-col justify-between gap-8 text-white">
           <app-icons [iconName]="'billsIcon'"></app-icons>
           <div class="total-bills flex flex-col gap-4">
             <p class="text3r">Total Bills</p>
@@ -24,9 +24,14 @@
           </div>
         </div>  
 
-        <div class="w-[50%] h-[204px] bg-white rounded-xl p-6 flex flex-col justify-between gap-8">
+        <div class="w-[50%] bg-white rounded-xl p-6 flex flex-col justify-between gap-8">
           <p class="text2b">Summary</p>
+          <app-recurring-bills-summary [inWhichSection]="'recurringBills'"></app-recurring-bills-summary>
         </div>
+        
+      </div>
+
+      <div class="recurring-bills-list h-[100%] bg-white rounded-xl">
         
       </div>
     </div>

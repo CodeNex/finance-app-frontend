@@ -5,10 +5,11 @@ import { DataStoreServiceService } from '../../../../services/data-store-service
 import { APIService } from '../../../../services/api.service';
 import { CommonModule } from '@angular/common';
 import { IconsComponent } from '../../../../components/icons/icons.component';
+import { RecurringBillsSummaryComponent } from '../overview/recurring-bills-summary/recurring-bills-summary.component';
 
 @Component({
   selector: 'app-recurring-bills',
-  imports: [ LoadingScreenComponent, WarningScreenComponent, CommonModule, IconsComponent],
+  imports: [ LoadingScreenComponent, WarningScreenComponent, CommonModule, IconsComponent, RecurringBillsSummaryComponent],
   templateUrl: './recurring-bills.component.html',
   styleUrl: './recurring-bills.component.scss'
 })

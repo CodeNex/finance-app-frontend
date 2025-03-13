@@ -22,6 +22,7 @@ export class RecurringBillsSummaryComponent implements OnInit {
   public totalUpcoming: string = "";
   public dueSoon: string = "";
 
+  @Input() inWhichSection: string = "";
 
   constructor() {
     effect(() => {
