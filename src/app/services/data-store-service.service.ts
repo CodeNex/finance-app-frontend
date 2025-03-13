@@ -457,7 +457,7 @@ export class DataStoreServiceService {
 
   // add new data to the existing dataArray and update the signal and UI
   addToStoredData(endpoint: string, data: any) {
-    if (endpoint === 'budgets') this.budgets.update((prev) => [...prev, data]);
+    if (endpoint === 'budgets') this.budgets.update((prev) => [data, ...prev]);
     if (endpoint === 'pots') this.pots.update((prev) => [data, ...prev]);
     if (endpoint === 'transactions')
       this.transactions.update((prev) => [...prev, data]);
