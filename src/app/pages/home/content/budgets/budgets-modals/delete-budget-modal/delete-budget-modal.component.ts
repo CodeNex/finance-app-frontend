@@ -21,13 +21,14 @@ export class DeleteBudgetModalComponent {
 
   public currentBudgetToDelete: string = 'CurrentBudget';
 
-  @Input() public modalObject: Object = {};
+  @Input() public modalObject: any = {};
   @Input() public budgetIndex: number = 1;
 
   public currentBudgetIndex: number = -1;
 
   ngOnInit() {
     this.currentBudgetIndex = this.budgetIndex;
+    if (this.modalObject.name) {this.currentBudgetToDelete = this.modalObject.name} ;
   }
 
   deleteCurrentBudget() {
