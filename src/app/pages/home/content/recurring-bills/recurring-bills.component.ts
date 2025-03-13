@@ -4,10 +4,11 @@ import { WarningScreenComponent } from '../../../../components/warning-screen/wa
 import { DataStoreServiceService } from '../../../../services/data-store-service.service';
 import { APIService } from '../../../../services/api.service';
 import { CommonModule } from '@angular/common';
+import { IconsComponent } from '../../../../components/icons/icons.component';
 
 @Component({
   selector: 'app-recurring-bills',
-  imports: [ LoadingScreenComponent, WarningScreenComponent, CommonModule ],
+  imports: [ LoadingScreenComponent, WarningScreenComponent, CommonModule, IconsComponent],
   templateUrl: './recurring-bills.component.html',
   styleUrl: './recurring-bills.component.scss'
 })
