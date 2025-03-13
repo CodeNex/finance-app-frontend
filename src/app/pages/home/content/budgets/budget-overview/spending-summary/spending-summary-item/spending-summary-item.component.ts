@@ -20,6 +20,8 @@ export class SpendingSummaryItemComponent {
     theme: '#93674F',
   };
 
+  @Input() public inWhichSection: string = '';
+
   public spendedAmount: string = '';
   public maximumAmount: string = '';
 

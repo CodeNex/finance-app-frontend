@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { BudgetChartComponent } from './budget-chart/budget-chart.component';
 import { SpendingSummaryComponent } from './spending-summary/spending-summary.component';
 
@@ -10,5 +10,5 @@ import { SpendingSummaryComponent } from './spending-summary/spending-summary.co
   styleUrl: './budget-overview.component.scss'
 })
 export class BudgetOverviewComponent {
- 
+ @Input() public inWhichSection: string = '';
 }

@@ -4,10 +4,11 @@ import { RouterModule } from '@angular/router';
 import { DataStoreServiceService } from '../../../../../services/data-store-service.service';
 import { AuthenticationService } from '../../../../../services/authentication.service';
 import { APIService } from '../../../../../services/api.service';
+import { BudgetOverviewComponent } from '../../budgets/budget-overview/budget-overview.component';
 
 @Component({
   selector: 'app-budgets-summary',
-  imports: [IconsComponent, RouterModule],
+  imports: [IconsComponent, RouterModule, BudgetOverviewComponent],
   templateUrl: './budgets-summary.component.html',
   styleUrl: './budgets-summary.component.scss'
 })
@@ -16,16 +17,7 @@ export class BudgetsSummaryComponent {
   public authService: AuthenticationService = inject(AuthenticationService);
   public apiService: APIService = inject(APIService);
 
-  @Input() public budgets: BudgetsObject = {
-    id: 1,
-    name: 'Transportation',
-    amount: 56.26,
-    maximum: 419.89,
-    theme: '#93674F',
-    deleted_at: null,
-    created_at: '2025-02-24T16:14:01.000000Z',
-    last_spendings: null
-  };
+  
 
   
 }

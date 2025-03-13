@@ -1,7 +1,10 @@
 <section class="w-full min-h-[100%] flex flex-col justify-start gap-8">
-  <div aria-label="Spending Summary Header" class="flex items-center justify-between">
-    <p class="text2b text-grey-900">Spending Summary</p>
-  </div>
+  @if ( inWhichSection === 'budgets') {
+    <div aria-label="Spending Summary Header" class="flex items-center justify-between">
+      <p class="text2b text-grey-900">Spending Summary</p>
+    </div>
+  }
+  
 
   <ul id="latestSpendingList" aria-label="list of latest spendings" class="h-[246px] overflow-y-auto">
     @for (item of this.budgetsArray; let index = $index; track item)
@@ -17,7 +20,7 @@
             : '0px'
       }"
     >
-      <app-spending-summary-item [summaryItem]="item"></app-spending-summary-item>
+      <app-spending-summary-item [inWhichSection]="inWhichSection" [summaryItem]="item"></app-spending-summary-item>
     </li>
     @if (this.budgetsArray && index <
     this.budgetsArray.length - 1) {
