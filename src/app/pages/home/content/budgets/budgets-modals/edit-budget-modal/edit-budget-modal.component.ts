@@ -101,7 +101,6 @@ export class EditBudgetModalComponent {
     });
     this.maxBudgetString = this.maxBudgetInputValue;
     this.chosenCategory = this.currentBudget.name;
-    this.chosenTheme = this.currentBudget.theme;
 
     console.log(this.currentBudget, this.currentBudgetIndex);
   }
@@ -215,6 +214,11 @@ export class EditBudgetModalComponent {
     this.unusedBudgetThemes = this.themes.filter(
       (theme: any) => !this.usedBudgetThemes.includes(theme.hex)
     );
+    this.chosenTheme = this.themes.find((theme: any) => {
+      return theme.hex === this.currentBudget.theme;
+    })
+    console.log(this.chosenTheme);
+    
   }
 
   // choose a theme by click from the dropdown
@@ -226,12 +230,12 @@ export class EditBudgetModalComponent {
   }
 
   // add a new pot to the pots array in data-store-service, submit the new pot to the API and close the modal
-  submitAddPot() {
+  submitEditedBudget() {
     this.currentBudget.maximum = parseFloat(
       this.maxBudgetInputValue.replace(/,/g, '')
     );
     this.currentBudget.theme = this.chosenTheme.hex;
-    this.apiBudgetsService.addNewBudget(this.currentBudget);
+    // this.apiBudgetsService.addNewBudget(this.currentBudget);
     this.mainModalService.hideMainModal();
     console.log(this.currentBudget);
   }
