@@ -34,8 +34,6 @@ export class SpendingSummaryItemComponent {
       effect(() => {
         let signal = this.budgetsArraySignal$();
         this.ngOnInit();
-        console.log("SpendingSummaryItemComponent constructor effect");
-        
       })
     }
 

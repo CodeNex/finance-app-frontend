@@ -21,8 +21,6 @@ export class SpendingSummaryComponent {
     effect(() => {
       let signal = this.budgetsArraySignal$();
       this.budgetsArray = this.budgetsArraySignal$().filter((element: any) => !element.deleted_at);
-      console.log("SpendingSummaryComponent constructor effect");
-      
     })
   }
 

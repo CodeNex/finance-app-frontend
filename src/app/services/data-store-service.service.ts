@@ -500,22 +500,6 @@ export class DataStoreServiceService {
   }
 
   // update the existing data and update the signal and UI
-  // editStoredData(endpoint: string, index: number, data: any) {
-  //   if (endpoint === 'budgets' && data && index >= 0) {
-  //     this.budgets.update((prev) => {
-  //       prev[index] = { ...data };
-  //       return prev;
-  //     });
-  //   }
-
-  //   if (endpoint === 'pots' && data && index >= 0) {
-  //     this.pots.update((prev) => {
-  //       prev[index] = { ...data };
-  //       return prev;
-  //     });
-  //   }
-  // }
-
   editStoredData(endpoint: string, index: number, data: any) {
     if (endpoint === 'budgets' && data && index >= 0) {
       this.budgets.update((prev) => {

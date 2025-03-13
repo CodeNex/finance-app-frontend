@@ -27,7 +27,6 @@ export class SingleBudgetComponent {
     effect(() => {
       let budgetSignal = this.budgetSignal$();
       this.ngOnInit();
-      console.log('SingleBudgetComponent constructor effect');
     });
   }
 
