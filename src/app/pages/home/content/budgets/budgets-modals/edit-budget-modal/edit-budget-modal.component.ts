@@ -94,6 +94,14 @@ export class EditBudgetModalComponent {
   ngOnInit() {
     this.currentBudget = this.modalObject;
     this.currentBudgetIndex = this.budgetIndex;
+    this.getCategoryArrays();
+    this.getThemeArrays();
+    this.maxBudgetInputValue = this.currentBudget.maximum.toLocaleString('en-US', {
+      minimumFractionDigits: 2,
+    });
+    this.maxBudgetString = this.maxBudgetInputValue;
+    this.chosenCategory = this.currentBudget.name;
+    this.chosenTheme = this.currentBudget.theme;
 
     console.log(this.currentBudget, this.currentBudgetIndex);
   }
