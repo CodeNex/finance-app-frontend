@@ -1,0 +1,45 @@
+<section
+  class="pots-summary bg-white flex flex-col gap-5 p-8 rounded-xl"
+  aria-label="Pots Summary"
+>
+  <p class="pots-summary-header flex items-center justify-between">
+    <span class="text2b">Pots</span>
+    <span
+      [routerLink]="['/pots']"
+      class="details-Btn text4r text-grey-500 flex items-center gap-4 transition-all duration-300 ease-in-out hover:text-grey-900 hover:cursor-pointer"
+      aria-label="Button to be redirected to the pots page"
+    >
+      See Details
+      <app-icons [iconName]="'smallArrowRight'"></app-icons>
+  </span>
+  </p>
+
+  <div class="pots-summary-content flex justify-center items-center gap-4" aria-label="Pots Summary Content">
+
+    <div
+      class="total-saved-container bg-beige-100 min-w-[247px] min-h-[110px] flex gap-4 items-center p-4 rounded-xl"
+    >
+      <app-icons [iconName]="'potsTransparentGreen'"></app-icons>
+      <div class="total-saved flex flex-col gap-3">
+        <p class="text4r text-grey-500">Total Saved</p>
+        <p class="text1b">${{ formattedTotalSavings }}</p>
+      </div>
+    </div>
+
+    <div class="pots-listing h-[110px] flex flex-wrap gap-4 overflow-auto" aria-label="The first four Pots of the list">
+        @for (pot of potsArray(); track $index) {
+          <div class="list-element min-w-[130px] flex items-center gap-4">
+            <div class="theme-element bg-grey-900 w-1 h-[43px] rounded-full"
+            [ngStyle]="{
+              'background-color': pot.theme
+            }"
+            ></div>
+            <p class="list-element-content flex flex-col gap-1">
+                <span class="text5r text-grey-500">{{ pot.name }}</span>
+                <span class="text3b">{{ pot.total }}</span>
+            </p>
+          </div>
+        }
+    </div>
+  </div>
+</section>

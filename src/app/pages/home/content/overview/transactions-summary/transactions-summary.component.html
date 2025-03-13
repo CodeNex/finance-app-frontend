@@ -1,0 +1,37 @@
+<section class="transaction-summary min-h-[519px] bg-white flex flex-col gap-8 p-8 rounded-xl">
+
+  <p class="transactions-summary-header flex items-center justify-between">
+      <span class="text2b">Last Transactions</span>
+      <span
+        [routerLink]="['/transactions']"
+        class="details-Btn text4r text-grey-500 flex items-center gap-4 transition-all duration-300 ease-in-out hover:text-grey-900 hover:cursor-pointer"
+        aria-label="Button to be redirected to the transactions page"
+      >
+        View All
+        <app-icons [iconName]="'smallArrowRight'"></app-icons>
+    </span>
+  </p>
+
+  <ul aria-label="list of latest spendings">
+    @for (item of this.transactionsArray(); let index = $index; track item)
+    {
+    <li
+      aria-label="spending item"
+      class="pt-5 pb-3"
+      [ngStyle]="{
+        'padding-bottom':
+          this.transactionsArray &&
+          index < 4
+            ? '20px'
+            : '0px'
+      }"
+    >
+      <app-single-transaction [transaction]="item"></app-single-transaction>
+    </li>
+    @if (this.transactionsArray && index < 4) {
+    <div class="w-full h-[2px] rounded-full bg-grey-100"></div>
+    } }
+  </ul>
+
+
+</section>

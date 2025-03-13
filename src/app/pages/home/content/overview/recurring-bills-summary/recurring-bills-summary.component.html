@@ -1,0 +1,58 @@
+@if (inWhichSection === 'overview') {
+  <section class="bills-summary bg-white min-h-[327px] flex flex-col gap-7 p-6 rounded-xl">
+      <p class="pots-summary-header flex items-center justify-between">
+        <span class="text2b">Recurring Bills</span>
+        <span
+          [routerLink]="['/recurringBills']"
+          class="details-Btn text4r text-grey-500 flex items-center gap-4 transition-all duration-300 ease-in-out hover:text-grey-900 hover:cursor-pointer"
+          aria-label="Button to be redirected to the Recurring Bills page"
+        >
+          See Details
+          <app-icons [iconName]="'smallArrowRight'"></app-icons>
+        </span>
+      </p>
+
+      <div class="bills-data-wrapper flex flex-col gap-4">
+        <div class="theme-element bg-pink-500 rounded-xl flex justify-end">
+          <div class="summary-element w-[99%] flex items-center justify-between bg-beige-100 p-4 pb-5 pt-5 rounded-lg">
+            <p class="text3r text-grey-500">Paid Bills</p>
+            <p class="text3b text-grey-900">${{ totalPaid }}</p>
+          </div>
+        </div>
+
+        <div class="theme-element bg-cyan-500 rounded-xl flex justify-end">
+          <div class="summary-element w-[99%] flex items-center justify-between bg-beige-100 p-4 pb-5 pt-5 rounded-lg">
+            <p class="text3r text-grey-500">Total Upcoming</p>
+            <p class="text3b text-grey-900">${{ totalUpcoming }}</p>
+          </div>
+        </div>
+
+        <div class="theme-element bg-green-500 rounded-xl flex justify-end">
+          <div class="summary-element w-[99%] flex items-center justify-between bg-beige-100 p-4 pb-5 pt-5 rounded-lg">
+            <p class="text3r text-grey-500">Due Soon</p>
+            <p class="text3b text-grey-900">${{ dueSoon }}</p>
+          </div>
+        </div>
+      </div>
+  </section>
+}
+@if (inWhichSection === 'recurringBills') {
+  <div class="bills-data-wrapper flex flex-col">
+    
+      <div class="summary-element flex items-center justify-between pb-4 rounded-lg border-b-2 border-gray-200">
+        <p class="text3r text-grey-500">Paid Bills</p>
+        <p class="text3b text-grey-900">(${{ totalPaid }})</p>
+      </div>
+    
+
+      <div class="summary-element flex items-center justify-between pb-4 pt-4 rounded-lg">
+        <p class="text3r text-grey-500">Total Upcoming</p>
+        <p class="text3b text-grey-900">(${{ totalUpcoming }})</p>
+      </div>
+
+      <div class="summary-element flex items-center justify-between pt-4 rounded-lg border-t-2 border-gray-200">
+        <p class="text3r text-grey-500">Due Soon</p>
+        <p class="text3b text-grey-900">(${{ dueSoon }})</p>
+      </div>
+  </div>
+}

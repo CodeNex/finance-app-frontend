@@ -40,9 +40,17 @@ export class BasedataService {
           name: 'Red',
           hex: '#C94736',
         },
+        lightRed: {
+          name: 'Lightred',
+          hex: '#d46c5e',
+        },
         purple: {
           name: 'Purple',
           hex: '#826CB0',
+        },
+        pink: {
+          name: 'Pink',
+          hex: '#af81ba',
         },
         turquoise: {
           name: 'Turquoise',
@@ -59,6 +67,22 @@ export class BasedataService {
         blue: {
           name: 'Blue',
           hex: '#3F82B2',
+        },
+        grey: {
+          name: 'Grey',
+          hex: '#97a0ac',
+        },
+        Forest: {
+          name: 'Forest',
+          hex: '#7f9161',
+        },
+        Gold: {
+          name: 'Gold',
+          hex: '#cab361',
+        },
+        Orange: {
+          name: 'Orange',
+          hex: '#be6c49',
         },
       },
     },
@@ -110,43 +134,43 @@ export class BasedataService {
       categories: {
         entertainment: {
           name: 'Entertainment',
-          iconName: ''
+          iconName: 'entertainment'
         },
         bills: {
           name: 'Bills',
-          iconName: ''
+          iconName: 'bills'
         },
         groceries: {
           name: 'Groceries',
-          iconName: ''
+          iconName: 'groceries'
         },
         diningOut: {
           name: 'Dining Out',
-          iconName: ''
+          iconName: 'diningOut'
         },
         transportation: {
           name: 'Transportation',
-          iconName: ''
+          iconName: 'transportation'
         },
         personalCare: {
           name: 'Personal Care',
-          iconName: ''
+          iconName: 'personalCare'
         },
         education: {
           name: 'Education',
-          iconName: ''
+          iconName: 'education'
         },
         lifestyle: {
           name: 'Lifestyle',
-          iconName: ''
+          iconName: 'lifestyle'
         },
         shopping: {
           name: 'Shopping',
-          iconName: ''
+          iconName: 'shopping'
         },
         general: {
           name: 'General',
-          iconName: ''
+          iconName: 'general'
         }
       },
     },

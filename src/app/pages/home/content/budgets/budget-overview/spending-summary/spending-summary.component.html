@@ -1,0 +1,30 @@
+<section class="w-full min-h-[100%] flex flex-col justify-start gap-8">
+  @if ( inWhichSection === 'budgets') {
+    <div aria-label="Spending Summary Header" class="flex items-center justify-between">
+      <p class="text2b text-grey-900">Spending Summary</p>
+    </div>
+  }
+  
+
+  <ul id="latestSpendingList" aria-label="list of latest spendings" class="h-[246px] overflow-y-auto">
+    @for (item of this.budgetsArray; let index = $index; track item)
+    {
+    <li
+      aria-label="spending item"
+      class="pt-3 pb-3 pr-3"
+      [ngStyle]="{
+        'padding-bottom':
+          this.budgetsArray &&
+          index < this.budgetsArray.length - 1
+            ? '12px'
+            : '0px'
+      }"
+    >
+      <app-spending-summary-item [inWhichSection]="inWhichSection" [summaryItem]="item"></app-spending-summary-item>
+    </li>
+    @if (this.budgetsArray && index <
+    this.budgetsArray.length - 1) {
+    <div class="w-full h-[1.5px] rounded-full bg-[#e3e0dc]"></div>
+    } }
+  </ul>
+</section>

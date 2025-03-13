@@ -21,8 +21,6 @@ export class ApiPotsService {
 
   private baseUrl: string = this.baseData.financeApp.basics.apiData.baseUrl;
 
-  public warningMessage: string = '';
-
   constructor() {}
 
   // function to add new pots

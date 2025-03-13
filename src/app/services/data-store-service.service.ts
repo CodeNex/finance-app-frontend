@@ -21,19 +21,79 @@ export class DataStoreServiceService {
       id: 1,
       name: 'Transportation',
       amount: 56.26,
-      maximum: 419.89,
+      maximum: 419,
       theme: '#93674F',
       deleted_at: null,
       created_at: '2025-02-24T16:14:01.000000Z',
+      last_spendings: [{
+        id: 1,
+        user: 1,
+        name: "Initial Deposit",
+        amount: 100.00,
+        recurring: null,
+        theme: '#d46c5e',
+        budget_id: null,
+        deleted_at: null,
+        created_at: "2025-02-24T16:14:01.000000Z",
+        category: '',
+        budget: {
+          category: "transportation"
+        }
+      },
+      {
+        id: 2,
+        user: 1,
+        name: "Veum-Dare",
+        amount: 20.26,
+        recurring: null,
+        theme: '#3f82b2',
+        budget_id: 4,
+        deleted_at: null,
+        created_at: "2025-02-24T16:14:01.000000Z",
+        category: '',
+        budget: {
+          category: "transportation"
+        }
+      }]
     },
     {
       id: 2,
       name: 'Groceries',
-      amount: 197.54,
-      maximum: 327.99,
+      amount: 397.54,
+      maximum: 350,
       theme: '#82C9D7',
       deleted_at: null,
       created_at: '2025-02-24T16:14:01.000000Z',
+      last_spendings: [{
+        id: 1,
+        user: 1,
+        name: "Initial Deposit",
+        amount: 100.00,
+        recurring: null,
+        theme: '#626070',
+        budget_id: null,
+        deleted_at: null,
+        created_at: "2025-02-24T16:14:01.000000Z",
+        category: '',
+        budget: {
+          category: "groceries"
+        }
+      },
+      {
+        id: 2,
+        user: 1,
+        name: "Veum-Dare",
+        amount: 20.26,
+        recurring: null,
+        theme: '#277c78',
+        budget_id: 4,
+        deleted_at: null,
+        created_at: "2025-02-24T16:14:01.000000Z",
+        category: '',
+        budget: {
+          category: "groceries"
+        }
+      }],
     },
     {
       id: 3,
@@ -43,6 +103,7 @@ export class DataStoreServiceService {
       theme: '#934F6F',
       deleted_at: null,
       created_at: '2025-02-24T16:14:01.000000Z',
+      last_spendings: null
     },
     {
       id: 4,
@@ -52,6 +113,36 @@ export class DataStoreServiceService {
       theme: '#F2CDAC',
       deleted_at: null,
       created_at: '2025-02-24T16:14:01.000000Z',
+      last_spendings: [{
+        id: 1,
+        user: 1,
+        name: "Initial Deposit",
+        amount: 100.00,
+        recurring: null,
+        theme: '#be6c49',
+        budget_id: null,
+        deleted_at: null,
+        created_at: "2025-02-24T16:14:01.000000Z",
+        category: '',
+        budget: {
+          category: "shopping"
+        }
+      },
+      {
+        id: 2,
+        user: 1,
+        name: "Veum-Dare",
+        amount: 20.26,
+        recurring: null,
+        theme: '#934f6f',
+        budget_id: 4,
+        deleted_at: null,
+        created_at: "2025-02-24T16:14:01.000000Z",
+        category: '',
+        budget: {
+          category: "shopping"
+        }
+      }],
     },
     {
       id: 5,
@@ -61,6 +152,36 @@ export class DataStoreServiceService {
       theme: '#277C78',
       deleted_at: null,
       created_at: '2025-02-24T16:14:01.000000Z',
+      last_spendings: [{
+        id: 1,
+        user: 1,
+        name: "Initial Deposit",
+        amount: 100.00,
+        recurring: null,
+        theme: '#c94736',
+        budget_id: null,
+        deleted_at: null,
+        created_at: "2025-02-24T16:14:01.000000Z",
+        category: '',
+        budget: {
+          category: "diningOut"
+        }
+      },
+      {
+        id: 2,
+        user: 1,
+        name: "Veum-Dare",
+        amount: 20.26,
+        recurring: null,
+        theme: '#82c9d7',
+        budget_id: 4,
+        deleted_at: null,
+        created_at: "2025-02-24T16:14:01.000000Z",
+        category: '',
+        budget: {
+          category: "diningOut"
+        }
+      }],
     },
     {
       id: 6,
@@ -70,6 +191,36 @@ export class DataStoreServiceService {
       theme: '#826CB0',
       deleted_at: null,
       created_at: '2025-02-24T16:14:01.000000Z',
+      last_spendings: [{
+        id: 1,
+        user: 1,
+        name: "Initial Deposit",
+        amount: 100.00,
+        recurring: null,
+        theme: '#f2cdac',
+        budget_id: null,
+        deleted_at: null,
+        created_at: "2025-02-24T16:14:01.000000Z",
+        category: '',
+        budget: {
+          category: "entertainment"
+        }
+      },
+      {
+        id: 2,
+        user: 1,
+        name: "Veum-Dare",
+        amount: 20.26,
+        recurring: null,
+        theme: '#826cb0',
+        budget_id: 4,
+        deleted_at: null,
+        created_at: "2025-02-24T16:14:01.000000Z",
+        category: '',
+        budget: {
+          category: "entertainment"
+        }
+      }],
     },
   ]);
 
@@ -123,9 +274,168 @@ export class DataStoreServiceService {
     },
   ]);
 
-  public transactions = signal<TransactionsObject[]>([]);
+  // public transactions = signal<TransactionsObject[]>([]);
+  public transactions = signal<TransactionsObject[]>([
+    {
+      id: 0,
+      user: 0,
+      amount: 40.24,
+      budget_id: null,
+      created_at: "2025-02-24T16:14:01.000000Z",
+      deleted_at: null,
+      recurring: null,
+      theme: "#277C78",
+      name: "Test Transaction 1",
+      category: "entertainment",
+      budget: {
+        category: ""
+      }
+    },
+    {
+      id: 1,
+      user: 1,
+      amount: 75.65,
+      budget_id: null,
+      created_at: "2025-02-24T16:14:01.000000Z",
+      deleted_at: null,
+      recurring: null,
+      theme: "#C94736",
+      name: "Test Transaction 2",
+      category: "groceries",
+      budget: {
+        category: ""
+      }
+    },
+    {
+      id: 2,
+      user: 2,
+      amount: 12.79,
+      budget_id: null,
+      created_at: "2025-02-24T16:14:01.000000Z",
+      deleted_at: null,
+      recurring: null,
+      theme: "#af81ba",
+      name: "Test Transaction 3",
+      category: "education",
+      budget: {
+        category: ""
+      }
+    },
+    {
+      id: 3,
+      user: 3,
+      amount: 60.20,
+      budget_id: null,
+      created_at: "2025-02-24T16:14:01.000000Z",
+      deleted_at: null,
+      recurring: null,
+      theme: "#934F6F",
+      name: "Test Transaction 4",
+      category: "lifestyle",
+      budget: {
+        category: ""
+      }
+    },
+    {
+      id: 4,
+      user: 4,
+      amount: 4.79,
+      budget_id: null,
+      created_at: "2025-02-24T16:14:01.000000Z",
+      deleted_at: null,
+      recurring: null,
+      theme: "#97a0ac",
+      name: "Test Transaction 5",
+      category: "general",
+      budget: {
+        category: ""
+      }
+    }
+  ]);
 
-  public transactionsRecurring = signal<TransactionsObject[]>([]);
+  // public transactionsRecurring = signal<TransactionsObject[]>([]); 
+  public transactionsRecurring = signal<testRecurringTransactionsObject[]>([
+    {
+      id: 0,
+      user: 0,
+      amount: 40.24,
+      budget_id: null,
+      execute_on: "2025-03-24T16:14:01.000000Z",
+      created_at: "2025-02-24T16:14:01.000000Z",
+      deleted_at: null,
+      recurring: "monthly",
+      theme: "#277C78",
+      name: "Test Transaction 1",
+      category: "entertainment",
+      budget: {
+        category: ""
+      }
+    },
+    {
+      id: 1,
+      user: 1,
+      amount: 75.65,
+      budget_id: null,
+      execute_on: "2025-03-08T16:14:01.000000Z",
+      created_at: "2025-02-24T16:14:01.000000Z",
+      deleted_at: null,
+      recurring: "monthly",
+      theme: "#C94736",
+      name: "Test Transaction 2",
+      category: "groceries",
+      budget: {
+        category: ""
+      }
+    },
+    {
+      id: 2,
+      user: 2,
+      amount: 12.79,
+      budget_id: null,
+      execute_on: "2025-03-02T16:14:01.000000Z",
+      created_at: "2025-02-24T16:14:01.000000Z",
+      deleted_at: null,
+      recurring: "monthly",
+      theme: "#af81ba",
+      name: "Test Transaction 3",
+      category: "education",
+      budget: {
+        category: ""
+      }
+    },
+    {
+      id: 3,
+      user: 3,
+      amount: 60.20,
+      budget_id: null,
+      execute_on: "2025-03-29T16:14:01.000000Z",
+      created_at: "2025-02-24T16:14:01.000000Z",
+      deleted_at: null,
+      recurring: "monthly",
+      theme: "#934F6F",
+      name: "Test Transaction 4",
+      category: "lifestyle",
+      budget: {
+        category: ""
+      }
+    },
+    {
+      id: 4,
+      user: 4,
+      amount: 4.79,
+      budget_id: null,
+      execute_on: "2025-03-16T16:14:01.000000Z",
+      created_at: "2025-02-24T16:14:01.000000Z",
+      deleted_at: null,
+      recurring: "monthly",
+      theme: "#97a0ac",
+      name: "Test Transaction 5",
+      category: "general",
+      budget: {
+        category: ""
+      }
+    }
+  ]);
 
   constructor() {}
 
@@ -152,7 +462,7 @@ export class DataStoreServiceService {
 
   // add new data to the existing dataArray and update the signal and UI
   addToStoredData(endpoint: string, data: any) {
-    if (endpoint === 'budgets') this.budgets.update((prev) => [...prev, data]);
+    if (endpoint === 'budgets') this.budgets.update((prev) => [data, ...prev]);
     if (endpoint === 'pots') this.pots.update((prev) => [data, ...prev]);
     if (endpoint === 'transactions')
       this.transactions.update((prev) => [...prev, data]);
@@ -198,15 +508,13 @@ export class DataStoreServiceService {
   editStoredData(endpoint: string, index: number, data: any) {
     if (endpoint === 'budgets' && data && index >= 0) {
       this.budgets.update((prev) => {
-        prev[index] = { ...data };
-        return prev;
+        return prev.map((item, i) => (i === index ? { ...data } : item));
       });
     }
-
+  
     if (endpoint === 'pots' && data && index >= 0) {
       this.pots.update((prev) => {
-        prev[index] = { ...data };
-        return prev;
+        return prev.map((item, i) => (i === index ? { ...data } : item));
       });
     }
   }

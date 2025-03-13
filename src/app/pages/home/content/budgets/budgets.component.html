@@ -1,22 +1,43 @@
-<section class= "w-full min-h-[100%]">
+<section
+  aria-label="Budgets Main Section"
+  class="w-full min-h-[100%] flex flex-col gap-8"
+>
+  <header
+    aria-label="Budgets Header. Theres a button at the right side to create new Budgets."
+    class="potsHeader flex items-center justify-between"
+  >
+    <p class="text1b">Budgets</p>
+    <button
+      (click)="openSubModal('addBudget', {})"
+      class="border-solid bg-grey-900 text4b text-white p-4 rounded-lg transition-all duration-300 hover:bg-grey-500"
+    >
+      + Add New Budget
+    </button>
+  </header>
 
-  @if (isLoadingScreenVisible)
-  {
-    <app-loading-screen></app-loading-screen>
-  }
- @if (isWarningScreenVisible)
-  {
-    <app-warning-screen></app-warning-screen>
-  }
-
-  @if (!isLoadingScreenVisible && !isWarningScreenVisible)
-  {
-    <div class="budgets-container">
-      <p>budgets works!</p>
-      <button (click)="openSubModal('addBudget', {})" class="border-solid border-black border-2 mb-4">Add New Budget</button>
-      <button (click)="openSubModal('editBudget', {})" class="border-solid border-black border-2 mb-4">Edit Budget</button>
-      <button (click)="openSubModal('deleteBudget', {})" class="border-solid border-black border-2 mb-4">Delete Budget</button>
+  <main
+    class="flex flex-col items-center gap-6"
+    aria-label="Main section of Budgets with an overview on top and single budget cards below."
+  >
+    <div
+      aria-label="Budgets overview"
+      class="w-full p-6 rounded-xl min-h-[250px] min-w-[500px] max-w-[700px] bg-white"
+    >
+      <app-budget-overview [inWhichSection]="'budgets'"></app-budget-overview>
     </div>
-  }
-  
+
+    <ul
+      aria-label="Single Budgets area"
+      class="w-full flex flex-col items-center gap-6"
+    >
+      @for (item of this.budgetsArray$(); let index = $index; track item) { @if
+      (!item.deleted_at) {
+      <app-single-budget
+        [budget]="item"
+        [budgetIndex]="index"
+        class="min-w-[500px] w-full max-w-[700px] flex-1"
+      ></app-single-budget>
+      }}
+    </ul>
+  </main>
 </section>

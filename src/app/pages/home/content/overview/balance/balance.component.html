@@ -1,0 +1,26 @@
+<div
+  class="overview-balance-container max-w-[100%] flex justify-between gap-6"
+  aria-label="Overview Balance Container"
+>
+  <div
+    class="overview-balance bg-grey-900 text-white flex flex-col gap-4 flex-1 p-6 rounded-xl"
+    aria-label="Current Balance"
+  >
+    <p class="text4r">Current Balance</p>
+    <p class="text1b">${{ formattedCurrent }}</p>
+  </div>
+  <div
+    class="overview-income bg-white flex flex-col gap-4 flex-1 p-6 rounded-xl"
+    aria-label="Income"
+  >
+    <p class="text4r text-grey-500">Income</p>
+    <p class="text1b">${{ formattedIncome }}</p>
+  </div>
+  <div
+    class="overview-expenses bg-white flex flex-col gap-4 flex-1 p-6 rounded-xl"
+    aria-label="Total Expenses"
+  >
+    <p class="text4r text-grey-500">Expenses</p>
+    <p class="text1b">${{ formattedExpenses }}</p>
+  </div>
+</div>
