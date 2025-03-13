@@ -36,15 +36,15 @@ export class RecurringBillsSummaryComponent implements OnInit {
     this.dueSoon = this.getformattedValue(this.getDueSoonAmount(this.recurringBillsArray()));
   }
 
-  getDueSoonAmount(recurringBillsArray: TransactionsObject[]): number {
+  getDueSoonAmount(recurringBillsArray: testRecurringTransactionsObject[]): number {
     let sum = 0;
     const currentDate = new Date();
     const nextWeekDate = new Date();
     nextWeekDate.setDate(currentDate.getDate() + 7);
 
     recurringBillsArray.forEach(bill => {
-      if (bill.recurring) {
-        const recurringDate = new Date(bill.recurring);
+      if (bill.execute_on) {
+        const recurringDate = new Date(bill.execute_on);
         if (recurringDate > currentDate && recurringDate <= nextWeekDate && bill.amount) {
           sum += bill.amount;
         }
@@ -54,15 +54,15 @@ export class RecurringBillsSummaryComponent implements OnInit {
     return sum;
   }
 
-  getTotalUpcomingAmount(recurringBillsArray: TransactionsObject[]): number {
+  getTotalUpcomingAmount(recurringBillsArray: testRecurringTransactionsObject[]): number {
     let sum = 0;
     const currentDate = new Date();
     const currentMonth = currentDate.getMonth();
     const currentYear = currentDate.getFullYear();
 
     recurringBillsArray.forEach(bill => {
-      if (bill.recurring) {
-        const recurringDate = new Date(bill.recurring);
+      if (bill.execute_on) {
+        const recurringDate = new Date(bill.execute_on);
         if (
           recurringDate.getMonth() === currentMonth &&
           recurringDate.getFullYear() === currentYear &&
@@ -77,13 +77,13 @@ export class RecurringBillsSummaryComponent implements OnInit {
     return sum;
   }
 
-  getTotalPaidAmount(recurringBillsArray: TransactionsObject[]): number {
+  getTotalPaidAmount(recurringBillsArray: testRecurringTransactionsObject[]): number {
     let sum = 0;
     const currentDate = new Date();
 
     recurringBillsArray.forEach(bill => {
-      if (bill.recurring) {
-        const recurringDate = new Date(bill.recurring);
+      if (bill.execute_on) {
+        const recurringDate = new Date(bill.execute_on);
         if (recurringDate < currentDate && bill.amount) {
           sum += bill.amount;
         }

@@ -43,3 +43,20 @@ interface TransactionsObject {
     category: string;
   } | null;
 }
+
+interface testRecurringTransactionsObject {
+  id: number;
+  user: number | null;
+  amount: number | null;
+  budget_id: number	| null;
+  execute_on: string | null;
+  created_at: string | null;
+  deleted_at: string | null;
+  recurring: string | null;
+  theme: string,
+  name: string;
+  category: string;
+  budget: {
+    category: string;
+  } | null;
+}
