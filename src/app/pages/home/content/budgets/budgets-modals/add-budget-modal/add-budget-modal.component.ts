@@ -34,7 +34,7 @@ export class AddBudgetModalComponent {
       theme: '',
       deleted_at: null,
       created_at: null,
-      last_spendings: [{}]
+      last_spendings: null,
     };
   
     // boolean to control the budget dropdown

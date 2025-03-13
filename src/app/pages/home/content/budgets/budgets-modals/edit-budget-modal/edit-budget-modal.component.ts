@@ -26,8 +26,44 @@ export class EditBudgetModalComponent {
     this.mainModalService.hideMainModal();
   }
 
-  @Input() public modalObject: Object = {};
   @Input() public budgetIndex: number = 1;
+  @Input() public modalObject: Object = {};
 
-  
+  public currentBudget: any = {
+    id: -1,
+    name: '',
+    amount: -1,
+    maximum: -1,
+    theme: '',
+    deleted_at: null,
+    created_at: null,
+    last_spendings: [
+      {
+        id: -1,
+        user: -1,
+        name: '',
+        amount: -1,
+        recurring: null,
+        theme: '',
+        budget_id: null,
+        deleted_at: null,
+        created_at: null,
+        category: '',
+        budget: {
+          category: '',
+        },
+      },
+    ],
+  };
+
+  public currentBudgetIndex: number = -1;
+
+
+  ngOnInit() {
+    this.currentBudget = this.modalObject;
+    this.currentBudgetIndex = this.budgetIndex;
+
+    console.log(this.currentBudget, this.currentBudgetIndex);
+    
+  }
 }
