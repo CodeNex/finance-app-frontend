@@ -90,11 +90,6 @@ export class AddBudgetModalComponent {
       this.unusedBudgetCategories = this.categories.filter(
         (category: any) => !this.usedBudgetCategories.includes(category)
       );
-
-      console.log('ALL: ', this.categories);
-      console.log('USED: ', this.usedBudgetCategories);
-      console.log('UNUSED: ', this.unusedBudgetCategories);
-      
     }
 
     // choose a category by click from the dropdown
