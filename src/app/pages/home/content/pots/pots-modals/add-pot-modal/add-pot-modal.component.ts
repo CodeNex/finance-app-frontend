@@ -157,7 +157,9 @@ export class AddPotModalComponent {
   // get all the themes from the data-store-service and split them into used and unused theme arrays
   getThemeArrays() {
     this.themes = Object.values(this.baseData.financeApp.basics.colors);
-    this.usedPotThemes = this.dataStore.pots().map((pot: any) => pot.theme);
+    this.usedPotThemes = this.dataStore.pots().map((pot: any) => {
+      if (!pot.deleted_at) return pot.theme;
+    });
     this.unusedPotThemes = this.themes.filter(
       (theme: any) => !this.usedPotThemes.includes(theme.hex)
     );

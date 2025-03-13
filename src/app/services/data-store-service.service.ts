@@ -462,7 +462,7 @@ export class DataStoreServiceService {
 
   // add new data to the existing dataArray and update the signal and UI
   addToStoredData(endpoint: string, data: any) {
-    if (endpoint === 'budgets') this.budgets.update((prev) => [...prev, data]);
+    if (endpoint === 'budgets') this.budgets.update((prev) => [data, ...prev]);
     if (endpoint === 'pots') this.pots.update((prev) => [data, ...prev]);
     if (endpoint === 'transactions')
       this.transactions.update((prev) => [...prev, data]);
@@ -508,15 +508,13 @@ export class DataStoreServiceService {
   editStoredData(endpoint: string, index: number, data: any) {
     if (endpoint === 'budgets' && data && index >= 0) {
       this.budgets.update((prev) => {
-        prev[index] = { ...data };
-        return prev;
+        return prev.map((item, i) => (i === index ? { ...data } : item));
       });
     }
-
+  
     if (endpoint === 'pots' && data && index >= 0) {
       this.pots.update((prev) => {
-        prev[index] = { ...data };
-        return prev;
+        return prev.map((item, i) => (i === index ? { ...data } : item));
       });
     }
   }

@@ -1,1 +1,12 @@
-@import "../../../../../../../styles.scss";
+.themeDropDown::-webkit-scrollbar {
+  display: none;
+}
+
+.themeDropDown {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}

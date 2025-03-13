@@ -12,18 +12,18 @@ import { BasedataService } from '../../../../../../services/basedata.service';
 })
 export class LastSpendingComponent {
   @Input() public spending: any = {
-    id: 1,
-    user: 1,
-    name: 'Spending Address',
-    amount: 100.0,
+    id: -1,
+    user: -1,
+    name: '',
+    amount: 0,
     recurring: null,
     theme: '',
     budget_id: null,
     deleted_at: null,
-    created_at: '2025-02-24T16:14:01.000000Z',
+    created_at: null,
     category: '',
     budget: {
-      category: 'entertainment',
+      category: '',
     },
   };
 
@@ -35,10 +35,12 @@ export class LastSpendingComponent {
   public iconName: string = '';
 
   ngOnInit() {
-    this.amount = this.formatAmount(this.spending.amount);
-    this.date = this.formatDate(this.spending.created_at);
-    this.iconName = this.getCategoryIcon(this.spending.budget.category);
-    this.iconBackground = this.spending.theme;
+    if (this.spending.id > -1) {
+      this.amount = this.formatAmount(this.spending.amount);
+      this.date = this.formatDate(this.spending.created_at);
+      this.iconName = this.getCategoryIcon(this.spending.budget.category);
+      this.iconBackground = this.spending.theme;
+    }
   }
 
   // private function to format amount

@@ -119,6 +119,9 @@
         ><app-icons [iconName]="'smallArrowRight'"></app-icons
       ></a>
     </div>
+    @if (this.budget.last_spendings && this.budget.last_spendings[0].id != -1)
+    {
+
     <ul aria-label="list of latest spendings">
       @for (item of this.budget.last_spendings; let index = $index; track item)
       {
@@ -140,5 +143,6 @@
       <div class="w-full h-[1.5px] rounded-full bg-[#e3e0dc]"></div>
       } }
     </ul>
+    }
   </div>
 </div>

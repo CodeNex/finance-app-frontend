@@ -13,7 +13,7 @@ import { SpendingSummaryItemComponent } from './spending-summary-item/spending-s
 export class SpendingSummaryComponent {
   public dataStore: DataStoreServiceService = inject(DataStoreServiceService);
 
-  public budgetsArraySignal$: any = this.dataStore.budgets;
+  public budgetsArraySignal$: Signal<any[]> = this.dataStore.budgets;
  
   public budgetsArray: any[] = [];
 
@@ -22,7 +22,7 @@ export class SpendingSummaryComponent {
   constructor() {
     effect(() => {
       let signal = this.budgetsArraySignal$();
-      this.ngOnInit();
+      this.budgetsArray = this.budgetsArraySignal$().filter((element: any) => !element.deleted_at);
     })
   }
 
