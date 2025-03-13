@@ -39,7 +39,7 @@ export class ApiBudgetsService {
         }
       },
       error: (error) => {
-        // this.dataStore.addToStoredData('budgets', budgetObject);
+        this.dataStore.addToStoredData('budgets', budgetObject);
         console.log('Budget created');
         console.error(error);
         return;
