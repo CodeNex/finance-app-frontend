@@ -367,41 +367,32 @@ export class DataStoreServiceService {
       theme: "#277C78",
       name: "Test Transaction 1",
       category: "entertainment",
-      budget: {
-        category: ""
-      }
     },
     {
       id: 1,
       user: 1,
       amount: 75.65,
       budget_id: null,
-      execute_on: "2025-03-08T16:14:01.000000Z",
+      execute_on: "2025-04-08T16:14:01.000000Z",
       created_at: "2025-02-24T16:14:01.000000Z",
       deleted_at: null,
       recurring: "monthly",
       theme: "#C94736",
       name: "Test Transaction 2",
       category: "groceries",
-      budget: {
-        category: ""
-      }
     },
     {
       id: 2,
       user: 2,
       amount: 12.79,
       budget_id: null,
-      execute_on: "2025-03-02T16:14:01.000000Z",
+      execute_on: "2025-04-02T16:14:01.000000Z",
       created_at: "2025-02-24T16:14:01.000000Z",
       deleted_at: null,
       recurring: "monthly",
       theme: "#af81ba",
       name: "Test Transaction 3",
       category: "education",
-      budget: {
-        category: ""
-      }
     },
     {
       id: 3,
@@ -415,9 +406,6 @@ export class DataStoreServiceService {
       theme: "#934F6F",
       name: "Test Transaction 4",
       category: "lifestyle",
-      budget: {
-        category: ""
-      }
     },
     {
       id: 4,
@@ -431,9 +419,6 @@ export class DataStoreServiceService {
       theme: "#97a0ac",
       name: "Test Transaction 5",
       category: "general",
-      budget: {
-        category: ""
-      }
     }
   ]);
 

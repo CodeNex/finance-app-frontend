@@ -6,10 +6,11 @@ import { APIService } from '../../../../services/api.service';
 import { CommonModule } from '@angular/common';
 import { IconsComponent } from '../../../../components/icons/icons.component';
 import { AuthenticationService } from '../../../../services/authentication.service';
+import { BillsSummaryComponent } from './bills-summary/bills-summary.component';
 
 @Component({
   selector: 'app-recurring-bills',
-  imports: [ LoadingScreenComponent, WarningScreenComponent, CommonModule, IconsComponent],
+  imports: [ LoadingScreenComponent, WarningScreenComponent, CommonModule, BillsSummaryComponent],
   templateUrl: './recurring-bills.component.html',
   styleUrl: './recurring-bills.component.scss'
 })
