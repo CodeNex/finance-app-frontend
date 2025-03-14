@@ -5,11 +5,11 @@ import { DataStoreServiceService } from '../../../../services/data-store-service
 import { APIService } from '../../../../services/api.service';
 import { CommonModule } from '@angular/common';
 import { IconsComponent } from '../../../../components/icons/icons.component';
-import { RecurringBillsSummaryComponent } from '../overview/recurring-bills-summary/recurring-bills-summary.component';
+import { AuthenticationService } from '../../../../services/authentication.service';
 
 @Component({
   selector: 'app-recurring-bills',
-  imports: [ LoadingScreenComponent, WarningScreenComponent, CommonModule, IconsComponent, RecurringBillsSummaryComponent],
+  imports: [ LoadingScreenComponent, WarningScreenComponent, CommonModule, IconsComponent],
   templateUrl: './recurring-bills.component.html',
   styleUrl: './recurring-bills.component.scss'
 })
@@ -17,6 +17,10 @@ export class RecurringBillsComponent {
 
   private apiService: APIService = inject(APIService);
   private dataStore: DataStoreServiceService = inject(DataStoreServiceService);
+  public authService: AuthenticationService = inject(AuthenticationService);
+
+  public recurringBillsArray$ = this.dataStore.transactionsRecurring();
+
   isLoadingScreenVisible: boolean = false;
   isWarningScreenVisible: boolean = false;
   
