@@ -40,8 +40,8 @@ export class SingleBudgetComponent {
     created_at: null,
     last_spendings: [
       {
-        id: -1,
-        user: -1,
+        transaction_id: -1,
+        user_id: -1,
         name: '',
         amount: -1,
         recurring: null,
@@ -49,10 +49,12 @@ export class SingleBudgetComponent {
         budget_id: null,
         deleted_at: null,
         created_at: null,
+        execute_on: null,
         category: '',
-        budget: {
-          category: '',
-        },
+        type: '',
+        // budget: {
+        //   category: '',
+        // },
       },
     ],
   };

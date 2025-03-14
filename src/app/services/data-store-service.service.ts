@@ -26,8 +26,8 @@ export class DataStoreServiceService {
       deleted_at: null,
       created_at: '2025-02-24T16:14:01.000000Z',
       last_spendings: [{
-        id: 1,
-        user: 1,
+        transaction_id: 1,
+        user_id: 1,
         name: "Initial Deposit",
         amount: 100.00,
         recurring: null,
@@ -35,14 +35,16 @@ export class DataStoreServiceService {
         budget_id: null,
         deleted_at: null,
         created_at: "2025-02-24T16:14:01.000000Z",
+        execute_on: "2025-12-19T00:00:00Z",
+        type: "credit",
         category: 'transportation',
-        budget: {
-          category: "transportation"
-        }
+        // budget: {
+        //   category: "transportation"
+        // }
       },
       {
-        id: 2,
-        user: 1,
+        transaction_id: 2,
+        user_id: 1,
         name: "Veum-Dare",
         amount: 20.26,
         recurring: null,
@@ -50,10 +52,12 @@ export class DataStoreServiceService {
         budget_id: 4,
         deleted_at: null,
         created_at: "2025-02-24T16:14:01.000000Z",
+        execute_on: "2025-12-19T00:00:00Z",
+        type: "credit",
         category: 'transportation',
-        budget: {
-          category: "transportation"
-        }
+        // budget: {
+        //   category: "transportation"
+        // }
       }]
     },
     {
@@ -65,8 +69,8 @@ export class DataStoreServiceService {
       deleted_at: null,
       created_at: '2025-02-24T16:14:01.000000Z',
       last_spendings: [{
-        id: 1,
-        user: 1,
+        transaction_id: 1,
+        user_id: 1,
         name: "Initial Deposit",
         amount: 100.00,
         recurring: null,
@@ -74,14 +78,16 @@ export class DataStoreServiceService {
         budget_id: null,
         deleted_at: null,
         created_at: "2025-02-24T16:14:01.000000Z",
+        execute_on: "2025-12-19T00:00:00Z",
+        type: "credit",
         category: 'groceries',
-        budget: {
-          category: "groceries"
-        }
+        // budget: {
+        //   category: "groceries"
+        // }
       },
       {
-        id: 2,
-        user: 1,
+        transaction_id: 2,
+        user_id: 1,
         name: "Veum-Dare",
         amount: 20.26,
         recurring: null,
@@ -89,10 +95,12 @@ export class DataStoreServiceService {
         budget_id: 4,
         deleted_at: null,
         created_at: "2025-02-24T16:14:01.000000Z",
+        execute_on: "2025-12-19T00:00:00Z",
+        type: "credit",
         category: 'groceries',
-        budget: {
-          category: "groceries"
-        }
+        // budget: {
+        //   category: "groceries"
+        // }
       }],
     },
     {
@@ -114,8 +122,8 @@ export class DataStoreServiceService {
       deleted_at: null,
       created_at: '2025-02-24T16:14:01.000000Z',
       last_spendings: [{
-        id: 1,
-        user: 1,
+        transaction_id: 1,
+        user_id: 1,
         name: "Initial Deposit",
         amount: 100.00,
         recurring: null,
@@ -123,14 +131,16 @@ export class DataStoreServiceService {
         budget_id: null,
         deleted_at: null,
         created_at: "2025-02-24T16:14:01.000000Z",
+        execute_on: "2025-12-19T00:00:00Z",
+        type: "credit",
         category: 'shopping',
-        budget: {
-          category: "shopping"
-        }
+        // budget: {
+        //   category: "shopping"
+        // }
       },
       {
-        id: 2,
-        user: 1,
+        transaction_id: 2,
+        user_id: 1,
         name: "Veum-Dare",
         amount: 20.26,
         recurring: null,
@@ -138,10 +148,12 @@ export class DataStoreServiceService {
         budget_id: 4,
         deleted_at: null,
         created_at: "2025-02-24T16:14:01.000000Z",
+        execute_on: "2025-12-19T00:00:00Z",
+        type: "credit",
         category: 'shopping',
-        budget: {
-          category: "shopping"
-        }
+        // budget: {
+        //   category: "shopping"
+        // }
       }],
     },
     {
@@ -153,8 +165,8 @@ export class DataStoreServiceService {
       deleted_at: null,
       created_at: '2025-02-24T16:14:01.000000Z',
       last_spendings: [{
-        id: 1,
-        user: 1,
+        transaction_id: 1,
+        user_id: 1,
         name: "Initial Deposit",
         amount: 100.00,
         recurring: null,
@@ -162,14 +174,16 @@ export class DataStoreServiceService {
         budget_id: null,
         deleted_at: null,
         created_at: "2025-02-24T16:14:01.000000Z",
+        execute_on: "2025-12-19T00:00:00Z",
+        type: "credit",
         category: 'diningOut',
-        budget: {
-          category: "diningOut"
-        }
+        // budget: {
+        //   category: "diningOut"
+        // }
       },
       {
-        id: 2,
-        user: 1,
+        transaction_id: 2,
+        user_id: 1,
         name: "Veum-Dare",
         amount: 20.26,
         recurring: null,
@@ -177,10 +191,12 @@ export class DataStoreServiceService {
         budget_id: 4,
         deleted_at: null,
         created_at: "2025-02-24T16:14:01.000000Z",
+        execute_on: "2025-12-19T00:00:00Z",
+        type: "credit",
         category: 'diningOut',
-        budget: {
-          category: "diningOut"
-        }
+        // budget: {
+        //   category: "diningOut"
+        // }
       }],
     },
     {
@@ -192,8 +208,8 @@ export class DataStoreServiceService {
       deleted_at: null,
       created_at: '2025-02-24T16:14:01.000000Z',
       last_spendings: [{
-        id: 1,
-        user: 1,
+        transaction_id: 1,
+        user_id: 1,
         name: "Initial Deposit",
         amount: 100.00,
         recurring: null,
@@ -201,14 +217,16 @@ export class DataStoreServiceService {
         budget_id: null,
         deleted_at: null,
         created_at: "2025-02-24T16:14:01.000000Z",
+        execute_on: "2025-12-19T00:00:00Z",
+        type: "credit",
         category: 'entertainment',
-        budget: {
-          category: "entertainment"
-        }
+        // budget: {
+        //   category: "entertainment"
+        // }
       },
       {
-        id: 2,
-        user: 1,
+        transaction_id: 2,
+        user_id: 1,
         name: "Veum-Dare",
         amount: 20.26,
         recurring: null,
@@ -216,10 +234,12 @@ export class DataStoreServiceService {
         budget_id: 4,
         deleted_at: null,
         created_at: "2025-02-24T16:14:01.000000Z",
+        execute_on: "2025-12-19T00:00:00Z",
+        type: "credit",
         category: 'entertainment',
-        budget: {
-          category: "entertainment"
-        }
+        // budget: {
+        //   category: "entertainment"
+        // }
       }],
     },
   ]);
@@ -277,163 +297,722 @@ export class DataStoreServiceService {
   // public transactions = signal<TransactionsObject[]>([]);
   public transactions = signal<TransactionsObject[]>([
     {
-      id: 0,
-      user: 0,
-      amount: 40.24,
-      budget_id: null,
-      created_at: "2025-02-24T16:14:01.000000Z",
-      deleted_at: null,
-      recurring: null,
-      theme: "#277C78",
-      name: "Test Transaction 1",
-      category: "entertainment",
-      budget: {
-        category: ""
-      }
+      "transaction_id": 0,
+      "user_id": 0,
+      "amount": 86.68,
+      "budget_id": null,
+      "created_at": "2025-09-12T00:00:00Z",
+      "execute_on": "2025-07-26T00:00:00Z",
+      "deleted_at": null,
+      "recurring": null,
+      "theme": "#597C7C",
+      "name": "Game Purchase",
+      "category": "entertainment",
+      "type": "credit"
     },
     {
-      id: 1,
-      user: 1,
-      amount: 75.65,
-      budget_id: null,
-      created_at: "2025-02-24T16:14:01.000000Z",
-      deleted_at: null,
-      recurring: null,
-      theme: "#C94736",
-      name: "Test Transaction 2",
-      category: "groceries",
-      budget: {
-        category: ""
-      }
+      "transaction_id": 1,
+      "user_id": 0,
+      "amount": 146.88,
+      "budget_id": null,
+      "created_at": "2025-02-09T00:00:00Z",
+      "execute_on": "2025-12-19T00:00:00Z",
+      "deleted_at": null,
+      "recurring": null,
+      "theme": "#626070",
+      "name": "Internet Bill",
+      "category": "bills",
+      "type": "debit"
     },
     {
-      id: 2,
-      user: 2,
-      amount: 12.79,
-      budget_id: null,
-      created_at: "2025-02-24T16:14:01.000000Z",
-      deleted_at: null,
-      recurring: null,
-      theme: "#af81ba",
-      name: "Test Transaction 3",
-      category: "education",
-      budget: {
-        category: ""
-      }
+      "transaction_id": 2,
+      "user_id": 0,
+      "amount": 133.42,
+      "budget_id": null,
+      "created_at": "2025-06-14T00:00:00Z",
+      "execute_on": "2025-08-10T00:00:00Z",
+      "deleted_at": null,
+      "recurring": null,
+      "theme": "#97a0ac",
+      "name": "Organic Food Store",
+      "category": "groceries",
+      "type": "debit"
     },
     {
-      id: 3,
-      user: 3,
-      amount: 60.20,
-      budget_id: null,
-      created_at: "2025-02-24T16:14:01.000000Z",
-      deleted_at: null,
-      recurring: null,
-      theme: "#934F6F",
-      name: "Test Transaction 4",
-      category: "lifestyle",
-      budget: {
-        category: ""
-      }
+      "transaction_id": 3,
+      "user_id": 0,
+      "amount": 49.81,
+      "budget_id": null,
+      "created_at": "2025-02-08T00:00:00Z",
+      "execute_on": "2025-06-02T00:00:00Z",
+      "deleted_at": null,
+      "recurring": null,
+      "theme": "#F2CDAC",
+      "name": "Caf\u00e9 Visit",
+      "category": "diningOut",
+      "type": "credit"
     },
     {
-      id: 4,
-      user: 4,
-      amount: 4.79,
-      budget_id: null,
-      created_at: "2025-02-24T16:14:01.000000Z",
-      deleted_at: null,
-      recurring: null,
-      theme: "#97a0ac",
-      name: "Test Transaction 5",
-      category: "general",
-      budget: {
-        category: ""
-      }
+      "transaction_id": 4,
+      "user_id": 0,
+      "amount": 170.55,
+      "budget_id": null,
+      "created_at": "2025-11-04T00:00:00Z",
+      "execute_on": "2025-07-30T00:00:00Z",
+      "deleted_at": null,
+      "recurring": null,
+      "theme": "#af81ba",
+      "name": "Taxi Ride",
+      "category": "transportation",
+      "type": "debit"
+    },
+    {
+      "transaction_id": 5,
+      "user_id": 0,
+      "amount": 42.36,
+      "budget_id": null,
+      "created_at": "2025-03-25T00:00:00Z",
+      "execute_on": "2025-01-16T00:00:00Z",
+      "deleted_at": null,
+      "recurring": null,
+      "theme": "#cab361",
+      "name": "Massage Session",
+      "category": "personalCare",
+      "type": "credit"
+    },
+    {
+      "transaction_id": 6,
+      "user_id": 0,
+      "amount": 78.76,
+      "budget_id": null,
+      "created_at": "2025-12-16T00:00:00Z",
+      "execute_on": "2025-08-29T00:00:00Z",
+      "deleted_at": null,
+      "recurring": null,
+      "theme": "#597C7C",
+      "name": "Bookstore Purchase",
+      "category": "education",
+      "type": "credit"
+    },
+    {
+      "transaction_id": 7,
+      "user_id": 0,
+      "amount": 195.52,
+      "budget_id": null,
+      "created_at": "2025-02-24T00:00:00Z",
+      "execute_on": "2025-05-04T00:00:00Z",
+      "deleted_at": null,
+      "recurring": null,
+      "theme": "#626070",
+      "name": "Concert Ticket",
+      "category": "lifestyle",
+      "type": "credit"
+    },
+    {
+      "transaction_id": 8,
+      "user_id": 0,
+      "amount": 195.05,
+      "budget_id": null,
+      "created_at": "2025-04-22T00:00:00Z",
+      "execute_on": "2025-06-14T00:00:00Z",
+      "deleted_at": null,
+      "recurring": null,
+      "theme": "#7f9161",
+      "name": "Tech Gadget",
+      "category": "shopping",
+      "type": "credit"
+    },
+    {
+      "transaction_id": 9,
+      "user_id": 0,
+      "amount": 102.74,
+      "budget_id": null,
+      "created_at": "2025-12-02T00:00:00Z",
+      "execute_on": "2025-05-14T00:00:00Z",
+      "deleted_at": null,
+      "recurring": null,
+      "theme": "#277C78",
+      "name": "Charity Donation",
+      "category": "general",
+      "type": "credit"
+    },
+    {
+      "transaction_id": 10,
+      "user_id": 0,
+      "amount": 151.12,
+      "budget_id": null,
+      "created_at": "2025-03-06T00:00:00Z",
+      "execute_on": "2025-11-10T00:00:00Z",
+      "deleted_at": null,
+      "recurring": null,
+      "theme": "#597C7C",
+      "name": "Event Entry",
+      "category": "lifestyle",
+      "type": "credit"
+    },
+    {
+      "transaction_id": 11,
+      "user_id": 0,
+      "amount": 148.6,
+      "budget_id": null,
+      "created_at": "2025-08-21T00:00:00Z",
+      "execute_on": "2025-11-10T00:00:00Z",
+      "deleted_at": null,
+      "recurring": null,
+      "theme": "#3F82B2",
+      "name": "Event Entry",
+      "category": "lifestyle",
+      "type": "credit"
+    },
+    {
+      "transaction_id": 12,
+      "user_id": 0,
+      "amount": 29.26,
+      "budget_id": null,
+      "created_at": "2025-05-01T00:00:00Z",
+      "execute_on": "2025-08-23T00:00:00Z",
+      "deleted_at": null,
+      "recurring": null,
+      "theme": "#C94736",
+      "name": "Organic Food Store",
+      "category": "groceries",
+      "type": "credit"
+    },
+    {
+      "transaction_id": 13,
+      "user_id": 0,
+      "amount": 69.97,
+      "budget_id": null,
+      "created_at": "2025-04-23T00:00:00Z",
+      "execute_on": "2025-11-17T00:00:00Z",
+      "deleted_at": null,
+      "recurring": null,
+      "theme": "#be6c49",
+      "name": "Furniture Purchase",
+      "category": "shopping",
+      "type": "credit"
+    },
+    {
+      "transaction_id": 14,
+      "user_id": 0,
+      "amount": 106.84,
+      "budget_id": null,
+      "created_at": "2025-10-15T00:00:00Z",
+      "execute_on": "2025-10-27T00:00:00Z",
+      "deleted_at": null,
+      "recurring": null,
+      "theme": "#d46c5e",
+      "name": "Organic Food Store",
+      "category": "groceries",
+      "type": "debit"
+    },
+    {
+      "transaction_id": 15,
+      "user_id": 0,
+      "amount": 173.57,
+      "budget_id": null,
+      "created_at": "2025-11-13T00:00:00Z",
+      "execute_on": "2025-07-21T00:00:00Z",
+      "deleted_at": null,
+      "recurring": null,
+      "theme": "#3F82B2",
+      "name": "Furniture Purchase",
+      "category": "shopping",
+      "type": "debit"
+    },
+    {
+      "transaction_id": 16,
+      "user_id": 0,
+      "amount": 66.79,
+      "budget_id": null,
+      "created_at": "2025-10-04T00:00:00Z",
+      "execute_on": "2025-08-12T00:00:00Z",
+      "deleted_at": null,
+      "recurring": null,
+      "theme": "#826CB0",
+      "name": "Organic Food Store",
+      "category": "groceries",
+      "type": "debit"
+    },
+    {
+      "transaction_id": 17,
+      "user_id": 0,
+      "amount": 96.04,
+      "budget_id": null,
+      "created_at": "2025-05-05T00:00:00Z",
+      "execute_on": "2025-03-21T00:00:00Z",
+      "deleted_at": null,
+      "recurring": null,
+      "theme": "#cab361",
+      "name": "Spa Treatment",
+      "category": "personalCare",
+      "type": "credit"
+    },
+    {
+      "transaction_id": 18,
+      "user_id": 0,
+      "amount": 110.48,
+      "budget_id": null,
+      "created_at": "2025-01-08T00:00:00Z",
+      "execute_on": "2025-10-21T00:00:00Z",
+      "deleted_at": null,
+      "recurring": null,
+      "theme": "#cab361",
+      "name": "Gas Bill",
+      "category": "bills",
+      "type": "debit"
+    },
+    {
+      "transaction_id": 19,
+      "user_id": 0,
+      "amount": 176.13,
+      "budget_id": null,
+      "created_at": "2025-04-16T00:00:00Z",
+      "execute_on": "2025-07-29T00:00:00Z",
+      "deleted_at": null,
+      "recurring": null,
+      "theme": "#C94736",
+      "name": "Concert Ticket",
+      "category": "lifestyle",
+      "type": "credit"
+    },
+    {
+      "transaction_id": 20,
+      "user_id": 0,
+      "amount": 36.52,
+      "budget_id": null,
+      "created_at": "2025-05-16T00:00:00Z",
+      "execute_on": "2025-10-21T00:00:00Z",
+      "deleted_at": null,
+      "recurring": null,
+      "theme": "#C94736",
+      "name": "Gym Membership",
+      "category": "lifestyle",
+      "type": "debit"
+    },
+    {
+      "transaction_id": 21,
+      "user_id": 0,
+      "amount": 113.45,
+      "budget_id": null,
+      "created_at": "2025-07-11T00:00:00Z",
+      "execute_on": "2025-10-18T00:00:00Z",
+      "deleted_at": null,
+      "recurring": null,
+      "theme": "#97a0ac",
+      "name": "Train Ticket",
+      "category": "transportation",
+      "type": "credit"
+    },
+    {
+      "transaction_id": 22,
+      "user_id": 0,
+      "amount": 78.34,
+      "budget_id": null,
+      "created_at": "2025-08-03T00:00:00Z",
+      "execute_on": "2025-08-10T00:00:00Z",
+      "deleted_at": null,
+      "recurring": null,
+      "theme": "#C94736",
+      "name": "Clothing Store",
+      "category": "shopping",
+      "type": "credit"
+    },
+    {
+      "transaction_id": 23,
+      "user_id": 0,
+      "amount": 124.95,
+      "budget_id": null,
+      "created_at": "2025-05-05T00:00:00Z",
+      "execute_on": "2025-12-23T00:00:00Z",
+      "deleted_at": null,
+      "recurring": null,
+      "theme": "#597C7C",
+      "name": "Bookstore Purchase",
+      "category": "education",
+      "type": "debit"
+    },
+    {
+      "transaction_id": 24,
+      "user_id": 0,
+      "amount": 17.62,
+      "budget_id": null,
+      "created_at": "2025-10-29T00:00:00Z",
+      "execute_on": "2025-08-22T00:00:00Z",
+      "deleted_at": null,
+      "recurring": null,
+      "theme": "#C94736",
+      "name": "Food Delivery",
+      "category": "diningOut",
+      "type": "credit"
+    },
+    {
+      "transaction_id": 25,
+      "user_id": 0,
+      "amount": 117.96,
+      "budget_id": null,
+      "created_at": "2025-07-20T00:00:00Z",
+      "execute_on": "2025-11-15T00:00:00Z",
+      "deleted_at": null,
+      "recurring": null,
+      "theme": "#af81ba",
+      "name": "Farmers Market",
+      "category": "groceries",
+      "type": "debit"
+    },
+    {
+      "transaction_id": 26,
+      "user_id": 0,
+      "amount": 186.54,
+      "budget_id": null,
+      "created_at": "2025-04-16T00:00:00Z",
+      "execute_on": "2025-12-12T00:00:00Z",
+      "deleted_at": null,
+      "recurring": null,
+      "theme": "#93674F",
+      "name": "Train Ticket",
+      "category": "transportation",
+      "type": "credit"
+    },
+    {
+      "transaction_id": 27,
+      "user_id": 0,
+      "amount": 87.18,
+      "budget_id": null,
+      "created_at": "2025-07-17T00:00:00Z",
+      "execute_on": "2025-07-22T00:00:00Z",
+      "deleted_at": null,
+      "recurring": null,
+      "theme": "#7f9161",
+      "name": "Bank Fee",
+      "category": "general",
+      "type": "credit"
+    },
+    {
+      "transaction_id": 28,
+      "user_id": 0,
+      "amount": 6.75,
+      "budget_id": null,
+      "created_at": "2025-08-01T00:00:00Z",
+      "execute_on": "2025-09-29T00:00:00Z",
+      "deleted_at": null,
+      "recurring": null,
+      "theme": "#d46c5e",
+      "name": "Gas Bill",
+      "category": "bills",
+      "type": "debit"
+    },
+    {
+      "transaction_id": 29,
+      "user_id": 0,
+      "amount": 70.69,
+      "budget_id": null,
+      "created_at": "2025-02-13T00:00:00Z",
+      "execute_on": "2025-01-27T00:00:00Z",
+      "deleted_at": null,
+      "recurring": null,
+      "theme": "#277C78",
+      "name": "Gym Membership",
+      "category": "personalCare",
+      "type": "credit"
+    },
+    {
+      "transaction_id": 30,
+      "user_id": 0,
+      "amount": 83.1,
+      "budget_id": null,
+      "created_at": "2025-07-26T00:00:00Z",
+      "execute_on": "2025-02-17T00:00:00Z",
+      "deleted_at": null,
+      "recurring": null,
+      "theme": "#af81ba",
+      "name": "Furniture Purchase",
+      "category": "shopping",
+      "type": "credit"
+    },
+    {
+      "transaction_id": 31,
+      "user_id": 0,
+      "amount": 178.55,
+      "budget_id": null,
+      "created_at": "2025-04-19T00:00:00Z",
+      "execute_on": "2025-02-26T00:00:00Z",
+      "deleted_at": null,
+      "recurring": null,
+      "theme": "#82C9D7",
+      "name": "Service Charge",
+      "category": "general",
+      "type": "credit"
+    },
+    {
+      "transaction_id": 32,
+      "user_id": 0,
+      "amount": 105.78,
+      "budget_id": null,
+      "created_at": "2025-10-28T00:00:00Z",
+      "execute_on": "2025-02-28T00:00:00Z",
+      "deleted_at": null,
+      "recurring": null,
+      "theme": "#af81ba",
+      "name": "Bookstore Purchase",
+      "category": "education",
+      "type": "credit"
+    },
+    {
+      "transaction_id": 33,
+      "user_id": 0,
+      "amount": 153.54,
+      "budget_id": null,
+      "created_at": "2025-08-30T00:00:00Z",
+      "execute_on": "2025-10-11T00:00:00Z",
+      "deleted_at": null,
+      "recurring": null,
+      "theme": "#597C7C",
+      "name": "Wholesale Grocery",
+      "category": "groceries",
+      "type": "debit"
+    },
+    {
+      "transaction_id": 34,
+      "user_id": 0,
+      "amount": 21.78,
+      "budget_id": null,
+      "created_at": "2025-10-04T00:00:00Z",
+      "execute_on": "2025-03-09T00:00:00Z",
+      "deleted_at": null,
+      "recurring": null,
+      "theme": "#7f9161",
+      "name": "Haircut",
+      "category": "personalCare",
+      "type": "credit"
+    },
+    {
+      "transaction_id": 35,
+      "user_id": 0,
+      "amount": 92.24,
+      "budget_id": null,
+      "created_at": "2025-04-22T00:00:00Z",
+      "execute_on": "2025-12-24T00:00:00Z",
+      "deleted_at": null,
+      "recurring": null,
+      "theme": "#626070",
+      "name": "Supermarket Purchase",
+      "category": "groceries",
+      "type": "credit"
+    },
+    {
+      "transaction_id": 36,
+      "user_id": 0,
+      "amount": 32.3,
+      "budget_id": null,
+      "created_at": "2025-02-17T00:00:00Z",
+      "execute_on": "2025-11-04T00:00:00Z",
+      "deleted_at": null,
+      "recurring": null,
+      "theme": "#277C78",
+      "name": "Cinema Ticket",
+      "category": "entertainment",
+      "type": "debit"
+    },
+    {
+      "transaction_id": 37,
+      "user_id": 0,
+      "amount": 90.88,
+      "budget_id": null,
+      "created_at": "2025-09-30T00:00:00Z",
+      "execute_on": "2025-03-09T00:00:00Z",
+      "deleted_at": null,
+      "recurring": null,
+      "theme": "#F2CDAC",
+      "name": "Event Entry",
+      "category": "lifestyle",
+      "type": "debit"
+    },
+    {
+      "transaction_id": 38,
+      "user_id": 0,
+      "amount": 112.69,
+      "budget_id": null,
+      "created_at": "2025-05-05T00:00:00Z",
+      "execute_on": "2025-04-23T00:00:00Z",
+      "deleted_at": null,
+      "recurring": null,
+      "theme": "#7f9161",
+      "name": "Fuel Purchase",
+      "category": "transportation",
+      "type": "debit"
+    },
+    {
+      "transaction_id": 39,
+      "user_id": 0,
+      "amount": 158.94,
+      "budget_id": null,
+      "created_at": "2025-01-04T00:00:00Z",
+      "execute_on": "2025-10-06T00:00:00Z",
+      "deleted_at": null,
+      "recurring": null,
+      "theme": "#97a0ac",
+      "name": "Gym Membership",
+      "category": "lifestyle",
+      "type": "credit"
+    },
+    {
+      "transaction_id": 40,
+      "user_id": 0,
+      "amount": 61.63,
+      "budget_id": null,
+      "created_at": "2025-11-20T00:00:00Z",
+      "execute_on": "2025-01-25T00:00:00Z",
+      "deleted_at": null,
+      "recurring": null,
+      "theme": "#826CB0",
+      "name": "Supermarket Purchase",
+      "category": "groceries",
+      "type": "credit"
+    },
+    {
+      "transaction_id": 41,
+      "user_id": 0,
+      "amount": 8.13,
+      "budget_id": null,
+      "created_at": "2025-03-02T00:00:00Z",
+      "execute_on": "2025-05-21T00:00:00Z",
+      "deleted_at": null,
+      "recurring": null,
+      "theme": "#277C78",
+      "name": "Concert Ticket",
+      "category": "lifestyle",
+      "type": "credit"
+    },
+    {
+      "transaction_id": 42,
+      "user_id": 0,
+      "amount": 180.87,
+      "budget_id": null,
+      "created_at": "2025-05-16T00:00:00Z",
+      "execute_on": "2025-04-08T00:00:00Z",
+      "deleted_at": null,
+      "recurring": null,
+      "theme": "#626070",
+      "name": "Online Course Fee",
+      "category": "education",
+      "type": "credit"
+    },
+    {
+      "transaction_id": 43,
+      "user_id": 0,
+      "amount": 191.42,
+      "budget_id": null,
+      "created_at": "2025-02-10T00:00:00Z",
+      "execute_on": "2025-11-14T00:00:00Z",
+      "deleted_at": null,
+      "recurring": null,
+      "theme": "#3F82B2",
+      "name": "Spa Treatment",
+      "category": "personalCare",
+      "type": "credit"
+    },
+    {
+      "transaction_id": 44,
+      "user_id": 0,
+      "amount": 67.27,
+      "budget_id": null,
+      "created_at": "2025-10-13T00:00:00Z",
+      "execute_on": "2025-03-11T00:00:00Z",
+      "deleted_at": null,
+      "recurring": null,
+      "theme": "#3F82B2",
+      "name": "Gas Bill",
+      "category": "bills",
+      "type": "credit"
     }
   ]);
 
   // public transactionsRecurring = signal<TransactionsObject[]>([]); 
-  public transactionsRecurring = signal<testRecurringTransactionsObject[]>([
+  public transactionsRecurring = signal<TransactionsObject[]>([
     {
-      id: 0,
-      user: 0,
-      amount: 40.24,
-      budget_id: null,
-      execute_on: "2025-03-24T16:14:01.000000Z",
-      created_at: "2025-02-24T16:14:01.000000Z",
-      deleted_at: null,
-      recurring: "monthly",
-      theme: "#277C78",
-      name: "Test Transaction 1",
-      category: "entertainment",
-      budget: {
-        category: ""
-      }
+      "transaction_id": 0,
+      "user_id": 0,
+      "amount": 86.68,
+      "budget_id": null,
+      "created_at": "2025-09-12T00:00:00Z",
+      "execute_on": "2025-07-26T00:00:00Z",
+      "deleted_at": null,
+      "recurring": 'monthly',
+      "theme": "#597C7C",
+      "name": "Game Purchase",
+      "category": "entertainment",
+      "type": "credit"
     },
     {
-      id: 1,
-      user: 1,
-      amount: 75.65,
-      budget_id: null,
-      execute_on: "2025-03-08T16:14:01.000000Z",
-      created_at: "2025-02-24T16:14:01.000000Z",
-      deleted_at: null,
-      recurring: "monthly",
-      theme: "#C94736",
-      name: "Test Transaction 2",
-      category: "groceries",
-      budget: {
-        category: ""
-      }
+      "transaction_id": 1,
+      "user_id": 0,
+      "amount": 146.88,
+      "budget_id": null,
+      "created_at": "2025-02-09T00:00:00Z",
+      "execute_on": "2025-12-19T00:00:00Z",
+      "deleted_at": null,
+      "recurring": 'monthly',
+      "theme": "#626070",
+      "name": "Internet Bill",
+      "category": "bills",
+      "type": "debit"
     },
     {
-      id: 2,
-      user: 2,
-      amount: 12.79,
-      budget_id: null,
-      execute_on: "2025-03-02T16:14:01.000000Z",
-      created_at: "2025-02-24T16:14:01.000000Z",
-      deleted_at: null,
-      recurring: "monthly",
-      theme: "#af81ba",
-      name: "Test Transaction 3",
-      category: "education",
-      budget: {
-        category: ""
-      }
+      "transaction_id": 2,
+      "user_id": 0,
+      "amount": 133.42,
+      "budget_id": null,
+      "created_at": "2025-06-14T00:00:00Z",
+      "execute_on": "2025-08-10T00:00:00Z",
+      "deleted_at": null,
+      "recurring": 'monthly',
+      "theme": "#97a0ac",
+      "name": "Organic Food Store",
+      "category": "groceries",
+      "type": "debit"
     },
     {
-      id: 3,
-      user: 3,
-      amount: 60.20,
-      budget_id: null,
-      execute_on: "2025-03-29T16:14:01.000000Z",
-      created_at: "2025-02-24T16:14:01.000000Z",
-      deleted_at: null,
-      recurring: "monthly",
-      theme: "#934F6F",
-      name: "Test Transaction 4",
-      category: "lifestyle",
-      budget: {
-        category: ""
-      }
+      "transaction_id": 3,
+      "user_id": 0,
+      "amount": 49.81,
+      "budget_id": null,
+      "created_at": "2025-02-08T00:00:00Z",
+      "execute_on": "2025-06-02T00:00:00Z",
+      "deleted_at": null,
+      "recurring": 'monthly',
+      "theme": "#F2CDAC",
+      "name": "Caf\u00e9 Visit",
+      "category": "diningOut",
+      "type": "credit"
     },
     {
-      id: 4,
-      user: 4,
-      amount: 4.79,
-      budget_id: null,
-      execute_on: "2025-03-16T16:14:01.000000Z",
-      created_at: "2025-02-24T16:14:01.000000Z",
-      deleted_at: null,
-      recurring: "monthly",
-      theme: "#97a0ac",
-      name: "Test Transaction 5",
-      category: "general",
-      budget: {
-        category: ""
-      }
+      "transaction_id": 4,
+      "user_id": 0,
+      "amount": 170.55,
+      "budget_id": null,
+      "created_at": "2025-11-04T00:00:00Z",
+      "execute_on": "2025-07-30T00:00:00Z",
+      "deleted_at": null,
+      "recurring": 'monthly',
+      "theme": "#af81ba",
+      "name": "Taxi Ride",
+      "category": "transportation",
+      "type": "debit"
+    },
+    {
+      "transaction_id": 5,
+      "user_id": 0,
+      "amount": 42.36,
+      "budget_id": null,
+      "created_at": "2025-03-25T00:00:00Z",
+      "execute_on": "2025-01-16T00:00:00Z",
+      "deleted_at": null,
+      "recurring": 'monthly',
+      "theme": "#cab361",
+      "name": "Massage Session",
+      "category": "personalCare",
+      "type": "credit"
     }
   ]);
 

@@ -29,19 +29,21 @@ interface PotsObject {
 }
 
 interface TransactionsObject {
-  id: number;
-  user: number | null;
+  transaction_id: number;
+  user_id: number | null;
   amount: number | null;
   budget_id: number	| null;
   created_at: string | null;
   deleted_at: string | null;
+  execute_on: string | null;
   recurring: string | null;
   theme: string,
   name: string;
-  category: string;
-  budget: {
-    category: string;
-  } | null;
+  category: null | string;
+  type: string;
+  // budget: {
+  //   category: string;
+  // } | null;
 }
 
 interface testRecurringTransactionsObject {
