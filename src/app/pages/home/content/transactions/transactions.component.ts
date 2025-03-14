@@ -18,8 +18,37 @@ export class TransactionsComponent {
   private mainModalService: MainModalService = inject(MainModalService);
   public authService: AuthenticationService = inject(AuthenticationService);
 
-  isLoadingScreenVisible: boolean = false;
-  isWarningScreenVisible: boolean = false;
+  public transactionsSignal$: any = this.dataStore.transactions;
+  
+  ngOnInit() {
+    console.log(this.transactionsSignal$());
+    
+  }
+
+  // previous unfiltered transactions from data store service
+  public prevTransactionsArray: any = this.transactionsSignal$();
+
+  public categoryFilterInput: string = '';
+
+  public sortByInput: string = '';
+
+  public searchFieldInput: string = '';
+
+  public setCategoryFilterInput(input: string) {
+    this.categoryFilterInput = input;
+  }
+
+  public setSortByInput(input: string) {
+    this.sortByInput = input;
+  }
+
+
+
+  private getTransactionsFilteredByCategories() {}
+
+  private getSortedTransactions() {}
+
+
 
 
   public openSubModal(subModal: string, subModalObject: Object) {
