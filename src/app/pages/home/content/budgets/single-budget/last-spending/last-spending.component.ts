@@ -38,7 +38,9 @@ export class LastSpendingComponent {
     if (this.spending.id > -1) {
       this.amount = this.formatAmount(this.spending.amount);
       this.date = this.formatDate(this.spending.created_at);
-      this.iconName = this.getCategoryIcon(this.spending.budget.category);
+      // this.iconName = this.getCategoryIcon(this.spending.budget.category);
+      this.iconName = this.getCategoryIcon(this.spending.category);
+
       this.iconBackground = this.spending.theme;
     }
   }
