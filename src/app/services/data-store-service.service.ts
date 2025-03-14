@@ -35,7 +35,7 @@ export class DataStoreServiceService {
         budget_id: null,
         deleted_at: null,
         created_at: "2025-02-24T16:14:01.000000Z",
-        category: '',
+        category: 'transportation',
         budget: {
           category: "transportation"
         }
@@ -50,7 +50,7 @@ export class DataStoreServiceService {
         budget_id: 4,
         deleted_at: null,
         created_at: "2025-02-24T16:14:01.000000Z",
-        category: '',
+        category: 'transportation',
         budget: {
           category: "transportation"
         }
@@ -74,7 +74,7 @@ export class DataStoreServiceService {
         budget_id: null,
         deleted_at: null,
         created_at: "2025-02-24T16:14:01.000000Z",
-        category: '',
+        category: 'groceries',
         budget: {
           category: "groceries"
         }
@@ -89,7 +89,7 @@ export class DataStoreServiceService {
         budget_id: 4,
         deleted_at: null,
         created_at: "2025-02-24T16:14:01.000000Z",
-        category: '',
+        category: 'groceries',
         budget: {
           category: "groceries"
         }
@@ -123,7 +123,7 @@ export class DataStoreServiceService {
         budget_id: null,
         deleted_at: null,
         created_at: "2025-02-24T16:14:01.000000Z",
-        category: '',
+        category: 'shopping',
         budget: {
           category: "shopping"
         }
@@ -138,7 +138,7 @@ export class DataStoreServiceService {
         budget_id: 4,
         deleted_at: null,
         created_at: "2025-02-24T16:14:01.000000Z",
-        category: '',
+        category: 'shopping',
         budget: {
           category: "shopping"
         }
@@ -162,7 +162,7 @@ export class DataStoreServiceService {
         budget_id: null,
         deleted_at: null,
         created_at: "2025-02-24T16:14:01.000000Z",
-        category: '',
+        category: 'diningOut',
         budget: {
           category: "diningOut"
         }
@@ -177,7 +177,7 @@ export class DataStoreServiceService {
         budget_id: 4,
         deleted_at: null,
         created_at: "2025-02-24T16:14:01.000000Z",
-        category: '',
+        category: 'diningOut',
         budget: {
           category: "diningOut"
         }
@@ -201,7 +201,7 @@ export class DataStoreServiceService {
         budget_id: null,
         deleted_at: null,
         created_at: "2025-02-24T16:14:01.000000Z",
-        category: '',
+        category: 'entertainment',
         budget: {
           category: "entertainment"
         }
@@ -216,7 +216,7 @@ export class DataStoreServiceService {
         budget_id: 4,
         deleted_at: null,
         created_at: "2025-02-24T16:14:01.000000Z",
-        category: '',
+        category: 'entertainment',
         budget: {
           category: "entertainment"
         }
