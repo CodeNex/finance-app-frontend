@@ -5,24 +5,41 @@
 >
   <div class="subModalContainer">
     @if (currentShownSubModal === "addTransaction") {
-      <app-add-transaction-modal></app-add-transaction-modal>
-    }
-    @if (currentShownSubModal === "addBudget") {
+    <app-add-transaction-modal></app-add-transaction-modal>
+    } @if (currentShownSubModal === "addBudget") {
     <app-add-budget-modal></app-add-budget-modal>
     } @if (currentShownSubModal === "deleteBudget") {
-    <app-delete-budget-modal [modalObject]="subModalObject" [budgetIndex]="index"></app-delete-budget-modal>
+    <app-delete-budget-modal
+      [modalObject]="subModalObject"
+      [budgetIndex]="index"
+    ></app-delete-budget-modal>
     } @if (currentShownSubModal === "editBudget") {
-    <app-edit-budget-modal [modalObject]="subModalObject" [budgetIndex]="index"></app-edit-budget-modal>
+    <app-edit-budget-modal
+      [modalObject]="subModalObject"
+      [budgetIndex]="index"
+    ></app-edit-budget-modal>
     } @if (currentShownSubModal === "addPot") {
     <app-add-pot-modal></app-add-pot-modal>
     } @if (currentShownSubModal === "editPot") {
-    <app-edit-pot-modal [modalObject]="subModalObject" [potIndex]="index"></app-edit-pot-modal>
+    <app-edit-pot-modal
+      [modalObject]="subModalObject"
+      [potIndex]="index"
+    ></app-edit-pot-modal>
     } @if (currentShownSubModal === "deletePot") {
-    <app-delete-pot-modal [modalObject]="subModalObject" [potIndex]="index"></app-delete-pot-modal>
+    <app-delete-pot-modal
+      [modalObject]="subModalObject"
+      [potIndex]="index"
+    ></app-delete-pot-modal>
     } @if (currentShownSubModal === "addMoneyPot") {
-    <app-addmoney-pot-modal [modalObject]="subModalObject" [potIndex]="index"></app-addmoney-pot-modal>
+    <app-addmoney-pot-modal
+      [modalObject]="subModalObject"
+      [potIndex]="index"
+    ></app-addmoney-pot-modal>
     } @if (currentShownSubModal === "withdrawMoneyPot") {
-    <app-withdrawmoney-pot-modal [modalObject]="subModalObject" [potIndex]="index"></app-withdrawmoney-pot-modal>
+    <app-withdrawmoney-pot-modal
+      [modalObject]="subModalObject"
+      [potIndex]="index"
+    ></app-withdrawmoney-pot-modal>
     }
   </div>
 </section>
