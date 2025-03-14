@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, effect, inject, computed, Signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { DataStoreServiceService } from '../../../../services/data-store-service.service';
@@ -18,16 +18,48 @@ export class TransactionsComponent {
   private mainModalService: MainModalService = inject(MainModalService);
   public authService: AuthenticationService = inject(AuthenticationService);
 
-  public transactionsSignal$: any = this.dataStore.transactions;
-  
+  public transactionsSignal$: Signal<any[]> = this.dataStore.transactions;
+
   ngOnInit() {
-    console.log(this.transactionsSignal$());
-    
+    console.log(this.readyToRenderTransactionsArray());
   }
 
-  // previous unfiltered transactions from data store service
-  public prevTransactionsArray: any = this.transactionsSignal$();
+  // This is a computed property that will be recalculated whenever the transactionsSignal$ changes
+  public readyToRenderTransactionsArray: any = computed(() => {
+    return this.formatTransactionsArray(this.transactionsSignal$());
+  });
 
+  public formatTransactionsArray(prevArray: any) {
+    let categoriesArray = this.getTransactionsFilteredByCategories(prevArray);
+    let searchedArray = this.getSearchedTransactions(categoriesArray);
+    let sortedArray = this.getSortedTransactions(searchedArray);
+    let splittedArray = this.splitTransactionsArray(sortedArray);
+
+    return splittedArray;
+  }
+
+  private getTransactionsFilteredByCategories(prevArray: any) {
+    let array = prevArray;
+    return array;
+  }
+
+  private getSearchedTransactions(prevArray: any) {
+    let array = prevArray;
+    return array;
+  }
+
+  private getSortedTransactions(prevArray: any) {
+    let array = prevArray;
+    return array;
+  }
+
+  private splitTransactionsArray(prevArray: any) {
+    let array = prevArray;
+    return array;
+  }
+
+ 
+  // inputs to filter and sort transactions
   public categoryFilterInput: string = '';
 
   public sortByInput: string = '';
@@ -42,16 +74,8 @@ export class TransactionsComponent {
     this.sortByInput = input;
   }
 
-
-
-  private getTransactionsFilteredByCategories() {}
-
-  private getSortedTransactions() {}
-
-
-
-
   public openSubModal(subModal: string, subModalObject: Object) {
     this.mainModalService.chooseSubModal(subModal, subModalObject, null);
   }
+
 }
