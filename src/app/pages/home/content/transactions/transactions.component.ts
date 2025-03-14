@@ -1,24 +1,28 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { LoadingScreenComponent } from '../../../../components/loading-screen/loading-screen.component';
-import { WarningScreenComponent } from '../../../../components/warning-screen/warning-screen.component';
-
 import { DataStoreServiceService } from '../../../../services/data-store-service.service';
 import { AuthenticationService } from '../../../../services/authentication.service';
+import { MainModalService } from '../../../../services/main-modal.service';
 import { APIService } from '../../../../services/api.service';
 
 @Component({
   selector: 'app-transactions',
-  imports: [LoadingScreenComponent, WarningScreenComponent, CommonModule],
+  imports: [CommonModule],
   templateUrl: './transactions.component.html',
   styleUrl: './transactions.component.scss',
 })
 export class TransactionsComponent {
   private apiService: APIService = inject(APIService);
   private dataStore: DataStoreServiceService = inject(DataStoreServiceService);
+  private mainModalService: MainModalService = inject(MainModalService);
   public authService: AuthenticationService = inject(AuthenticationService);
 
   isLoadingScreenVisible: boolean = false;
   isWarningScreenVisible: boolean = false;
+
+
+  public openSubModal(subModal: string, subModalObject: Object) {
+    this.mainModalService.chooseSubModal(subModal, subModalObject, null);
+  }
 }

@@ -1,7 +1,26 @@
-<section class="w-full min-h-[100%]">
-  <main>
-    <p>Transaction Works</p>
+<section class="w-full flex justify-center min-h-[100%]">
+  <main class="max-w-[1440px] w-full">
+    <header
+    aria-label="Budgets Header. Theres a button at the right side to create new Budgets."
+    class="potsHeader flex items-center justify-between"
+  >
+    <p class="text1b">Transactions</p>
+    <button
+      (click)="openSubModal('addTransaction', {})"
+      class="border-solid bg-grey-900 text4b text-white p-4 rounded-lg transition-all duration-300 hover:bg-grey-500"
+    >
+      + Add New Transaction
+    </button>
+  </header>
+    <div>
+      <!-- Transactions Filter -->
+      <div aria-label="transactions filter section"></div>
+
+      <!-- Transactions List -->
+      <div aria-label="transactions list section"></div>
+
+      <!-- Transactions Navigation -->
+      <div aria-label="transactions window navigation"></div>
+    </div>
   </main>
-  
- 
 </section>

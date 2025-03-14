@@ -4,6 +4,9 @@
   class="mainModal absolute top-0 left-0 z-[100] w-full h-full bg-[rgba(0,0,0,0.5)] flex justify-center items-center"
 >
   <div class="subModalContainer">
+    @if (currentShownSubModal === "addTransaction") {
+      <app-add-transaction-modal></app-add-transaction-modal>
+    }
     @if (currentShownSubModal === "addBudget") {
     <app-add-budget-modal></app-add-budget-modal>
     } @if (currentShownSubModal === "deleteBudget") {
