@@ -25,19 +25,21 @@ export class TransactionsComponent {
   }
 
   // This is a computed property that will be recalculated whenever the transactionsSignal$ changes
+  // it returns the transactions array in a format that is ready to be rendered
   public readyToRenderTransactionsArray: any = computed(() => {
     return this.formatTransactionsArray(this.transactionsSignal$());
   });
 
+  // This function takes the transactions array and returns it in a format that is ready to be rendered
   public formatTransactionsArray(prevArray: any) {
     let categoriesArray = this.getTransactionsFilteredByCategories(prevArray);
     let searchedArray = this.getSearchedTransactions(categoriesArray);
     let sortedArray = this.getSortedTransactions(searchedArray);
     let splittedArray = this.splitTransactionsArray(sortedArray);
-
     return splittedArray;
   }
 
+  // These functions are used in the formatTransactionsArray function to filter and sort the transactions array
   private getTransactionsFilteredByCategories(prevArray: any) {
     let array = prevArray;
     return array;
@@ -54,11 +56,14 @@ export class TransactionsComponent {
   }
 
   private splitTransactionsArray(prevArray: any) {
-    let array = prevArray;
-    return array;
+    let transactionsPerPage = 10;
+    let splittedArray: any[][] = [];
+    for (let i = 0; i < prevArray.length; i += transactionsPerPage) {
+      splittedArray.push(prevArray.slice(i, i + transactionsPerPage));
+    }
+    return splittedArray;
   }
 
- 
   // inputs to filter and sort transactions
   public categoryFilterInput: string = '';
 
@@ -77,5 +82,4 @@ export class TransactionsComponent {
   public openSubModal(subModal: string, subModalObject: Object) {
     this.mainModalService.chooseSubModal(subModal, subModalObject, null);
   }
-
 }
