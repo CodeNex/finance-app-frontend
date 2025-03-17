@@ -16,7 +16,7 @@
     <!-- Transactions content section -->
     <div
       aria-label="transactions content section"
-      class="w-full min-h-[500px] bg-white rounded-xl p-8"
+      class="w-full min-h-[500px] bg-white rounded-xl p-8 flex flex-col gap-6"
     >
       <!-- Transactions Filter -->
       <div
@@ -36,7 +36,7 @@
       <div aria-label="transactions list section">
         <div
           aria-label="transactions list header"
-          class="flex items-center justify-between"
+          class="flex items-center justify-between pb-6"
         >
           <p class="text2b text-grey-900">Spending Summary</p>
         </div>
@@ -44,11 +44,7 @@
         @for (item of this.readyToRenderTransactionsArray(); let index = $index;
         track item) { @if (index === this.currentPage) {
 
-        <ul
-          id=""
-          aria-label="list of latest spendings"
-          class="h-[246px] overflow-y-auto"
-        >
+        <ul id="" aria-label="list of latest spendings" class="">
           @for (transaction of item; let index = $index; track transaction) {
           <li
             aria-label="spending item"
@@ -59,10 +55,9 @@
           >
             <app-single-transaction></app-single-transaction>
           </li>
-
-          } @if ( index < item.length - 1) {
+          @if ( index < item.length - 1) {
           <div class="w-full h-[1.5px] rounded-full bg-[#e3e0dc]"></div>
-          }
+          } }
         </ul>
         } }
       </div>
