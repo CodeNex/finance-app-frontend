@@ -11,7 +11,7 @@ import { LastSpendingComponent } from './last-spending/last-spending.component';
 
 @Component({
   selector: 'app-single-budget',
-  imports: [CommonModule, RouterModule, IconsComponent, LastSpendingComponent ],
+  imports: [CommonModule, RouterModule, IconsComponent, LastSpendingComponent],
   templateUrl: './single-budget.component.html',
   styleUrl: './single-budget.component.scss',
 })
@@ -42,6 +42,8 @@ export class SingleBudgetComponent {
       {
         transaction_id: -1,
         user_id: -1,
+        sender: '',
+        reciever: '',
         name: '',
         amount: -1,
         recurring: null,
@@ -52,9 +54,6 @@ export class SingleBudgetComponent {
         execute_on: null,
         category: '',
         type: '',
-        // budget: {
-        //   category: '',
-        // },
       },
     ],
   };
@@ -89,7 +88,7 @@ export class SingleBudgetComponent {
     } else if (this.budget.amount >= this.budget.maximum) {
       return '100%';
     } else {
-      return `${Math.trunc(this.budget.amount / this.budget.maximum * 100)}%`
+      return `${Math.trunc((this.budget.amount / this.budget.maximum) * 100)}%`;
     }
   }
 
@@ -100,12 +99,13 @@ export class SingleBudgetComponent {
       return '$0.00';
     } else {
       this.isTooMuchSpent = false;
-      return `$${(
-      this.budget.maximum - this.budget.amount
-    ).toLocaleString('en-US', {
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2,
-    })}`;
+      return `$${(this.budget.maximum - this.budget.amount).toLocaleString(
+        'en-US',
+        {
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2,
+        }
+      )}`;
     }
   }
 
