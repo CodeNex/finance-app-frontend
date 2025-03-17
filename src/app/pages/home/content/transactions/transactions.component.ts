@@ -28,7 +28,7 @@ export class TransactionsComponent {
   public sortByInput: string = '';
   public searchFieldInput: string = '';
   public totalSubPages: number = 0;
-  public currentPage: number = 1;
+  public currentPage: number = 0;
 
   ngOnInit() {
     console.log(this.readyToRenderTransactionsArray());
