@@ -5,10 +5,15 @@ import { DataStoreServiceService } from '../../../../services/data-store-service
 import { AuthenticationService } from '../../../../services/authentication.service';
 import { MainModalService } from '../../../../services/main-modal.service';
 import { APIService } from '../../../../services/api.service';
+import { CategoryfilterTransactionsComponent } from './categoryfilter-transactions/categoryfilter-transactions.component';
+import { SearchTransactionComponent } from './search-transaction/search-transaction.component';
+import { SortbyTransactionsComponent } from './sortby-transactions/sortby-transactions.component';
+import { SingleTransactionComponent } from './single-transaction/single-transaction.component';
+import { PaginationNavcontrolComponent } from './pagination-navcontrol/pagination-navcontrol.component';
 
 @Component({
   selector: 'app-transactions',
-  imports: [CommonModule],
+  imports: [CommonModule, SearchTransactionComponent, SortbyTransactionsComponent, CategoryfilterTransactionsComponent, SingleTransactionComponent, PaginationNavcontrolComponent],
   templateUrl: './transactions.component.html',
   styleUrl: './transactions.component.scss',
 })
