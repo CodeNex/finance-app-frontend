@@ -32,6 +32,7 @@ export class SingleTransactionComponent {
   };
 
   public iconName: string = '';
+  public theme: string = '';
   public name: string = '';
   public category: string = '';
   public date: string = '';
@@ -43,6 +44,7 @@ export class SingleTransactionComponent {
       this.baseData.financeApp.budgets.categories[
         this.transaction.category
       ].iconName;
+    this.theme = this.transaction.theme;
     this.name = this.transaction.name;
     this.category =
       this.baseData.financeApp.budgets.categories[
