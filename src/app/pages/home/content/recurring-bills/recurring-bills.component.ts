@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, effect, inject } from '@angular/core';
 import { LoadingScreenComponent } from '../../../../components/loading-screen/loading-screen.component';
 import { WarningScreenComponent } from '../../../../components/warning-screen/warning-screen.component';
 import { DataStoreServiceService } from '../../../../services/data-store-service.service';
@@ -25,4 +25,9 @@ export class RecurringBillsComponent {
   isLoadingScreenVisible: boolean = false;
   isWarningScreenVisible: boolean = false;
   
+  constructor() {
+    effect(() => {
+      this.recurringBillsArray$ = this.dataStore.transactionsRecurring();
+    });
+  }
 }

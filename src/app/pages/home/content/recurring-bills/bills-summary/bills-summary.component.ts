@@ -24,20 +24,20 @@ export class BillsSummaryComponent {
   public totalBillsAmount: string = "";
   public totalPaid: string = "";
   public totalUpcoming: string = "";
-
-  // constructor() {
-  //   effect(() => {
-  //     this.recurringBillsArray$ = this.dataStore.transactionsRecurring();
-  //   });
-  // }
+  public selectedTimeWindow: string = "monthly";
 
   ngOnInit() {
-    this.totalBillsAmount = this.getformattedValue(this.getTotalBillsAmount(this.recurringBillsArray$));
-    this.totalPaid = this.getformattedValue(this.getTotalPaidAmount(this.recurringBillsArray$));
-    this.totalUpcoming = this.getformattedValue(this.getTotalUpcomingAmount(this.recurringBillsArray$));
+    this.updateCalculations();
+    
   }
 
-  getTotalBillsAmount(recurringBillsArray$: testRecurringTransactionsObject[]): number {
+  updateCalculations() {
+    this.totalBillsAmount = this.getformattedValue(this.getTotalBillsAmount(this.recurringBillsArray$, this.selectedTimeWindow));
+    // this.totalPaid = this.getformattedValue(this.getTotalPaidAmount(this.recurringBillsArray$));
+    // this.totalUpcoming = this.getformattedValue(this.getTotalUpcomingAmount(this.recurringBillsArray$));
+  }
+
+  getTotalBillsAmount(recurringBillsArray$: testRecurringTransactionsObject[], selectedTimeWindow: string): number {
     let sum = 0;
     recurringBillsArray$.forEach(bill => {
       if (bill.amount) {
@@ -98,23 +98,24 @@ export class BillsSummaryComponent {
     });
   }
 
-  updateCalculations(event: Event) {
+  updateTimeWindow(event: Event) {
     const target = event.target as HTMLSelectElement;
-    const selectedValue = target.value;
+    this.selectedTimeWindow = target.value;
   
-    console.log('Selected value:', selectedValue);
+    console.log('Selected value:', this.selectedTimeWindow);
+    this.updateCalculations();
   
     // Aggiorna i calcoli in base al valore selezionato
-    if (selectedValue === 'monthly') {
-      this.totalBillsAmount = this.getformattedValue(this.getTotalBillsAmount(this.recurringBillsArray$));
-      this.totalPaid = this.getformattedValue(this.getTotalPaidAmount(this.recurringBillsArray$));
-      this.totalUpcoming = this.getformattedValue(this.getTotalUpcomingAmount(this.recurringBillsArray$));
-    } else if (selectedValue === 'quarterly') {
-      this.totalBillsAmount = this.getformattedValue(this.getTotalBillsAmount(this.recurringBillsArray$) * 3);
-      this.totalPaid = this.getformattedValue(this.getTotalPaidAmount(this.recurringBillsArray$) * 3);
-      this.totalUpcoming = this.getformattedValue(this.getTotalUpcomingAmount(this.recurringBillsArray$) * 3);
-    } else if (selectedValue === 'yearly') {
-      // Implementa la logica per il calcolo annuale
-    }
+    // if (selectedValue === 'monthly') {
+    //   this.totalBillsAmount = this.getformattedValue(this.getTotalBillsAmount(this.recurringBillsArray$));
+    //   // this.totalPaid = this.getformattedValue(this.getTotalPaidAmount(this.recurringBillsArray$));
+    //   // this.totalUpcoming = this.getformattedValue(this.getTotalUpcomingAmount(this.recurringBillsArray$));
+    // } else if (selectedValue === 'quarterly') {
+    //   this.totalBillsAmount = this.getformattedValue(this.getTotalBillsAmount(this.recurringBillsArray$) * 3);
+    //   // this.totalPaid = this.getformattedValue(this.getTotalPaidAmount(this.recurringBillsArray$) * 3);
+    //   // this.totalUpcoming = this.getformattedValue(this.getTotalUpcomingAmount(this.recurringBillsArray$) * 3);
+    // } else if (selectedValue === 'yearly') {
+    //   // Implementa la logica per il calcolo annuale
+    // }
   }
 }
