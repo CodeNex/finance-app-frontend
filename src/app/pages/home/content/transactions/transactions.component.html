@@ -62,7 +62,7 @@
               'padding-bottom': index < item.length - 1 ? '16px' : '0px'
             }"
           >
-            <app-single-transaction></app-single-transaction>
+            <app-single-transaction [transaction]="transaction" ></app-single-transaction>
           </li>
           @if ( index < item.length - 1) {
           <div class="w-full h-[1.5px] rounded-full bg-grey-100"></div>
