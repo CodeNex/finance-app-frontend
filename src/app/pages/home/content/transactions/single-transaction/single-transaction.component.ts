@@ -36,6 +36,7 @@ export class SingleTransactionComponent {
   public category: string = '';
   public date: string = '';
   public amount: string = '';
+  public type: string = '';
 
   ngOnInit() {
     this.iconName =
@@ -58,6 +59,7 @@ export class SingleTransactionComponent {
       minimumFractionDigits: 2,
       maximumFractionDigits: 2,
     });
+    this.type = this.transaction.type;
 
   }
 }

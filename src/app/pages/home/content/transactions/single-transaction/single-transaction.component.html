@@ -7,9 +7,11 @@
   </div>
   <div class="flex items-center justify-between w-[50%]">
     <div class="flex items-center gap-8">
-      <span class="w-[120px]">Category</span>
-      <span class="w-[120px]">Transaction Date</span>
+      <span class="w-[120px]">{{ this.category }}</span>
+      <span class="w-[120px]">
+        {{ this.date}}
+      </span>
     </div>
-    <span>Amount</span>
+    <p class="text4b" [ngStyle]="{'color': this.type === 'debit' ? '#201f24' : '#277c78'}">{{ this.type === 'debit' ? '-$' + this.amount : '+$' + this.amount }}</p>
   </div>
 </div>
