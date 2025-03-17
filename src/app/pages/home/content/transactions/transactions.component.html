@@ -13,7 +13,9 @@
       </button>
     </header>
 
-    <div class="w-full min-h-[500px] bg-white rounded-xl">
+    <!-- Transactions content section -->
+    <div aria-label="transactions content section" class="w-full min-h-[500px] bg-white rounded-xl">
+
       <!-- Transactions Filter -->
       <div
         aria-label="transactions filter section"
@@ -29,7 +31,40 @@
       </div>
 
       <!-- Transactions List -->
-      <div aria-label="transactions list section"></div>
+      <div aria-label="transactions list section">
+          <div aria-label="Spending Summary Header" class="flex items-center justify-between">
+            <p class="text2b text-grey-900">Spending Summary</p>
+          </div> 
+      
+        <ul id="" aria-label="list of latest spendings" class="h-[246px] overflow-y-auto">
+          @for (item of this.readyToRenderTransactionsArray(); let index = $index; track item)
+          {
+
+
+
+          <li
+            aria-label="spending item"
+            class="pt-3 pb-3 pr-3"
+            [ngStyle]="{
+              'padding-bottom':
+                
+                index < item.length - 1
+                  ? '12px'
+                  : '0px'
+            }"
+          >
+            <app-single-transaction></app-single-transaction>
+          </li>
+          @if ( index <
+          item.length - 1) {
+          <div class="w-full h-[1.5px] rounded-full bg-[#e3e0dc]"></div>
+
+
+
+
+          } }
+        </ul>
+      </div>
 
       <!-- Transactions Navigation -->
       <div aria-label="transactions window navigation">
