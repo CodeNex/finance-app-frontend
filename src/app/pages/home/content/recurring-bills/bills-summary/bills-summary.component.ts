@@ -19,7 +19,7 @@ export class BillsSummaryComponent {
   public authService: AuthenticationService = inject(AuthenticationService);
   public mainModalService: MainModalService = inject(MainModalService);
 
-  @Input() public recurringBillsArray$!: testRecurringTransactionsObject[];
+  @Input() public recurringBillsArray$!: TransactionsObject[];
 
   public totalBillsAmount: string = "";
   public totalPaid: string = "";
@@ -37,7 +37,7 @@ export class BillsSummaryComponent {
     // this.totalUpcoming = this.getformattedValue(this.getTotalUpcomingAmount(this.recurringBillsArray$));
   }
 
-  getTotalBillsAmount(recurringBillsArray$: testRecurringTransactionsObject[], selectedTimeWindow: string): number {
+  getTotalBillsAmount(recurringBillsArray$: TransactionsObject[], selectedTimeWindow: string): number {
     let sum = 0;
     recurringBillsArray$.forEach(bill => {
       if (bill.amount) {
@@ -47,7 +47,7 @@ export class BillsSummaryComponent {
     return sum;
   }
 
-  getTotalUpcomingAmount(recurringBillsArray: testRecurringTransactionsObject[]): number {
+  getTotalUpcomingAmount(recurringBillsArray: TransactionsObject[]): number {
     let sum = 0;
     const currentDate = new Date();
     const currentMonth = currentDate.getMonth();
@@ -70,7 +70,7 @@ export class BillsSummaryComponent {
     return sum;
   }
 
-  getTotalPaidAmount(recurringBillsArray: testRecurringTransactionsObject[]): number {
+  getTotalPaidAmount(recurringBillsArray: TransactionsObject[]): number {
     let sum = 0;
     const currentDate = new Date();
 
