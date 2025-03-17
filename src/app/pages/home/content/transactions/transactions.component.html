@@ -33,7 +33,7 @@
       </div>
 
       <!-- Transactions List -->
-      <div aria-label="transactions list section" >
+      <div aria-label="transactions list section">
         <div
           aria-label="transactions list header"
           class="flex items-center justify-between"
@@ -49,9 +49,7 @@
           aria-label="list of latest spendings"
           class="h-[246px] overflow-y-auto"
         >
-
-        @for (transaction of item; track $index) {}
-
+          @for (transaction of item; let index = $index; track transaction) {
           <li
             aria-label="spending item"
             class="pt-3 pb-3 pr-3"
@@ -62,9 +60,7 @@
             <app-single-transaction></app-single-transaction>
           </li>
 
-
-
-          @if ( index < item.length - 1) {
+          } @if ( index < item.length - 1) {
           <div class="w-full h-[1.5px] rounded-full bg-[#e3e0dc]"></div>
           }
         </ul>
