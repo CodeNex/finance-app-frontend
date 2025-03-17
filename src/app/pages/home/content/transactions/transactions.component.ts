@@ -32,8 +32,8 @@ export class TransactionsComponent {
 
   // This function takes the transactions array and returns it in a format that is ready to be rendered
   public formatTransactionsArray(prevArray: any) {
-    let categoriesArray = this.getTransactionsFilteredByCategories(prevArray);
-    let searchedArray = this.getSearchedTransactions(categoriesArray);
+    let arrayByCategories = this.getTransactionsFilteredByCategories(prevArray);
+    let searchedArray = this.getSearchedTransactions(arrayByCategories);
     let sortedArray = this.getSortedTransactions(searchedArray);
     let splittedArray = this.splitTransactionsArray(sortedArray);
     return splittedArray;
@@ -41,7 +41,7 @@ export class TransactionsComponent {
 
   // These functions are used in the formatTransactionsArray function to filter and sort the transactions array
   private getTransactionsFilteredByCategories(prevArray: any) {
-    if (this.categoryFilterInput === 'All Transactions') {
+    if (this.categoryFilterInput[0] === 'All Transactions' && this.categoryFilterInput.length === 1) {
       return prevArray;
     }
     let array = prevArray.filter((transactions: any) => transactions.category === this.categoryFilterInput);
@@ -68,13 +68,13 @@ export class TransactionsComponent {
   }
 
   // inputs to filter and sort transactions
-  public categoryFilterInput: string = 'All Transactions';
+  public categoryFilterInput: string[] = ['All Transactions'];
 
   public sortByInput: string = '';
 
   public searchFieldInput: string = '';
 
-  public setCategoryFilterInput(input: string) {
+  public setCategoryFilterInput(input: string[]) {
     this.categoryFilterInput = input;
   }
 
