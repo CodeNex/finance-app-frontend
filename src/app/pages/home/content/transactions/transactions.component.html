@@ -36,9 +36,18 @@
       <div aria-label="transactions list section">
         <div
           aria-label="transactions list header"
-          class="flex items-center justify-between pb-6"
+          class="flex items-center justify-between pb-6 text5r text-grey-500"
         >
-          <p class="text2b text-grey-900">Spending Summary</p>
+          <div class="flex items-center pl-4">
+            <span>Recipient / Sender</span>
+          </div>
+          <div class="flex items-center justify-between w-[50%]">
+            <div class="flex items-center gap-8">
+              <span class="w-[120px]">Category</span>
+              <span class="w-[120px]">Transaction Date</span>
+            </div>
+            <span>Amount</span>
+          </div>
         </div>
 
         @for (item of this.readyToRenderTransactionsArray(); let index = $index;
@@ -48,15 +57,15 @@
           @for (transaction of item; let index = $index; track transaction) {
           <li
             aria-label="spending item"
-            class="pt-3 pb-3 pr-3"
+            class="pt-4 pr-4 pl-4"
             [ngStyle]="{
-              'padding-bottom': index < item.length - 1 ? '12px' : '0px'
+              'padding-bottom': index < item.length - 1 ? '16px' : '0px'
             }"
           >
             <app-single-transaction></app-single-transaction>
           </li>
           @if ( index < item.length - 1) {
-          <div class="w-full h-[1.5px] rounded-full bg-[#e3e0dc]"></div>
+          <div class="w-full h-[1.5px] rounded-full bg-grey-100"></div>
           } }
         </ul>
         } }
