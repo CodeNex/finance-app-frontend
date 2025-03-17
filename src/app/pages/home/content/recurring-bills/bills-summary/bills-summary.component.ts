@@ -38,28 +38,48 @@ export class BillsSummaryComponent {
     // this.totalUpcoming = this.getformattedValue(this.getTotalUpcomingAmount(this.recurringBillsArray$));
   }
 
-  getTotalBillsAmount(recurringBillsArray$: TransactionsObject[], transactionsArray$: TransactionsObject[], selectedTimeWindow: string): number {
-    const currentDate = new Date();
-    const currentMonth = currentDate.getMonth(); // Mese corrente (0-11)
-    const currentYear = currentDate.getFullYear(); // Anno corrente
-
-    let sum = 0;
-
-    recurringBillsArray$.forEach(bill => {
-        if (bill.amount && bill.execute_on) {
-            const billDate = new Date(bill.execute_on);
-            if (
-                selectedTimeWindow === "monthly" &&
-                billDate.getMonth() === currentMonth &&
-                billDate.getFullYear() === currentYear
-            ) {
-                sum += bill.amount;
-            }
-        }
-    });
-
-    return sum;
+  getTotalBillsAmount(
+    recurringBillsArray$: TransactionsObject[],
+    transactionsArray$: TransactionsObject[],
+    selectedTimeWindow: string
+  ): number {
+      const currentDate = new Date();
+      const currentMonth = currentDate.getMonth(); // Mese corrente (0-11)
+      const currentYear = currentDate.getFullYear(); // Anno corrente
+  
+      let sum = 0;
+  
+      // 1️⃣ Somma gli amount dei recurring bills nel mese corrente
+      recurringBillsArray$.forEach(bill => {
+          if (bill.amount && bill.execute_on) {
+              const billDate = new Date(bill.execute_on);
+              if (
+                  selectedTimeWindow === "monthly" &&
+                  billDate.getMonth() === currentMonth &&
+                  billDate.getFullYear() === currentYear
+              ) {
+                  sum += bill.amount;
+              }
+          }
+      });
+  
+      // 2️⃣ Somma gli amount delle transazioni che hanno un recurring_id e sono nel mese corrente
+      transactionsArray$.forEach(transaction => {
+          if (transaction.amount && transaction.execute_on && transaction.recurring_id) {
+              const transactionDate = new Date(transaction.execute_on);
+              if (
+                  selectedTimeWindow === "monthly" &&
+                  transactionDate.getMonth() === currentMonth &&
+                  transactionDate.getFullYear() === currentYear
+              ) {
+                  sum += transaction.amount;
+              }
+          }
+      });
+  
+      return sum;
   }
+  
 
 
   getTotalUpcomingAmount(recurringBillsArray: TransactionsObject[]): number {
