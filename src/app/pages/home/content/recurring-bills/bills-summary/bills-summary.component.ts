@@ -20,6 +20,7 @@ export class BillsSummaryComponent {
   public mainModalService: MainModalService = inject(MainModalService);
 
   @Input() public recurringBillsArray$!: TransactionsObject[];
+  @Input() public transactionsArray$!: TransactionsObject[];
 
   public totalBillsAmount: string = "";
   public totalPaid: string = "";
@@ -32,20 +33,34 @@ export class BillsSummaryComponent {
   }
 
   updateCalculations() {
-    this.totalBillsAmount = this.getformattedValue(this.getTotalBillsAmount(this.recurringBillsArray$, this.selectedTimeWindow));
+    this.totalBillsAmount = this.getformattedValue(this.getTotalBillsAmount(this.recurringBillsArray$, this.transactionsArray$, this.selectedTimeWindow));
     // this.totalPaid = this.getformattedValue(this.getTotalPaidAmount(this.recurringBillsArray$));
     // this.totalUpcoming = this.getformattedValue(this.getTotalUpcomingAmount(this.recurringBillsArray$));
   }
 
-  getTotalBillsAmount(recurringBillsArray$: TransactionsObject[], selectedTimeWindow: string): number {
+  getTotalBillsAmount(recurringBillsArray$: TransactionsObject[], transactionsArray$: TransactionsObject[], selectedTimeWindow: string): number {
+    const currentDate = new Date();
+    const currentMonth = currentDate.getMonth(); // Mese corrente (0-11)
+    const currentYear = currentDate.getFullYear(); // Anno corrente
+
     let sum = 0;
+
     recurringBillsArray$.forEach(bill => {
-      if (bill.amount) {
-        sum += bill.amount;
-      }
+        if (bill.amount && bill.execute_on) {
+            const billDate = new Date(bill.execute_on);
+            if (
+                selectedTimeWindow === "monthly" &&
+                billDate.getMonth() === currentMonth &&
+                billDate.getFullYear() === currentYear
+            ) {
+                sum += bill.amount;
+            }
+        }
     });
+
     return sum;
   }
+
 
   getTotalUpcomingAmount(recurringBillsArray: TransactionsObject[]): number {
     let sum = 0;

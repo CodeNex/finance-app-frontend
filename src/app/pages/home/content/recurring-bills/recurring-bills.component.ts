@@ -21,6 +21,7 @@ export class RecurringBillsComponent {
   public authService: AuthenticationService = inject(AuthenticationService);
 
   public recurringBillsArray$ = this.dataStore.transactionsRecurring();
+  public transactionsArray$ = this.dataStore.transactions();
 
   isLoadingScreenVisible: boolean = false;
   isWarningScreenVisible: boolean = false;
@@ -28,6 +29,7 @@ export class RecurringBillsComponent {
   constructor() {
     effect(() => {
       this.recurringBillsArray$ = this.dataStore.transactionsRecurring();
+      this.transactionsArray$ = this.dataStore.transactions();
     });
   }
 }
