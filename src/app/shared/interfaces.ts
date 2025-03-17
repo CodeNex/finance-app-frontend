@@ -39,11 +39,10 @@ interface TransactionsObject {
   recurring: string | null;
   theme: string,
   name: string;
+  sender: string | null;
+  reciever: string | null;
   category: null | string;
   type: string;
-  // budget: {
-  //   category: string;
-  // } | null;
 }
 
 interface testRecurringTransactionsObject {
