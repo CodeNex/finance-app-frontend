@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, inject, Input} from '@angular/core';
+
+import { BasedataService } from '../../../../../services/basedata.service';
 
 @Component({
   selector: 'app-single-transaction',
@@ -7,5 +9,9 @@ import { Component } from '@angular/core';
   styleUrl: './single-transaction.component.scss'
 })
 export class SingleTransactionComponent {
+
+  public baseData: BasedataService = inject(BasedataService);
+
+  @Input() transaction: any;
 
 }
