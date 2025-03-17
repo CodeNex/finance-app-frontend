@@ -82,6 +82,10 @@ export class TransactionsComponent {
     this.sortByInput = input;
   }
 
+  public setSearchFieldInput(input: string) {
+    this.searchFieldInput = input;
+  }
+
   public openSubModal(subModal: string, subModalObject: Object) {
     this.mainModalService.chooseSubModal(subModal, subModalObject, null);
   }
