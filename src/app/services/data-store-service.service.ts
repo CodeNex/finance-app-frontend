@@ -321,7 +321,7 @@ export class DataStoreServiceService {
       receiver: '',
       name: 'Game Purchase',
       category: 'entertainment',
-      type: 'credit',
+      type: 'debit',
     },
     {
       transaction_id: 1,
@@ -406,7 +406,7 @@ export class DataStoreServiceService {
       receiver: '',
       name: 'Massage Session',
       category: 'personalCare',
-      type: 'credit',
+      type: 'debit',
     },
     {
       transaction_id: 6,
@@ -423,7 +423,7 @@ export class DataStoreServiceService {
       receiver: '',
       name: 'Bookstore Purchase',
       category: 'education',
-      type: 'credit',
+      type: 'debit',
     },
     {
       transaction_id: 7,
@@ -457,7 +457,7 @@ export class DataStoreServiceService {
       receiver: '',
       name: 'Tech Gadget',
       category: 'shopping',
-      type: 'credit',
+      type: 'debit',
     },
     {
       transaction_id: 9,
@@ -474,7 +474,7 @@ export class DataStoreServiceService {
       receiver: '',
       name: 'Charity Donation',
       category: 'general',
-      type: 'credit',
+      type: 'debit',
     },
     {
       transaction_id: 10,
@@ -491,7 +491,7 @@ export class DataStoreServiceService {
       receiver: '',
       name: 'Event Entry',
       category: 'lifestyle',
-      type: 'credit',
+      type: 'debit',
     },
     {
       transaction_id: 11,
@@ -525,7 +525,7 @@ export class DataStoreServiceService {
       receiver: '',
       name: 'Organic Food Store',
       category: 'groceries',
-      type: 'credit',
+      type: 'debit',
     },
     {
       transaction_id: 13,
@@ -542,7 +542,7 @@ export class DataStoreServiceService {
       receiver: '',
       name: 'Furniture Purchase',
       category: 'shopping',
-      type: 'credit',
+      type: 'debit',
     },
     {
       transaction_id: 14,
@@ -610,7 +610,7 @@ export class DataStoreServiceService {
       receiver: '',
       name: 'Spa Treatment',
       category: 'personalCare',
-      type: 'credit',
+      type: 'debit',
     },
     {
       transaction_id: 18,
@@ -678,7 +678,7 @@ export class DataStoreServiceService {
       receiver: '',
       name: 'Train Ticket',
       category: 'transportation',
-      type: 'credit',
+      type: 'debit',
     },
     {
       transaction_id: 22,
@@ -729,7 +729,7 @@ export class DataStoreServiceService {
       receiver: '',
       name: 'Food Delivery',
       category: 'diningOut',
-      type: 'credit',
+      type: 'debit',
     },
     {
       transaction_id: 25,
@@ -763,7 +763,7 @@ export class DataStoreServiceService {
       receiver: '',
       name: 'Train Ticket',
       category: 'transportation',
-      type: 'credit',
+      type: 'debit',
     },
     {
       transaction_id: 27,
@@ -780,7 +780,7 @@ export class DataStoreServiceService {
       receiver: '',
       name: 'Bank Fee',
       category: 'general',
-      type: 'credit',
+      type: 'debit',
     },
     {
       transaction_id: 28,
@@ -814,7 +814,7 @@ export class DataStoreServiceService {
       receiver: '',
       name: 'Gym Membership',
       category: 'personalCare',
-      type: 'credit',
+      type: 'debit',
     },
     {
       transaction_id: 30,
@@ -831,7 +831,7 @@ export class DataStoreServiceService {
       receiver: '',
       name: 'Furniture Purchase',
       category: 'shopping',
-      type: 'credit',
+      type: 'debit',
     },
     {
       transaction_id: 31,
@@ -848,7 +848,7 @@ export class DataStoreServiceService {
       receiver: '',
       name: 'Service Charge',
       category: 'general',
-      type: 'credit',
+      type: 'debit',
     },
     {
       transaction_id: 32,
@@ -899,7 +899,7 @@ export class DataStoreServiceService {
       receiver: '',
       name: 'Haircut',
       category: 'personalCare',
-      type: 'credit',
+      type: 'debit',
     },
     {
       transaction_id: 35,
@@ -916,7 +916,7 @@ export class DataStoreServiceService {
       receiver: '',
       name: 'Supermarket Purchase',
       category: 'groceries',
-      type: 'credit',
+      type: 'debit',
     },
     {
       transaction_id: 36,
@@ -1001,7 +1001,7 @@ export class DataStoreServiceService {
       receiver: '',
       name: 'Supermarket Purchase',
       category: 'groceries',
-      type: 'credit',
+      type: 'debit',
     },
     {
       transaction_id: 41,
@@ -1018,7 +1018,7 @@ export class DataStoreServiceService {
       receiver: '',
       name: 'Concert Ticket',
       category: 'lifestyle',
-      type: 'credit',
+      type: 'debit',
     },
     {
       transaction_id: 42,
@@ -1052,7 +1052,7 @@ export class DataStoreServiceService {
       receiver: '',
       name: 'Spa Treatment',
       category: 'personalCare',
-      type: 'credit',
+      type: 'debit',
     },
     {
       transaction_id: 44,
@@ -1069,7 +1069,7 @@ export class DataStoreServiceService {
       receiver: '',
       name: 'Gas Bill',
       category: 'bills',
-      type: 'credit',
+      type: 'debit',
     },
   ]);
 
