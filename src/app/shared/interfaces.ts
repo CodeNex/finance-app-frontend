@@ -59,7 +59,4 @@ interface testRecurringTransactionsObject {
   theme: string;
   name: string;
   category: string;
-  budget: {
-    category: string;
-  } | null;
 }

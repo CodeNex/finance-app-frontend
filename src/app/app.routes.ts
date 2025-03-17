@@ -19,7 +19,9 @@ export const routes: Routes = [
     path: '',
     component: HomeComponent,
     children: [
-      { path: '', redirectTo: 'transactions', pathMatch: 'full' },
+
+      { path: '', redirectTo: 'overview', pathMatch: 'full' },
+
       { path: 'overview', component: OverviewComponent },
       { path: 'transactions', component: TransactionsComponent },
       { path: 'budgets', component: BudgetsComponent },
