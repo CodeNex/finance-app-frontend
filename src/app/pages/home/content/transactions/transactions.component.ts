@@ -19,6 +19,11 @@ export class TransactionsComponent {
   public authService: AuthenticationService = inject(AuthenticationService);
 
   public transactionsSignal$: Signal<any[]> = this.dataStore.transactions;
+  public categoryFilterInput: string[] = ['All Transactions'];
+  public sortByInput: string = '';
+  public searchFieldInput: string = '';
+  public totalSubPages: number = 0;
+  public currentPage: number = 1;
 
   ngOnInit() {
     console.log(this.readyToRenderTransactionsArray());
@@ -64,16 +69,11 @@ export class TransactionsComponent {
     for (let i = 0; i < prevArray.length; i += transactionsPerPage) {
       splittedArray.push(prevArray.slice(i, i + transactionsPerPage));
     }
+    this.setTotalSubPages(splittedArray.length);
     return splittedArray;
   }
 
-  // inputs to filter and sort transactions
-  public categoryFilterInput: string[] = ['All Transactions'];
-
-  public sortByInput: string = '';
-
-  public searchFieldInput: string = '';
-
+  // functions to set inputs to filter and sort transactions
   public setCategoryFilterInput(input: string[]) {
     this.categoryFilterInput = input;
   }
@@ -86,6 +86,16 @@ export class TransactionsComponent {
     this.searchFieldInput = input;
   }
 
+  // functions to handle pagination
+  public setTotalSubPages(value: number) {
+    this.totalSubPages = value;
+  }
+
+  public setCurrentPage(value: number) {
+    this.currentPage = value;
+  }
+
+  // open add task sub modal
   public openSubModal(subModal: string, subModalObject: Object) {
     this.mainModalService.chooseSubModal(subModal, subModalObject, null);
   }
