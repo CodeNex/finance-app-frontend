@@ -15,8 +15,10 @@ import {
 })
 export class PaginationTransactionsComponent {
   @Input() public currentPage$!: Signal<number>;
+  @Input() public totalSubPages$!: Signal<number>; 
 
   public currentPage = computed(() => this.currentPage$());
+  public totalSubPages = computed(() => this.totalSubPages$());
 
   @Output() public changePage: EventEmitter<number> =
     new EventEmitter<number>();
