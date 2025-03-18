@@ -30,7 +30,7 @@ export class TransactionsComponent {
   public authService: AuthenticationService = inject(AuthenticationService);
 
   public transactionsSignal$: Signal<any[]> = this.dataStore.transactions;
-  public categoryFilterInput: string[] = ['All Transactions'];
+  public categoryFilterInput: string = 'All Transactions';
   public sortByInput: string = '';
   public searchFieldInput: string = '';
   public totalSubPages$ = signal(0);
@@ -67,12 +67,7 @@ export class TransactionsComponent {
 
   // These functions are used in the formatTransactionsArray function to filter and sort the transactions array
   private getTransactionsFilteredByCategories(prevArray: any) {
-    if (
-      this.categoryFilterInput[0] === 'All Transactions' &&
-      this.categoryFilterInput.length === 1
-    ) {
-      return prevArray;
-    }
+    if (this.categoryFilterInput === 'All Transactions') return prevArray;
     let array = prevArray.filter(
       (transactions: any) => transactions.category === this.categoryFilterInput
     );
@@ -99,16 +94,20 @@ export class TransactionsComponent {
   }
 
   // functions to set inputs to filter and sort transactions
-  public setCategoryFilterInput(input: string[]) {
+  public setCategoryFilterInput(input: string) {
     this.categoryFilterInput = input;
+    this.formatTransactionsArray(this.transactionsSignal$());
   }
 
   public setSortByInput(input: string) {
     this.sortByInput = input;
+    this.formatTransactionsArray(this.transactionsSignal$());
+
   }
 
   public setSearchFieldInput(input: string) {
     this.searchFieldInput = input;
+    this.formatTransactionsArray(this.transactionsSignal$());
   }
 
   // functions to handle pagination

@@ -8,4 +8,6 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 })
 export class CategoryfilterTransactionsComponent {
 
+  @Output() public categoryFilterChange: EventEmitter<string> = new EventEmitter<string>();
+
 }
