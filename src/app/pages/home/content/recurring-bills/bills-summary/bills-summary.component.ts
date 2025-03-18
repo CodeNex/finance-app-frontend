@@ -30,6 +30,22 @@ export class BillsSummaryComponent {
   public totalUpcoming: string = "";
   public selectedTimeWindow: string = "monthly";
 
+  public monthDaysMapping: Record<number, number> = {
+    0: 31,  // Gennaio
+    1: 28,  // Febbraio (gestito separatamente per anni bisestili)
+    2: 31,  // Marzo
+    3: 30,  // Aprile
+    4: 31,  // Maggio
+    5: 30,  // Giugno
+    6: 31,  // Luglio
+    7: 31,  // Agosto
+    8: 30,  // Settembre
+    9: 31,  // Ottobre
+    10: 30, // Novembre
+    11: 31  // Dicembre
+  };
+
+
   ngOnInit() {
     this.updateCalculations();
 
@@ -59,23 +75,40 @@ export class BillsSummaryComponent {
         const billDate = new Date(bill.execute_on);
 
         if (selectedTimeWindow === "monthly" && billDate.getMonth() === currentMonth && billDate.getFullYear() === currentYear) {
-          upcoming += bill.amount;
+          let occurrences = 1;
+
+          if (bill.recurring === "weekly") {
+            occurrences = this.getRemainingWeeklyOccurrences(billDate, "monthly");
+          }
+
+          upcoming += bill.amount * occurrences;
         }
         else if (selectedTimeWindow === "quarterly" && billDate.getMonth() >= quarterStartMonth && billDate.getMonth() <= quarterEndMonth && billDate.getFullYear() === currentYear) {
           let remainingOccurrences = 1;
+
           if (bill.recurring === "monthly") {
             const billMonth = billDate.getMonth();
             remainingOccurrences = quarterEndMonth - billMonth + 1;
           }
+          else if (bill.recurring === "weekly") {
+            remainingOccurrences = this.getRemainingWeeklyOccurrences(billDate, "quarterly");
+          }
+
           upcoming += bill.amount * remainingOccurrences;
         }
         else if (selectedTimeWindow === "yearly" && billDate.getFullYear() === currentYear) {
           let occurrences = 1;
+
           if (bill.recurring === "monthly") {
             occurrences = 12 - billDate.getMonth();
-          } else if (bill.recurring === "quarterly") {
+          }
+          else if (bill.recurring === "quarterly") {
             occurrences = 4 - Math.floor(billDate.getMonth() / 3);
           }
+          else if (bill.recurring === "weekly") {
+            occurrences = this.getRemainingWeeklyOccurrences(billDate, "yearly");
+          }
+
           upcoming += bill.amount * occurrences;
         }
       }
@@ -83,6 +116,7 @@ export class BillsSummaryComponent {
 
     return upcoming;
   }
+
 
 
   getTotalPaidAmount(transactionsArray$: TransactionsObject[], selectedTimeWindow: string): number {
@@ -115,6 +149,53 @@ export class BillsSummaryComponent {
     return paid;
   }
 
+  // ✅ Funzione per ottenere l'ultimo giorno del mese
+  private getLastDayOfMonth(year: number, month: number): number {
+    if (month === 1) { // Febbraio
+      return (year % 4 === 0 && (year % 100 !== 0 || year % 400 === 0)) ? 29 : 28;
+    }
+    return this.monthDaysMapping[month];
+  }
+
+  // ✅ Funzione aggiornata per calcolare le ricorrenze settimanali
+  private getRemainingWeeklyOccurrences(billDate: Date, timeWindow: string): number {
+    let startOfPeriod: Date;
+    let endOfPeriod: Date;
+    const currentYear = billDate.getFullYear();
+    const currentMonth = billDate.getMonth();
+
+    if (timeWindow === "monthly") {
+      startOfPeriod = new Date(currentYear, currentMonth, billDate.getDate());
+      const lastDayOfMonth = this.getLastDayOfMonth(currentYear, currentMonth);
+      endOfPeriod = new Date(currentYear, currentMonth, lastDayOfMonth);
+    }
+    else if (timeWindow === "quarterly") {
+      const quarterStartMonth = Math.floor(currentMonth / 3) * 3;
+      const quarterEndMonth = quarterStartMonth + 2;
+      const lastDayOfQuarter = this.getLastDayOfMonth(currentYear, quarterEndMonth);
+      startOfPeriod = new Date(currentYear, currentMonth, billDate.getDate());
+      endOfPeriod = new Date(currentYear, quarterEndMonth, lastDayOfQuarter);
+    }
+    else if (timeWindow === "yearly") {
+      startOfPeriod = new Date(currentYear, currentMonth, billDate.getDate());
+      endOfPeriod = new Date(currentYear, 11, 31); // Ultimo giorno dell'anno
+    }
+    else {
+      return 1; // Caso non previsto
+    }
+
+    // 🔹 Calcoliamo il numero di giorni rimanenti fino alla fine del periodo
+    const remainingDays = Math.ceil((endOfPeriod.getTime() - startOfPeriod.getTime()) / (1000 * 60 * 60 * 24));
+    
+    // 🔹 Convertiamo i giorni rimanenti in settimane
+    const remainingWeeks = Math.floor(remainingDays / 7) + 1;
+    
+    return remainingWeeks;
+  }
+
+
+
+
   getformattedValue(value: number): string {
     return value.toLocaleString('en-US', {
       minimumFractionDigits: 2,
@@ -125,8 +206,6 @@ export class BillsSummaryComponent {
   updateTimeWindow(event: Event) {
     const target = event.target as HTMLSelectElement;
     this.selectedTimeWindow = target.value;
-
-    console.log('Selected value:', this.selectedTimeWindow);
     this.updateCalculations();
   }
 }
