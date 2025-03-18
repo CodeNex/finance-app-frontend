@@ -51,7 +51,7 @@
         </div>
 
         @for (item of this.readyToRenderTransactionsArray(); let index = $index;
-        track item) { @if (index === this.currentPage) {
+        track item) { @if (index === this.currentPage$()) {
 
         <ul id="" aria-label="list of latest spendings" class="">
           @for (transaction of item; let index = $index; track transaction) {

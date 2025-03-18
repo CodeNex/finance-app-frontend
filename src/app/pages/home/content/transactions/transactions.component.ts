@@ -1,4 +1,4 @@
-import { Component, effect, inject, computed, Signal } from '@angular/core';
+import { Component, effect, inject, computed, Signal, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { DataStoreServiceService } from '../../../../services/data-store-service.service';
@@ -34,7 +34,7 @@ export class TransactionsComponent {
   public sortByInput: string = '';
   public searchFieldInput: string = '';
   public totalSubPages: number = 0;
-  public currentPage: number = 0;
+  public currentPage$ = signal(0);
 
   ngOnInit() {
     console.log(this.readyToRenderTransactionsArray());
@@ -107,8 +107,8 @@ export class TransactionsComponent {
     this.totalSubPages = value;
   }
 
-  public setCurrentPage(value: number) {
-    this.currentPage = value;
+  public setCurrentPage$(value: number) {
+    this.currentPage$.set(value);
   }
 
   // open add task sub modal
