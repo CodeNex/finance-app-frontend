@@ -1,6 +1,22 @@
 <section class="flex justify-between items-center">
-  <div (click)="this.prevPage()" [ngStyle]="{'visibility': this.currentPage() === 1 ? 'hidden' : 'visible'}" class="skipPageButton cursor-pointer text4r flex items-center gap-4 pt-[9.5px] pb-[9.5px] pl-4 pr-4 border-beige-500 border-[1px] rounded-lg"><div class="rotate-180"><app-icons [iconName]="'smallArrowRight'"></app-icons></div>Prev</div>
-  <div>{{ this.currentPage() }}</div>
-  <div (click)="this.nextPage()" [ngStyle]="{'visibility': this.currentPage() === this.totalSubPages() ? 'hidden' : 'visible'}" class="skipPageButton cursor-pointer text4r flex items-center gap-4 pt-[9.5px] pb-[9.5px] pl-4 pr-4 border-beige-500 border-[1px] rounded-lg">Next<div><app-icons [iconName]="'smallArrowRight'"></app-icons></div>
+
+<div class="min-w-[93px]">
+
+@if (this.currentPage() !== 1) {
+
+  <div aria-label="Button to skip to the previous page" (click)="this.prevPage()" [ngStyle]="{'visibility': this.currentPage() === 1 ? 'hidden' : 'visible'}" class="skipPageButton cursor-pointer text4r flex items-center gap-4 pt-[9.5px] pb-[9.5px] pl-4 pr-4 border-beige-500 border-[1px] rounded-lg select-none"><div class="rotate-180"><app-icons [iconName]="'smallArrowRight'"></app-icons></div>Prev</div>
+}
+</div>
+
+  <div class="text5r text-grey-500">{{ this.currentPage() }} / {{ this.totalSubPages() }}</div>
+
+<div class="min-w-[93px]">
+
+ @if (this.currentPage() !== this.totalSubPages()) {
+
+  <div aria-label="Button to skip to the next page" (click)="this.nextPage()" [ngStyle]="{'visibility': this.currentPage() === this.totalSubPages() ? 'hidden' : 'visible'}" class="skipPageButton cursor-pointer text4r flex items-center gap-4 pt-[9.5px] pb-[9.5px] pl-4 pr-4 border-beige-500 border-[1px] rounded-lg select-none">Next<div><app-icons [iconName]="'smallArrowRight'"></app-icons></div>
   </div>
+}
+</div>
+
 </section>
