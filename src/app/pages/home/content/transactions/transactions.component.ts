@@ -80,7 +80,7 @@ export class TransactionsComponent {
   }
 
   private splitTransactionsArray(prevArray: any) {
-    let transactionsPerPage = 10;
+    let transactionsPerPage = 6;
     let splittedArray: any[][] = [];
     for (let i = 0; i < prevArray.length; i += transactionsPerPage) {
       splittedArray.push(prevArray.slice(i, i + transactionsPerPage));
