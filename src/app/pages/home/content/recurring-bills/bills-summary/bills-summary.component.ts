@@ -30,20 +30,7 @@ export class BillsSummaryComponent {
   public totalUpcoming: string = "";
   public selectedTimeWindow: string = "monthly";
 
-  public monthDaysMapping: Record<number, number> = {
-    0: 31,  // Gennaio
-    1: 28,  // Febbraio (gestito separatamente per anni bisestili)
-    2: 31,  // Marzo
-    3: 30,  // Aprile
-    4: 31,  // Maggio
-    5: 30,  // Giugno
-    6: 31,  // Luglio
-    7: 31,  // Agosto
-    8: 30,  // Settembre
-    9: 31,  // Ottobre
-    10: 30, // Novembre
-    11: 31  // Dicembre
-  };
+
 
 
   ngOnInit() {
@@ -52,9 +39,15 @@ export class BillsSummaryComponent {
   }
 
   updateCalculations() {
-    this.unformattedTotalPaid = this.getTotalPaidAmount(this.transactionsArray$, this.selectedTimeWindow);
+    if (this.selectedTimeWindow === "monthly" || this.selectedTimeWindow === "quarterly" || this.selectedTimeWindow === "yearly") {
+      this.unformattedTotalPaid = this.getTotalPaidAmount(this.transactionsArray$, this.selectedTimeWindow);
+      this.unformattedTotalUpcoming = this.getTotalUpcomingAmount(this.recurringBillsArray$, this.selectedTimeWindow);
+
+    } else if (this.selectedTimeWindow === "nextMonth" || this.selectedTimeWindow === "nextThreeMonths" || this.selectedTimeWindow === "nextSixMonths") {
+      this.unformattedTotalPaid = 0;
+      this.unformattedTotalUpcoming = this.getFutureUpcoming(this.recurringBillsArray$, this.selectedTimeWindow);
+    }
     this.totalPaid = this.getformattedValue(this.unformattedTotalPaid);
-    this.unformattedTotalUpcoming = this.getTotalUpcomingAmount(this.recurringBillsArray$, this.selectedTimeWindow);
     this.totalUpcoming = this.getformattedValue(this.unformattedTotalUpcoming);
     this.totalBillsAmount = this.getformattedValue(this.unformattedTotalPaid + this.unformattedTotalUpcoming);
   }
@@ -117,9 +110,82 @@ export class BillsSummaryComponent {
     return upcoming;
   }
 
+  getFutureUpcoming(recurringBillsArray$: TransactionsObject[], selectedTimeWindow: string): number {
+    const currentDate = new Date();
+    const currentMonth = currentDate.getMonth();
+    const currentYear = currentDate.getFullYear();
+
+    let upcoming = 0;
+
+    // 🔹 Definire il periodo futuro selezionato
+    let periodStartMonth = currentMonth + 1;
+    console.log("Start ", periodStartMonth);
+    
+    let periodEndMonth = currentMonth;
+
+    if (selectedTimeWindow === "nextMonth") {
+      periodEndMonth = currentMonth + 1;
+    } else if (selectedTimeWindow === "nextThreeMonths") {
+      periodEndMonth = currentMonth + 3;
+    } else if (selectedTimeWindow === "nextSixMonths") {
+      periodEndMonth = currentMonth + 6;
+    }
+    console.log("End ", periodEndMonth);
+
+    // 🔹 Iteriamo su ogni transazione ricorrente
+    recurringBillsArray$.forEach(bill => {
+      console.log(bill);
+      if (bill.amount && bill.execute_on) {
+        const billDate = new Date(bill.execute_on);
+        const billMonth = billDate.getMonth();
+        const billYear = billDate.getFullYear();
+
+        let occurrences = 0;
+
+        // ✅ Se la transazione avviene nel periodo futuro o nel mese corrente con ricorrenza
+        if (billYear === currentYear && billMonth <= periodEndMonth) {
+
+          // 🔹 Se la transazione è settimanale, calcoliamo quante volte avviene nel periodo selezionato
+          if (bill.recurring === "weekly") {
+            occurrences = this.getRemainingWeeklyOccurrences(billDate, selectedTimeWindow);
+          }
+          // 🔹 Se la transazione è mensile, calcoliamo quante volte si ripete nel periodo
+          else if (bill.recurring === "monthly") {
+            occurrences = periodEndMonth - Math.max(billMonth, currentMonth) + 1;
+          }
+          // 🔹 Se la transazione è trimestrale, calcoliamo le ripetizioni
+          else if (bill.recurring === "quarterly") {
+            occurrences = Math.floor((periodEndMonth - billMonth) / 3) + 1;
+          }
+          
+          
+          
+
+          console.log("ID nr", bill.recurring_id, "X", occurrences);
+
+          // 🔹 Sommiamo l'importo totale
+          upcoming += bill.amount * occurrences;
+        } else if (billYear === currentYear && billMonth <= periodStartMonth) {
+          
+
+          console.log(bill);
+
+          console.log(occurrences);
+        }
+      }
+    });
+
+    return upcoming;
+  }
+
+
+
 
 
   getTotalPaidAmount(transactionsArray$: TransactionsObject[], selectedTimeWindow: string): number {
+    if (selectedTimeWindow === "nextMonth" || selectedTimeWindow === "nextThreeMonths" || selectedTimeWindow === "nextSixMonths") {
+      return 0;
+    }
     const currentDate = new Date();
     const currentMonth = currentDate.getMonth();
     const currentYear = currentDate.getFullYear();
@@ -151,10 +217,24 @@ export class BillsSummaryComponent {
 
   // ✅ Funzione per ottenere l'ultimo giorno del mese
   private getLastDayOfMonth(year: number, month: number): number {
+    const monthDaysMapping: Record<number, number> = {
+      0: 31,  // Gennaio
+      1: 28,  // Febbraio (gestito separatamente per anni bisestili)
+      2: 31,  // Marzo
+      3: 30,  // Aprile
+      4: 31,  // Maggio
+      5: 30,  // Giugno
+      6: 31,  // Luglio
+      7: 31,  // Agosto
+      8: 30,  // Settembre
+      9: 31,  // Ottobre
+      10: 30, // Novembre
+      11: 31  // Dicembre
+    };
     if (month === 1) { // Febbraio
       return (year % 4 === 0 && (year % 100 !== 0 || year % 400 === 0)) ? 29 : 28;
     }
-    return this.monthDaysMapping[month];
+    return monthDaysMapping[month];
   }
 
   // ✅ Funzione aggiornata per calcolare le ricorrenze settimanali
@@ -180,16 +260,31 @@ export class BillsSummaryComponent {
       startOfPeriod = new Date(currentYear, currentMonth, billDate.getDate());
       endOfPeriod = new Date(currentYear, 11, 31); // Ultimo giorno dell'anno
     }
+    else if (timeWindow === "nextMonth") {
+      startOfPeriod = new Date(currentYear, currentMonth + 1, 1); // Inizio del mese successivo
+      const lastDayNextMonth = this.getLastDayOfMonth(currentYear, currentMonth + 1);
+      endOfPeriod = new Date(currentYear, currentMonth + 1, lastDayNextMonth);
+    }
+    else if (timeWindow === "nextThreeMonths") {
+      startOfPeriod = new Date(currentYear, currentMonth + 1, 1); // Inizio del mese successivo
+      const lastDayNextThreeMonths = this.getLastDayOfMonth(currentYear, currentMonth + 3);
+      endOfPeriod = new Date(currentYear, currentMonth + 3, lastDayNextThreeMonths);
+    }
+    else if (timeWindow === "nextSixMonths") {
+      startOfPeriod = new Date(currentYear, currentMonth + 1, 1); // Inizio del mese successivo
+      const lastDayNextSixMonths = this.getLastDayOfMonth(currentYear, currentMonth + 6);
+      endOfPeriod = new Date(currentYear, currentMonth + 6, lastDayNextSixMonths);
+    }
     else {
-      return 1; // Caso non previsto
+      throw new Error("Time window not supported");
     }
 
     // 🔹 Calcoliamo il numero di giorni rimanenti fino alla fine del periodo
     const remainingDays = Math.ceil((endOfPeriod.getTime() - startOfPeriod.getTime()) / (1000 * 60 * 60 * 24));
-    
+
     // 🔹 Convertiamo i giorni rimanenti in settimane
     const remainingWeeks = Math.floor(remainingDays / 7) + 1;
-    
+
     return remainingWeeks;
   }
 
