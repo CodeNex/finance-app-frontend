@@ -15,9 +15,9 @@ export class CategoryfilterTransactionsComponent {
   }
 
   ngOnInit() {
-    // setTimeout(() => {
-    //   this.emitCategoryFilterChange('transportation');
-    // }, 2000);
+    setTimeout(() => {
+      this.emitCategoryFilterChange('transportation');
+    }, 2000);
   }
 
 }

@@ -1,4 +1,11 @@
-import { Component, effect, inject, computed, Signal, signal } from '@angular/core';
+import {
+  Component,
+  effect,
+  inject,
+  computed,
+  Signal,
+  signal,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { DataStoreServiceService } from '../../../../services/data-store-service.service';
@@ -18,7 +25,7 @@ import { PaginationTransactionsComponent } from './pagination-transactions/pagin
     SortbyTransactionsComponent,
     CategoryfilterTransactionsComponent,
     SingleTransactionComponent,
-    PaginationTransactionsComponent
+    PaginationTransactionsComponent,
   ],
   templateUrl: './transactions.component.html',
   styleUrl: './transactions.component.scss',
@@ -41,8 +48,8 @@ export class TransactionsComponent {
   constructor() {
     effect(() => {
       let array = this.readyToRenderTransactionsArray();
-      if (array.length > 0) this.setTotalSubPages$(array.length);;
-    })
+      if (array.length > 0) this.setTotalSubPages$(array.length);
+    });
   }
 
   ngOnInit() {
@@ -81,12 +88,18 @@ export class TransactionsComponent {
 
   private getSortedTransactions(prevArray: any) {
     let array;
-    if (this.sortByInput === 'latest') array = this.sortByLatest(prevArray);
-    if (this.sortByInput === 'oldest') array = this.sortByOldest(prevArray);
+    if (this.sortByInput === 'latest' || this.sortByInput === 'oldest' || this.sortByInput === null || this.sortByInput === '')
+      array = this.sortByDate(prevArray);
+    if (this.sortByInput === 'aToZ' || this.sortByInput === 'zToA')
+      array = this.sortByAlphabet(prevArray);
+    if (this.sortByInput === 'highest' || this.sortByInput === 'lowest')
+      array = this.sortByAmount(prevArray);
     return array;
   }
 
   private splitTransactionsArray(prevArray: any) {
+    console.log(prevArray);
+
     let transactionsPerPage = 7;
     let splittedArray: any[][] = [];
     for (let i = 0; i < prevArray.length; i += transactionsPerPage) {
@@ -95,23 +108,42 @@ export class TransactionsComponent {
     return splittedArray;
   }
 
-  // functions to sort the array 
-  private sortByLatest(array: any) {
+  // functions to sort the array
+  private sortByDate(array: any) {
     return array.sort((a: any, b: any) => {
-      if (!a.execute_on) return 1; 
+      if (!a.execute_on) return 1;
       if (!b.execute_on) return -1;
-      return new Date(b.execute_on).getTime() - new Date(a.execute_on).getTime();
+      if (this.sortByInput === 'latest' || this.sortByInput === null || this.sortByInput === '')
+        return (
+          new Date(b.execute_on).getTime() - new Date(a.execute_on).getTime()
+        );
+      if (this.sortByInput === 'oldest')
+        return (
+          new Date(a.execute_on).getTime() - new Date(b.execute_on).getTime()
+        );
+      return;
     });
   }
 
-  private sortByOldest(array: any) {
+  private sortByAlphabet(array: any) {
     return array.sort((a: any, b: any) => {
-      if (!a.execute_on) return 1; 
-      if (!b.execute_on) return -1;
-      return new Date(a.execute_on).getTime() - new Date(b.execute_on).getTime();
+      if (!a.name) return 1;
+      if (!b.name) return -1;
+      if (this.sortByInput === 'aToZ') return a.name.localeCompare(b.name);
+      if (this.sortByInput === 'zToA') return b.name.localeCompare(a.name);
+      return;
     });
   }
-  
+
+  private sortByAmount(array: any) {
+    return array.sort((a: any, b: any) => {
+      if (a.amount == null) return 1;
+      if (b.amount == null) return -1;
+      if (this.sortByInput === 'highest') return b.amount - a.amount;
+      if (this.sortByInput === 'lowest') return a.amount - b.amount;
+      return;
+    });
+  }
 
   // functions to set inputs to filter and sort transactions
   public setCategoryFilterInput(input: string) {
@@ -122,7 +154,6 @@ export class TransactionsComponent {
   public setSortByInput(input: string) {
     this.sortByInput = input;
     this.formatTransactionsArray(this.transactionsSignal$());
-
   }
 
   public setSearchFieldInput(input: string) {

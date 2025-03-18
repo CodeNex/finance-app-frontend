@@ -29,7 +29,7 @@
         <div class="flex items-center gap-6">
           <div class="flex items-center gap-2">
             <p class="text4r text-grey-500">Sort by</p>
-            <app-sortby-transactions></app-sortby-transactions>
+            <app-sortby-transactions (sortByChange)="setSortByInput($event)"></app-sortby-transactions>
           </div>
           <div class="flex items-center gap-2">
             <p class="text4r text-grey-500">Category</p>
