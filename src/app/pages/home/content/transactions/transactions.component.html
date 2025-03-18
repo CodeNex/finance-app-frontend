@@ -56,7 +56,7 @@
           </div>
         </div>
 
-        @for (item of this.readyToRenderTransactionsArray(); let index = $index;
+        @for (item of this.renderReadyArray; let index = $index;
         track item) { @if (index === (this.currentPage$() - 1)) {
 
         <ul id="" aria-label="list of latest spendings" class="">
@@ -79,7 +79,7 @@
 
       <!-- Transactions Navigation -->
       <div aria-label="transactions window navigation">
-        @if (this.readyToRenderTransactionsArray().length > 1) {
+        @if (this.renderReadyArray.length > 1) {
         <app-pagination-transactions [currentPage$]="currentPage$" [totalSubPages$]="totalSubPages$" (changePage)="setCurrentPage$($event)" ></app-pagination-transactions>
         }
       </div>

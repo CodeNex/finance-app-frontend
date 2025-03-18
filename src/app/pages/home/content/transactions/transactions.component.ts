@@ -36,6 +36,8 @@ export class TransactionsComponent {
   public totalSubPages$ = signal(0);
   public currentPage$ = signal(1);
 
+  public renderReadyArray: any[] = [];
+
   constructor() {
     effect(() => {
       let array = this.readyToRenderTransactionsArray();
@@ -59,6 +61,7 @@ export class TransactionsComponent {
     let searchedArray = this.getSearchedTransactions(arrayByCategories);
     let sortedArray = this.getSortedTransactions(searchedArray);
     let splittedArray = this.splitTransactionsArray(sortedArray);
+    this.renderReadyArray = splittedArray;
     return splittedArray;
   }
 
