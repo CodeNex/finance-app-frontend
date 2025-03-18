@@ -9,11 +9,17 @@ import { CategoryfilterTransactionsComponent } from './categoryfilter-transactio
 import { SearchTransactionComponent } from './search-transaction/search-transaction.component';
 import { SortbyTransactionsComponent } from './sortby-transactions/sortby-transactions.component';
 import { SingleTransactionComponent } from './single-transaction/single-transaction.component';
-import { PaginationNavcontrolComponent } from './pagination-navcontrol/pagination-navcontrol.component';
-
+import { PaginationTransactionsComponent } from './pagination-transactions/pagination-transactions.component';
 @Component({
   selector: 'app-transactions',
-  imports: [CommonModule, SearchTransactionComponent, SortbyTransactionsComponent, CategoryfilterTransactionsComponent, SingleTransactionComponent, PaginationNavcontrolComponent],
+  imports: [
+    CommonModule,
+    SearchTransactionComponent,
+    SortbyTransactionsComponent,
+    CategoryfilterTransactionsComponent,
+    SingleTransactionComponent,
+    PaginationTransactionsComponent
+  ],
   templateUrl: './transactions.component.html',
   styleUrl: './transactions.component.scss',
 })
@@ -51,10 +57,15 @@ export class TransactionsComponent {
 
   // These functions are used in the formatTransactionsArray function to filter and sort the transactions array
   private getTransactionsFilteredByCategories(prevArray: any) {
-    if (this.categoryFilterInput[0] === 'All Transactions' && this.categoryFilterInput.length === 1) {
+    if (
+      this.categoryFilterInput[0] === 'All Transactions' &&
+      this.categoryFilterInput.length === 1
+    ) {
       return prevArray;
     }
-    let array = prevArray.filter((transactions: any) => transactions.category === this.categoryFilterInput);
+    let array = prevArray.filter(
+      (transactions: any) => transactions.category === this.categoryFilterInput
+    );
     return array;
   }
 
