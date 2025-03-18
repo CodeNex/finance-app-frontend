@@ -7,10 +7,11 @@ import {
   Output,
   EventEmitter,
 } from '@angular/core';
+import { IconsComponent } from '../../../../../components/icons/icons.component';
 
 @Component({
   selector: 'app-pagination-transactions',
-  imports: [CommonModule],
+  imports: [CommonModule, IconsComponent],
   templateUrl: './pagination-transactions.component.html',
   styleUrl: './pagination-transactions.component.scss',
 })
