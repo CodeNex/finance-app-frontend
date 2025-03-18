@@ -203,7 +203,7 @@ export class BillsSummaryComponent {
     // 🔹 Identificare il trimestre corrente
     const quarterStartMonth = Math.floor(currentMonth / 3) * 3;
     const quarterEndMonth = quarterStartMonth + 2;
-
+    
     transactionsArray$.forEach(transaction => {
       if (transaction.amount && transaction.execute_on && transaction.recurring_id) {
         const transactionDate = new Date(transaction.execute_on);
