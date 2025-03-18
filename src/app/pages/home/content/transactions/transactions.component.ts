@@ -34,7 +34,7 @@ export class TransactionsComponent {
   public sortByInput: string = '';
   public searchFieldInput: string = '';
   public totalSubPages$ = signal(0);
-  public currentPage$ = signal(0);
+  public currentPage$ = signal(1);
 
   constructor() {
     effect(() => {
