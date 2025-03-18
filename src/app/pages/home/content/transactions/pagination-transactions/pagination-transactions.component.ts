@@ -30,8 +30,22 @@ export class PaginationTransactionsComponent {
 
   ngOnInit() {
     setTimeout(() => {
-      this.changePageHandler(5);
+      this.changePageHandler(7);
       console.log(this.currentPage$());
     }, 2000);
   }
+
+  prevPage() {
+    if (this.currentPage() > 0) {
+      this.changePageHandler(this.currentPage() - 1);
+    }
+  }
+
+  nextPage() {
+    if (this.currentPage() < (this.totalSubPages() - 1)) {
+      this.changePageHandler(this.currentPage() + 1);
+    }
+  }
+
+  
 }
