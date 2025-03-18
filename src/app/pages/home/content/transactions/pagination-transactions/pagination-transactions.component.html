@@ -1,5 +1,6 @@
-<section class="flex justify-between items-center pt-6">
+@if (this.totalSubPages() > 1) {
 
+<section class="flex justify-between items-center pt-6">
   <div aria-label="Button to skip to the previous page" class="min-w-[93px]">
     @if (this.currentPage() !== 1) {
     <div
@@ -30,3 +31,4 @@
     }
   </div>
 </section>
+}
