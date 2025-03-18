@@ -33,7 +33,7 @@
           </div>
           <div class="flex items-center gap-2">
             <p class="text4r text-grey-500">Category</p>
-            <app-categoryfilter-transactions></app-categoryfilter-transactions>
+            <app-categoryfilter-transactions (categoryFilterChange)="setCategoryFilterInput($event)"></app-categoryfilter-transactions>
           </div>
         </div>
       </div>

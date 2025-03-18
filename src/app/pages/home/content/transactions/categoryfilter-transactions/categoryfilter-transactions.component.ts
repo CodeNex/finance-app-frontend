@@ -10,4 +10,14 @@ export class CategoryfilterTransactionsComponent {
 
   @Output() public categoryFilterChange: EventEmitter<string> = new EventEmitter<string>();
 
+  public emitCategoryFilterChange(category: string) {
+    this.categoryFilterChange.emit(category);
+  }
+
+  ngOnInit() {
+    // setTimeout(() => {
+    //   this.emitCategoryFilterChange('transportation');
+    // }, 2000);
+  }
+
 }
