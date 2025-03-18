@@ -117,7 +117,6 @@ export class BillsSummaryComponent {
 
     let upcoming = 0;
 
-    // 🔹 Definire il periodo futuro selezionato
     let periodStartMonth = currentMonth + 1;
     console.log("Start ", periodStartMonth);
     
@@ -132,7 +131,7 @@ export class BillsSummaryComponent {
     }
     console.log("End ", periodEndMonth);
 
-    // 🔹 Iteriamo su ogni transazione ricorrente
+    
     recurringBillsArray$.forEach(bill => {
       console.log(bill);
       if (bill.amount && bill.execute_on) {
@@ -142,15 +141,15 @@ export class BillsSummaryComponent {
 
         let occurrences = 0;
 
-        // ✅ Se la transazione avviene nel periodo futuro o nel mese corrente con ricorrenza
+        
         if (billYear === currentYear && billMonth <= periodEndMonth) {
 
-          // 🔹 Se la transazione è settimanale, calcoliamo quante volte avviene nel periodo selezionato
+          
           if (bill.recurring === "weekly") {
-            occurrences = this.getRemainingWeeklyOccurrences(billDate, selectedTimeWindow);
+            occurrences = this.getRemainingWeeklyOccurrences(billDate, selectedTimeWindow) - 1;
             console.log("ID nr", bill.recurring_id, bill.recurring, "X", occurrences);
           }
-          // 🔹 Se la transazione è mensile, calcoliamo quante volte si ripete nel periodo
+         
           else if (bill.recurring === "monthly") {
             if (billMonth === currentMonth) {
               occurrences = periodEndMonth - currentMonth;
@@ -159,7 +158,7 @@ export class BillsSummaryComponent {
             }
             console.log("ID nr", bill.recurring_id, bill.recurring, "X", occurrences);
           }
-          // 🔹 Se la transazione è trimestrale, calcoliamo le ripetizioni
+          
           else if (bill.recurring === "quarterly") {
             occurrences = Math.floor((periodEndMonth - billMonth) / 3) + 1;
             console.log("ID nr", bill.recurring_id, bill.recurring, "X", occurrences);
@@ -170,16 +169,9 @@ export class BillsSummaryComponent {
 
           
 
-          // 🔹 Sommiamo l'importo totale
+          
           upcoming += bill.amount * occurrences;
         } 
-        // else if (billYear === currentYear && billMonth <= periodStartMonth) {
-          
-
-        //   console.log("Bill in Current Month", bill);
-
-        //   // console.log(occurrences);
-        // }
       }
     });
 
@@ -226,18 +218,18 @@ export class BillsSummaryComponent {
   // ✅ Funzione per ottenere l'ultimo giorno del mese
   private getLastDayOfMonth(year: number, month: number): number {
     const monthDaysMapping: Record<number, number> = {
-      0: 31,  // Gennaio
-      1: 28,  // Febbraio (gestito separatamente per anni bisestili)
-      2: 31,  // Marzo
-      3: 30,  // Aprile
-      4: 31,  // Maggio
-      5: 30,  // Giugno
-      6: 31,  // Luglio
-      7: 31,  // Agosto
-      8: 30,  // Settembre
-      9: 31,  // Ottobre
-      10: 30, // Novembre
-      11: 31  // Dicembre
+      0: 31,  
+      1: 28,  
+      2: 31,  
+      3: 30,  
+      4: 31,  
+      5: 30,  
+      6: 31,  
+      7: 31,  
+      8: 30,  
+      9: 31,  
+      10: 30,
+      11: 31  
     };
     if (month === 1) { // Febbraio
       return (year % 4 === 0 && (year % 100 !== 0 || year % 400 === 0)) ? 29 : 28;
@@ -272,23 +264,16 @@ export class BillsSummaryComponent {
       startOfPeriod = new Date(currentYear, currentMonth + 1, 1); // Inizio del mese successivo
       const lastDayNextMonth = this.getLastDayOfMonth(currentYear, currentMonth + 1);
       endOfPeriod = new Date(currentYear, currentMonth + 1, lastDayNextMonth);
-      console.log("Start ", startOfPeriod);
-      console.log("End ", endOfPeriod);
-      
     }
     else if (timeWindow === "nextThreeMonths") {
       startOfPeriod = new Date(currentYear, currentMonth + 1, 1); // Inizio del mese successivo
       const lastDayNextThreeMonths = this.getLastDayOfMonth(currentYear, currentMonth + 3);
       endOfPeriod = new Date(currentYear, currentMonth + 3, lastDayNextThreeMonths);
-      console.log("Start ", startOfPeriod);
-      console.log("End ", endOfPeriod);
     }
     else if (timeWindow === "nextSixMonths") {
       startOfPeriod = new Date(currentYear, currentMonth + 1, 1); // Inizio del mese successivo
       const lastDayNextSixMonths = this.getLastDayOfMonth(currentYear, currentMonth + 6);
       endOfPeriod = new Date(currentYear, currentMonth + 6, lastDayNextSixMonths);
-      console.log("Start ", startOfPeriod);
-      console.log("End ", endOfPeriod);
     }
     else {
       throw new Error("Time window not supported");

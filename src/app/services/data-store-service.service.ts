@@ -1464,7 +1464,7 @@ export class DataStoreServiceService {
       amount: 40.00,
       budget_id: null,
       created_at: '2024-03-25T00:00:00Z',
-      execute_on: '2025-03-24T00:00:00Z',
+      execute_on: '2025-03-23T00:00:00Z',
       deleted_at: null,
       recurring: 'weekly',
       recurring_id: "6",
