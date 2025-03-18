@@ -143,34 +143,38 @@ export class BillsSummaryComponent {
         let occurrences = 0;
 
         // ✅ Se la transazione avviene nel periodo futuro o nel mese corrente con ricorrenza
-        if (billYear === currentYear && billMonth <= periodEndMonth) {
+        if (billYear === currentYear && billMonth >= periodStartMonth && billMonth <= periodEndMonth) {
 
           // 🔹 Se la transazione è settimanale, calcoliamo quante volte avviene nel periodo selezionato
           if (bill.recurring === "weekly") {
             occurrences = this.getRemainingWeeklyOccurrences(billDate, selectedTimeWindow);
+            console.log("ID nr", bill.recurring_id, bill.recurring, "X", occurrences);
           }
           // 🔹 Se la transazione è mensile, calcoliamo quante volte si ripete nel periodo
           else if (bill.recurring === "monthly") {
             occurrences = periodEndMonth - Math.max(billMonth, currentMonth) + 1;
+            console.log("ID nr", bill.recurring_id, bill.recurring, "X", occurrences);
           }
           // 🔹 Se la transazione è trimestrale, calcoliamo le ripetizioni
           else if (bill.recurring === "quarterly") {
             occurrences = Math.floor((periodEndMonth - billMonth) / 3) + 1;
+            console.log("ID nr", bill.recurring_id, bill.recurring, "X", occurrences);
           }
           
           
           
 
-          console.log("ID nr", bill.recurring_id, "X", occurrences);
+          
 
           // 🔹 Sommiamo l'importo totale
           upcoming += bill.amount * occurrences;
-        } else if (billYear === currentYear && billMonth <= periodStartMonth) {
+        } 
+        else if (billYear === currentYear && billMonth <= periodStartMonth) {
           
 
-          console.log(bill);
+          console.log("Bill in Current Month", bill);
 
-          console.log(occurrences);
+          // console.log(occurrences);
         }
       }
     });
