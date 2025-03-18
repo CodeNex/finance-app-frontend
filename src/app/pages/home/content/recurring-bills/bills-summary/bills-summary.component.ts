@@ -143,7 +143,7 @@ export class BillsSummaryComponent {
         let occurrences = 0;
 
         // ✅ Se la transazione avviene nel periodo futuro o nel mese corrente con ricorrenza
-        if (billYear === currentYear && billMonth >= periodStartMonth && billMonth <= periodEndMonth) {
+        if (billYear === currentYear && billMonth <= periodEndMonth) {
 
           // 🔹 Se la transazione è settimanale, calcoliamo quante volte avviene nel periodo selezionato
           if (bill.recurring === "weekly") {
@@ -152,7 +152,11 @@ export class BillsSummaryComponent {
           }
           // 🔹 Se la transazione è mensile, calcoliamo quante volte si ripete nel periodo
           else if (bill.recurring === "monthly") {
-            occurrences = periodEndMonth - Math.max(billMonth, currentMonth) + 1;
+            if (billMonth === currentMonth) {
+              occurrences = periodEndMonth - currentMonth;
+            } else {
+              occurrences = periodEndMonth - Math.max(billMonth, currentMonth) + 1;
+            }
             console.log("ID nr", bill.recurring_id, bill.recurring, "X", occurrences);
           }
           // 🔹 Se la transazione è trimestrale, calcoliamo le ripetizioni
@@ -169,13 +173,13 @@ export class BillsSummaryComponent {
           // 🔹 Sommiamo l'importo totale
           upcoming += bill.amount * occurrences;
         } 
-        else if (billYear === currentYear && billMonth <= periodStartMonth) {
+        // else if (billYear === currentYear && billMonth <= periodStartMonth) {
           
 
-          console.log("Bill in Current Month", bill);
+        //   console.log("Bill in Current Month", bill);
 
-          // console.log(occurrences);
-        }
+        //   // console.log(occurrences);
+        // }
       }
     });
 
@@ -268,16 +272,23 @@ export class BillsSummaryComponent {
       startOfPeriod = new Date(currentYear, currentMonth + 1, 1); // Inizio del mese successivo
       const lastDayNextMonth = this.getLastDayOfMonth(currentYear, currentMonth + 1);
       endOfPeriod = new Date(currentYear, currentMonth + 1, lastDayNextMonth);
+      console.log("Start ", startOfPeriod);
+      console.log("End ", endOfPeriod);
+      
     }
     else if (timeWindow === "nextThreeMonths") {
       startOfPeriod = new Date(currentYear, currentMonth + 1, 1); // Inizio del mese successivo
       const lastDayNextThreeMonths = this.getLastDayOfMonth(currentYear, currentMonth + 3);
       endOfPeriod = new Date(currentYear, currentMonth + 3, lastDayNextThreeMonths);
+      console.log("Start ", startOfPeriod);
+      console.log("End ", endOfPeriod);
     }
     else if (timeWindow === "nextSixMonths") {
       startOfPeriod = new Date(currentYear, currentMonth + 1, 1); // Inizio del mese successivo
       const lastDayNextSixMonths = this.getLastDayOfMonth(currentYear, currentMonth + 6);
       endOfPeriod = new Date(currentYear, currentMonth + 6, lastDayNextSixMonths);
+      console.log("Start ", startOfPeriod);
+      console.log("End ", endOfPeriod);
     }
     else {
       throw new Error("Time window not supported");
