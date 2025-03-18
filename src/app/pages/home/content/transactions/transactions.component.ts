@@ -31,7 +31,7 @@ export class TransactionsComponent {
 
   public transactionsSignal$: Signal<any[]> = this.dataStore.transactions;
   public categoryFilterInput: string = 'All Transactions';
-  public sortByInput: string = '';
+  public sortByInput: string = 'latest';
   public searchFieldInput: string = '';
   public totalSubPages$ = signal(0);
   public currentPage$ = signal(1);
@@ -80,7 +80,9 @@ export class TransactionsComponent {
   }
 
   private getSortedTransactions(prevArray: any) {
-    let array = prevArray;
+    let array;
+    if (this.sortByInput === 'latest') array = this.sortByLatest(prevArray);
+    if (this.sortByInput === 'oldest') array = this.sortByOldest(prevArray);
     return array;
   }
 
@@ -92,6 +94,24 @@ export class TransactionsComponent {
     }
     return splittedArray;
   }
+
+  // functions to sort the array 
+  private sortByLatest(array: any) {
+    return array.sort((a: any, b: any) => {
+      if (!a.execute_on) return 1; 
+      if (!b.execute_on) return -1;
+      return new Date(b.execute_on).getTime() - new Date(a.execute_on).getTime();
+    });
+  }
+
+  private sortByOldest(array: any) {
+    return array.sort((a: any, b: any) => {
+      if (!a.execute_on) return 1; 
+      if (!b.execute_on) return -1;
+      return new Date(a.execute_on).getTime() - new Date(b.execute_on).getTime();
+    });
+  }
+  
 
   // functions to set inputs to filter and sort transactions
   public setCategoryFilterInput(input: string) {
