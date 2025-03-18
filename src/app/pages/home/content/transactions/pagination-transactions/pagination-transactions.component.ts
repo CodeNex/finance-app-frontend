@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import {
   Component,
   Input,
@@ -9,7 +10,7 @@ import {
 
 @Component({
   selector: 'app-pagination-transactions',
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './pagination-transactions.component.html',
   styleUrl: './pagination-transactions.component.scss',
 })
@@ -29,8 +30,8 @@ export class PaginationTransactionsComponent {
 
   ngOnInit() {
     setTimeout(() => {
-      this.changePageHandler(7);
+      this.changePageHandler(5);
       console.log(this.currentPage$());
-    }, 3000);
+    }, 2000);
   }
 }

@@ -1,1 +1,5 @@
-<p>pagination-transactions works!</p>
+<section class="flex justify-between items-center">
+  <div [ngStyle]="{'visibility': this.currentPage() === 0 ? 'hidden' : 'visible'}">prev</div>
+  <div>{{ this.currentPage() }}</div>
+  <div [ngStyle]="{'visibility': this.currentPage() === this.totalSubPages() ? 'hidden' : 'visible'}">Next</div>
+</section>

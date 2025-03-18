@@ -33,8 +33,15 @@ export class TransactionsComponent {
   public categoryFilterInput: string[] = ['All Transactions'];
   public sortByInput: string = '';
   public searchFieldInput: string = '';
-  public totalSubPages: number = 0;
+  public totalSubPages$ = signal(0);
   public currentPage$ = signal(0);
+
+  constructor() {
+    effect(() => {
+      let array = this.readyToRenderTransactionsArray();
+      if (array.length > 0) this.setTotalSubPages$(array.length);;
+    })
+  }
 
   ngOnInit() {
     console.log(this.readyToRenderTransactionsArray());
@@ -85,7 +92,6 @@ export class TransactionsComponent {
     for (let i = 0; i < prevArray.length; i += transactionsPerPage) {
       splittedArray.push(prevArray.slice(i, i + transactionsPerPage));
     }
-    this.setTotalSubPages(splittedArray.length);
     return splittedArray;
   }
 
@@ -103,8 +109,8 @@ export class TransactionsComponent {
   }
 
   // functions to handle pagination
-  public setTotalSubPages(value: number) {
-    this.totalSubPages = value;
+  public setTotalSubPages$(value: number) {
+    this.totalSubPages$.set(value);
   }
 
   public setCurrentPage$(value: number) {
