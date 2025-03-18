@@ -22,8 +22,11 @@ export class BillsSummaryComponent {
   @Input() public recurringBillsArray$!: TransactionsObject[];
   @Input() public transactionsArray$!: TransactionsObject[];
 
+  public unformattedTotalBillsAmount: number = 0;
   public totalBillsAmount: string = "";
+  public unformattedTotalPaid: number = 0;
   public totalPaid: string = "";
+  public unformattedTotalUpcoming: number = 0;
   public totalUpcoming: string = "";
   public selectedTimeWindow: string = "monthly";
 
@@ -33,22 +36,20 @@ export class BillsSummaryComponent {
   }
 
   updateCalculations() {
-    this.totalBillsAmount = this.getformattedValue(this.getTotalBillsAmount(this.recurringBillsArray$, this.transactionsArray$, this.selectedTimeWindow));
-    // this.totalPaid = this.getformattedValue(this.getTotalPaidAmount(this.recurringBillsArray$));
-    // this.totalUpcoming = this.getformattedValue(this.getTotalUpcomingAmount(this.recurringBillsArray$));
+    this.unformattedTotalPaid = this.getTotalPaidAmount(this.transactionsArray$, this.selectedTimeWindow);
+    this.totalPaid = this.getformattedValue(this.unformattedTotalPaid);
+    this.unformattedTotalUpcoming = this.getTotalUpcomingAmount(this.recurringBillsArray$, this.selectedTimeWindow);
+    this.totalUpcoming = this.getformattedValue(this.unformattedTotalUpcoming);
+    this.totalBillsAmount = this.getformattedValue(this.unformattedTotalPaid + this.unformattedTotalUpcoming);
   }
 
-  getTotalBillsAmount(
-    recurringBillsArray$: TransactionsObject[],
-    transactionsArray$: TransactionsObject[],
-    selectedTimeWindow: string
-  ): number {
+  getTotalUpcomingAmount(recurringBillsArray$: TransactionsObject[], selectedTimeWindow: string): number {
     const currentDate = new Date();
     const currentMonth = currentDate.getMonth(); // Mese corrente (0-11)
     const currentYear = currentDate.getFullYear(); // Anno corrente
 
-    let sum = 0;
-
+    let upcoming = 0;
+    
     // 🔹 Identificare il trimestre corrente
     const quarterStartMonth = Math.floor(currentMonth / 3) * 3; // Trova il primo mese del trimestre (0,3,6,9)
     const quarterEndMonth = quarterStartMonth + 2; // Trova l'ultimo mese del trimestre
@@ -62,7 +63,7 @@ export class BillsSummaryComponent {
           billDate.getMonth() === currentMonth &&
           billDate.getFullYear() === currentYear
         ) {
-          sum += bill.amount;
+          upcoming += bill.amount;
         } else if (
           selectedTimeWindow === "quarterly" &&
           billDate.getMonth() >= quarterStartMonth &&
@@ -77,10 +78,24 @@ export class BillsSummaryComponent {
             remainingOccurrences = quarterEndMonth - billMonth + 1; // Conta quante volte accadrà ancora
           }
 
-          sum += bill.amount * remainingOccurrences;
+          upcoming += bill.amount * remainingOccurrences;
         }
       }
     });
+
+    return upcoming;
+  }
+
+  getTotalPaidAmount(transactionsArray$: TransactionsObject[], selectedTimeWindow: string): number {
+    const currentDate = new Date();
+    const currentMonth = currentDate.getMonth(); // Mese corrente (0-11)
+    const currentYear = currentDate.getFullYear(); // Anno corrente
+
+    let paid = 0;
+    
+    // 🔹 Identificare il trimestre corrente
+    const quarterStartMonth = Math.floor(currentMonth / 3) * 3; // Trova il primo mese del trimestre (0,3,6,9)
+    const quarterEndMonth = quarterStartMonth + 2; // Trova l'ultimo mese del trimestre
 
     // 2️⃣ Somma gli amount delle transazioni che hanno un recurring_id e sono nel mese corrente
     transactionsArray$.forEach(transaction => {
@@ -91,65 +106,19 @@ export class BillsSummaryComponent {
           transactionDate.getMonth() === currentMonth &&
           transactionDate.getFullYear() === currentYear
         ) {
-          sum += transaction.amount;
+          paid += transaction.amount;
         } else if (
           selectedTimeWindow === "quarterly" &&
           transactionDate.getMonth() >= quarterStartMonth &&
           transactionDate.getMonth() <= quarterEndMonth &&
           transactionDate.getFullYear() === currentYear
         ) {
-          sum += transaction.amount;
+          paid += transaction.amount;
         }
       }
     });
 
-    return sum;
-  }
-
-
-
-  getTotalUpcomingAmount(recurringBillsArray: TransactionsObject[]): number {
-    let sum = 0;
-    const currentDate = new Date();
-    const currentMonth = currentDate.getMonth();
-    const currentYear = currentDate.getFullYear();
-
-    recurringBillsArray.forEach(bill => {
-      if (bill.execute_on) {
-        const recurringDate = new Date(bill.execute_on);
-        if (
-          recurringDate.getMonth() === currentMonth &&
-          recurringDate.getFullYear() === currentYear &&
-          recurringDate > currentDate &&
-          bill.amount
-        ) {
-          sum += bill.amount;
-        }
-      }
-    });
-
-    return sum;
-  }
-
-  getTotalPaidAmount(recurringBillsArray: TransactionsObject[]): number {
-    let sum = 0;
-    const currentDate = new Date();
-
-    recurringBillsArray.forEach(bill => {
-      if (bill.execute_on) {
-        const recurringDate = new Date(bill.execute_on);
-        const nextMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 1);
-        if (
-          recurringDate.getMonth() === nextMonth.getMonth() &&
-          recurringDate.getFullYear() === nextMonth.getFullYear() &&
-          bill.amount
-        ) {
-          sum += bill.amount;
-        }
-      }
-    });
-
-    return sum;
+    return paid;
   }
 
   getformattedValue(value: number): string {
@@ -165,18 +134,5 @@ export class BillsSummaryComponent {
 
     console.log('Selected value:', this.selectedTimeWindow);
     this.updateCalculations();
-
-    // Aggiorna i calcoli in base al valore selezionato
-    // if (selectedValue === 'monthly') {
-    //   this.totalBillsAmount = this.getformattedValue(this.getTotalBillsAmount(this.recurringBillsArray$));
-    //   // this.totalPaid = this.getformattedValue(this.getTotalPaidAmount(this.recurringBillsArray$));
-    //   // this.totalUpcoming = this.getformattedValue(this.getTotalUpcomingAmount(this.recurringBillsArray$));
-    // } else if (selectedValue === 'quarterly') {
-    //   this.totalBillsAmount = this.getformattedValue(this.getTotalBillsAmount(this.recurringBillsArray$) * 3);
-    //   // this.totalPaid = this.getformattedValue(this.getTotalPaidAmount(this.recurringBillsArray$) * 3);
-    //   // this.totalUpcoming = this.getformattedValue(this.getTotalUpcomingAmount(this.recurringBillsArray$) * 3);
-    // } else if (selectedValue === 'yearly') {
-    //   // Implementa la logica per il calcolo annuale
-    // }
   }
 }
