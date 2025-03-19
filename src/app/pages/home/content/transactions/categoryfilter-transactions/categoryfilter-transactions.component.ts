@@ -24,6 +24,8 @@ export class CategoryfilterTransactionsComponent {
   public categories: any[] = [];
   // current chosen category
   public chosenCategory: string = 'All Transactions';
+  // boolean to control the dropdown
+  public isDropDownOpen: boolean = false;
 
   ngOnInit() {
     this.categories = this.getCategories();

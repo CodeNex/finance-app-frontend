@@ -16,6 +16,7 @@ export class SortbyTransactionsComponent {
     this.sortByChange.emit(sortBy);
   }
 
+  // array of all sorting options
   public sortByOptions: string[] = [
     'Latest',
     'Oldest',
@@ -24,8 +25,10 @@ export class SortbyTransactionsComponent {
     'Highest',
     'Lowest',
   ];
-
+  // current chosen sorting option
   public chosenSortBy: string = 'Latest';
+  // boolean to control the dropdown
+  public isDropDownOpen: boolean = false;
 
   ngOnInit() {
     // setTimeout(() => {
