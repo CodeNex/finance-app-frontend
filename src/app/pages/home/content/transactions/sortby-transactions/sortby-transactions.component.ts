@@ -1,8 +1,10 @@
+import { CommonModule } from '@angular/common';
 import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { IconsComponent } from '../../../../../components/icons/icons.component';
 
 @Component({
   selector: 'app-sortby-transactions',
-  imports: [],
+  imports: [CommonModule, IconsComponent],
   templateUrl: './sortby-transactions.component.html',
   styleUrl: './sortby-transactions.component.scss',
 })

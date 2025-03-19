@@ -1,10 +1,12 @@
 import { Component, Input, Output, EventEmitter, inject } from '@angular/core';
 
 import { BasedataService } from '../../../../../services/basedata.service';
+import { CommonModule } from '@angular/common';
+import { IconsComponent } from '../../../../../components/icons/icons.component';
 
 @Component({
   selector: 'app-categoryfilter-transactions',
-  imports: [],
+  imports: [CommonModule, IconsComponent],
   templateUrl: './categoryfilter-transactions.component.html',
   styleUrl: './categoryfilter-transactions.component.scss'
 })
