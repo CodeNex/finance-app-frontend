@@ -41,7 +41,7 @@ export class TransactionsComponent {
 
   public transactionsSignal$: Signal<any[]> = this.dataStore.transactions;
   public categoryFilterInput: string = 'All Transactions';
-  public sortByInput: string = 'latest';
+  public sortByInput: string = 'Latest';
   public searchFieldInput: string = '';
   public totalSubPages$ = signal(0);
   public currentPage$ = signal(1);
@@ -94,11 +94,11 @@ export class TransactionsComponent {
 
   private getSortedTransactions(prevArray: any) {
     let array;
-    if (this.sortByInput === 'latest' || this.sortByInput === 'oldest' || this.sortByInput === null || this.sortByInput === '')
+    if (this.sortByInput === 'Latest' || this.sortByInput === 'Oldest' || this.sortByInput === null || this.sortByInput === '')
       array = this.sortByDate(prevArray);
-    if (this.sortByInput === 'aToZ' || this.sortByInput === 'zToA')
+    if (this.sortByInput === 'A to Z' || this.sortByInput === 'Z to A')
       array = this.sortByAlphabet(prevArray);
-    if (this.sortByInput === 'highest' || this.sortByInput === 'lowest')
+    if (this.sortByInput === 'Highest' || this.sortByInput === 'Lowest')
       array = this.sortByAmount(prevArray);
     return array;
   }
@@ -133,11 +133,11 @@ export class TransactionsComponent {
     return array.sort((a: any, b: any) => {
       if (!a.execute_on) return 1;
       if (!b.execute_on) return -1;
-      if (this.sortByInput === 'latest' || this.sortByInput === null || this.sortByInput === '')
+      if (this.sortByInput === 'Latest' || this.sortByInput === null || this.sortByInput === '')
         return (
           new Date(b.execute_on).getTime() - new Date(a.execute_on).getTime()
         );
-      if (this.sortByInput === 'oldest')
+      if (this.sortByInput === 'Oldest')
         return (
           new Date(a.execute_on).getTime() - new Date(b.execute_on).getTime()
         );
@@ -149,8 +149,8 @@ export class TransactionsComponent {
     return array.sort((a: any, b: any) => {
       if (!a.name) return 1;
       if (!b.name) return -1;
-      if (this.sortByInput === 'aToZ') return a.name.localeCompare(b.name);
-      if (this.sortByInput === 'zToA') return b.name.localeCompare(a.name);
+      if (this.sortByInput === 'A to Z') return a.name.localeCompare(b.name);
+      if (this.sortByInput === 'Z to A') return b.name.localeCompare(a.name);
       return;
     });
   }
@@ -159,8 +159,8 @@ export class TransactionsComponent {
     return array.sort((a: any, b: any) => {
       if (a.amount == null) return 1;
       if (b.amount == null) return -1;
-      if (this.sortByInput === 'highest') return b.amount - a.amount;
-      if (this.sortByInput === 'lowest') return a.amount - b.amount;
+      if (this.sortByInput === 'Highest') return b.amount - a.amount;
+      if (this.sortByInput === 'Lowest') return a.amount - b.amount;
       return;
     });
   }
