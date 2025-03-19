@@ -1,3 +1,6 @@
+// new transactions - possible intervals: "weekly", "twoWeeks", "monthly", "quarterly", "halfYearly", "yearly"
+
+
 import {
   Component,
   effect,
