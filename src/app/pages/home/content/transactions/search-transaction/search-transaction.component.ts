@@ -19,4 +19,10 @@ export class SearchTransactionComponent {
   ngOnInit() {
       this.emitSearchFieldChange(''); 
   }
+
+  public searchFieldInput() {
+    let field = document.getElementById('transactionSearchInputField') as HTMLInputElement;
+    let value = field.value;
+    this.emitSearchFieldChange(value);
+  }
 }
