@@ -130,52 +130,53 @@ export class BillsSummaryComponent {
 
     recurringBillsArray$.forEach(bill => {
       console.log(bill);
-      if (bill.amount && bill.execute_on) {
-        const billDate = new Date(bill.execute_on);
-        const billMonth = billDate.getMonth();
-        const billYear = billDate.getFullYear();
 
-        let occurrences = 0;
+      const { billDate, billMonth, billYear } = this.getBillsDates(bill);
 
+      if (billYear === this.currentYear && billMonth <= periodEndMonth) {
 
-        if (billYear === this.currentYear && billMonth <= periodEndMonth) {
+        let occurrences = this.getOccurences(bill, billDate, billMonth, selectedTimeWindow, periodEndMonth);
 
-
-          if (bill.recurring === "weekly") {
-            occurrences = this.getRemainingWeeklyOccurrences(billDate, selectedTimeWindow) - 1;
-            console.log("ID nr", bill.recurring_id, bill.recurring, "X", occurrences);
-          }
-
-          else if (bill.recurring === "monthly") {
-            if (billMonth === this.currentMonth) {
-              occurrences = periodEndMonth - this.currentMonth;
-            } else {
-              occurrences = periodEndMonth - Math.max(billMonth, this.currentMonth) + 1;
-            }
-            console.log("ID nr", bill.recurring_id, bill.recurring, "X", occurrences);
-          }
-
-          else if (bill.recurring === "quarterly") {
-            occurrences = Math.floor((periodEndMonth - billMonth) / 3) + 1;
-            console.log("ID nr", bill.recurring_id, bill.recurring, "X", occurrences);
-          }
-
-
-
-
-
-
-
-          upcoming += bill.amount * occurrences;
-        }
+        upcoming += bill.amount! * occurrences;
       }
+
     });
 
     return upcoming;
   }
 
+  getBillsDates(bill: TransactionsObject): { billDate: Date, billMonth: number, billYear: number } {
+    const billDate: Date = new Date(bill.execute_on!);
+    const billMonth = billDate.getMonth();
+    const billYear = billDate.getFullYear();
+    
+    return { billDate, billMonth, billYear };
+  }
 
 
+  getOccurences(bill: TransactionsObject, billDate: Date, billMonth: number, selectedTimeWindow: string, periodEndMonth: number): number {
+    let occurrences = 0;
+    if (bill.recurring === "weekly") {
+      occurrences = this.getRemainingWeeklyOccurrences(billDate, selectedTimeWindow) - 1;
+      console.log("ID nr", bill.recurring_id, bill.recurring, "X", occurrences);
+    }
+
+    else if (bill.recurring === "monthly") {
+      if (billMonth === this.currentMonth) {
+        occurrences = periodEndMonth - this.currentMonth;
+      } else {
+        occurrences = periodEndMonth - Math.max(billMonth, this.currentMonth) + 1;
+      }
+      console.log("ID nr", bill.recurring_id, bill.recurring, "X", occurrences);
+    }
+
+    else if (bill.recurring === "quarterly") {
+      occurrences = Math.floor((periodEndMonth - billMonth) / 3) + 1;
+      console.log("ID nr", bill.recurring_id, bill.recurring, "X", occurrences);
+    }
+
+    return occurrences;
+  }
 
 
   getTotalPaidAmount(transactionsArray$: TransactionsObject[], selectedTimeWindow: string): number {
