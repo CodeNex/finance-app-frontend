@@ -1,4 +1,6 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, inject } from '@angular/core';
+
+import { BasedataService } from '../../../../../services/basedata.service';
 
 @Component({
   selector: 'app-categoryfilter-transactions',
@@ -14,10 +16,19 @@ export class CategoryfilterTransactionsComponent {
     this.categoryFilterChange.emit(category);
   }
 
+  public baseData: BasedataService = inject(BasedataService);
+
+  public categories: string[] = [];
+
+  public chosenCategory: string = '';
+
   ngOnInit() {
-    // setTimeout(() => {
-    //   this.emitCategoryFilterChange('transportation');
-    // }, 2000);
+    this.categories = this.getCategories();
+  }
+
+  private getCategories() {
+    let array = Object.keys(this.baseData.financeApp.budgets.categories);
+    return array;
   }
 
 }
