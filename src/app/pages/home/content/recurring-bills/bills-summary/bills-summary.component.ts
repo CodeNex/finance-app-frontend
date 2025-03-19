@@ -38,17 +38,19 @@ export class BillsSummaryComponent {
 
   ngOnInit() {
     this.updateCalculations();
-
   }
 
   updateCalculations() {
     if (this.selectedTimeWindow === "monthly" || this.selectedTimeWindow === "quarterly" || this.selectedTimeWindow === "yearly") {
+
       this.unformattedTotalPaid = this.getTotalPaidAmount(this.transactionsArray$, this.selectedTimeWindow);
       this.unformattedTotalUpcoming = this.getTotalUpcomingAmount(this.recurringBillsArray$, this.selectedTimeWindow);
 
     } else if (this.selectedTimeWindow === "nextMonth" || this.selectedTimeWindow === "nextThreeMonths" || this.selectedTimeWindow === "nextSixMonths") {
+
       this.unformattedTotalPaid = 0;
       this.unformattedTotalUpcoming = this.getFutureUpcoming(this.recurringBillsArray$, this.selectedTimeWindow);
+      
     }
     this.totalPaid = this.getformattedValue(this.unformattedTotalPaid);
     this.totalUpcoming = this.getformattedValue(this.unformattedTotalUpcoming);
@@ -58,52 +60,16 @@ export class BillsSummaryComponent {
   getTotalUpcomingAmount(recurringBillsArray$: TransactionsObject[], selectedTimeWindow: string): number {
     let upcoming = 0;
 
-    // 🔹 Identificare il trimestre corrente
-    const quarterStartMonth = Math.floor(this.currentMonth / 3) * 3;
-    const quarterEndMonth = quarterStartMonth + 2;
+    const { periodStartMonth, periodEndMonth } = this.definePeriodRange(selectedTimeWindow);
+    
 
     recurringBillsArray$.forEach(bill => {
-      if (bill.amount && bill.execute_on) {
-        const billDate = new Date(bill.execute_on);
+      const { billDate, billMonth, billYear } = this.getBillsDates(bill);
 
-        if (selectedTimeWindow === "monthly" && billDate.getMonth() === this.currentMonth && billDate.getFullYear() === this.currentYear) {
-          let occurrences = 1;
+      let remainingOccurrences = this.getRemainingOccurrences(bill, billDate, billMonth, selectedTimeWindow, periodStartMonth, periodEndMonth);
 
-          if (bill.recurring === "weekly") {
-            occurrences = this.getRemainingWeeklyOccurrences(billDate, "monthly");
-          }
-
-          upcoming += bill.amount * occurrences;
-        }
-        else if (selectedTimeWindow === "quarterly" && billDate.getMonth() >= quarterStartMonth && billDate.getMonth() <= quarterEndMonth && billDate.getFullYear() === this.currentYear) {
-          let remainingOccurrences = 1;
-
-          if (bill.recurring === "monthly") {
-            const billMonth = billDate.getMonth();
-            remainingOccurrences = quarterEndMonth - billMonth + 1;
-          }
-          else if (bill.recurring === "weekly") {
-            remainingOccurrences = this.getRemainingWeeklyOccurrences(billDate, "quarterly");
-          }
-
-          upcoming += bill.amount * remainingOccurrences;
-        }
-        else if (selectedTimeWindow === "yearly" && billDate.getFullYear() === this.currentYear) {
-          let occurrences = 1;
-
-          if (bill.recurring === "monthly") {
-            occurrences = 12 - billDate.getMonth();
-          }
-          else if (bill.recurring === "quarterly") {
-            occurrences = 4 - Math.floor(billDate.getMonth() / 3);
-          }
-          else if (bill.recurring === "weekly") {
-            occurrences = this.getRemainingWeeklyOccurrences(billDate, "yearly");
-          }
-
-          upcoming += bill.amount * occurrences;
-        }
-      }
+      
+      upcoming += bill.amount! * remainingOccurrences;
     });
 
     return upcoming;
@@ -111,17 +77,25 @@ export class BillsSummaryComponent {
 
   private definePeriodRange(selectedTimeWindow: string) {
     const currentMonth = new Date().getMonth();
+    let periodStartMonth = currentMonth;
     let periodEndMonth = currentMonth;
+    
 
     if (selectedTimeWindow === "nextMonth") {
+      periodStartMonth = currentMonth + 1;
       periodEndMonth = currentMonth + 1;
     } else if (selectedTimeWindow === "nextThreeMonths") {
+      periodStartMonth = currentMonth + 1;
       periodEndMonth = currentMonth + 3;
     } else if (selectedTimeWindow === "nextSixMonths") {
+      periodStartMonth = currentMonth + 1;
       periodEndMonth = currentMonth + 6;
+    } else if (selectedTimeWindow === "quarterly") {
+      periodStartMonth = Math.floor(this.currentMonth / 3) * 3;
+      periodEndMonth = periodStartMonth + 2;
     }
 
-    return { periodStartMonth: currentMonth + 1, periodEndMonth };
+    return { periodStartMonth, periodEndMonth };
   }
 
   getFutureUpcoming(recurringBillsArray$: TransactionsObject[], selectedTimeWindow: string): number {
@@ -135,7 +109,7 @@ export class BillsSummaryComponent {
 
       if (billYear === this.currentYear && billMonth <= periodEndMonth) {
 
-        let occurrences = this.getOccurences(bill, billDate, billMonth, selectedTimeWindow, periodEndMonth);
+        let occurrences = this.getFutureOccurences(bill, billDate, billMonth, selectedTimeWindow, periodEndMonth);
 
         upcoming += bill.amount! * occurrences;
       }
@@ -149,12 +123,54 @@ export class BillsSummaryComponent {
     const billDate: Date = new Date(bill.execute_on!);
     const billMonth = billDate.getMonth();
     const billYear = billDate.getFullYear();
-    
+
     return { billDate, billMonth, billYear };
   }
 
+  getRemainingOccurrences(bill: TransactionsObject, billDate: Date, billMonth: number, selectedTimeWindow: string, periodStartMonth: number, periodEndMonth: number): number {
+    let remainingOccurrences = 0;
+    if (selectedTimeWindow === "monthly" && billDate.getMonth() === this.currentMonth && billDate.getFullYear() === this.currentYear) {
+      remainingOccurrences = 1;
 
-  getOccurences(bill: TransactionsObject, billDate: Date, billMonth: number, selectedTimeWindow: string, periodEndMonth: number): number {
+      if (bill.recurring === "weekly") {
+        remainingOccurrences = this.getRemainingWeeklyOccurrences(billDate, "monthly");
+      }
+
+     
+    }
+    else if (selectedTimeWindow === "quarterly" && billDate.getMonth() >= periodStartMonth && billDate.getMonth() <= periodEndMonth && billDate.getFullYear() === this.currentYear) {
+      remainingOccurrences = 1;
+
+      if (bill.recurring === "monthly") {
+        // const billMonth = billDate.getMonth();
+        remainingOccurrences = periodEndMonth - billMonth + 1;
+      }
+      else if (bill.recurring === "weekly") {
+        remainingOccurrences = this.getRemainingWeeklyOccurrences(billDate, "quarterly");
+      }
+
+      
+    }
+    else if (selectedTimeWindow === "yearly" && billDate.getFullYear() === this.currentYear) {
+      remainingOccurrences = 1;
+
+      if (bill.recurring === "monthly") {
+        remainingOccurrences = 12 - billDate.getMonth();
+      }
+      else if (bill.recurring === "quarterly") {
+        remainingOccurrences = 4 - Math.floor(billDate.getMonth() / 3);
+      }
+      else if (bill.recurring === "weekly") {
+        remainingOccurrences = this.getRemainingWeeklyOccurrences(billDate, "yearly");
+      }
+
+
+    }
+    return remainingOccurrences;
+  }
+
+
+  getFutureOccurences(bill: TransactionsObject, billDate: Date, billMonth: number, selectedTimeWindow: string, periodEndMonth: number): number {
     let occurrences = 0;
     if (bill.recurring === "weekly") {
       occurrences = this.getRemainingWeeklyOccurrences(billDate, selectedTimeWindow) - 1;
