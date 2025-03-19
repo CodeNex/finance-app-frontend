@@ -33,4 +33,9 @@ export class CategoryfilterTransactionsComponent {
     return array;
   }
 
+  public changeCategoryFilter(category: any) {
+    this.chosenCategory = category.name;
+    this.emitCategoryFilterChange(category.iconName);
+  }
+
 }

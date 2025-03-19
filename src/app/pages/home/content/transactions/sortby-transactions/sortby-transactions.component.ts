@@ -23,11 +23,16 @@ export class SortbyTransactionsComponent {
     'Lowest',
   ];
 
-  public chosenSortBy: string = 'latest';
+  public chosenSortBy: string = 'Latest';
 
   ngOnInit() {
     // setTimeout(() => {
     //   this.emitSortByChange('highest');
     // }, 2000);
+  }
+
+  public changeSortBy(sortBy: string) {
+    this.chosenSortBy = sortBy;
+    this.emitSortByChange(sortBy);
   }
 }
