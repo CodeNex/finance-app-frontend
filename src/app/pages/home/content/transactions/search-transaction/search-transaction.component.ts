@@ -1,8 +1,10 @@
+import { CommonModule } from '@angular/common';
 import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { IconsComponent } from '../../../../../components/icons/icons.component';
 
 @Component({
   selector: 'app-search-transaction',
-  imports: [],
+  imports: [CommonModule, IconsComponent],
   templateUrl: './search-transaction.component.html',
   styleUrl: './search-transaction.component.scss'
 })
