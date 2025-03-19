@@ -114,23 +114,23 @@ export class BillsSummaryComponent {
   }
 
   getFutureUpcoming(recurringBillsArray$: TransactionsObject[], selectedTimeWindow: string): number {
-    const currentDate = new Date();
-    const currentMonth = currentDate.getMonth();
-    const currentYear = currentDate.getFullYear();
+    // const currentDate = new Date();
+    // const currentMonth = currentDate.getMonth();
+    // const currentYear = currentDate.getFullYear();
 
     let upcoming = 0;
 
-    let periodStartMonth = currentMonth + 1;
+    let periodStartMonth = this.currentMonth + 1;
     console.log("Start ", periodStartMonth);
 
-    let periodEndMonth = currentMonth;
+    let periodEndMonth = this.currentMonth;
 
     if (selectedTimeWindow === "nextMonth") {
-      periodEndMonth = currentMonth + 1;
+      periodEndMonth = this.currentMonth + 1;
     } else if (selectedTimeWindow === "nextThreeMonths") {
-      periodEndMonth = currentMonth + 3;
+      periodEndMonth = this.currentMonth + 3;
     } else if (selectedTimeWindow === "nextSixMonths") {
-      periodEndMonth = currentMonth + 6;
+      periodEndMonth = this.currentMonth + 6;
     }
     console.log("End ", periodEndMonth);
 
@@ -145,7 +145,7 @@ export class BillsSummaryComponent {
         let occurrences = 0;
 
 
-        if (billYear === currentYear && billMonth <= periodEndMonth) {
+        if (billYear === this.currentYear && billMonth <= periodEndMonth) {
 
 
           if (bill.recurring === "weekly") {
@@ -154,10 +154,10 @@ export class BillsSummaryComponent {
           }
 
           else if (bill.recurring === "monthly") {
-            if (billMonth === currentMonth) {
-              occurrences = periodEndMonth - currentMonth;
+            if (billMonth === this.currentMonth) {
+              occurrences = periodEndMonth - this.currentMonth;
             } else {
-              occurrences = periodEndMonth - Math.max(billMonth, currentMonth) + 1;
+              occurrences = periodEndMonth - Math.max(billMonth, this.currentMonth) + 1;
             }
             console.log("ID nr", bill.recurring_id, bill.recurring, "X", occurrences);
           }
