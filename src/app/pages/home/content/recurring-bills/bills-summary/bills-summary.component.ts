@@ -43,30 +43,30 @@ export class BillsSummaryComponent {
   updateCalculations() {
     if (this.selectedTimeWindow === "monthly" || this.selectedTimeWindow === "quarterly" || this.selectedTimeWindow === "yearly") {
 
-      this.unformattedTotalPaid = this.getTotalPaidAmount(this.transactionsArray$, this.selectedTimeWindow);
-      this.unformattedTotalUpcoming = this.getTotalUpcomingAmount(this.recurringBillsArray$, this.selectedTimeWindow);
+      this.unformattedTotalPaid = this.getTotalPaidAmount(this.transactionsArray$);
+      this.unformattedTotalUpcoming = this.getTotalUpcomingAmount(this.recurringBillsArray$);
 
     } else if (this.selectedTimeWindow === "nextMonth" || this.selectedTimeWindow === "nextThreeMonths" || this.selectedTimeWindow === "nextSixMonths") {
 
       this.unformattedTotalPaid = 0;
-      this.unformattedTotalUpcoming = this.getFutureUpcoming(this.recurringBillsArray$, this.selectedTimeWindow);
-      
+      this.unformattedTotalUpcoming = this.getFutureUpcoming(this.recurringBillsArray$);
+
     }
     this.totalPaid = this.getformattedValue(this.unformattedTotalPaid);
     this.totalUpcoming = this.getformattedValue(this.unformattedTotalUpcoming);
     this.totalBillsAmount = this.getformattedValue(this.unformattedTotalPaid + this.unformattedTotalUpcoming);
   }
 
-  getTotalUpcomingAmount(recurringBillsArray$: TransactionsObject[], selectedTimeWindow: string): number {
+  getTotalUpcomingAmount(recurringBillsArray$: TransactionsObject[]): number {
     let upcoming = 0;
 
-    const { periodStartMonth, periodEndMonth } = this.definePeriodRange(selectedTimeWindow);
+    const { periodStartMonth, periodEndMonth } = this.definePeriodRange();
     
 
     recurringBillsArray$.forEach(bill => {
       const { billDate, billMonth, billYear } = this.getBillsDates(bill);
 
-      let remainingOccurrences = this.getRemainingOccurrences(bill, billDate, billMonth, selectedTimeWindow, periodStartMonth, periodEndMonth);
+      let remainingOccurrences = this.getRemainingOccurrences(bill, billDate, billMonth, this.selectedTimeWindow, periodStartMonth, periodEndMonth);
 
       
       upcoming += bill.amount! * remainingOccurrences;
@@ -75,22 +75,22 @@ export class BillsSummaryComponent {
     return upcoming;
   }
 
-  private definePeriodRange(selectedTimeWindow: string) {
+  private definePeriodRange() {
     const currentMonth = new Date().getMonth();
     let periodStartMonth = currentMonth;
     let periodEndMonth = currentMonth;
     
 
-    if (selectedTimeWindow === "nextMonth") {
+    if (this.selectedTimeWindow === "nextMonth") {
       periodStartMonth = currentMonth + 1;
       periodEndMonth = currentMonth + 1;
-    } else if (selectedTimeWindow === "nextThreeMonths") {
+    } else if (this.selectedTimeWindow === "nextThreeMonths") {
       periodStartMonth = currentMonth + 1;
       periodEndMonth = currentMonth + 3;
-    } else if (selectedTimeWindow === "nextSixMonths") {
+    } else if (this.selectedTimeWindow === "nextSixMonths") {
       periodStartMonth = currentMonth + 1;
       periodEndMonth = currentMonth + 6;
-    } else if (selectedTimeWindow === "quarterly") {
+    } else if (this.selectedTimeWindow === "quarterly") {
       periodStartMonth = Math.floor(this.currentMonth / 3) * 3;
       periodEndMonth = periodStartMonth + 2;
     }
@@ -98,8 +98,8 @@ export class BillsSummaryComponent {
     return { periodStartMonth, periodEndMonth };
   }
 
-  getFutureUpcoming(recurringBillsArray$: TransactionsObject[], selectedTimeWindow: string): number {
-    const { periodStartMonth, periodEndMonth } = this.definePeriodRange(selectedTimeWindow);
+  getFutureUpcoming(recurringBillsArray$: TransactionsObject[]): number {
+    const { periodStartMonth, periodEndMonth } = this.definePeriodRange();
     let upcoming = 0;
 
     recurringBillsArray$.forEach(bill => {
@@ -109,7 +109,7 @@ export class BillsSummaryComponent {
 
       if (billYear === this.currentYear && billMonth <= periodEndMonth) {
 
-        let occurrences = this.getFutureOccurences(bill, billDate, billMonth, selectedTimeWindow, periodEndMonth);
+        let occurrences = this.getFutureOccurences(bill, billDate, billMonth, this.selectedTimeWindow, periodEndMonth);
 
         upcoming += bill.amount! * occurrences;
       }
@@ -195,34 +195,39 @@ export class BillsSummaryComponent {
   }
 
 
-  getTotalPaidAmount(transactionsArray$: TransactionsObject[], selectedTimeWindow: string): number {
-    if (selectedTimeWindow === "nextMonth" || selectedTimeWindow === "nextThreeMonths" || selectedTimeWindow === "nextSixMonths") {
-      return 0;
-    }
-
+  getTotalPaidAmount(transactionsArray$: TransactionsObject[]): number {
     let paid = 0;
-
-    // 🔹 Identificare il trimestre corrente
-    const quarterStartMonth = Math.floor(this.currentMonth / 3) * 3;
-    const quarterEndMonth = quarterStartMonth + 2;
 
     transactionsArray$.forEach(transaction => {
       if (transaction.amount && transaction.execute_on && transaction.recurring_id) {
         const transactionDate = new Date(transaction.execute_on);
-
-        if (selectedTimeWindow === "monthly" && transactionDate.getMonth() === this.currentMonth && transactionDate.getFullYear() === this.currentYear) {
+        
+        if (this.selectedTimeWindow === "monthly" && this.inCurrentMonth(transactionDate)) {
           paid += transaction.amount;
         }
-        else if (selectedTimeWindow === "quarterly" && transactionDate.getMonth() >= quarterStartMonth && transactionDate.getMonth() <= quarterEndMonth && transactionDate.getFullYear() === this.currentYear) {
+        else if (this.selectedTimeWindow === "quarterly" && this.inCurrentQuarter(transactionDate)) {
           paid += transaction.amount;
         }
-        else if (selectedTimeWindow === "yearly" && transactionDate.getFullYear() === this.currentYear) {
+        else if (this.selectedTimeWindow === "yearly" && this.inCurrentYear(transactionDate)) {
           paid += transaction.amount;
         }
       }
     });
 
     return paid;
+  }
+
+  inCurrentMonth(transactionDate: Date): boolean {
+    return transactionDate.getMonth() === this.currentMonth && transactionDate.getFullYear() === this.currentYear; 
+  }
+  
+  inCurrentQuarter(transactionDate: Date): boolean {
+    const { periodStartMonth, periodEndMonth } = this.definePeriodRange();
+    return transactionDate.getMonth() >= periodStartMonth && transactionDate.getMonth() <= periodEndMonth && transactionDate.getFullYear() === this.currentYear; 
+  }
+
+  inCurrentYear(transactionDate: Date): boolean {
+    return transactionDate.getFullYear() === this.currentYear; 
   }
 
   // ✅ Funzione per ottenere l'ultimo giorno del mese
