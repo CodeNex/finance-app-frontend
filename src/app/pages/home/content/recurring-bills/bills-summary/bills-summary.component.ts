@@ -189,27 +189,27 @@ export class BillsSummaryComponent {
     if (selectedTimeWindow === "nextMonth" || selectedTimeWindow === "nextThreeMonths" || selectedTimeWindow === "nextSixMonths") {
       return 0;
     }
-    const currentDate = new Date();
-    const currentMonth = currentDate.getMonth();
-    const currentYear = currentDate.getFullYear();
+    // const currentDate = new Date();
+    // const currentMonth = currentDate.getMonth();
+    // const currentYear = currentDate.getFullYear();
 
     let paid = 0;
 
     // 🔹 Identificare il trimestre corrente
-    const quarterStartMonth = Math.floor(currentMonth / 3) * 3;
+    const quarterStartMonth = Math.floor(this.currentMonth / 3) * 3;
     const quarterEndMonth = quarterStartMonth + 2;
 
     transactionsArray$.forEach(transaction => {
       if (transaction.amount && transaction.execute_on && transaction.recurring_id) {
         const transactionDate = new Date(transaction.execute_on);
 
-        if (selectedTimeWindow === "monthly" && transactionDate.getMonth() === currentMonth && transactionDate.getFullYear() === currentYear) {
+        if (selectedTimeWindow === "monthly" && transactionDate.getMonth() === this.currentMonth && transactionDate.getFullYear() === this.currentYear) {
           paid += transaction.amount;
         }
-        else if (selectedTimeWindow === "quarterly" && transactionDate.getMonth() >= quarterStartMonth && transactionDate.getMonth() <= quarterEndMonth && transactionDate.getFullYear() === currentYear) {
+        else if (selectedTimeWindow === "quarterly" && transactionDate.getMonth() >= quarterStartMonth && transactionDate.getMonth() <= quarterEndMonth && transactionDate.getFullYear() === this.currentYear) {
           paid += transaction.amount;
         }
-        else if (selectedTimeWindow === "yearly" && transactionDate.getFullYear() === currentYear) {
+        else if (selectedTimeWindow === "yearly" && transactionDate.getFullYear() === this.currentYear) {
           paid += transaction.amount;
         }
       }
