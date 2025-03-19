@@ -14,5 +14,7 @@ export class SearchTransactionComponent {
     this.searchFieldChange.emit(input);
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+      this.emitSearchFieldChange(''); 
+  }
 }

@@ -17,9 +17,9 @@ export class SortbyTransactionsComponent {
   // sort possibleties: latest, oldest, aToZ, zToA, highest, lowest
 
   ngOnInit() {
-    setTimeout(() => {
-      this.emitSortByChange('highest');
-    }, 2000);
+    // setTimeout(() => {
+    //   this.emitSortByChange('highest');
+    // }, 2000);
   }
 
 }

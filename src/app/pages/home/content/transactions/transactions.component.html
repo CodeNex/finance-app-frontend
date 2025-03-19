@@ -24,7 +24,7 @@
         class="flex justify-between items-center"
       >
         <div>
-          <app-search-transaction></app-search-transaction>
+          <app-search-transaction (searchFieldChange)="setSearchFieldInput($event)"></app-search-transaction>
         </div>
         <div class="flex items-center gap-6">
           <div class="flex items-center gap-2">

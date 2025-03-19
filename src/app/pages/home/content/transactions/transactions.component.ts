@@ -82,7 +82,10 @@ export class TransactionsComponent {
   }
 
   private getSearchedTransactions(prevArray: any) {
-    let array = prevArray;
+    if (!this.searchFieldInput || this.searchFieldInput === '') return prevArray;
+    let array = prevArray.filter((transaction: any) => {
+      return this.isSubsequence(this.searchFieldInput.toLowerCase(), transaction.name.toLowerCase());
+    });
     return array;
   }
 
@@ -107,6 +110,21 @@ export class TransactionsComponent {
     }
     return splittedArray;
   }
+
+  private isSubsequence(search: string, text: string): boolean {
+    let searchIndex = 0;
+    for (let char of search) {
+      if (text.includes(char)) {
+        searchIndex++;
+      }
+    }
+    if (searchIndex === search.length) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+  
 
   // functions to sort the array
   private sortByDate(array: any) {
