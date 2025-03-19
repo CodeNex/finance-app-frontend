@@ -18,16 +18,19 @@ export class CategoryfilterTransactionsComponent {
 
   public baseData: BasedataService = inject(BasedataService);
 
+  // array of all categories in the application
   public categories: string[] = [];
-
-  public chosenCategory: string = '';
+  // current chosen category
+  public chosenCategory: string = 'All Transactions';
 
   ngOnInit() {
     this.categories = this.getCategories();
   }
 
   private getCategories() {
-    let array = Object.keys(this.baseData.financeApp.budgets.categories);
+    let arrayCache = Object.values(this.baseData.financeApp.budgets.categories);
+    let array = arrayCache.map((element: any) => element.name);
+    array.unshift('All Transactions');
     return array;
   }
 
