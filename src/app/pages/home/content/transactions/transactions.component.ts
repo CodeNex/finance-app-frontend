@@ -124,7 +124,6 @@ export class TransactionsComponent {
       return false;
     }
   }
-  
 
   // functions to sort the array
   private sortByDate(array: any) {
