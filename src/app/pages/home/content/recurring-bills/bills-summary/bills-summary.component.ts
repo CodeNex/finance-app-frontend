@@ -30,6 +30,9 @@ export class BillsSummaryComponent {
   public totalUpcoming: string = "";
   public selectedTimeWindow: string = "monthly";
 
+  public currentDate = new Date();
+  public currentMonth = this.currentDate.getMonth();
+  public currentYear = this.currentDate.getFullYear();
 
 
 
@@ -53,21 +56,21 @@ export class BillsSummaryComponent {
   }
 
   getTotalUpcomingAmount(recurringBillsArray$: TransactionsObject[], selectedTimeWindow: string): number {
-    const currentDate = new Date();
-    const currentMonth = currentDate.getMonth();
-    const currentYear = currentDate.getFullYear();
+    // const currentDate = new Date();
+    // const currentMonth = currentDate.getMonth();
+    // const currentYear = currentDate.getFullYear();
 
     let upcoming = 0;
 
     // 🔹 Identificare il trimestre corrente
-    const quarterStartMonth = Math.floor(currentMonth / 3) * 3;
+    const quarterStartMonth = Math.floor(this.currentMonth / 3) * 3;
     const quarterEndMonth = quarterStartMonth + 2;
 
     recurringBillsArray$.forEach(bill => {
       if (bill.amount && bill.execute_on) {
         const billDate = new Date(bill.execute_on);
 
-        if (selectedTimeWindow === "monthly" && billDate.getMonth() === currentMonth && billDate.getFullYear() === currentYear) {
+        if (selectedTimeWindow === "monthly" && billDate.getMonth() === this.currentMonth && billDate.getFullYear() === this.currentYear) {
           let occurrences = 1;
 
           if (bill.recurring === "weekly") {
@@ -76,7 +79,7 @@ export class BillsSummaryComponent {
 
           upcoming += bill.amount * occurrences;
         }
-        else if (selectedTimeWindow === "quarterly" && billDate.getMonth() >= quarterStartMonth && billDate.getMonth() <= quarterEndMonth && billDate.getFullYear() === currentYear) {
+        else if (selectedTimeWindow === "quarterly" && billDate.getMonth() >= quarterStartMonth && billDate.getMonth() <= quarterEndMonth && billDate.getFullYear() === this.currentYear) {
           let remainingOccurrences = 1;
 
           if (bill.recurring === "monthly") {
@@ -89,7 +92,7 @@ export class BillsSummaryComponent {
 
           upcoming += bill.amount * remainingOccurrences;
         }
-        else if (selectedTimeWindow === "yearly" && billDate.getFullYear() === currentYear) {
+        else if (selectedTimeWindow === "yearly" && billDate.getFullYear() === this.currentYear) {
           let occurrences = 1;
 
           if (bill.recurring === "monthly") {
@@ -119,7 +122,7 @@ export class BillsSummaryComponent {
 
     let periodStartMonth = currentMonth + 1;
     console.log("Start ", periodStartMonth);
-    
+
     let periodEndMonth = currentMonth;
 
     if (selectedTimeWindow === "nextMonth") {
@@ -131,7 +134,7 @@ export class BillsSummaryComponent {
     }
     console.log("End ", periodEndMonth);
 
-    
+
     recurringBillsArray$.forEach(bill => {
       console.log(bill);
       if (bill.amount && bill.execute_on) {
@@ -141,15 +144,15 @@ export class BillsSummaryComponent {
 
         let occurrences = 0;
 
-        
+
         if (billYear === currentYear && billMonth <= periodEndMonth) {
 
-          
+
           if (bill.recurring === "weekly") {
             occurrences = this.getRemainingWeeklyOccurrences(billDate, selectedTimeWindow) - 1;
             console.log("ID nr", bill.recurring_id, bill.recurring, "X", occurrences);
           }
-         
+
           else if (bill.recurring === "monthly") {
             if (billMonth === currentMonth) {
               occurrences = periodEndMonth - currentMonth;
@@ -158,20 +161,20 @@ export class BillsSummaryComponent {
             }
             console.log("ID nr", bill.recurring_id, bill.recurring, "X", occurrences);
           }
-          
+
           else if (bill.recurring === "quarterly") {
             occurrences = Math.floor((periodEndMonth - billMonth) / 3) + 1;
             console.log("ID nr", bill.recurring_id, bill.recurring, "X", occurrences);
           }
-          
-          
-          
 
-          
 
-          
+
+
+
+
+
           upcoming += bill.amount * occurrences;
-        } 
+        }
       }
     });
 
@@ -195,7 +198,7 @@ export class BillsSummaryComponent {
     // 🔹 Identificare il trimestre corrente
     const quarterStartMonth = Math.floor(currentMonth / 3) * 3;
     const quarterEndMonth = quarterStartMonth + 2;
-    
+
     transactionsArray$.forEach(transaction => {
       if (transaction.amount && transaction.execute_on && transaction.recurring_id) {
         const transactionDate = new Date(transaction.execute_on);
@@ -218,18 +221,18 @@ export class BillsSummaryComponent {
   // ✅ Funzione per ottenere l'ultimo giorno del mese
   private getLastDayOfMonth(year: number, month: number): number {
     const monthDaysMapping: Record<number, number> = {
-      0: 31,  
-      1: 28,  
-      2: 31,  
-      3: 30,  
-      4: 31,  
-      5: 30,  
-      6: 31,  
-      7: 31,  
-      8: 30,  
-      9: 31,  
+      0: 31,
+      1: 28,
+      2: 31,
+      3: 30,
+      4: 31,
+      5: 30,
+      6: 31,
+      7: 31,
+      8: 30,
+      9: 31,
       10: 30,
-      11: 31  
+      11: 31
     };
     if (month === 1) { // Febbraio
       return (year % 4 === 0 && (year % 100 !== 0 || year % 400 === 0)) ? 29 : 28;
