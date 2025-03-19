@@ -56,10 +56,6 @@ export class BillsSummaryComponent {
   }
 
   getTotalUpcomingAmount(recurringBillsArray$: TransactionsObject[], selectedTimeWindow: string): number {
-    // const currentDate = new Date();
-    // const currentMonth = currentDate.getMonth();
-    // const currentYear = currentDate.getFullYear();
-
     let upcoming = 0;
 
     // 🔹 Identificare il trimestre corrente
@@ -113,27 +109,24 @@ export class BillsSummaryComponent {
     return upcoming;
   }
 
-  getFutureUpcoming(recurringBillsArray$: TransactionsObject[], selectedTimeWindow: string): number {
-    // const currentDate = new Date();
-    // const currentMonth = currentDate.getMonth();
-    // const currentYear = currentDate.getFullYear();
-
-    let upcoming = 0;
-
-    let periodStartMonth = this.currentMonth + 1;
-    console.log("Start ", periodStartMonth);
-
-    let periodEndMonth = this.currentMonth;
+  private definePeriodRange(selectedTimeWindow: string) {
+    const currentMonth = new Date().getMonth();
+    let periodEndMonth = currentMonth;
 
     if (selectedTimeWindow === "nextMonth") {
-      periodEndMonth = this.currentMonth + 1;
+      periodEndMonth = currentMonth + 1;
     } else if (selectedTimeWindow === "nextThreeMonths") {
-      periodEndMonth = this.currentMonth + 3;
+      periodEndMonth = currentMonth + 3;
     } else if (selectedTimeWindow === "nextSixMonths") {
-      periodEndMonth = this.currentMonth + 6;
+      periodEndMonth = currentMonth + 6;
     }
-    console.log("End ", periodEndMonth);
 
+    return { periodStartMonth: currentMonth + 1, periodEndMonth };
+  }
+
+  getFutureUpcoming(recurringBillsArray$: TransactionsObject[], selectedTimeWindow: string): number {
+    const { periodStartMonth, periodEndMonth } = this.definePeriodRange(selectedTimeWindow);
+    let upcoming = 0;
 
     recurringBillsArray$.forEach(bill => {
       console.log(bill);
@@ -189,9 +182,6 @@ export class BillsSummaryComponent {
     if (selectedTimeWindow === "nextMonth" || selectedTimeWindow === "nextThreeMonths" || selectedTimeWindow === "nextSixMonths") {
       return 0;
     }
-    // const currentDate = new Date();
-    // const currentMonth = currentDate.getMonth();
-    // const currentYear = currentDate.getFullYear();
 
     let paid = 0;
 
