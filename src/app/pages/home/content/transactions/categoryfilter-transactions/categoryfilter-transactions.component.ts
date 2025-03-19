@@ -37,9 +37,14 @@ export class CategoryfilterTransactionsComponent {
     return array;
   }
 
-  public changeCategoryFilter(category: any) {
+  public closeHideDropdown() {
+    this.isDropDownOpen = !this.isDropDownOpen;
+  }
+
+  public chooseCategory(category: any) {
     this.chosenCategory = category.name;
     this.emitCategoryFilterChange(category.iconName);
+    this.closeHideDropdown();
   }
 
 }

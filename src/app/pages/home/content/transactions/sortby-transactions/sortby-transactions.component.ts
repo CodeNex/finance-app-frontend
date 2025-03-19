@@ -36,6 +36,10 @@ export class SortbyTransactionsComponent {
     // }, 2000);
   }
 
+  public closeHideDropdown() {
+    this.isDropDownOpen = !this.isDropDownOpen;
+  }
+
   public changeSortBy(sortBy: string) {
     this.chosenSortBy = sortBy;
     this.emitSortByChange(sortBy);
