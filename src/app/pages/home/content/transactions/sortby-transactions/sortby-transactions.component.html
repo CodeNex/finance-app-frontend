@@ -27,9 +27,10 @@
       <!-- Category Box Left Part -->
       <div class="w-full flex gap-3 items-center mb-3">
         <p
-          class="text4r text-grey-900 cursor-pointer" 
+          class="text4r text-grey-900 cursor-pointer"
+          [ngStyle]="{ 'font-weight': item === chosenSortBy ? 'bold' : 'normal' }" 
         >
-          {{ item}}
+          {{ item }}
         </p>
       </div>
     </div>

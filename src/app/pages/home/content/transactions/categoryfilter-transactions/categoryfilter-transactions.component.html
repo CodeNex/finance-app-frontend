@@ -28,6 +28,7 @@
       <div class="w-full flex gap-3 items-center mb-3">
         <p
           class="text4r text-grey-900 cursor-pointer" 
+          [ngStyle]="{ 'font-weight': item.name === chosenCategory ? 'bold' : 'normal' }" 
         >
           {{ item.name }}
         </p>
