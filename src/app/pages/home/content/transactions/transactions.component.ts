@@ -94,9 +94,9 @@ export class TransactionsComponent {
   private isSubsequence(search: string, text: string): boolean {
     let searchIncludingCount: number = 0;
     let lastMatchIndex: number = -1;
-    let currentMatchIndex: number;
     for (let i = 0; i < search.length; i++) {
-      if (text.includes(search[i]) ) {
+      if (text.includes(search[i]) && text.indexOf(search[i], lastMatchIndex + 1) > lastMatchIndex) {
+        lastMatchIndex = text.indexOf(search[i]);
         searchIncludingCount++;
       }
     }
