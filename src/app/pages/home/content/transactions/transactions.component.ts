@@ -166,6 +166,7 @@ export class TransactionsComponent {
   public setCategoryFilterInput(input: string) {
     this.categoryFilterInput = input;
     this.formatTransactionsArray(this.transactionsSignal$());
+    this.setCurrentPage$(1);
   }
 
   public setSortByInput(input: string) {
