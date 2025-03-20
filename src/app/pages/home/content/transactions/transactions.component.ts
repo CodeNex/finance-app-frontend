@@ -56,7 +56,6 @@ export class TransactionsComponent {
   }
 
   ngOnInit() {
-    console.log(this.readyToRenderTransactionsArray());
   }
 
   // This is a computed property that will be recalculated whenever the transactionsSignal$ changes
@@ -104,8 +103,6 @@ export class TransactionsComponent {
   }
 
   private splitTransactionsArray(prevArray: any) {
-    console.log(prevArray);
-
     let transactionsPerPage = 7;
     let splittedArray: any[][] = [];
     for (let i = 0; i < prevArray.length; i += transactionsPerPage) {
