@@ -177,6 +177,7 @@ export class TransactionsComponent {
   public setSearchFieldInput(input: string) {
     this.searchFieldInput = input;
     this.formatTransactionsArray(this.transactionsSignal$());
+    this.setCurrentPage$(1);
   }
 
   // functions to handle pagination
