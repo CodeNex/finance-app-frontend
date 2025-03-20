@@ -50,19 +50,13 @@ export class TransactionsComponent {
 
   constructor() {
     effect(() => {
-      let array = this.readyToRenderTransactionsArray();
-      if (array.length > 0) this.setTotalSubPages$(array.length);
+      let signal$ = this.transactionsSignal$();
+      this.formatTransactionsArray(signal$);
     });
   }
 
   ngOnInit() {
   }
-
-  // This is a computed property that will be recalculated whenever the transactionsSignal$ changes
-  // it returns the transactions array in a format that is ready to be rendered
-  public readyToRenderTransactionsArray: any = computed(() => {
-    return this.formatTransactionsArray(this.transactionsSignal$());
-  });
 
   // This function takes the transactions array and returns it in a format that is ready to be rendered
   public formatTransactionsArray(prevArray: any) {
@@ -70,8 +64,8 @@ export class TransactionsComponent {
     let searchedArray = this.getSearchedTransactions(arrayByCategories);
     let sortedArray = this.getSortedTransactions(searchedArray);
     let splittedArray = this.splitTransactionsArray(sortedArray);
+    this.setTotalSubPages$(splittedArray.length);
     this.renderReadyArray = splittedArray;
-    return splittedArray;
   }
 
   // These functions are used in the formatTransactionsArray function to filter and sort the transactions array
