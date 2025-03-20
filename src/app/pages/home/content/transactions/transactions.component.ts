@@ -86,9 +86,25 @@ export class TransactionsComponent {
   private getSearchedTransactions(prevArray: any) {
     if (!this.searchFieldInput || this.searchFieldInput === '') return prevArray;
     let array = prevArray.filter((transaction: any) => {
-      return this.isSubsequence(this.searchFieldInput.toLowerCase(), transaction.name.toLowerCase());
+      return this.isSubsequence(this.searchFieldInput.toLowerCase().replace(/\s+/g, ''), transaction.name.toLowerCase().replace(/\s+/g, ''));
     });
     return array;
+  }
+
+  private isSubsequence(search: string, text: string): boolean {
+    let searchIncludingCount: number = 0;
+    let lastMatchIndex: number = -1;
+    let currentMatchIndex: number;
+    for (let i = 0; i < search.length; i++) {
+      if (text.includes(search[i]) ) {
+        searchIncludingCount++;
+      }
+    }
+    if (searchIncludingCount === search.length) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   private getSortedTransactions(prevArray: any) {
@@ -109,20 +125,6 @@ export class TransactionsComponent {
       splittedArray.push(prevArray.slice(i, i + transactionsPerPage));
     }
     return splittedArray;
-  }
-
-  private isSubsequence(search: string, text: string): boolean {
-    let searchIndex = 0;
-    for (let char of search) {
-      if (text.includes(char)) {
-        searchIndex++;
-      }
-    }
-    if (searchIndex === search.length) {
-      return true;
-    } else {
-      return false;
-    }
   }
 
   // functions to sort the array
