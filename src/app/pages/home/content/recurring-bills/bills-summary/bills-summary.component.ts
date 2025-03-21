@@ -133,7 +133,7 @@ export class BillsSummaryComponent {
       remainingOccurrences = 1;
 
       if (bill.recurring === "weekly") {
-        remainingOccurrences = this.getRemainingWeeklyOccurrences(billDate, "monthly");
+        remainingOccurrences = this.getRemainingWeeklyOccurrences(billDate);
       }
 
      
@@ -146,7 +146,7 @@ export class BillsSummaryComponent {
         remainingOccurrences = periodEndMonth - billMonth + 1;
       }
       else if (bill.recurring === "weekly") {
-        remainingOccurrences = this.getRemainingWeeklyOccurrences(billDate, "quarterly");
+        remainingOccurrences = this.getRemainingWeeklyOccurrences(billDate);
       }
 
       
@@ -161,7 +161,7 @@ export class BillsSummaryComponent {
         remainingOccurrences = 4 - Math.floor(billDate.getMonth() / 3);
       }
       else if (bill.recurring === "weekly") {
-        remainingOccurrences = this.getRemainingWeeklyOccurrences(billDate, "yearly");
+        remainingOccurrences = this.getRemainingWeeklyOccurrences(billDate);
       }
 
 
@@ -173,7 +173,7 @@ export class BillsSummaryComponent {
   getFutureOccurences(bill: TransactionsObject, billDate: Date, billMonth: number, selectedTimeWindow: string, periodEndMonth: number): number {
     let occurrences = 0;
     if (bill.recurring === "weekly") {
-      occurrences = this.getRemainingWeeklyOccurrences(billDate, selectedTimeWindow) - 1;
+      occurrences = this.getRemainingWeeklyOccurrences(billDate) - 1;
       console.log("ID nr", bill.recurring_id, bill.recurring, "X", occurrences);
     }
 
@@ -253,39 +253,39 @@ export class BillsSummaryComponent {
   }
 
   // ✅ Funzione aggiornata per calcolare le ricorrenze settimanali
-  private getRemainingWeeklyOccurrences(billDate: Date, timeWindow: string): number {
+  private getRemainingWeeklyOccurrences(billDate: Date): number {
     let startOfPeriod: Date;
     let endOfPeriod: Date;
     const currentYear = billDate.getFullYear();
     const currentMonth = billDate.getMonth();
 
-    if (timeWindow === "monthly") {
+    if (this.selectedTimeWindow === "monthly") {
       startOfPeriod = new Date(currentYear, currentMonth, billDate.getDate());
       const lastDayOfMonth = this.getLastDayOfMonth(currentYear, currentMonth);
       endOfPeriod = new Date(currentYear, currentMonth, lastDayOfMonth);
     }
-    else if (timeWindow === "quarterly") {
+    else if (this.selectedTimeWindow === "quarterly") {
       const quarterStartMonth = Math.floor(currentMonth / 3) * 3;
       const quarterEndMonth = quarterStartMonth + 2;
       const lastDayOfQuarter = this.getLastDayOfMonth(currentYear, quarterEndMonth);
       startOfPeriod = new Date(currentYear, currentMonth, billDate.getDate());
       endOfPeriod = new Date(currentYear, quarterEndMonth, lastDayOfQuarter);
     }
-    else if (timeWindow === "yearly") {
+    else if (this.selectedTimeWindow === "yearly") {
       startOfPeriod = new Date(currentYear, currentMonth, billDate.getDate());
       endOfPeriod = new Date(currentYear, 11, 31); // Ultimo giorno dell'anno
     }
-    else if (timeWindow === "nextMonth") {
+    else if (this.selectedTimeWindow === "nextMonth") {
       startOfPeriod = new Date(currentYear, currentMonth + 1, 1); // Inizio del mese successivo
       const lastDayNextMonth = this.getLastDayOfMonth(currentYear, currentMonth + 1);
       endOfPeriod = new Date(currentYear, currentMonth + 1, lastDayNextMonth);
     }
-    else if (timeWindow === "nextThreeMonths") {
+    else if (this.selectedTimeWindow === "nextThreeMonths") {
       startOfPeriod = new Date(currentYear, currentMonth + 1, 1); // Inizio del mese successivo
       const lastDayNextThreeMonths = this.getLastDayOfMonth(currentYear, currentMonth + 3);
       endOfPeriod = new Date(currentYear, currentMonth + 3, lastDayNextThreeMonths);
     }
-    else if (timeWindow === "nextSixMonths") {
+    else if (this.selectedTimeWindow === "nextSixMonths") {
       startOfPeriod = new Date(currentYear, currentMonth + 1, 1); // Inizio del mese successivo
       const lastDayNextSixMonths = this.getLastDayOfMonth(currentYear, currentMonth + 6);
       endOfPeriod = new Date(currentYear, currentMonth + 6, lastDayNextSixMonths);
