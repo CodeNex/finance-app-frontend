@@ -142,7 +142,6 @@ export class BillsSummaryComponent {
       remainingOccurrences = 1;
 
       if (bill.recurring === "monthly") {
-        // const billMonth = billDate.getMonth();
         remainingOccurrences = periodEndMonth - billMonth + 1;
       }
       else if (bill.recurring === "weekly") {
