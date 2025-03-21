@@ -1492,6 +1492,23 @@ export class DataStoreServiceService {
       category: 'bills',
       type: 'debit',
     },
+    {
+      transaction_id: 8,
+      user_id: 0,
+      amount: 200.00,
+      budget_id: null,
+      created_at: '2025-03-21T00:00:00Z',
+      execute_on: '2025-03-23T00:00:00Z',
+      deleted_at: null,
+      recurring: 'twoMonths',
+      recurring_id: "8",
+      theme: '#cab361',
+      sender: '',
+      receiver: '',
+      name: 'Test 2 Months',
+      category: 'bills',
+      type: 'debit',
+    },
   ]);
 
   constructor() {}
