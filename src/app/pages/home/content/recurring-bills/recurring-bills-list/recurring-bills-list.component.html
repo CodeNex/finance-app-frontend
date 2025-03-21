@@ -2,7 +2,21 @@
   class="bills-list-component p-8"
   aria-label="List of Recurring Bills with search and filter options"
 >
-  <div class="bills-list-toolbar bg-gray-900 h-[120px] rounded-xl"></div>
+  <div class="bills-list-toolbar bg-gray-200 h-[120px] rounded-xl flex items-center">
+    <div class="search-container w-[320px] p-5 pt-3 pb-3 border-solid border-2 border-grey-500 flex items-center justify-between rounded-lg">
+        <input type="text" placeholder="Search" class="search-input outline-none"/>
+        <app-icons iconName="searchLensIcon" class="search-icon"></app-icons>
+    </div>
+    <div class="sort-container flex items-center gap-4">
+        <p class="text3b text-grey-900">Sort by</p>
+        <div>
+            <select class="sort-select outline-none">
+                <option value="dueDate">Due Date</option>
+                <option value="amount">Amount</option>
+            </select>
+        </div>    
+    </div>
+  </div>
 
   <div class="bills-list-header h-[60px] rounded-xl flex flex-col justify-between">
     <div class="w-full pt-4 flex items-center justify-between">
