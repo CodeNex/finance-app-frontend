@@ -1,5 +1,18 @@
-<section class="bills-list-component p-6" aria-label="List of Recurring Bills with search and filter options">
+<section
+  class="bills-list-component p-8"
+  aria-label="List of Recurring Bills with search and filter options"
+>
   <div class="bills-list-toolbar bg-gray-900 h-[120px] rounded-xl"></div>
+
+  <div class="bills-list-header h-[60px] rounded-xl flex flex-col justify-between">
+    <div class="w-full pt-4 flex items-center justify-between">
+      <p class="w-[30%] text3b text-grey-900">Bill Title</p>
+      <p class="w-[20%] text3b text-grey-900 text-right">Recurring</p>
+      <p class="w-[20%] text3b text-grey-900 text-right">Next Due Date</p>
+      <p class="w-[30%] text3b text-grey-900 text-right">Amount</p>
+    </div>
+    <div class="w-full h-[2px] rounded-full bg-grey-100"></div>
+  </div>
 
   <ul aria-label="list of latest spendings">
     @for (item of this.recurringBillsArray$; let index = $index; track item) {
@@ -7,7 +20,10 @@
       aria-label="spending item"
       class="pt-5 pb-3"
       [ngStyle]="{
-        'padding-bottom': this.recurringBillsArray$ && index < recurringBillsArray$.length - 1 ? '20px' : '0px'
+        'padding-bottom':
+          this.recurringBillsArray$ && index < recurringBillsArray$.length - 1
+            ? '20px'
+            : '0px'
       }"
     >
       <app-single-bill [recurringBill]="item"></app-single-bill>

@@ -32,14 +32,16 @@ export class SingleBillComponent {
 
   public name: string = '';
   public amount: string = '';
-  public date: string = '';
+  public dueDate: string = '';
+  public occurrency: string = '';
   public iconBackground: string = '';
   public iconName: string = '';
 
   ngOnInit() {
     this.name = this.recurringBill.name;
     this.amount = this.formatAmount(this.recurringBill.amount);
-    this.date = this.formatDate(this.recurringBill.created_at);
+    this.dueDate = this.formatDate(this.recurringBill.execute_on);
+    this.occurrency = this.recurringBill.recurring;
     this.iconName = this.getCategoryIcon(this.recurringBill.category);
     this.iconBackground = this.recurringBill.theme;
   }
