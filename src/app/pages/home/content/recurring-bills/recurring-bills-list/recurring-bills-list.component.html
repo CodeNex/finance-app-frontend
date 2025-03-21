@@ -1,1 +1,19 @@
-<p>recurring-bills-list works!</p>
+<section class="bills-list-component p-6" aria-label="List of Recurring Bills with search and filter options">
+  <div class="bills-list-toolbar bg-gray-900 h-[120px] rounded-xl"></div>
+
+  <ul aria-label="list of latest spendings">
+    @for (item of this.recurringBillsArray$; let index = $index; track item) {
+    <li
+      aria-label="spending item"
+      class="pt-5 pb-3"
+      [ngStyle]="{
+        'padding-bottom': this.recurringBillsArray$ && index < recurringBillsArray$.length - 1 ? '20px' : '0px'
+      }"
+    >
+      <app-single-bill [recurringBill]="item"></app-single-bill>
+    </li>
+    @if (this.recurringBillsArray$ && index < recurringBillsArray$.length - 1) {
+    <div class="w-full h-[2px] rounded-full bg-grey-100"></div>
+    } }
+  </ul>
+</section>
