@@ -6,6 +6,7 @@ import { Component, inject } from '@angular/core';
   templateUrl: './add-transaction-modal.component.html',
   styleUrl: './add-transaction-modal.component.scss'
 })
+
 export class AddTransactionModalComponent {
 
 }
