@@ -1187,6 +1187,16 @@ export class DataStoreServiceService {
 
   constructor() {}
 
+  // public updateBalance(endpoint: keyof BalanceObject, type: string, amount: number) {
+  //   this.balance.update((prev: BalanceObject) => {
+  //     let prevBalanace = {...prev};
+
+      
+
+  //     return prevBalanace;
+  //   })
+  // }
+
   // set the hole data package within signal and UI update
   setStoredData(endpoint: string, data: any) {
     if (endpoint === 'balance') this.balance.set(data);
@@ -1198,7 +1208,7 @@ export class DataStoreServiceService {
   }
 
   // get the hole data package without signal and UI update
-  getStoredData(endpoint: string) {
+  public getStoredData(endpoint: string) {
     if (endpoint === 'balance') return this.balance;
     if (endpoint === 'budgets') return this.budgets;
     if (endpoint === 'pots') return this.pots;
@@ -1209,7 +1219,7 @@ export class DataStoreServiceService {
   }
 
   // add new data to the existing dataArray and update the signal and UI
-  addToStoredData(endpoint: string, data: any) {
+  public addToStoredData(endpoint: string, data: any) {
     if (endpoint === 'budgets') this.budgets.update((prev) => [data, ...prev]);
     if (endpoint === 'pots') this.pots.update((prev) => [data, ...prev]);
     if (endpoint === 'transactions')
@@ -1219,7 +1229,7 @@ export class DataStoreServiceService {
   }
 
   // chose what kind of data to soft delete and update the signal and UI
-  choseDataAndSoftDelete(endpoint: string, index: number) {
+  public choseDataAndSoftDelete(endpoint: string, index: number) {
     if (endpoint === 'budgets' && index >= 0)
       this.budgets.update((prev) => {
         return this.softdeleted_ata(prev, index);
@@ -1235,14 +1245,14 @@ export class DataStoreServiceService {
   }
 
   // soft delete data
-  softdeleted_ata(prev: any, index: number) {
+  public softdeleted_ata(prev: any, index: number) {
     let array = [...prev];
     array[index].deleted_at = new Date().toISOString();
     return array;
   }
 
   // update the balance and update the signal and UI
-  updateStoredBalance(key: string, amount: number) {
+  public updateStoredBalance(key: string, amount: number) {
     this.balance.update((prev) => {
       let prevBalance = { ...prev };
       if (key === 'current') prevBalance.current += amount;
@@ -1253,7 +1263,7 @@ export class DataStoreServiceService {
   }
 
   // update the existing data and update the signal and UI
-  editStoredData(endpoint: string, index: number, data: any) {
+  public editStoredData(endpoint: string, index: number, data: any) {
     if (endpoint === 'budgets' && data && index >= 0) {
       this.budgets.update((prev) => {
         return prev.map((item, i) => (i === index ? { ...data } : item));
