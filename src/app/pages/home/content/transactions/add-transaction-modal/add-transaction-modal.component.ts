@@ -40,8 +40,8 @@ export class AddTransactionModalComponent {
     theme: '#597C7C',
     sender: '',
     receiver: '',
-    name: 'Game Purchase',
-    category: 'entertainment',
+    name: '',
+    category: 'general',
     type: 'debit',
   };
 
