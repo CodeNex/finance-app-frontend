@@ -10,3 +10,30 @@
 .cursor-pointer {
   cursor: pointer;
 }
+
+.chosenType {
+  border-color: #98908b;
+  background-color: #201f24;
+ 
+
+  p {
+    color: white;
+  }
+}
+
+.nonChosenType {
+  cursor: pointer;
+  border-color: #98908b;
+
+  &:hover {
+    border-color: #201f24;
+
+    p {
+      color: #201f24;
+    }
+  }
+
+  p {
+    color: #98908b;
+  }
+}

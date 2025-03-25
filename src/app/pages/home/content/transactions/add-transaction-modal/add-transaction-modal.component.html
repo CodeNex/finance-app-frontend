@@ -36,11 +36,13 @@
      <div class="pb-4">
       <p class="text5b text-grey-500">Type</p>
       <div class="w-full flex items-center gap-5">
-        <div class="flex-1 border-[1px] outline-none border-beige-500 rounded-lg pt-3 pb-3 mt-1">
-          <p class="text4r text-center">Debit</p>
+        <div class="transition-all ease-in-out duration-300 flex-1 border-[1px] outline-none rounded-lg pt-3 pb-3 mt-1"
+        [ngClass]="currentTransactionType === 'Debit' ? 'chosenType' : 'nonChosenType'">
+          <p class="text4r text-center transition-all ease-in-out duration-300">Debit</p>
         </div>
-        <div class="flex-1 border-[1px] outline-none border-beige-500 rounded-lg pt-3 pb-3 mt-1">
-          <p class="text4r text-center">Credit</p>
+        <div class="transition-all ease-in-out duration-300 flex-1 border-[1px] outline-none border-beige-500 rounded-lg pt-3 pb-3 mt-1"
+        [ngClass]="currentTransactionType === 'Debit' ? 'nonChosenType' : 'chosenType'">
+          <p class="text4r text-center transition-all ease-in-out duration-300">Credit</p>
         </div>
       </div>
      </div>
