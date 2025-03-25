@@ -3,7 +3,7 @@
 >
   <!-- Modal Headline -->
   <div class="modalHeadline flex justify-between items-center">
-    <p class="text1b text-grey-900">Add New Budget</p>
+    <p class="text1b text-grey-900">Add New Transaction</p>
     <div
       (click)="closeMainModal()"
       class="w-[26px] h-[26px] rounded-[100vh] border-solid border-2 border-grey-500 flex justify-center items-center cursor-pointer transition-all duration-300 ease-in-out group hover:bg-grey-500"
@@ -24,7 +24,7 @@
 
   <!-- Modal info text -->
   <p class="text4r text-grey-500">
-    Choose a category to set a spending budget. These categories can help you monitor spending.
+    Add a new transaction. Choose whether it is a debit or credit. You can also set up recurring transactions by specifying an initial start date and defining the interval at which they should be executed.
   </p>
 
   <!-- Modal Form -->
@@ -182,7 +182,7 @@
     <button (click)="submitAddPot()"
       class="bg-grey-900 w-full pt-4 pb-4 rounded-lg text4b transition-all duration-300 ease-in-out hover:bg-grey-500 text-white text-center"
     >
-      Add Budget
+      Add Transaction
     </button>
   </form>
 </div>
