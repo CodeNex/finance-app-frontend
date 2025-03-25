@@ -27,15 +27,22 @@ export class AddTransactionModalComponent {
     this.mainModalService.hideMainModal();
   }
 
-  public currentBudget: any = {
-    id: -1,
-    name: '',
-    amount: 0,
-    maximum: -1,
-    theme: '',
+  public currentTransaction: any = {
+    transaction_id: 0,
+    user_id: 0,
+    amount: 86.68,
+    budget_id: null,
+    created_at: '2025-09-12T00:00:00Z',
+    execute_on: '2025-07-26T00:00:00Z',
     deleted_at: null,
-    created_at: null,
-    last_spendings: null,
+    recurring: null,
+    recurring_id: null,
+    theme: '#597C7C',
+    sender: '',
+    receiver: '',
+    name: 'Game Purchase',
+    category: 'entertainment',
+    type: 'debit',
   };
 
   // the type of the transaction
@@ -46,7 +53,7 @@ export class AddTransactionModalComponent {
   // the number of characters left for the pot name
   public potNameCharactersLeft: number = 30;
 
-  
+
   // boolean to control the budget dropdown
   public isBudgetDropdownOpen: boolean = false;
   // array of all categories in the application
@@ -87,7 +94,7 @@ export class AddTransactionModalComponent {
       this.unusedBudgetCategories[
         Math.floor(Math.random() * this.unusedBudgetCategories.length)
       ];
-    this.currentBudget.name = this.chosenCategory;
+    this.currentTransaction.name = this.chosenCategory;
   }
 
   // controls the maximum length of the pot name
@@ -124,7 +131,7 @@ export class AddTransactionModalComponent {
   chooseCategory(category: string) {
     if (this.unusedBudgetCategories.includes(category)) {
       this.chosenCategory = category;
-      this.currentBudget.name = this.chosenCategory;
+      this.currentTransaction.name = this.chosenCategory;
       this.closeHideBudgetDropdown();
     }
   }
@@ -227,12 +234,12 @@ export class AddTransactionModalComponent {
 
   // add a new pot to the pots array in data-store-service, submit the new pot to the API and close the modal
   submitAddPot() {
-    this.currentBudget.maximum = parseFloat(
+    this.currentTransaction.amount = parseFloat(
       this.maxBudgetInputValue.replace(/,/g, '')
     );
     // this.currentBudget.theme = this.chosenTheme.hex;
     // this.apiBudgetsService.addNewBudget(this.currentBudget);
     this.mainModalService.hideMainModal();
-    console.log(this.currentBudget);
+    console.log(this.currentTransaction);
   }
 }
