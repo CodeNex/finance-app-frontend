@@ -38,6 +38,11 @@ export class AddTransactionModalComponent {
       created_at: null,
       last_spendings: null,
     };
+
+    // the value of the pot name input
+  public potNameValue: string = '';
+  // the number of characters left for the pot name
+  public potNameCharactersLeft: number = 30;
   
     // boolean to control the budget dropdown
     public isBudgetDropdownOpen: boolean = false;
@@ -81,6 +86,22 @@ export class AddTransactionModalComponent {
         ];
       this.currentBudget.name = this.chosenCategory;
     }
+
+    // controls the maximum length of the pot name
+  controlNameLength(event: any) {
+    const deleteKeys = ['Backspace', 'Delete'];
+    if (deleteKeys.includes(event.key)) {
+      if (this.potNameCharactersLeft < 30)
+        this.potNameCharactersLeft = 30 - (this.potNameValue.length - 1);
+      return;
+    } else if (this.potNameValue.length >= 30) {
+      event.preventDefault();
+    } else {
+      setTimeout(() => {
+        this.potNameCharactersLeft = 30 - this.potNameValue.length;
+      }, 1);
+    }
+  }
 
     getCategoryArrays() {
       Object.values(this.baseData.financeApp.budgets.categories).forEach((category: any) => {
