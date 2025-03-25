@@ -49,9 +49,9 @@ export class AddTransactionModalComponent {
   public currentTransactionType: string = 'Debit';
 
   // the value of the pot name input
-  public potNameValue: string = '';
+  public transactionNameValue: string = '';
   // the number of characters left for the pot name
-  public potNameCharactersLeft: number = 30;
+  public transactionsNameCharactersLeft: number = 30;
 
   // boolean to control the budget dropdown
   public isBudgetDropdownOpen: boolean = false;
@@ -111,18 +111,85 @@ export class AddTransactionModalComponent {
     }
   }
 
+    // controls the maximum amount of the pot target
+    controlMaxTarget(event: any) {
+      const deleteKeys = ['Backspace', 'Delete'];
+      const otherKeys = ['ArrowLeft', 'ArrowRight', 'Tab'];
+      const isNumberKey = /^[0-9]$/.test(event.key);
+  
+      if (isNumberKey) {
+        event.preventDefault();
+        this.addNumberToTargetInput(event);
+      } else if (deleteKeys.includes(event.key)) {
+        event.preventDefault();
+        this.deleteNumberFromTargetInput();
+      } else if (otherKeys.includes(event.key)) {
+        return;
+      } else {
+        event.preventDefault();
+        return;
+      }
+    }
+  
+    // add a number to the target input
+    addNumberToTargetInput(event: any) {
+      let currentTarget = this.maxBudgetString;
+      let numbersArray = currentTarget.replace(/[.,]/g, '').split('');
+      if (numbersArray.length === 3 && numbersArray[0] === '0') {
+        numbersArray.shift();
+        numbersArray.push(event.key);
+        numbersArray.splice(numbersArray.length - 2, 0, '.');
+        this.maxBudgetString = parseFloat(numbersArray.join('')).toLocaleString(
+          'en-US',
+          {
+            minimumFractionDigits: 2,
+          }
+        );
+        this.maxBudgetInputValue = this.maxBudgetString;
+      } else if (
+        numbersArray.length >= 3 &&
+        numbersArray.length < 11 &&
+        numbersArray[0] !== '0'
+      ) {
+        numbersArray.push(event.key);
+        numbersArray.splice(numbersArray.length - 2, 0, '.');
+        this.maxBudgetString = parseFloat(numbersArray.join('')).toLocaleString(
+          'en-US',
+          {
+            minimumFractionDigits: 2,
+          }
+        );
+        this.maxBudgetInputValue = this.maxBudgetString;
+      }
+    }
+  
+    // delete a number from the target input
+    deleteNumberFromTargetInput() {
+      let currentTarget = this.maxBudgetString;
+      let numbersArray = currentTarget.replace(/[.,]/g, '').split('');
+      numbersArray.pop();
+      numbersArray.splice(numbersArray.length - 2, 0, '.');
+      this.maxBudgetString = parseFloat(numbersArray.join('')).toLocaleString(
+        'en-US',
+        {
+          minimumFractionDigits: 2,
+        }
+      );
+      this.maxBudgetInputValue = this.maxBudgetString;
+    }
+
   // controls the maximum length of the pot name
   controlNameLength(event: any) {
     const deleteKeys = ['Backspace', 'Delete'];
     if (deleteKeys.includes(event.key)) {
-      if (this.potNameCharactersLeft < 30)
-        this.potNameCharactersLeft = 30 - (this.potNameValue.length - 1);
+      if (this.transactionsNameCharactersLeft < 30)
+        this.transactionsNameCharactersLeft = 30 - (this.transactionNameValue.length - 1);
       return;
-    } else if (this.potNameValue.length >= 30) {
+    } else if (this.transactionNameValue.length >= 30) {
       event.preventDefault();
     } else {
       setTimeout(() => {
-        this.potNameCharactersLeft = 30 - this.potNameValue.length;
+        this.transactionsNameCharactersLeft = 30 - this.transactionNameValue.length;
       }, 1);
     }
   }
@@ -160,72 +227,6 @@ export class AddTransactionModalComponent {
   //   this.isThemeDropdownOpen = !this.isThemeDropdownOpen;
   // }
 
-  // controls the maximum amount of the pot target
-  controlMaxTarget(event: any) {
-    const deleteKeys = ['Backspace', 'Delete'];
-    const otherKeys = ['ArrowLeft', 'ArrowRight', 'Tab'];
-    const isNumberKey = /^[0-9]$/.test(event.key);
-
-    if (isNumberKey) {
-      event.preventDefault();
-      this.addNumberToTargetInput(event);
-    } else if (deleteKeys.includes(event.key)) {
-      event.preventDefault();
-      this.deleteNumberFromTargetInput();
-    } else if (otherKeys.includes(event.key)) {
-      return;
-    } else {
-      event.preventDefault();
-      return;
-    }
-  }
-
-  // add a number to the target input
-  addNumberToTargetInput(event: any) {
-    let currentTarget = this.maxBudgetString;
-    let numbersArray = currentTarget.replace(/[.,]/g, '').split('');
-    if (numbersArray.length === 3 && numbersArray[0] === '0') {
-      numbersArray.shift();
-      numbersArray.push(event.key);
-      numbersArray.splice(numbersArray.length - 2, 0, '.');
-      this.maxBudgetString = parseFloat(numbersArray.join('')).toLocaleString(
-        'en-US',
-        {
-          minimumFractionDigits: 2,
-        }
-      );
-      this.maxBudgetInputValue = this.maxBudgetString;
-    } else if (
-      numbersArray.length >= 3 &&
-      numbersArray.length < 11 &&
-      numbersArray[0] !== '0'
-    ) {
-      numbersArray.push(event.key);
-      numbersArray.splice(numbersArray.length - 2, 0, '.');
-      this.maxBudgetString = parseFloat(numbersArray.join('')).toLocaleString(
-        'en-US',
-        {
-          minimumFractionDigits: 2,
-        }
-      );
-      this.maxBudgetInputValue = this.maxBudgetString;
-    }
-  }
-
-  // delete a number from the target input
-  deleteNumberFromTargetInput() {
-    let currentTarget = this.maxBudgetString;
-    let numbersArray = currentTarget.replace(/[.,]/g, '').split('');
-    numbersArray.pop();
-    numbersArray.splice(numbersArray.length - 2, 0, '.');
-    this.maxBudgetString = parseFloat(numbersArray.join('')).toLocaleString(
-      'en-US',
-      {
-        minimumFractionDigits: 2,
-      }
-    );
-    this.maxBudgetInputValue = this.maxBudgetString;
-  }
 
   // get all the themes from the data-store-service and split them into used and unused theme arrays
   // getThemeArrays() {
