@@ -12,28 +12,25 @@
 }
 
 .chosenType {
-  border-color: #98908b;
+  border-color: #201f24;
   background-color: #201f24;
- 
-
   p {
     color: white;
+    user-select: none;
   }
 }
 
 .nonChosenType {
   cursor: pointer;
   border-color: #98908b;
-
+  p {
+    color: #98908b;
+    user-select: none;
+  }
   &:hover {
     border-color: #201f24;
-
     p {
       color: #201f24;
     }
-  }
-
-  p {
-    color: #98908b;
-  }
+  }  
 }

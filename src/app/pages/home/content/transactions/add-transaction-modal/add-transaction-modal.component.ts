@@ -53,7 +53,6 @@ export class AddTransactionModalComponent {
   // the number of characters left for the pot name
   public potNameCharactersLeft: number = 30;
 
-
   // boolean to control the budget dropdown
   public isBudgetDropdownOpen: boolean = false;
   // array of all categories in the application
@@ -95,6 +94,21 @@ export class AddTransactionModalComponent {
         Math.floor(Math.random() * this.unusedBudgetCategories.length)
       ];
     this.currentTransaction.name = this.chosenCategory;
+  }
+
+  // switches the transaction type between debit and credit
+  public setTransactionType(type: string) {
+    if (this.currentTransactionType === type) {
+      return;
+    } else {
+      if (type === 'Debit') {
+        this.currentTransactionType = 'Debit';
+        this.currentTransaction.type = 'debit';
+      } else {
+        this.currentTransactionType = 'Credit';
+        this.currentTransaction.type = 'credit';
+      }
+    }
   }
 
   // controls the maximum length of the pot name
