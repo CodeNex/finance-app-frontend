@@ -87,7 +87,7 @@ export class AddTransactionModalComponent {
 
   ngOnInit() {
     // this.getThemeArrays();
-    this.getCategoryArrays();
+    this.getCategoryArray();
     // this.chosenTheme =
     //   this.unusedBudgetThemes[
     //     Math.floor(Math.random() * this.unusedBudgetThemes.length)
@@ -200,7 +200,7 @@ export class AddTransactionModalComponent {
     }
   }
 
-  getCategoryArrays() {
+  getCategoryArray() {
     Object.values(this.baseData.financeApp.budgets.categories).forEach(
       (category: any) => {
         this.categories.push(category.name);

@@ -174,6 +174,38 @@ export class BasedataService {
         }
       },
     },
+    recurrings: {
+      types: {
+        singleTransaction: {
+          name: 'Single Transaction',
+          iconName: null,
+        },
+        weekly: {
+          name: 'Every Week',
+          iconName: 'weekly'
+        },
+        twoWeeks: {
+          name: 'Every Two Weeks',
+          iconName: 'twoWeeks'
+        },
+        monthly: {
+          name: 'Every Month',
+          iconName: 'monthly'
+        },
+        quarterly: {
+          name: 'Every Three Months',
+          iconName: 'quarterly'
+        },
+        halfYearly: {
+          name: 'Every Six Months',
+          iconName: 'halfYearly'
+        },
+        yearly: {
+          name: 'Every Year',
+          iconName: 'yearly'
+        }
+      },
+    }
   };
 }
 
