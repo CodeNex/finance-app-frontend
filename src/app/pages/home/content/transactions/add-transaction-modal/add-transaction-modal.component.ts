@@ -62,7 +62,7 @@ export class AddTransactionModalComponent {
   // array of unused categories
   public unusedBudgetCategories: any;
   // current chosen category
-  public chosenCategory: string = '';
+  public chosenCategory: string = 'General';
 
   public isRecurringDropdownOpen: boolean = false;
 
@@ -93,11 +93,11 @@ export class AddTransactionModalComponent {
     //     Math.floor(Math.random() * this.unusedBudgetThemes.length)
     //   ];
     // this.currentBudget.theme = this.chosenTheme.hex;
-    this.chosenCategory =
-      this.unusedBudgetCategories[
-        Math.floor(Math.random() * this.unusedBudgetCategories.length)
-      ];
-    this.currentTransaction.name = this.chosenCategory;
+    // this.chosenCategory =
+    //   this.unusedBudgetCategories[
+    //     Math.floor(Math.random() * this.unusedBudgetCategories.length)
+    //   ];
+    
   }
 
   // switches the transaction type between debit and credit
@@ -206,21 +206,22 @@ export class AddTransactionModalComponent {
         this.categories.push(category.name);
       }
     );
-    this.usedBudgetCategories = this.dataStore.budgets().map((budget: any) => {
-      if (!budget.deleted_at) return budget.name;
-    });
-    this.unusedBudgetCategories = this.categories.filter(
-      (category: any) => !this.usedBudgetCategories.includes(category)
-    );
+
+    // this.usedBudgetCategories = this.dataStore.budgets().map((budget: any) => {
+    //   if (!budget.deleted_at) return budget.name;
+    // });
+    // this.unusedBudgetCategories = this.categories.filter(
+    //   (category: any) => !this.usedBudgetCategories.includes(category)
+    // );
+
+
   }
 
   // choose a category by click from the dropdown
   chooseCategory(category: string) {
-    if (this.unusedBudgetCategories.includes(category)) {
       this.chosenCategory = category;
       this.currentTransaction.category = this.chosenCategory;
       this.closeHideCategoryDropdown();
-    }
   }
 
   public closeHideCategoryDropdown() {
