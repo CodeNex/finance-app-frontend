@@ -194,6 +194,8 @@
           >
             <!-- Category Box Left Part -->
             <div class="w-full flex gap-3 items-center mb-3">
+
+              
               <p
                 class="text4r text-grey-900"
                 [ngStyle]="{
@@ -204,18 +206,10 @@
               >
                 {{ item }}
               </p>
+
+
             </div>
 
-            <!-- Category Box Right Part -->
-            <div>
-              @if (usedBudgetCategories.includes(item)) {
-              <p class="text5r text-grey-500 text-right whitespace-nowrap">
-                Already used
-              </p>
-              } @if (item === chosenCategory) {
-              <app-icons [iconName]="'themeCheck'"></app-icons>
-              }
-            </div>
           </div>
           @if (index < this.categories.length - 1) {
           <hr class="bg-grey-100 border-grey-100 w-full h-[1px]" />
