@@ -58,10 +58,10 @@ export class AddTransactionModalComponent {
   // array of all categories in the application
   public categories: any = [];
   // array of used categories in budgets
-  public usedBudgetCategories: any;
-  // array of unused categories
-  public unusedBudgetCategories: any;
-  // current chosen category
+  // public usedBudgetCategories: any;
+  // // array of unused categories
+  // public unusedBudgetCategories: any;
+  // // current chosen category
   public chosenCategory: string = 'General';
 
   public isRecurringDropdownOpen: boolean = false;
