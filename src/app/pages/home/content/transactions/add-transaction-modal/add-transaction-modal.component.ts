@@ -252,6 +252,7 @@ export class AddTransactionModalComponent {
     this.currentTransaction.amount = parseFloat(
       this.maxBudgetInputValue.replace(/,/g, '')
     );
+    this.currentTransaction.name = this.transactionNameValue;
     // this.currentBudget.theme = this.chosenTheme.hex;
     // this.apiBudgetsService.addNewBudget(this.currentBudget);
     this.mainModalService.hideMainModal();
