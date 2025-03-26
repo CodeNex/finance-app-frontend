@@ -66,7 +66,7 @@ export class AddTransactionModalComponent {
 
   public isRecurringDropdownOpen: boolean = false;
 
-  public chosenRecurring: string = '';
+  public chosenRecurring: string = 'singleTransaction';
 
   // the value of the pot target input binded by ngModel
   public maxBudgetInputValue: string = '0.00';

@@ -192,23 +192,16 @@
               usedBudgetCategories.includes(item) ? '' : 'cursor-pointer'
             "
           >
-           
-
-              
-              <p
-                class="text4r text-grey-900 mb-3"
-                [ngStyle]="{
-                  color: !usedBudgetCategories.includes(item)
-                    ? '#201f24'
-                    : '#696868'
-                }"
-              >
-                {{ item }}
-              </p>
-
-
-            
-
+            <p
+              class="text4r text-grey-900 mb-3"
+              [ngStyle]="{
+                color: !usedBudgetCategories.includes(item)
+                  ? '#201f24'
+                  : '#696868'
+              }"
+            >
+              {{ item }}
+            </p>
           </div>
           @if (index < this.categories.length - 1) {
           <hr class="bg-grey-100 border-grey-100 w-full h-[1px]" />
@@ -218,7 +211,11 @@
       </div>
 
       <!-- Start Date Input -->
-      <div class="flex-1">
+      <div class="flex-1 relative">
+        @if (this.chosenRecurring === 'singleTransaction') {
+          <div class="absolute top-0 left-0 w-full h-full z-10"
+              [ngStyle]="{'background-color': 'rgba(255, 255, 255, 0.75)'}"></div>
+        }
         <p class="text5b text-grey-500">Start Date</p>
         <input
           class="w-full text4r text-grey-900 border-[1px] outline-none border-beige-500 rounded-lg pl-5 pr-5 pt-3 pb-3 mt-1"
