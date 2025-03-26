@@ -57,21 +57,21 @@ export class AddTransactionModalComponent {
   public isCategoryDropdownOpen: boolean = false;
   // array of all categories in the application
   public categories: any = [];
-  // array of used categories in budgets
-  // public usedBudgetCategories: any;
-  // // array of unused categories
-  // public unusedBudgetCategories: any;
   // // current chosen category
   public chosenCategory: string = 'General';
 
   public isRecurringDropdownOpen: boolean = false;
 
-  public chosenRecurring: string = 'singleTransaction';
+  public recurrings: any = [];
+
+  public chosenRecurring: string = 'Single Transaction';
 
   // the value of the pot target input binded by ngModel
   public maxBudgetInputValue: string = '0.00';
   // a cached string of the pot target input value
   public maxBudgetString: string = '0.00';
+
+
   // boolean to control the theme dropdown
   // public isThemeDropdownOpen: boolean = false;
   // // array of all themes in the application
@@ -88,6 +88,9 @@ export class AddTransactionModalComponent {
   ngOnInit() {
     // this.getThemeArrays();
     this.getCategoryArray();
+    this.getRecurringsArray();
+  
+    
     // this.chosenTheme =
     //   this.unusedBudgetThemes[
     //     Math.floor(Math.random() * this.unusedBudgetThemes.length)
@@ -200,7 +203,7 @@ export class AddTransactionModalComponent {
     }
   }
 
-  getCategoryArray() {
+  public getCategoryArray() {
     Object.values(this.baseData.financeApp.budgets.categories).forEach(
       (category: any) => {
         this.categories.push(category.name);
@@ -213,12 +216,16 @@ export class AddTransactionModalComponent {
     // this.unusedBudgetCategories = this.categories.filter(
     //   (category: any) => !this.usedBudgetCategories.includes(category)
     // );
+  }
 
-
+  public getRecurringsArray() {
+    Object.values(this.baseData.financeApp.recurrings.types).forEach((type: any) => {
+      this.recurrings.push(type);
+    })
   }
 
   // choose a category by click from the dropdown
-  chooseCategory(category: string) {
+  public chooseCategory(category: string) {
       this.chosenCategory = category;
       let categoryData = category.replace(/\s/g, '');
       categoryData = (categoryData[0].toLowerCase() + categoryData.slice(1));

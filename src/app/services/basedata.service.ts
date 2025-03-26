@@ -178,31 +178,31 @@ export class BasedataService {
       types: {
         singleTransaction: {
           name: 'Single Transaction',
-          iconName: null,
+          value: null,
         },
         weekly: {
           name: 'Every Week',
-          iconName: 'weekly'
+          value: 'weekly'
         },
         twoWeeks: {
           name: 'Every Two Weeks',
-          iconName: 'twoWeeks'
+          value: 'twoWeeks'
         },
         monthly: {
           name: 'Every Month',
-          iconName: 'monthly'
+          value: 'monthly'
         },
         quarterly: {
           name: 'Every Three Months',
-          iconName: 'quarterly'
+          value: 'quarterly'
         },
         halfYearly: {
           name: 'Every Six Months',
-          iconName: 'halfYearly'
+          value: 'halfYearly'
         },
         yearly: {
           name: 'Every Year',
-          iconName: 'yearly'
+          value: 'yearly'
         }
       },
     }
