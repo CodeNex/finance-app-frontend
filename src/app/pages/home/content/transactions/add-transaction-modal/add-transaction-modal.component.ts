@@ -54,7 +54,7 @@ export class AddTransactionModalComponent {
   public transactionsNameCharactersLeft: number = 30;
 
   // boolean to control the budget dropdown
-  public isBudgetDropdownOpen: boolean = false;
+  public isCategoryDropdownOpen: boolean = false;
   // array of all categories in the application
   public categories: any = [];
   // array of used categories in budgets
@@ -63,6 +63,10 @@ export class AddTransactionModalComponent {
   public unusedBudgetCategories: any;
   // current chosen category
   public chosenCategory: string = '';
+
+  public isRecurringDropdownOpen: boolean = false;
+
+  public chosenRecurring: string = '';
 
   // the value of the pot target input binded by ngModel
   public maxBudgetInputValue: string = '0.00';
@@ -111,63 +115,47 @@ export class AddTransactionModalComponent {
     }
   }
 
-    // controls the maximum amount of the pot target
-    controlMaxTarget(event: any) {
-      const deleteKeys = ['Backspace', 'Delete'];
-      const otherKeys = ['ArrowLeft', 'ArrowRight', 'Tab'];
-      const isNumberKey = /^[0-9]$/.test(event.key);
-  
-      if (isNumberKey) {
-        event.preventDefault();
-        this.addNumberToTargetInput(event);
-      } else if (deleteKeys.includes(event.key)) {
-        event.preventDefault();
-        this.deleteNumberFromTargetInput();
-      } else if (otherKeys.includes(event.key)) {
-        return;
-      } else {
-        event.preventDefault();
-        return;
-      }
+  // controls the maximum amount of the pot target
+  controlMaxTarget(event: any) {
+    const deleteKeys = ['Backspace', 'Delete'];
+    const otherKeys = ['ArrowLeft', 'ArrowRight', 'Tab'];
+    const isNumberKey = /^[0-9]$/.test(event.key);
+
+    if (isNumberKey) {
+      event.preventDefault();
+      this.addNumberToTargetInput(event);
+    } else if (deleteKeys.includes(event.key)) {
+      event.preventDefault();
+      this.deleteNumberFromTargetInput();
+    } else if (otherKeys.includes(event.key)) {
+      return;
+    } else {
+      event.preventDefault();
+      return;
     }
-  
-    // add a number to the target input
-    addNumberToTargetInput(event: any) {
-      let currentTarget = this.maxBudgetString;
-      let numbersArray = currentTarget.replace(/[.,]/g, '').split('');
-      if (numbersArray.length === 3 && numbersArray[0] === '0') {
-        numbersArray.shift();
-        numbersArray.push(event.key);
-        numbersArray.splice(numbersArray.length - 2, 0, '.');
-        this.maxBudgetString = parseFloat(numbersArray.join('')).toLocaleString(
-          'en-US',
-          {
-            minimumFractionDigits: 2,
-          }
-        );
-        this.maxBudgetInputValue = this.maxBudgetString;
-      } else if (
-        numbersArray.length >= 3 &&
-        numbersArray.length < 11 &&
-        numbersArray[0] !== '0'
-      ) {
-        numbersArray.push(event.key);
-        numbersArray.splice(numbersArray.length - 2, 0, '.');
-        this.maxBudgetString = parseFloat(numbersArray.join('')).toLocaleString(
-          'en-US',
-          {
-            minimumFractionDigits: 2,
-          }
-        );
-        this.maxBudgetInputValue = this.maxBudgetString;
-      }
-    }
-  
-    // delete a number from the target input
-    deleteNumberFromTargetInput() {
-      let currentTarget = this.maxBudgetString;
-      let numbersArray = currentTarget.replace(/[.,]/g, '').split('');
-      numbersArray.pop();
+  }
+
+  // add a number to the target input
+  addNumberToTargetInput(event: any) {
+    let currentTarget = this.maxBudgetString;
+    let numbersArray = currentTarget.replace(/[.,]/g, '').split('');
+    if (numbersArray.length === 3 && numbersArray[0] === '0') {
+      numbersArray.shift();
+      numbersArray.push(event.key);
+      numbersArray.splice(numbersArray.length - 2, 0, '.');
+      this.maxBudgetString = parseFloat(numbersArray.join('')).toLocaleString(
+        'en-US',
+        {
+          minimumFractionDigits: 2,
+        }
+      );
+      this.maxBudgetInputValue = this.maxBudgetString;
+    } else if (
+      numbersArray.length >= 3 &&
+      numbersArray.length < 11 &&
+      numbersArray[0] !== '0'
+    ) {
+      numbersArray.push(event.key);
       numbersArray.splice(numbersArray.length - 2, 0, '.');
       this.maxBudgetString = parseFloat(numbersArray.join('')).toLocaleString(
         'en-US',
@@ -177,19 +165,37 @@ export class AddTransactionModalComponent {
       );
       this.maxBudgetInputValue = this.maxBudgetString;
     }
+  }
+
+  // delete a number from the target input
+  deleteNumberFromTargetInput() {
+    let currentTarget = this.maxBudgetString;
+    let numbersArray = currentTarget.replace(/[.,]/g, '').split('');
+    numbersArray.pop();
+    numbersArray.splice(numbersArray.length - 2, 0, '.');
+    this.maxBudgetString = parseFloat(numbersArray.join('')).toLocaleString(
+      'en-US',
+      {
+        minimumFractionDigits: 2,
+      }
+    );
+    this.maxBudgetInputValue = this.maxBudgetString;
+  }
 
   // controls the maximum length of the pot name
   controlNameLength(event: any) {
     const deleteKeys = ['Backspace', 'Delete'];
     if (deleteKeys.includes(event.key)) {
       if (this.transactionsNameCharactersLeft < 30)
-        this.transactionsNameCharactersLeft = 30 - (this.transactionNameValue.length - 1);
+        this.transactionsNameCharactersLeft =
+          30 - (this.transactionNameValue.length - 1);
       return;
     } else if (this.transactionNameValue.length >= 30) {
       event.preventDefault();
     } else {
       setTimeout(() => {
-        this.transactionsNameCharactersLeft = 30 - this.transactionNameValue.length;
+        this.transactionsNameCharactersLeft =
+          30 - this.transactionNameValue.length;
       }, 1);
     }
   }
@@ -212,21 +218,24 @@ export class AddTransactionModalComponent {
   chooseCategory(category: string) {
     if (this.unusedBudgetCategories.includes(category)) {
       this.chosenCategory = category;
-      this.currentTransaction.name = this.chosenCategory;
-      this.closeHideBudgetDropdown();
+      this.currentTransaction.category = this.chosenCategory;
+      this.closeHideCategoryDropdown();
     }
   }
 
+  public closeHideCategoryDropdown() {
+    this.isCategoryDropdownOpen = !this.isCategoryDropdownOpen;
+  }
+
   // closes or opens budget dropdown
-  closeHideBudgetDropdown() {
-    this.isBudgetDropdownOpen = !this.isBudgetDropdownOpen;
+  public closeHideRecurringDropdown() {
+    this.isRecurringDropdownOpen = !this.isRecurringDropdownOpen;
   }
 
   // closes or opens theme dropdown
   // closeHideThemeDropdown() {
   //   this.isThemeDropdownOpen = !this.isThemeDropdownOpen;
   // }
-
 
   // get all the themes from the data-store-service and split them into used and unused theme arrays
   // getThemeArrays() {

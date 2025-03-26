@@ -99,14 +99,14 @@
     <div class="relative">
       <p class="text5b text-grey-500">Category</p>
       <div
-        (click)="closeHideBudgetDropdown()"
+        (click)="closeHideCategoryDropdown()"
         class="w-full flex justify-between border-[1px] border-beige-500 hover:border-grey-900 focus:border-grey-900 transition-all duration-300 ease-in-out rounded-lg pl-5 pr-5 pt-3 pb-3 mb-5 mt-1 cursor-pointer"
       >
         <div class="leftBox flex items-center gap-3">
           <p class="text4r text-grey-900">{{ chosenCategory }}</p>
         </div>
         <div class="rightBox flex items-center">
-          @if (!isBudgetDropdownOpen) {
+          @if (!isCategoryDropdownOpen) {
           <app-icons [iconName]="'dropOpen'"></app-icons>
           }@else {
           <app-icons [iconName]="'dropClose'"></app-icons>
@@ -114,7 +114,7 @@
         </div>
       </div>
 
-      @if (isBudgetDropdownOpen) {
+      @if (isCategoryDropdownOpen) {
       <div
         class="themeDropDown w-full h-[220px] absolute z-10 left-0 top-20 bg-white shadow-[0px_4px_24px_0px_#00000040] rounded-lg pt-3 pb-3 pl-5 pr-5 overflow-auto"
       >
@@ -165,14 +165,14 @@
       <div class="relative flex-1">
         <p class="text5b text-grey-500">Recurring</p>
         <div
-          (click)="closeHideBudgetDropdown()"
+          (click)="closeHideRecurringDropdown()"
           class="w-full flex justify-between border-[1px] border-beige-500 hover:border-grey-900 focus:border-grey-900 transition-all duration-300 ease-in-out rounded-lg pl-5 pr-5 pt-3 pb-3 mt-1 cursor-pointer"
         >
           <div class="leftBox flex items-center gap-3">
             <p class="text4r text-grey-900">{{ chosenCategory }}</p>
           </div>
           <div class="rightBox flex items-center">
-            @if (!isBudgetDropdownOpen) {
+            @if (!isRecurringDropdownOpen) {
             <app-icons [iconName]="'dropOpen'"></app-icons>
             }@else {
             <app-icons [iconName]="'dropClose'"></app-icons>
@@ -180,9 +180,9 @@
           </div>
         </div>
 
-        @if (isBudgetDropdownOpen) {
+        @if (isRecurringDropdownOpen) {
         <div
-          class="themeDropDown w-full h-[220px] absolute z-10 left-0 top-20 bg-white shadow-[0px_4px_24px_0px_#00000040] rounded-lg pt-3 pb-3 pl-5 pr-5 overflow-auto"
+          class="themeDropDown w-full h-[220px] absolute z-10 left-0 bottom-14 bg-white shadow-[0px_4px_24px_0px_#00000040] rounded-lg pt-3 pb-3 pl-5 pr-5 overflow-auto"
         >
           @for (item of this.categories; let index = $index; track item) {
           <div
