@@ -220,7 +220,9 @@ export class AddTransactionModalComponent {
   // choose a category by click from the dropdown
   chooseCategory(category: string) {
       this.chosenCategory = category;
-      this.currentTransaction.category = this.chosenCategory;
+      let categoryData = category.replace(/\s/g, '');
+      categoryData = (categoryData[0].toLowerCase() + categoryData.slice(1));
+      this.currentTransaction.category = categoryData;
       this.closeHideCategoryDropdown();
   }
 
