@@ -192,12 +192,11 @@
               usedBudgetCategories.includes(item) ? '' : 'cursor-pointer'
             "
           >
-            <!-- Category Box Left Part -->
-            <div class="w-full flex gap-3 items-center mb-3">
+           
 
               
               <p
-                class="text4r text-grey-900"
+                class="text4r text-grey-900 mb-3"
                 [ngStyle]="{
                   color: !usedBudgetCategories.includes(item)
                     ? '#201f24'
@@ -208,7 +207,7 @@
               </p>
 
 
-            </div>
+            
 
           </div>
           @if (index < this.categories.length - 1) {
