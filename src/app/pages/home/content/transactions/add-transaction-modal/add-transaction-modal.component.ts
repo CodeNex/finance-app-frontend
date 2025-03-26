@@ -71,7 +71,6 @@ export class AddTransactionModalComponent {
   // a cached string of the pot target input value
   public maxBudgetString: string = '0.00';
 
-
   // boolean to control the theme dropdown
   // public isThemeDropdownOpen: boolean = false;
   // // array of all themes in the application
@@ -89,8 +88,7 @@ export class AddTransactionModalComponent {
     // this.getThemeArrays();
     this.getCategoryArray();
     this.getRecurringsArray();
-  
-    
+
     // this.chosenTheme =
     //   this.unusedBudgetThemes[
     //     Math.floor(Math.random() * this.unusedBudgetThemes.length)
@@ -100,7 +98,6 @@ export class AddTransactionModalComponent {
     //   this.unusedBudgetCategories[
     //     Math.floor(Math.random() * this.unusedBudgetCategories.length)
     //   ];
-    
   }
 
   // switches the transaction type between debit and credit
@@ -209,36 +206,37 @@ export class AddTransactionModalComponent {
         this.categories.push(category.name);
       }
     );
-
-    // this.usedBudgetCategories = this.dataStore.budgets().map((budget: any) => {
-    //   if (!budget.deleted_at) return budget.name;
-    // });
-    // this.unusedBudgetCategories = this.categories.filter(
-    //   (category: any) => !this.usedBudgetCategories.includes(category)
-    // );
-  }
-
-  public getRecurringsArray() {
-    Object.values(this.baseData.financeApp.recurrings.types).forEach((type: any) => {
-      this.recurrings.push(type);
-    })
   }
 
   // choose a category by click from the dropdown
   public chooseCategory(category: string) {
-      this.chosenCategory = category;
-      let categoryData = category.replace(/\s/g, '');
-      categoryData = (categoryData[0].toLowerCase() + categoryData.slice(1));
-      this.currentTransaction.category = categoryData;
-      this.closeHideCategoryDropdown();
+    this.chosenCategory = category;
+    let categoryData = category.replace(/\s/g, '');
+    categoryData = categoryData[0].toLowerCase() + categoryData.slice(1);
+    this.currentTransaction.category = categoryData;
+    this.openCloseCategoryDropdown();
   }
 
-  public closeHideCategoryDropdown() {
+  public openCloseCategoryDropdown() {
     this.isCategoryDropdownOpen = !this.isCategoryDropdownOpen;
   }
 
+  public getRecurringsArray() {
+    Object.values(this.baseData.financeApp.recurrings.types).forEach(
+      (type: any) => {
+        this.recurrings.push(type);
+      }
+    );
+  }
+
+  public chooseRecurring(recurring: any) {
+    this.chosenRecurring = recurring.name;
+    this.currentTransaction.recurring = recurring.value;
+    this.openCloseRecurringDropdown();
+  }
+
   // closes or opens budget dropdown
-  public closeHideRecurringDropdown() {
+  public openCloseRecurringDropdown() {
     this.isRecurringDropdownOpen = !this.isRecurringDropdownOpen;
   }
 
