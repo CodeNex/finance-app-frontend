@@ -37,7 +37,7 @@ export class AddTransactionModalComponent {
     deleted_at: null,
     recurring: null,
     recurring_id: null,
-    theme: '#597C7C',
+    theme: '',
     sender: '',
     receiver: '',
     name: '',
@@ -86,7 +86,7 @@ export class AddTransactionModalComponent {
   // public potThemeValue: string = '';
 
   ngOnInit() {
-    // this.getThemeArrays();
+    this.currentTransaction.theme = this.getRandomTheme();
     this.getCategoryArray();
     this.getRecurringsArray();
 
@@ -252,6 +252,13 @@ export class AddTransactionModalComponent {
   // closes or opens budget dropdown
   public openCloseRecurringDropdown() {
     this.isRecurringDropdownOpen = !this.isRecurringDropdownOpen;
+  }
+
+  // ########################################################################
+
+  public getRandomTheme() {
+    let themeArray: any = Object.values(this.baseData.financeApp.basics.colors);
+    return themeArray[Math.floor(Math.random() * themeArray.length)].hex;
   }
 
   // ########################################################################
