@@ -1083,7 +1083,6 @@ export class DataStoreServiceService {
       created_at: '2025-09-12T00:00:00Z',
       execute_on: '2025-07-26T00:00:00Z',
       deleted_at: null,
-
       recurring: 'monthly',
       recurring_id: null,
       theme: '#597C7C',
@@ -1099,7 +1098,6 @@ export class DataStoreServiceService {
       user_id: 0,
       amount: 146.88,
       budget_id: null,
-
       created_at: '2025-02-09T00:00:00Z',
       execute_on: '2025-12-19T00:00:00Z',
       deleted_at: null,
