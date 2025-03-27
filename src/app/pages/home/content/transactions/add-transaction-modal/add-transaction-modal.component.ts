@@ -57,13 +57,14 @@ export class AddTransactionModalComponent {
   public isCategoryDropdownOpen: boolean = false;
   // array of all categories in the application
   public categories: any = [];
-  // // current chosen category
+  // current chosen category
   public chosenCategory: string = 'General';
-
+  
+  // boolean to control the recurrings dropdown
   public isRecurringDropdownOpen: boolean = false;
-
+  // array of all recurrings in the application
   public recurrings: any = [];
-
+ // current chosen recurring
   public chosenRecurring: string = 'Single Transaction';
 
   // the value of the pot target input binded by ngModel
@@ -100,6 +101,8 @@ export class AddTransactionModalComponent {
     //   ];
   }
 
+  // ########################################################################
+
   // switches the transaction type between debit and credit
   public setTransactionType(type: string) {
     if (this.currentTransactionType === type) {
@@ -114,6 +117,8 @@ export class AddTransactionModalComponent {
       }
     }
   }
+
+  // ########################################################################
 
   // controls the maximum amount of the pot target
   controlMaxTarget(event: any) {
@@ -182,6 +187,8 @@ export class AddTransactionModalComponent {
     this.maxBudgetInputValue = this.maxBudgetString;
   }
 
+  // ########################################################################
+
   // controls the maximum length of the pot name
   controlNameLength(event: any) {
     const deleteKeys = ['Backspace', 'Delete'];
@@ -200,6 +207,8 @@ export class AddTransactionModalComponent {
     }
   }
 
+  // ########################################################################
+
   public getCategoryArray() {
     Object.values(this.baseData.financeApp.budgets.categories).forEach(
       (category: any) => {
@@ -217,10 +226,14 @@ export class AddTransactionModalComponent {
     this.openCloseCategoryDropdown();
   }
 
+  // closes or opens category dropdown
   public openCloseCategoryDropdown() {
     this.isCategoryDropdownOpen = !this.isCategoryDropdownOpen;
   }
 
+  // ########################################################################
+
+  // get all the recurrings from the data-store-service
   public getRecurringsArray() {
     Object.values(this.baseData.financeApp.recurrings.types).forEach(
       (type: any) => {
@@ -229,6 +242,7 @@ export class AddTransactionModalComponent {
     );
   }
 
+  // choose a recurring by click from the dropdown
   public chooseRecurring(recurring: any) {
     this.chosenRecurring = recurring.name;
     this.currentTransaction.recurring = recurring.value;
@@ -239,6 +253,8 @@ export class AddTransactionModalComponent {
   public openCloseRecurringDropdown() {
     this.isRecurringDropdownOpen = !this.isRecurringDropdownOpen;
   }
+
+  // ########################################################################
 
   // closes or opens theme dropdown
   // closeHideThemeDropdown() {
