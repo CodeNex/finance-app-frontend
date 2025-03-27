@@ -249,32 +249,14 @@ export class AddTransactionModalComponent {
 
   // ########################################################################
 
-  // closes or opens theme dropdown
-  // closeHideThemeDropdown() {
-  //   this.isThemeDropdownOpen = !this.isThemeDropdownOpen;
-  // }
 
-  // get all the themes from the data-store-service and split them into used and unused theme arrays
-  // getThemeArrays() {
-  //   this.themes = Object.values(this.baseData.financeApp.basics.colors);
-  //   this.usedBudgetThemes = this.dataStore.budgets().map((budget: any) => {
-  //     if (!budget.deleted_at) return budget.theme;
-  //   });
-  //   this.unusedBudgetThemes = this.themes.filter(
-  //     (theme: any) => !this.usedBudgetThemes.includes(theme.hex)
-  //   );
-  // }
 
-  // choose a theme by click from the dropdown
-  // chooseTheme(theme: any) {
-  //   if (this.unusedBudgetThemes.includes(theme)) {
-  //     this.chosenTheme = theme;
-  //     this.closeHideThemeDropdown();
-  //   }
-  // }
+
+
+
 
   // add a new pot to the pots array in data-store-service, submit the new pot to the API and close the modal
-  submitAddPot() {
+  submitAddTransaction() {
     this.currentTransaction.amount = parseFloat(
       this.maxAmountInputValue.replace(/,/g, '')
     );
