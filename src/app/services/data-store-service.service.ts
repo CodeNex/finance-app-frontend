@@ -1091,7 +1091,6 @@ export class DataStoreServiceService {
       name: 'Game Purchase',
       category: 'entertainment',
       type: 'credit',
-
     },
     {
       transaction_id: 1,
@@ -1109,7 +1108,6 @@ export class DataStoreServiceService {
       name: 'Internet Bill',
       category: 'bills',
       type: 'debit',
-
     },
     {
       transaction_id: 2,
@@ -1127,7 +1125,6 @@ export class DataStoreServiceService {
       name: 'Organic Food Store',
       category: 'groceries',
       type: 'debit',
-
     },
     {
       transaction_id: 3,
