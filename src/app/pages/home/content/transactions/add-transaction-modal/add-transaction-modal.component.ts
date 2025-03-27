@@ -72,33 +72,19 @@ export class AddTransactionModalComponent {
   // a cached string of the pot target input value
   public maxAmountString: string = '0.00';
 
-  // boolean to control the theme dropdown
-  // public isThemeDropdownOpen: boolean = false;
-  // // array of all themes in the application
-  // public themes: any;
-  // // array of used themes in budgets
-  // public usedBudgetThemes: any;
-  // // array of unused themes
-  // public unusedBudgetThemes: any;
-  // // the current chosen theme
-  // public chosenTheme: any;
-  // // the value of the pot theme input
-  // public potThemeValue: string = '';
 
+  public currentDate: string = '';
+
+  
+  
+  
+  
   ngOnInit() {
     this.currentTransaction.theme = this.getRandomTheme();
     this.getCategoryArray();
     this.getRecurringsArray();
 
-    // this.chosenTheme =
-    //   this.unusedBudgetThemes[
-    //     Math.floor(Math.random() * this.unusedBudgetThemes.length)
-    //   ];
-    // this.currentBudget.theme = this.chosenTheme.hex;
-    // this.chosenCategory =
-    //   this.unusedBudgetCategories[
-    //     Math.floor(Math.random() * this.unusedBudgetCategories.length)
-    //   ];
+    
   }
 
   // ########################################################################
