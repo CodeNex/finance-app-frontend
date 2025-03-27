@@ -284,6 +284,11 @@ export class AddTransactionModalComponent {
     }
   }
 
+  public resetValidation(input: string) {
+    if (input === 'amount') this.isAmountValid = true;
+    if (input === 'name') this.isNameValid = true;
+  }
+
   // ########################################################################
 
   // add a new pot to the pots array in data-store-service, submit the new pot to the API and close the modal

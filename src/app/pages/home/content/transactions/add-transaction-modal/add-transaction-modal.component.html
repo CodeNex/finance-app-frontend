@@ -72,6 +72,7 @@
           [(ngModel)]="maxAmountInputValue"
           [ngModelOptions]="{ standalone: true }"
           (keydown)="controlMaxTarget($event)"
+          (focus)="resetValidation('amount')"
           class="w-full text4r text-grey-900 border-[1px] outline-none border-beige-500 rounded-lg pl-10 pt-3 pb-3 mt-1 appearance-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none placeholder:text-beige-500 hover:border-grey-900 focus:border-grey-900 transition-all duration-300 ease-in-out"
           type="text"
           placeholder="e.g. 2000"
@@ -86,6 +87,7 @@
         [(ngModel)]="transactionNameValue"
         [ngModelOptions]="{ standalone: true }"
         (keydown)="controlNameLength($event)"
+        (focus)="resetValidation('name')"
         class="w-full text4r text-grey-900 border-[1px] outline-none border-beige-500 rounded-lg pl-5 pt-3 pb-3 mt-1 hover:border-grey-900 focus:border-grey-900 transition-all duration-300 ease-in-out placeholder:text-[#98908b8a]"
         type="text"
         placeholder="e.g. Car Insurance"
@@ -176,8 +178,10 @@
             <p
               class="text4r text-grey-900 mb-3"
               [ngStyle]="{
-                color: this.chosenRecurring === item.name ? '#201f24' : '#696868',
-                fontWeight: this.chosenRecurring === item.name ? 'bold' : 'regular'
+                color:
+                  this.chosenRecurring === item.name ? '#201f24' : '#696868',
+                fontWeight:
+                  this.chosenRecurring === item.name ? 'bold' : 'regular'
               }"
             >
               {{ item.name }}
