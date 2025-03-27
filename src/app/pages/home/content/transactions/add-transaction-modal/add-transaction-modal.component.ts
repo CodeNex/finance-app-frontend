@@ -81,6 +81,9 @@ export class AddTransactionModalComponent {
   
   ngOnInit() {
     this.currentTransaction.theme = this.getRandomTheme();
+    this.currentDate = this.getCurrentDate();
+    console.log(this.currentDate);
+    
     this.getCategoryArray();
     this.getRecurringsArray();
 
@@ -249,7 +252,9 @@ export class AddTransactionModalComponent {
 
   // ########################################################################
 
-
+  public getCurrentDate() {
+    return new Date().toISOString().split('T')[0];
+  }
 
 
 
