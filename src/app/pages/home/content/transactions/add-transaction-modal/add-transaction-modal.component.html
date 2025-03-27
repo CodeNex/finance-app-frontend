@@ -71,7 +71,7 @@
         <input
           [(ngModel)]="maxAmountInputValue"
           [ngModelOptions]="{ standalone: true }"
-          [ngClass]="{ 'borderInvalid': !isNameValid }"
+          [ngClass]="{ 'borderInvalid': !isAmountValid }"
           (keydown)="controlMaxTarget($event)"
           (focus)="resetValidation('amount')"
           class="borderValid w-full text4r text-grey-900 border-[1px] outline-none rounded-lg pl-10 pt-3 pb-3 mt-1 appearance-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none placeholder:text-beige-500 transition-all duration-300 ease-in-out"

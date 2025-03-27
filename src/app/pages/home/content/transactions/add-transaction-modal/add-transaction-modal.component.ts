@@ -30,7 +30,7 @@ export class AddTransactionModalComponent {
   public currentTransaction: any = {
     transaction_id: 0,
     user_id: 0,
-    amount: 86.68,
+    amount: 0,
     budget_id: null,
     created_at: '2025-09-12T00:00:00Z',
     execute_on: '2025-07-26T00:00:00Z',
@@ -257,7 +257,9 @@ export class AddTransactionModalComponent {
   // ########################################################################
 
   public validateInputValues() {
-    if (this.validateName() && this.validateAmount()) {
+    let isAmountValid = this.validateAmount();
+    let isNameValid = this.validateName();
+    if (isAmountValid && isNameValid) {
       return true;
     } else {
       return false;
