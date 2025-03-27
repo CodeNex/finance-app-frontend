@@ -64,7 +64,7 @@ export class AddTransactionModalComponent {
   public isRecurringDropdownOpen: boolean = false;
   // array of all recurrings in the application
   public recurrings: any = [];
- // current chosen recurring
+  // current chosen recurring
   public chosenRecurring: string = 'Single Transaction';
 
   // the value of the pot target input binded by ngModel
@@ -72,22 +72,20 @@ export class AddTransactionModalComponent {
   // a cached string of the pot target input value
   public maxAmountString: string = '0.00';
 
-
+  // current date
   public currentDate: string = '';
 
-  
-  
-  
-  
+  public isAmountValid: boolean = true;
+
+  public isNameValid: boolean = true;
+
   ngOnInit() {
     this.currentTransaction.theme = this.getRandomTheme();
     this.currentDate = this.getCurrentDate();
     console.log(this.currentDate);
-    
+
     this.getCategoryArray();
     this.getRecurringsArray();
-
-    
   }
 
   // ########################################################################
@@ -256,9 +254,37 @@ export class AddTransactionModalComponent {
     return new Date().toISOString().split('T')[0];
   }
 
+  // ########################################################################
 
+  public validateInputValues() {
+    if (this.validateName() && this.validateAmount()) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 
+  public validateAmount() {
+    if (this.currentTransaction.amount <= 0) {
+      this.isAmountValid = false;
+      return false;
+    } else {
+      this.isAmountValid = true;
+      return true;
+    }
+  }
 
+  public validateName() {
+    if (this.currentTransaction.name.length === 0) {
+      this.isNameValid = false;
+      return false;
+    } else {
+      this.isNameValid = true;
+      return true;
+    }
+  }
+
+  // ########################################################################
 
   // add a new pot to the pots array in data-store-service, submit the new pot to the API and close the modal
   submitAddTransaction() {
@@ -266,9 +292,11 @@ export class AddTransactionModalComponent {
       this.maxAmountInputValue.replace(/,/g, '')
     );
     this.currentTransaction.name = this.transactionNameValue;
-    // this.currentBudget.theme = this.chosenTheme.hex;
-    // this.apiBudgetsService.addNewBudget(this.currentBudget);
-    this.mainModalService.hideMainModal();
-    console.log(this.currentTransaction);
+
+    if (this.validateInputValues()) {
+      // this.apiBudgetsService.addNewBudget(this.currentBudget);
+      this.mainModalService.hideMainModal();
+      console.log(this.currentTransaction);
+    }
   }
 }
