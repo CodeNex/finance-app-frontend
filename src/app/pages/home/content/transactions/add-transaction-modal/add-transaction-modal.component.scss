@@ -34,3 +34,19 @@
     }
   }  
 }
+
+.borderValid {
+  border-color: #98908b;
+
+  &:hover {
+    border-color: #201f24;
+  }
+
+  &:focus {
+    border-color: #201f24;
+  }
+}
+
+.borderInvalid {
+  border-color: #c94736;
+}

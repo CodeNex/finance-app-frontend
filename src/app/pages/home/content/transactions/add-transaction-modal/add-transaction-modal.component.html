@@ -71,9 +71,10 @@
         <input
           [(ngModel)]="maxAmountInputValue"
           [ngModelOptions]="{ standalone: true }"
+          [ngClass]="{ 'borderInvalid': !isNameValid }"
           (keydown)="controlMaxTarget($event)"
           (focus)="resetValidation('amount')"
-          class="w-full text4r text-grey-900 border-[1px] outline-none border-beige-500 rounded-lg pl-10 pt-3 pb-3 mt-1 appearance-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none placeholder:text-beige-500 hover:border-grey-900 focus:border-grey-900 transition-all duration-300 ease-in-out"
+          class="borderValid w-full text4r text-grey-900 border-[1px] outline-none rounded-lg pl-10 pt-3 pb-3 mt-1 appearance-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none placeholder:text-beige-500 transition-all duration-300 ease-in-out"
           type="text"
           placeholder="e.g. 2000"
         />
@@ -86,9 +87,10 @@
       <input
         [(ngModel)]="transactionNameValue"
         [ngModelOptions]="{ standalone: true }"
+        [ngClass]="{ 'borderInvalid': !isNameValid }"
         (keydown)="controlNameLength($event)"
         (focus)="resetValidation('name')"
-        class="w-full text4r text-grey-900 border-[1px] outline-none border-beige-500 rounded-lg pl-5 pt-3 pb-3 mt-1 hover:border-grey-900 focus:border-grey-900 transition-all duration-300 ease-in-out placeholder:text-[#98908b8a]"
+        class="borderValid w-full text4r text-grey-900 border-[1px] outline-none rounded-lg pl-5 pt-3 pb-3 mt-1 transition-all duration-300 ease-in-out placeholder:text-[#98908b8a]"
         type="text"
         placeholder="e.g. Car Insurance"
       />
