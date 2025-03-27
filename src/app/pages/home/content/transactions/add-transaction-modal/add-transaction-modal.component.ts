@@ -59,7 +59,7 @@ export class AddTransactionModalComponent {
   public categories: any = [];
   // current chosen category
   public chosenCategory: string = 'General';
-  
+
   // boolean to control the recurrings dropdown
   public isRecurringDropdownOpen: boolean = false;
   // array of all recurrings in the application
@@ -68,9 +68,9 @@ export class AddTransactionModalComponent {
   public chosenRecurring: string = 'Single Transaction';
 
   // the value of the pot target input binded by ngModel
-  public maxBudgetInputValue: string = '0.00';
+  public maxAmountInputValue: string = '0.00';
   // a cached string of the pot target input value
-  public maxBudgetString: string = '0.00';
+  public maxAmountString: string = '0.00';
 
   // boolean to control the theme dropdown
   // public isThemeDropdownOpen: boolean = false;
@@ -142,19 +142,19 @@ export class AddTransactionModalComponent {
 
   // add a number to the target input
   addNumberToTargetInput(event: any) {
-    let currentTarget = this.maxBudgetString;
+    let currentTarget = this.maxAmountString;
     let numbersArray = currentTarget.replace(/[.,]/g, '').split('');
     if (numbersArray.length === 3 && numbersArray[0] === '0') {
       numbersArray.shift();
       numbersArray.push(event.key);
       numbersArray.splice(numbersArray.length - 2, 0, '.');
-      this.maxBudgetString = parseFloat(numbersArray.join('')).toLocaleString(
+      this.maxAmountString = parseFloat(numbersArray.join('')).toLocaleString(
         'en-US',
         {
           minimumFractionDigits: 2,
         }
       );
-      this.maxBudgetInputValue = this.maxBudgetString;
+      this.maxAmountInputValue = this.maxAmountString;
     } else if (
       numbersArray.length >= 3 &&
       numbersArray.length < 11 &&
@@ -162,29 +162,29 @@ export class AddTransactionModalComponent {
     ) {
       numbersArray.push(event.key);
       numbersArray.splice(numbersArray.length - 2, 0, '.');
-      this.maxBudgetString = parseFloat(numbersArray.join('')).toLocaleString(
+      this.maxAmountString = parseFloat(numbersArray.join('')).toLocaleString(
         'en-US',
         {
           minimumFractionDigits: 2,
         }
       );
-      this.maxBudgetInputValue = this.maxBudgetString;
+      this.maxAmountInputValue = this.maxAmountString;
     }
   }
 
   // delete a number from the target input
   deleteNumberFromTargetInput() {
-    let currentTarget = this.maxBudgetString;
+    let currentTarget = this.maxAmountString;
     let numbersArray = currentTarget.replace(/[.,]/g, '').split('');
     numbersArray.pop();
     numbersArray.splice(numbersArray.length - 2, 0, '.');
-    this.maxBudgetString = parseFloat(numbersArray.join('')).toLocaleString(
+    this.maxAmountString = parseFloat(numbersArray.join('')).toLocaleString(
       'en-US',
       {
         minimumFractionDigits: 2,
       }
     );
-    this.maxBudgetInputValue = this.maxBudgetString;
+    this.maxAmountInputValue = this.maxAmountString;
   }
 
   // ########################################################################
@@ -283,7 +283,7 @@ export class AddTransactionModalComponent {
   // add a new pot to the pots array in data-store-service, submit the new pot to the API and close the modal
   submitAddPot() {
     this.currentTransaction.amount = parseFloat(
-      this.maxBudgetInputValue.replace(/,/g, '')
+      this.maxAmountInputValue.replace(/,/g, '')
     );
     this.currentTransaction.name = this.transactionNameValue;
     // this.currentBudget.theme = this.chosenTheme.hex;
