@@ -79,17 +79,17 @@ export class ApiTransactionService {
   // # Start transaction from PotsComponent
   // ########################################
 
-  public startTransactionFromPots(type: string, date: string, amount: number, pot_id: number) {
-    this.mergeAndOverwriteTransactionWithPot(type, date, amount, pot_id);
+  public startTransactionFromPots(type: string, date: string, amount: number, pot_id: number, theme: string) {
+    this.mergeAndOverwriteTransactionWithPot(type, date, amount, pot_id, theme);
     this.getCurrentDate();
-
+    this.addNewTransaction(this.currentTransaction, 'pots');
 
   }
 
-  public mergeAndOverwriteTransactionWithPot(type: string, date: string, amount: number, pot_id: number) {
+  public mergeAndOverwriteTransactionWithPot(type: string, date: string, amount: number, pot_id: number, theme: string) {
     this.currentTransaction.amount = amount;
     this.currentTransaction.execute_on = date;
-    // THEEEEEEEME
+    this.currentTransaction.theme = theme;
     this.currentTransaction.sender = type === 'potAdd' ? 'balance.current' : `potID_${pot_id}`;
     this.currentTransaction.receiver = type === 'potAdd' ? `potID_${pot_id}` : 'balance.current';
     this.currentTransaction.name = type === 'potAdd' ? 'Add Money to Pot' : 'Withdraw Money from Pot';

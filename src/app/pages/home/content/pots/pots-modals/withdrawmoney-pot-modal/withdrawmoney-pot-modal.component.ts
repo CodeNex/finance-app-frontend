@@ -209,7 +209,8 @@ export class WithdrawmoneyPotModalComponent {
         'potWithdraw', 
         new Date().toISOString(),
         Number(this.inputValueCache.replace(/,/g, '')),
-        this.currentPotIndex
+        this.currentPotIndex,
+        this.currentPot.theme
       );
       this.mainModalService.hideMainModal(); 
     }

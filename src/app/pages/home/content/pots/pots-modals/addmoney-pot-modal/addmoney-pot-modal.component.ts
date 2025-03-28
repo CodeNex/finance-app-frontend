@@ -252,7 +252,8 @@ export class AddmoneyPotModalComponent {
         'potAdd',
         new Date().toISOString(),
         Number(this.inputValueCache.replace(/,/g, '')),
-        this.currentPotIndex
+        this.currentPotIndex,
+        this.currentPot.theme
       );
       this.mainModalService.hideMainModal();
     }
