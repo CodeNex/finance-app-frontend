@@ -47,17 +47,17 @@ export class AddTransactionModalComponent {
     this.currentDate = this.getCurrentDate();
   }
 
-  // ########################################################################
-  // closes main modal and its children
-  // ########################################################################
+  // ########################################
+  // # closes main modal and its children
+  // ########################################
 
   public closeMainModal() {
     this.mainModalService.hideMainModal();
   }
 
-  // ########################################################################
-  // DEBIT and CREDIT choose functions
-  // ########################################################################
+  // ########################################
+  // # DEBIT and CREDIT choose functions
+  // ########################################
 
   public currentTransactionType: string = 'Debit';
 
@@ -75,9 +75,9 @@ export class AddTransactionModalComponent {
     }
   }
 
-  // ########################################################################
-  // AMOUNT Input functions
-  // ########################################################################
+  // ########################################
+  // # AMOUNT Input functions
+  // ########################################
 
   public maxAmountInputValue: string = '0.00'; // ngModel binded
   public maxAmountString: string = '0.00';
@@ -150,9 +150,9 @@ export class AddTransactionModalComponent {
     return parseFloat(this.maxAmountInputValue.replace(/,/g, ''));
   }
 
-  // ########################################################################
-  // NAME Input functions
-  // ########################################################################
+  // ########################################
+  // # NAME Input functions
+  // ########################################
 
   public transactionNameValue: string = ''; // ngModel binded
   public transactionsNameCharactersLeft: number = 30;
@@ -178,12 +178,12 @@ export class AddTransactionModalComponent {
     return this.transactionNameValue;
   }
 
-  // ########################################################################
-  // CATEGORY Dropdown functions
-  // ########################################################################
+  // ########################################
+  // # CATEGORY Dropdown functions
+  // ########################################
 
   public categories: any = [];
-  public chosenCategory: string = 'General';
+  public chosenCategory: string = 'General'; // interpolation {{chosenCategory}}
   public isCategoryDropdownOpen: boolean = false;
 
   public getCategoryArray() {
@@ -206,12 +206,12 @@ export class AddTransactionModalComponent {
     this.isCategoryDropdownOpen = !this.isCategoryDropdownOpen;
   }
 
-  // ########################################################################
-  // RECURRING Dropdown functions
-  // ########################################################################
+  // ########################################
+  // # RECURRING Dropdown functions
+  // ########################################
 
   public recurrings: any = [];
-  public chosenRecurring: string = 'Single Transaction';
+  public chosenRecurring: string = 'Single Transaction'; // interpolation {{chosenRecurring}}
   public isRecurringDropdownOpen: boolean = false;
 
   public getRecurringsArray() {
@@ -232,9 +232,9 @@ export class AddTransactionModalComponent {
     this.isRecurringDropdownOpen = !this.isRecurringDropdownOpen;
   }
 
-  // ########################################################################
-  // DATE Input functions
-  // ########################################################################
+  // ########################################
+  // # DATE Input functions
+  // ########################################
 
   public currentDate: string = ''; // html - min attribute
   public chosenDateValue: string = ''; // ngModel binded
@@ -251,18 +251,18 @@ export class AddTransactionModalComponent {
     }
   }
 
-  // ########################################################################
-  // Get a random theme color for the transaction
-  // ########################################################################
+  // ########################################
+  // # Get a random theme color for the transaction
+  // ########################################
 
   public getRandomTheme() {
     let themeArray: any = Object.values(this.baseData.financeApp.basics.colors);
     return themeArray[Math.floor(Math.random() * themeArray.length)].hex;
   }
 
-  // ########################################################################
-  // functions to validate the input values
-  // ########################################################################
+  // ########################################
+  // # functions to validate the input values
+  // ########################################
 
   public isAmountValid: boolean = true; // ngStyle binded
   public isNameValid: boolean = true; // ngStyle binded
@@ -302,9 +302,9 @@ export class AddTransactionModalComponent {
     if (input === 'name') this.isNameValid = true;
   }
 
-  // ########################################################################
-  // complete and submit new transaction to "api-transaction.service"
-  // ########################################################################
+  // ########################################
+  // # complete and submit new transaction to "api-transaction.service"
+  // ########################################
 
   // add ngModel binded values and other defaults to the currentTransaction object
   private completeNewTransaction() {
@@ -318,9 +318,11 @@ export class AddTransactionModalComponent {
 
     if (this.validateInputValues()) {
       this.completeNewTransaction();
+      if (this.currentTransaction.recurring === null) {
+        this.apiTransactionsService.startTransaction(this.currentTransaction, 'single');
+      }
       this.mainModalService.hideMainModal();
       // this.apiBudgetsService.addNewBudget(this.currentBudget);
-      console.log(this.currentTransaction);
     }
   }
 }
