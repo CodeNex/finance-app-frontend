@@ -28,24 +28,6 @@ export class ApiTransactionService {
 
   constructor() {}
 
-  // what kind of transaction do we have? And what has every transaction to do?
-
-  // Add New Transaction (Single Transaction) -> Transaction object is received  || Type: 'single'
-
-  // Add New Transaction (Recurring Transaction) -> Transaction object is received  || Type: 'recurring'
-
-  // Pots Add Money -> have to create a transaction object  || Type: 'potAdd'
-
-  // Pots Withdraw Money -> have to create a transaction object  || Type: 'potWithdraw'
-
-  //
-
-  // after weh have a every transaction object, we have to do three things:
-
-  // 1. POST the transaction object to the server ---> if Respones is ok, the next two steps will be exceuted
-  // 2. add the transaction object to the dataStore (update transactions)
-  // 3. update the balance signal object in the dataStore
-
   // blueprint for transaction object
   public currentTransaction: any = {
     transaction_id: 0,
@@ -83,7 +65,6 @@ export class ApiTransactionService {
     this.mergeAndOverwriteTransactionWithPot(type, date, amount, pot_id, theme);
     this.getCurrentDate();
     this.addNewTransaction(this.currentTransaction, 'pots');
-
   }
 
   public mergeAndOverwriteTransactionWithPot(type: string, date: string, amount: number, pot_id: number, theme: string) {
@@ -94,7 +75,6 @@ export class ApiTransactionService {
     this.currentTransaction.receiver = type === 'potAdd' ? `potID_${pot_id}` : 'balance.current';
     this.currentTransaction.name = type === 'potAdd' ? 'Add Money to Pots' : 'Withdraw Money from Pots';
     this.currentTransaction.type = type === 'potAdd' ? 'debit' : 'credit';
-    console.log(this.currentTransaction);
   }
 
   // ########################################
@@ -118,7 +98,6 @@ export class ApiTransactionService {
       error: (error) => {
         this.updateDataStoreArrays(transactionObject);
         this.updateBalanceSignal(transactionObject, from);
-        // console.log('Transaction created');
         console.error(error);
         return;
       },
@@ -150,7 +129,6 @@ export class ApiTransactionService {
 
   private updateBalanceSignal(transactionObject: any, from: string) {
     let balanceBlueprint = this.dataStore.balance();
-    console.log(balanceBlueprint);
     transactionObject.type === 'debit'
       ? (balanceBlueprint.current -= transactionObject.amount)
       : (balanceBlueprint.current += transactionObject.amount);
