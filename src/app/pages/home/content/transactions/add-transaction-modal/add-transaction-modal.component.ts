@@ -89,8 +89,9 @@ export class AddTransactionModalComponent {
   }
 
   // ########################################################################
+  // switche the transaction type between debit and credit
+  // ########################################################################
 
-  // switches the transaction type between debit and credit
   public setTransactionType(type: string) {
     if (this.currentTransactionType === type) {
       return;
@@ -106,8 +107,9 @@ export class AddTransactionModalComponent {
   }
 
   // ########################################################################
+  // control and format the Amount Input value
+  // ########################################################################
 
-  // controls the maximum amount of the pot target
   controlMaxTarget(event: any) {
     const deleteKeys = ['Backspace', 'Delete'];
     const otherKeys = ['ArrowLeft', 'ArrowRight', 'Tab'];
@@ -127,7 +129,6 @@ export class AddTransactionModalComponent {
     }
   }
 
-  // add a number to the target input
   addNumberToTargetInput(event: any) {
     let currentTarget = this.maxAmountString;
     let numbersArray = currentTarget.replace(/[.,]/g, '').split('');
@@ -159,7 +160,6 @@ export class AddTransactionModalComponent {
     }
   }
 
-  // delete a number from the target input
   deleteNumberFromTargetInput() {
     let currentTarget = this.maxAmountString;
     let numbersArray = currentTarget.replace(/[.,]/g, '').split('');
@@ -175,8 +175,9 @@ export class AddTransactionModalComponent {
   }
 
   // ########################################################################
+  // control and format the Name Input 
+  // ########################################################################
 
-  // controls the maximum length of the pot name
   controlNameLength(event: any) {
     const deleteKeys = ['Backspace', 'Delete'];
     if (deleteKeys.includes(event.key)) {
@@ -195,6 +196,8 @@ export class AddTransactionModalComponent {
   }
 
   // ########################################################################
+  // category dropdown functions
+  // ########################################################################
 
   public getCategoryArray() {
     Object.values(this.baseData.financeApp.budgets.categories).forEach(
@@ -204,7 +207,6 @@ export class AddTransactionModalComponent {
     );
   }
 
-  // choose a category by click from the dropdown
   public chooseCategory(category: string) {
     this.chosenCategory = category;
     let categoryData = category.replace(/\s/g, '');
@@ -213,14 +215,14 @@ export class AddTransactionModalComponent {
     this.openCloseCategoryDropdown();
   }
 
-  // closes or opens category dropdown
   public openCloseCategoryDropdown() {
     this.isCategoryDropdownOpen = !this.isCategoryDropdownOpen;
   }
 
   // ########################################################################
+  // recurring dropdown functions
+  // ########################################################################
 
-  // get all the recurrings from the data-store-service
   public getRecurringsArray() {
     Object.values(this.baseData.financeApp.recurrings.types).forEach(
       (type: any) => {
@@ -229,18 +231,18 @@ export class AddTransactionModalComponent {
     );
   }
 
-  // choose a recurring by click from the dropdown
   public chooseRecurring(recurring: any) {
     this.chosenRecurring = recurring.name;
     this.currentTransaction.recurring = recurring.value;
     this.openCloseRecurringDropdown();
   }
 
-  // closes or opens budget dropdown
   public openCloseRecurringDropdown() {
     this.isRecurringDropdownOpen = !this.isRecurringDropdownOpen;
   }
 
+  // ########################################################################
+  // Get a random theme color for the transaction
   // ########################################################################
 
   public getRandomTheme() {
@@ -250,10 +252,14 @@ export class AddTransactionModalComponent {
 
   // ########################################################################
 
+  // ########################################################################
+
   public getCurrentDate() {
     return new Date().toISOString().split('T')[0];
   }
 
+  // ########################################################################
+  // functions to validate the input values
   // ########################################################################
 
   public validateInputValues() {
