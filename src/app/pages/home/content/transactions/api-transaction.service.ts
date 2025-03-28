@@ -67,14 +67,24 @@ export class ApiTransactionService {
   };
 
   // ########################################
-  // # Start transaction
+  // # Start transaction from TransactionsComponent
   // ########################################
 
-  public startTransaction(transactionObject: any, from: string) {
+  public startTransactionFromTransactions(transactionObject: any, from: string) {
     this.currentTransaction = transactionObject;
     this.getCurrentDate();
     this.addNewTransaction(this.currentTransaction, from);
   }
+
+  // ########################################
+  // # Start transaction from PotsComponent
+  // ########################################
+
+  public startTransactionFromPots() {
+
+  }
+
+  public mergeAndOverwriteTransactionWithPot() {}
 
   // ########################################
   // # POST the transaction object to the server
