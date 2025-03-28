@@ -324,6 +324,8 @@ export class AddTransactionModalComponent {
         this.apiTransactionsService.startTransactionFromTransactions(this.currentTransaction, 'recurring');
       }
       this.mainModalService.hideMainModal();
+      console.log(this.currentTransaction);
+      
     }
   }
 }

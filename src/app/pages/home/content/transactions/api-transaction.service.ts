@@ -4,6 +4,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AuthenticationService } from '../../../../services/authentication.service';
 import { APIService } from '../../../../services/api.service';
 import { DataStoreServiceService } from '../../../../services/data-store-service.service';
+import { BasedataService } from '../../../../services/basedata.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,15 +13,23 @@ export class ApiTransactionService {
 
   private AuthenticationService: AuthenticationService = inject(AuthenticationService);
   private APIService: APIService = inject(APIService);
-  public dataStore: DataStoreServiceService = inject(DataStoreServiceService);
+  private dataStore: DataStoreServiceService = inject(DataStoreServiceService);
+  private baseData: BasedataService = inject(BasedataService);
+  private http: HttpClient = inject(HttpClient);
+
+  private baseUrl: string = this.baseData.financeApp.basics.apiData.baseUrl;
 
   private currentDate: string = '';
 
   public getCurrentDate() {
-    return new Date().toISOString().split('T')[0];
+    this.currentDate = new Date().toISOString();
+    console.log(this.currentDate);
+    
   }
 
-  constructor() {}
+  constructor() { 
+  
+  }
 
   // what kind of transaction do we have? And what has every transaction to do? 
   
@@ -65,6 +74,7 @@ export class ApiTransactionService {
 
   public startTransactionFromTransactions(transactionObject: any, type: string) {
     this.currentTransaction = transactionObject;
+    this.getCurrentDate();
     if (type === 'single') {
       this.startSingleTransaction();
     };
@@ -93,16 +103,6 @@ export class ApiTransactionService {
   // # merge and overwrite currentTransaction
   // ########################################
 
-  // private mergeSingleTransaction(transactionObject: any) {
-  //   console.log(transactionObject);
-    
-  // }
-
-  // private mergeRecurringTransaction(transactionObject: any) {
-  //   console.log(transactionObject);
-    
-  // }
-
   private mergePotAddTransaction(transactionObject: any) {
     console.log(transactionObject);
     
@@ -112,6 +112,34 @@ export class ApiTransactionService {
     console.log(transactionObject);
     
   }
+
+  // ########################################
+  // POST the transaction object to the server
+  // ########################################
+
+  // response: {message: "Transaction created"} ???
+  addNewTransaction(transactionObject: any) {
+    const path = 'transactions';
+    const body = transactionObject;
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${this.AuthenticationService.authToken}`,
+      Accept: 'application/json',
+    });
+
+    this.http.post(`${this.baseUrl}/${path}`, body, { headers }).subscribe({
+      next: (response: any) => {
+        if (response.message === 'Transaction created') {
+        }
+      },
+      error: (error) => {
+        this.dataStore.addToStoredData('transactions', transactionObject);
+        console.log('Transaction created');
+        console.error(error);
+        return;
+      },
+    });
+  }
+
 
 
   
