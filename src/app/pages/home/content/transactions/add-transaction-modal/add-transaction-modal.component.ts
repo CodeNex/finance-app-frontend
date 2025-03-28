@@ -32,8 +32,8 @@ export class AddTransactionModalComponent {
     user_id: 0,
     amount: 0,
     budget_id: null,
-    created_at: '2025-09-12T00:00:00Z',
-    execute_on: '2025-07-26T00:00:00Z',
+    created_at: null,
+    execute_on: null,
     deleted_at: null,
     recurring: null,
     recurring_id: null,
@@ -234,6 +234,13 @@ export class AddTransactionModalComponent {
     return new Date().toISOString().split('T')[0];
   }
 
+  private getChosenDate() {
+    if (this.chosenDateValue.length === 0) {
+      return null;
+    } else if (this.chosenDateValue.length > 0) {
+      return new Date(this.chosenDateValue).toISOString();
+    }
+  }
 
   // ########################################################################
   // Get a random theme color for the transaction
@@ -287,10 +294,14 @@ export class AddTransactionModalComponent {
   }
 
   // ########################################################################
-  // submit new transaction to "api-transaction.service"
+  // complete and submit new transaction to "api-transaction.service"
   // ########################################################################
 
-  submitAddTransaction() {
+  private completeNewTransaction() {
+    
+  }
+
+  public submitAddTransaction() {
     this.currentTransaction.amount = parseFloat(
       this.maxAmountInputValue.replace(/,/g, '')
     );
