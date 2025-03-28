@@ -132,6 +132,12 @@ export class ApiTransactionService {
         }
       },
       error: (error) => {
+        if (transactionObject.execute_on < this.currentDate) {
+          // transactions signal array im datastore updaten
+        }
+        if (transactionObject.recurring) {
+          // recurring transactions signal array im datastore updaten
+        }
         this.dataStore.addToStoredData('transactions', transactionObject);
         console.log('Transaction created');
         console.error(error);
