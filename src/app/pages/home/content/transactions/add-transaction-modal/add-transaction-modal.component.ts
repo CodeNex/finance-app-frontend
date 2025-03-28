@@ -45,40 +45,6 @@ export class AddTransactionModalComponent {
     type: 'debit',
   };
 
-  // the type of the transaction
-  public currentTransactionType: string = 'Debit';
-
-  // the value of the pot name input
-  public transactionNameValue: string = '';
-  // the number of characters left for the pot name
-  public transactionsNameCharactersLeft: number = 30;
-
-  // boolean to control the budget dropdown
-  public isCategoryDropdownOpen: boolean = false;
-  // array of all categories in the application
-  public categories: any = [];
-  // current chosen category
-  public chosenCategory: string = 'General';
-
-  // boolean to control the recurrings dropdown
-  public isRecurringDropdownOpen: boolean = false;
-  // array of all recurrings in the application
-  public recurrings: any = [];
-  // current chosen recurring
-  public chosenRecurring: string = 'Single Transaction';
-
-  // the value of the pot target input binded by ngModel
-  public maxAmountInputValue: string = '0.00';
-  // a cached string of the pot target input value
-  public maxAmountString: string = '0.00';
-
-  // current date
-  public currentDate: string = '';
-
-  public isAmountValid: boolean = true;
-
-  public isNameValid: boolean = true;
-
   ngOnInit() {
     this.currentTransaction.theme = this.getRandomTheme();
     this.currentDate = this.getCurrentDate();
@@ -91,6 +57,8 @@ export class AddTransactionModalComponent {
   // ########################################################################
   // switche the transaction type between debit and credit
   // ########################################################################
+
+  public currentTransactionType: string = 'Debit';
 
   public setTransactionType(type: string) {
     if (this.currentTransactionType === type) {
@@ -109,6 +77,9 @@ export class AddTransactionModalComponent {
   // ########################################################################
   // control and format the Amount Input value
   // ########################################################################
+
+  public maxAmountInputValue: string = '0.00'; // ngModel binded
+  public maxAmountString: string = '0.00';
 
   controlMaxTarget(event: any) {
     const deleteKeys = ['Backspace', 'Delete'];
@@ -178,6 +149,9 @@ export class AddTransactionModalComponent {
   // control and format the Name Input 
   // ########################################################################
 
+  public transactionNameValue: string = '';
+  public transactionsNameCharactersLeft: number = 30;
+
   controlNameLength(event: any) {
     const deleteKeys = ['Backspace', 'Delete'];
     if (deleteKeys.includes(event.key)) {
@@ -198,6 +172,10 @@ export class AddTransactionModalComponent {
   // ########################################################################
   // category dropdown functions
   // ########################################################################
+
+  public categories: any = [];
+  public chosenCategory: string = 'General';
+  public isCategoryDropdownOpen: boolean = false;
 
   public getCategoryArray() {
     Object.values(this.baseData.financeApp.budgets.categories).forEach(
@@ -222,6 +200,10 @@ export class AddTransactionModalComponent {
   // ########################################################################
   // recurring dropdown functions
   // ########################################################################
+
+  public recurrings: any = [];
+  public chosenRecurring: string = 'Single Transaction';
+  public isRecurringDropdownOpen: boolean = false;
 
   public getRecurringsArray() {
     Object.values(this.baseData.financeApp.recurrings.types).forEach(
@@ -251,8 +233,10 @@ export class AddTransactionModalComponent {
   }
 
   // ########################################################################
-
+  // Date input functions
   // ########################################################################
+
+  public currentDate: string = '';
 
   public getCurrentDate() {
     return new Date().toISOString().split('T')[0];
@@ -261,6 +245,9 @@ export class AddTransactionModalComponent {
   // ########################################################################
   // functions to validate the input values
   // ########################################################################
+
+  public isAmountValid: boolean = true; // ngStyle binded
+  public isNameValid: boolean = true; // ngStyle binded
 
   public validateInputValues() {
     let isAmountValid = this.validateAmount();
@@ -298,8 +285,10 @@ export class AddTransactionModalComponent {
   }
 
   // ########################################################################
+  // submit new transaction to "api-transaction.service"
+  // ########################################################################
 
-  // add a new pot to the pots array in data-store-service, submit the new pot to the API and close the modal
+  
   submitAddTransaction() {
     this.currentTransaction.amount = parseFloat(
       this.maxAmountInputValue.replace(/,/g, '')
