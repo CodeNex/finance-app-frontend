@@ -1182,16 +1182,6 @@ export class DataStoreServiceService {
 
   constructor() {}
 
-  // public updateBalance(endpoint: keyof BalanceObject, type: string, amount: number) {
-  //   this.balance.update((prev: BalanceObject) => {
-  //     let prevBalanace = {...prev};
-
-      
-
-  //     return prevBalanace;
-  //   })
-  // }
-
   // set the hole data package within signal and UI update
   setStoredData(endpoint: string, data: any) {
     if (endpoint === 'balance') this.balance.set(data);
