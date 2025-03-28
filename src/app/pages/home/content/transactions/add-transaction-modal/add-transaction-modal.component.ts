@@ -315,14 +315,14 @@ export class AddTransactionModalComponent {
   }
 
   public submitAddTransaction() {
-
     if (this.validateInputValues()) {
       this.completeNewTransaction();
       if (this.currentTransaction.recurring === null) {
         this.apiTransactionsService.startTransaction(this.currentTransaction, 'single');
+      } else {
+        this.apiTransactionsService.startTransaction(this.currentTransaction, 'recurring');
       }
       this.mainModalService.hideMainModal();
-      // this.apiBudgetsService.addNewBudget(this.currentBudget);
     }
   }
 }
