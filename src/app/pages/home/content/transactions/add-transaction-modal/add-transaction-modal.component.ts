@@ -55,7 +55,7 @@ export class AddTransactionModalComponent {
   }
 
   // ########################################################################
-  // switche the transaction type between debit and credit
+  // DEBIT and CREDIT choose functions
   // ########################################################################
 
   public currentTransactionType: string = 'Debit';
@@ -75,7 +75,7 @@ export class AddTransactionModalComponent {
   }
 
   // ########################################################################
-  // control and format the Amount Input value
+  // AMOUNT Input functions
   // ########################################################################
 
   public maxAmountInputValue: string = '0.00'; // ngModel binded
@@ -146,10 +146,10 @@ export class AddTransactionModalComponent {
   }
 
   // ########################################################################
-  // control and format the Name Input 
+  // NAME Input functions
   // ########################################################################
 
-  public transactionNameValue: string = '';
+  public transactionNameValue: string = ''; // ngModel binded
   public transactionsNameCharactersLeft: number = 30;
 
   controlNameLength(event: any) {
@@ -170,7 +170,7 @@ export class AddTransactionModalComponent {
   }
 
   // ########################################################################
-  // category dropdown functions
+  // CATEGORY Dropdown functions
   // ########################################################################
 
   public categories: any = [];
@@ -198,7 +198,7 @@ export class AddTransactionModalComponent {
   }
 
   // ########################################################################
-  // recurring dropdown functions
+  // RECURRING Dropdown functions
   // ########################################################################
 
   public recurrings: any = [];
@@ -224,22 +224,22 @@ export class AddTransactionModalComponent {
   }
 
   // ########################################################################
+  // DATE Input functions
+  // ########################################################################
+
+  public currentDate: string = ''; // html - min attribute
+
+  public getCurrentDate() {
+    return new Date().toISOString().split('T')[0];
+  }
+
+  // ########################################################################
   // Get a random theme color for the transaction
   // ########################################################################
 
   public getRandomTheme() {
     let themeArray: any = Object.values(this.baseData.financeApp.basics.colors);
     return themeArray[Math.floor(Math.random() * themeArray.length)].hex;
-  }
-
-  // ########################################################################
-  // Date input functions
-  // ########################################################################
-
-  public currentDate: string = '';
-
-  public getCurrentDate() {
-    return new Date().toISOString().split('T')[0];
   }
 
   // ########################################################################
@@ -288,7 +288,6 @@ export class AddTransactionModalComponent {
   // submit new transaction to "api-transaction.service"
   // ########################################################################
 
-  
   submitAddTransaction() {
     this.currentTransaction.amount = parseFloat(
       this.maxAmountInputValue.replace(/,/g, '')
