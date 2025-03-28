@@ -142,5 +142,6 @@ export class ApiTransactionService {
         balanceBlueprint.income += transactionObject.amount;
       }
     }
+    this.dataStore.setStoredData('balance', balanceBlueprint);
   }
 }
