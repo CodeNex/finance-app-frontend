@@ -206,7 +206,7 @@ export class WithdrawmoneyPotModalComponent {
         this.currentPot
       );
       this.apiTransactionService.startTransactionFromPots(
-        'withdrawPot', 
+        'potWithdraw', 
         new Date().toISOString(),
         Number(this.inputValueCache.replace(/,/g, '')),
         this.currentPotIndex

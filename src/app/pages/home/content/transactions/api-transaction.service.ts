@@ -24,7 +24,6 @@ export class ApiTransactionService {
 
   public getCurrentDate() {
     this.currentDate = new Date().toISOString();
-    console.log(this.currentDate);
   }
 
   constructor() {}
@@ -81,17 +80,22 @@ export class ApiTransactionService {
   // ########################################
 
   public startTransactionFromPots(type: string, date: string, amount: number, pot_id: number) {
-    // type: 'potAdd' or 'potWithdraw'
-    // date
-    // amount
-    // pot_id
+    this.mergeAndOverwriteTransactionWithPot(type, date, amount, pot_id);
+    this.getCurrentDate();
 
-    console.log(type, date, amount, pot_id);
-    
 
   }
 
-  public mergeAndOverwriteTransactionWithPot() {}
+  public mergeAndOverwriteTransactionWithPot(type: string, date: string, amount: number, pot_id: number) {
+    this.currentTransaction.amount = amount;
+    this.currentTransaction.execute_on = date;
+    // THEEEEEEEME
+    this.currentTransaction.sender = type === 'potAdd' ? 'balance.current' : `potID_${pot_id}`;
+    this.currentTransaction.receiver = type === 'potAdd' ? `potID_${pot_id}` : 'balance.current';
+    this.currentTransaction.name = type === 'potAdd' ? 'Add Money to Pot' : 'Withdraw Money from Pot';
+    this.currentTransaction.type = type === 'potAdd' ? 'debit' : 'credit';
+    console.log(this.currentTransaction);
+  }
 
   // ########################################
   // # POST the transaction object to the server
@@ -127,7 +131,7 @@ export class ApiTransactionService {
 
   private updateDataStoreArrays(transactionObject: any) {
     if (
-      transactionObject.execute_on < this.currentDate ||
+      transactionObject.execute_on <= this.currentDate ||
       transactionObject.execute_on === null
     ) {
       this.dataStore.addToStoredData('transactions', transactionObject);
