@@ -7,11 +7,12 @@ import { DataStoreServiceService } from '../../../../services/data-store-service
 import { BasedataService } from '../../../../services/basedata.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ApiTransactionService {
-
-  private AuthenticationService: AuthenticationService = inject(AuthenticationService);
+  private AuthenticationService: AuthenticationService = inject(
+    AuthenticationService
+  );
   private APIService: APIService = inject(APIService);
   private dataStore: DataStoreServiceService = inject(DataStoreServiceService);
   private baseData: BasedataService = inject(BasedataService);
@@ -24,15 +25,12 @@ export class ApiTransactionService {
   public getCurrentDate() {
     this.currentDate = new Date().toISOString();
     console.log(this.currentDate);
-    
   }
 
-  constructor() { 
-  
-  }
+  constructor() {}
 
-  // what kind of transaction do we have? And what has every transaction to do? 
-  
+  // what kind of transaction do we have? And what has every transaction to do?
+
   // Add New Transaction (Single Transaction) -> Transaction object is received  || Type: 'single'
 
   // Add New Transaction (Recurring Transaction) -> Transaction object is received  || Type: 'recurring'
@@ -69,7 +67,7 @@ export class ApiTransactionService {
   };
 
   // ########################################
-  // # Start transaction 
+  // # Start transaction
   // ########################################
 
   public startTransaction(transactionObject: any, from: string) {
@@ -111,11 +109,17 @@ export class ApiTransactionService {
   // ########################################
 
   private updateDataStoreArrays(transactionObject: any) {
-    if (transactionObject.execute_on < this.currentDate || transactionObject.execute_on === null) {
+    if (
+      transactionObject.execute_on < this.currentDate ||
+      transactionObject.execute_on === null
+    ) {
       this.dataStore.addToStoredData('transactions', transactionObject);
     }
     if (transactionObject.recurring) {
-      this.dataStore.addToStoredData('transactions/recurring', transactionObject);
+      this.dataStore.addToStoredData(
+        'transactions/recurring',
+        transactionObject
+      );
     }
   }
 
@@ -126,18 +130,17 @@ export class ApiTransactionService {
   private updateBalanceSignal(transactionObject: any, from: string) {
     let balanceBlueprint = this.dataStore.balance();
     console.log(balanceBlueprint);
+    transactionObject.type === 'debit'
+      ? (balanceBlueprint.current -= transactionObject.amount)
+      : (balanceBlueprint.current += transactionObject.amount);
 
     if (from === 'transactions') {
-
-    }
-    if (from === 'pots') {
-      balanceBlueprint.current = transactionObject.type === 'debit' ? balanceBlueprint.current - transactionObject.amount : balanceBlueprint.current + transactionObject.amount;
+      if (transactionObject.type === 'debit') {
+        balanceBlueprint.expenses += transactionObject.amount;
+      }
+      if (transactionObject.type === 'credit') {
+        balanceBlueprint.income += transactionObject.amount;
+      }
     }
   }
-  
-
-
-
-
-  
 }
