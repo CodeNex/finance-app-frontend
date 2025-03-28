@@ -245,7 +245,6 @@ export class AddmoneyPotModalComponent {
         this.currentPot
       );
       this.mainModalService.hideMainModal();
-      console.log(this.currentPot);
     }
   }
 }

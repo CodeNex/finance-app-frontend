@@ -203,7 +203,6 @@ export class WithdrawmoneyPotModalComponent {
         this.currentPot
       );
       this.mainModalService.hideMainModal();
-      console.log(this.currentPot);
     }
   }
 }
