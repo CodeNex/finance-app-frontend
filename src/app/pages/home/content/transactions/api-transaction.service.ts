@@ -80,7 +80,14 @@ export class ApiTransactionService {
   // # Start transaction from PotsComponent
   // ########################################
 
-  public startTransactionFromPots() {
+  public startTransactionFromPots(type: string, date: string, amount: number, pot_id: number) {
+    // type: 'potAdd' or 'potWithdraw'
+    // date
+    // amount
+    // pot_id
+
+    console.log(type, date, amount, pot_id);
+    
 
   }
 

@@ -248,8 +248,13 @@ export class AddmoneyPotModalComponent {
         this.currentPotIndex,
         this.currentPot
       );
+      this.apiTransactionService.startTransactionFromPots(
+        'withdrawPot',
+        new Date().toISOString(),
+        Number(this.inputValueCache.replace(/,/g, '')),
+        this.currentPotIndex
+      );
       this.mainModalService.hideMainModal();
-      console.log(Number(this.inputValueCache.replace(/,/g, '')));
     }
   }
 }
