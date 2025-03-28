@@ -22,11 +22,7 @@ export class AddTransactionModalComponent {
     ApiTransactionService
   );
 
-  // closes main modal and its children
-  public closeMainModal() {
-    this.mainModalService.hideMainModal();
-  }
-
+  // blueprint for a new transaction
   public currentTransaction: any = {
     transaction_id: 0,
     user_id: 0,
@@ -46,12 +42,17 @@ export class AddTransactionModalComponent {
   };
 
   ngOnInit() {
-    this.currentTransaction.theme = this.getRandomTheme();
-    this.currentDate = this.getCurrentDate();
-    console.log(this.currentDate);
-
     this.getCategoryArray();
     this.getRecurringsArray();
+    this.currentDate = this.getCurrentDate();
+  }
+
+  // ########################################################################
+  // closes main modal and its children
+  // ########################################################################
+
+  public closeMainModal() {
+    this.mainModalService.hideMainModal();
   }
 
   // ########################################################################
@@ -81,7 +82,7 @@ export class AddTransactionModalComponent {
   public maxAmountInputValue: string = '0.00'; // ngModel binded
   public maxAmountString: string = '0.00';
 
-  controlMaxTarget(event: any) {
+  public controlMaxTarget(event: any) {
     const deleteKeys = ['Backspace', 'Delete'];
     const otherKeys = ['ArrowLeft', 'ArrowRight', 'Tab'];
     const isNumberKey = /^[0-9]$/.test(event.key);
@@ -100,7 +101,7 @@ export class AddTransactionModalComponent {
     }
   }
 
-  addNumberToTargetInput(event: any) {
+  public addNumberToTargetInput(event: any) {
     let currentTarget = this.maxAmountString;
     let numbersArray = currentTarget.replace(/[.,]/g, '').split('');
     if (numbersArray.length === 3 && numbersArray[0] === '0') {
@@ -131,7 +132,7 @@ export class AddTransactionModalComponent {
     }
   }
 
-  deleteNumberFromTargetInput() {
+  public deleteNumberFromTargetInput() {
     let currentTarget = this.maxAmountString;
     let numbersArray = currentTarget.replace(/[.,]/g, '').split('');
     numbersArray.pop();
@@ -145,6 +146,10 @@ export class AddTransactionModalComponent {
     this.maxAmountInputValue = this.maxAmountString;
   }
 
+  private getAmountValue() {
+    return parseFloat(this.maxAmountInputValue.replace(/,/g, ''));
+  }
+
   // ########################################################################
   // NAME Input functions
   // ########################################################################
@@ -152,7 +157,7 @@ export class AddTransactionModalComponent {
   public transactionNameValue: string = ''; // ngModel binded
   public transactionsNameCharactersLeft: number = 30;
 
-  controlNameLength(event: any) {
+  public controlNameLength(event: any) {
     const deleteKeys = ['Backspace', 'Delete'];
     if (deleteKeys.includes(event.key)) {
       if (this.transactionsNameCharactersLeft < 30)
@@ -167,6 +172,10 @@ export class AddTransactionModalComponent {
           30 - this.transactionNameValue.length;
       }, 1);
     }
+  }
+
+  private getNameValue() {
+    return this.transactionNameValue;
   }
 
   // ########################################################################
@@ -237,7 +246,7 @@ export class AddTransactionModalComponent {
   private getChosenDate() {
     if (this.chosenDateValue.length === 0) {
       return null;
-    } else if (this.chosenDateValue.length > 0) {
+    } else {
       return new Date(this.chosenDateValue).toISOString();
     }
   }
@@ -297,20 +306,20 @@ export class AddTransactionModalComponent {
   // complete and submit new transaction to "api-transaction.service"
   // ########################################################################
 
+  // add ngModel binded values and other defaults to the currentTransaction object
   private completeNewTransaction() {
-    
+    this.currentTransaction.amount = this.getAmountValue();
+    this.currentTransaction.name = this.getNameValue();
+    this.currentTransaction.execute_on = this.getChosenDate();
+    this.currentTransaction.theme = this.getRandomTheme();
   }
 
   public submitAddTransaction() {
-    this.currentTransaction.amount = parseFloat(
-      this.maxAmountInputValue.replace(/,/g, '')
-    );
-    this.currentTransaction.name = this.transactionNameValue;
-    this.currentTransaction.execute_on = this.chosenDateValue;
 
     if (this.validateInputValues()) {
-      // this.apiBudgetsService.addNewBudget(this.currentBudget);
+      this.completeNewTransaction();
       this.mainModalService.hideMainModal();
+      // this.apiBudgetsService.addNewBudget(this.currentBudget);
       console.log(this.currentTransaction);
     }
   }
