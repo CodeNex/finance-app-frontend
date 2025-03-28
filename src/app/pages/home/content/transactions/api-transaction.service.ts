@@ -69,7 +69,7 @@ export class ApiTransactionService {
   };
 
   // ########################################
-  // # start transaction 
+  // # Start transaction 
   // ########################################
 
   public startTransaction(transactionObject: any) {
@@ -79,7 +79,7 @@ export class ApiTransactionService {
   }
 
   // ########################################
-  // POST the transaction object to the server
+  // # POST the transaction object to the server
   // ########################################
 
   // response: {message: "Transaction created"} ???
