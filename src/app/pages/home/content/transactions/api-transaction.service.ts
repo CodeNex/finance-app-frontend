@@ -13,13 +13,13 @@ export class ApiTransactionService {
 
   // what kind of transaction do we have? And what has every transaction to do? 
   
-  // Add New Transaction (Single Transaction) -> Transaction object is received
+  // Add New Transaction (Single Transaction) -> Transaction object is received  || Type: 'single'
 
-  // Add New Transaction (Recurring Transaction) -> Transaction object is received
+  // Add New Transaction (Recurring Transaction) -> Transaction object is received  || Type: 'recurring'
 
-  // Pots Add Money -> have to create a transaction object
+  // Pots Add Money -> have to create a transaction object  || Type: 'potAdd'
 
-  // Pots Withdraw Money -> have to create a transaction object
+  // Pots Withdraw Money -> have to create a transaction object  || Type: 'potWithdraw'
 
   //
 
@@ -49,5 +49,5 @@ export class ApiTransactionService {
   };
 
 
-  public startTransaction(transactionObject: any) {}
+  public startTransaction(transactionObject: any, type: string) {}
 }
