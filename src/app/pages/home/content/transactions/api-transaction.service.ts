@@ -92,7 +92,7 @@ export class ApiTransactionService {
     this.currentTransaction.theme = theme;
     this.currentTransaction.sender = type === 'potAdd' ? 'balance.current' : `potID_${pot_id}`;
     this.currentTransaction.receiver = type === 'potAdd' ? `potID_${pot_id}` : 'balance.current';
-    this.currentTransaction.name = type === 'potAdd' ? 'Add Money to Pot' : 'Withdraw Money from Pot';
+    this.currentTransaction.name = type === 'potAdd' ? 'Add Money to Pots' : 'Withdraw Money from Pots';
     this.currentTransaction.type = type === 'potAdd' ? 'debit' : 'credit';
     console.log(this.currentTransaction);
   }
