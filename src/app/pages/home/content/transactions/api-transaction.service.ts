@@ -1,4 +1,5 @@
 import { Injectable, inject } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { AuthenticationService } from '../../../../services/authentication.service';
 import { APIService } from '../../../../services/api.service';
@@ -59,18 +60,29 @@ export class ApiTransactionService {
   };
 
   // ########################################
-  // # start transaction from different sources
+  // # start transaction from transactions.component
   // ########################################
 
   public startTransactionFromTransactions(transactionObject: any, type: string) {
     this.currentTransaction = transactionObject;
     if (type === 'single') {
-
+      this.startSingleTransaction();
     };
     if (type === 'recurring') {
-      
+      this.startRecurringTransaction();
     };
   }
+
+  private startSingleTransaction() {
+    // 1. POST the transaction object to the server
+    // 2. add the transaction object to the dataStore (update transactions)
+  }
+
+  private startRecurringTransaction() {}
+
+  // ########################################
+  // # start transaction from pots.component
+  // ########################################
 
   public startTransactionFromPots(transactionObject: any, type: string) {
     if (type === 'potAdd') this.mergePotAddTransaction(transactionObject);
