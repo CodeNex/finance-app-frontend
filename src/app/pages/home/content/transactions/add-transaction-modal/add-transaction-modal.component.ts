@@ -319,9 +319,9 @@ export class AddTransactionModalComponent {
     this.completeNewTransaction();
     if (this.validateInputValues()) {
       if (this.currentTransaction.recurring === null) {
-        this.apiTransactionsService.startTransaction(this.currentTransaction, 'single');
+        this.apiTransactionsService.startTransactionFromTransactions(this.currentTransaction, 'single');
       } else {
-        this.apiTransactionsService.startTransaction(this.currentTransaction, 'recurring');
+        this.apiTransactionsService.startTransactionFromTransactions(this.currentTransaction, 'recurring');
       }
       this.mainModalService.hideMainModal();
     }

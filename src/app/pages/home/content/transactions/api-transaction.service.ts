@@ -59,18 +59,37 @@ export class ApiTransactionService {
   };
 
   // ########################################
+  // # start transaction from different sources
+  // ########################################
+
+  public startTransactionFromTransactions(transactionObject: any, type: string) {
+    this.currentTransaction = transactionObject;
+    if (type === 'single') {
+
+    };
+    if (type === 'recurring') {
+      
+    };
+  }
+
+  public startTransactionFromPots(transactionObject: any, type: string) {
+    if (type === 'potAdd') this.mergePotAddTransaction(transactionObject);
+    if (type === 'potWithdraw') this.mergePotWithdrawTransaction(transactionObject);
+  }
+
+  // ########################################
   // # merge and overwrite currentTransaction
   // ########################################
 
-  private mergeSingleTransaction(transactionObject: any) {
-    console.log(transactionObject);
+  // private mergeSingleTransaction(transactionObject: any) {
+  //   console.log(transactionObject);
     
-  }
+  // }
 
-  private mergeRecurringTransaction(transactionObject: any) {
-    console.log(transactionObject);
+  // private mergeRecurringTransaction(transactionObject: any) {
+  //   console.log(transactionObject);
     
-  }
+  // }
 
   private mergePotAddTransaction(transactionObject: any) {
     console.log(transactionObject);
@@ -83,10 +102,5 @@ export class ApiTransactionService {
   }
 
 
-  public startTransaction(transactionObject: any, type: string) {
-    if (type === 'single') this.mergeSingleTransaction(transactionObject);
-    if (type === 'recurring') this.mergeRecurringTransaction(transactionObject);
-    if (type === 'potAdd') this.mergePotAddTransaction(transactionObject);
-    if (type === 'potWithdraw') this.mergePotWithdrawTransaction(transactionObject);
-  }
+  
 }
