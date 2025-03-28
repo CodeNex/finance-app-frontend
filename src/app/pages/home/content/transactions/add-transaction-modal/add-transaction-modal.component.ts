@@ -228,10 +228,12 @@ export class AddTransactionModalComponent {
   // ########################################################################
 
   public currentDate: string = ''; // html - min attribute
+  public chosenDateValue: string = ''; // ngModel binded
 
   public getCurrentDate() {
     return new Date().toISOString().split('T')[0];
   }
+
 
   // ########################################################################
   // Get a random theme color for the transaction
@@ -293,6 +295,7 @@ export class AddTransactionModalComponent {
       this.maxAmountInputValue.replace(/,/g, '')
     );
     this.currentTransaction.name = this.transactionNameValue;
+    this.currentTransaction.execute_on = this.chosenDateValue;
 
     if (this.validateInputValues()) {
       // this.apiBudgetsService.addNewBudget(this.currentBudget);
