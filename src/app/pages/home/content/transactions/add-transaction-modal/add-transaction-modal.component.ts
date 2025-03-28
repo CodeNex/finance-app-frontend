@@ -318,14 +318,9 @@ export class AddTransactionModalComponent {
   public submitAddTransaction() {
     this.completeNewTransaction();
     if (this.validateInputValues()) {
-      if (this.currentTransaction.recurring === null) {
-        this.apiTransactionsService.startTransactionFromTransactions(this.currentTransaction, 'single');
-      } else {
-        this.apiTransactionsService.startTransactionFromTransactions(this.currentTransaction, 'recurring');
-      }
+      this.apiTransactionsService.startTransaction(this.currentTransaction);
       this.mainModalService.hideMainModal();
       console.log(this.currentTransaction);
-      
     }
   }
 }

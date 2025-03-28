@@ -69,47 +69,12 @@ export class ApiTransactionService {
   };
 
   // ########################################
-  // # start transaction from transactions.component
+  // # start transaction 
   // ########################################
 
-  public startTransactionFromTransactions(transactionObject: any, type: string) {
+  public startTransaction(transactionObject: any) {
     this.currentTransaction = transactionObject;
     this.getCurrentDate();
-    if (type === 'single') {
-      this.startSingleTransaction();
-    };
-    if (type === 'recurring') {
-      this.startRecurringTransaction();
-    };
-  }
-
-  private startSingleTransaction() {
-    // 1. POST the transaction object to the server
-    // 2. add the transaction object to the dataStore (update transactions)
-  }
-
-  private startRecurringTransaction() {}
-
-  // ########################################
-  // # start transaction from pots.component
-  // ########################################
-
-  public startTransactionFromPots(transactionObject: any, type: string) {
-    if (type === 'potAdd') this.mergePotAddTransaction(transactionObject);
-    if (type === 'potWithdraw') this.mergePotWithdrawTransaction(transactionObject);
-  }
-
-  // ########################################
-  // # merge and overwrite currentTransaction
-  // ########################################
-
-  private mergePotAddTransaction(transactionObject: any) {
-    console.log(transactionObject);
-    
-  }
-
-  private mergePotWithdrawTransaction(transactionObject: any) {
-    console.log(transactionObject);
     
   }
 
