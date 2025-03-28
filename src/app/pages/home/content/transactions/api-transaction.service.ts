@@ -20,12 +20,6 @@ export class ApiTransactionService {
 
   private baseUrl: string = this.baseData.financeApp.basics.apiData.baseUrl;
 
-  private currentDate: string = '';
-
-  public getCurrentDate() {
-    this.currentDate = new Date().toISOString();
-  }
-
   constructor() {}
 
   // blueprint for transaction object
@@ -46,6 +40,16 @@ export class ApiTransactionService {
     category: 'general',
     type: 'debit',
   };
+
+  // ########################################
+  // # Get current Date
+  // ########################################
+
+  private currentDate: string = '';
+
+  public getCurrentDate() {
+    this.currentDate = new Date().toISOString();
+  }
 
   // ########################################
   // # Start transaction from TransactionsComponent
