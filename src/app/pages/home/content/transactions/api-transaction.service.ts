@@ -131,10 +131,10 @@ export class ApiTransactionService {
 
     }
     if (from === 'pots') {
-      
+      balanceBlueprint.current = transactionObject.type === 'debit' ? balanceBlueprint.current - transactionObject.amount : balanceBlueprint.current + transactionObject.amount;
     }
-    
   }
+  
 
 
 
