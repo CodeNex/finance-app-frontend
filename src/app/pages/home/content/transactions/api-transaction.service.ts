@@ -1,5 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 
+import { AuthenticationService } from '../../../../services/authentication.service';
+import { APIService } from '../../../../services/api.service';
 import { DataStoreServiceService } from '../../../../services/data-store-service.service';
 
 @Injectable({
@@ -7,9 +9,17 @@ import { DataStoreServiceService } from '../../../../services/data-store-service
 })
 export class ApiTransactionService {
 
+  private AuthenticationService: AuthenticationService = inject(AuthenticationService);
+  private APIService: APIService = inject(APIService);
   public dataStore: DataStoreServiceService = inject(DataStoreServiceService);
 
-  constructor() { }
+  private currentDate: string = '';
+
+  public getCurrentDate() {
+    return new Date().toISOString().split('T')[0];
+  }
+
+  constructor() {}
 
   // what kind of transaction do we have? And what has every transaction to do? 
   
@@ -29,7 +39,7 @@ export class ApiTransactionService {
   // 2. add the transaction object to the dataStore (update transactions)
   // 3. update the balance signal object in the dataStore
 
-
+  // blueprint for transaction object
   public currentTransaction: any = {
     transaction_id: 0,
     user_id: 0,
@@ -48,6 +58,35 @@ export class ApiTransactionService {
     type: 'debit',
   };
 
+  // ########################################
+  // # merge and overwrite currentTransaction
+  // ########################################
 
-  public startTransaction(transactionObject: any, type: string) {}
+  private mergeSingleTransaction(transactionObject: any) {
+    console.log(transactionObject);
+    
+  }
+
+  private mergeRecurringTransaction(transactionObject: any) {
+    console.log(transactionObject);
+    
+  }
+
+  private mergePotAddTransaction(transactionObject: any) {
+    console.log(transactionObject);
+    
+  }
+
+  private mergePotWithdrawTransaction(transactionObject: any) {
+    console.log(transactionObject);
+    
+  }
+
+
+  public startTransaction(transactionObject: any, type: string) {
+    if (type === 'single') this.mergeSingleTransaction(transactionObject);
+    if (type === 'recurring') this.mergeRecurringTransaction(transactionObject);
+    if (type === 'potAdd') this.mergePotAddTransaction(transactionObject);
+    if (type === 'potWithdraw') this.mergePotWithdrawTransaction(transactionObject);
+  }
 }

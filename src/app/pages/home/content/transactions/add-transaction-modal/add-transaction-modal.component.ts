@@ -45,6 +45,7 @@ export class AddTransactionModalComponent {
     this.getCategoryArray();
     this.getRecurringsArray();
     this.currentDate = this.getCurrentDate();
+    this.chosenDateValue = this.getCurrentDate();
   }
 
   // ########################################
@@ -315,8 +316,8 @@ export class AddTransactionModalComponent {
   }
 
   public submitAddTransaction() {
+    this.completeNewTransaction();
     if (this.validateInputValues()) {
-      this.completeNewTransaction();
       if (this.currentTransaction.recurring === null) {
         this.apiTransactionsService.startTransaction(this.currentTransaction, 'single');
       } else {
