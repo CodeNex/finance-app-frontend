@@ -11,7 +11,7 @@ export class DataStoreServiceService {
     income: 5669.0,
     expenses: 2798.0,
     deleted_at: null,
-    created_at: '2025-02-24T16:14:01.000000Z',
+    created_at: '',
   });
 
   // public budgets = signal<BudgetsObject[]>([]);

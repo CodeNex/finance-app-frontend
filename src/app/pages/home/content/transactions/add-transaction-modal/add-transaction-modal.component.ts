@@ -318,7 +318,7 @@ export class AddTransactionModalComponent {
   public submitAddTransaction() {
     this.completeNewTransaction();
     if (this.validateInputValues()) {
-      this.apiTransactionsService.startTransaction(this.currentTransaction);
+      this.apiTransactionsService.startTransaction(this.currentTransaction, 'transactions');
       this.mainModalService.hideMainModal();
       console.log(this.currentTransaction);
     }

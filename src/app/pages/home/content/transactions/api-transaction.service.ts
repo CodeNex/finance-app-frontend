@@ -72,10 +72,10 @@ export class ApiTransactionService {
   // # Start transaction 
   // ########################################
 
-  public startTransaction(transactionObject: any) {
+  public startTransaction(transactionObject: any, from: string) {
     this.currentTransaction = transactionObject;
     this.getCurrentDate();
-    
+    this.addNewTransaction(this.currentTransaction, from);
   }
 
   // ########################################
@@ -83,7 +83,7 @@ export class ApiTransactionService {
   // ########################################
 
   // response: {message: "Transaction created"} ???
-  addNewTransaction(transactionObject: any) {
+  addNewTransaction(transactionObject: any, from: string) {
     const path = 'transactions';
     const body = transactionObject;
     const headers = new HttpHeaders({
@@ -97,20 +97,45 @@ export class ApiTransactionService {
         }
       },
       error: (error) => {
-        if (transactionObject.execute_on < this.currentDate) {
-          // transactions signal array im datastore updaten
-          this.dataStore.addToStoredData('transactions', transactionObject);
-        }
-        if (transactionObject.recurring) {
-          // recurring transactions signal array im datastore updaten
-          this.dataStore.addToStoredData('transactions/recurring', transactionObject);
-        }
-        console.log('Transaction created');
+        this.updateDataStoreArrays(transactionObject);
+        this.updateBalanceSignal(transactionObject, from);
+        // console.log('Transaction created');
         console.error(error);
         return;
       },
     });
   }
+
+  // ########################################
+  // # Update data-store-service.service
+  // ########################################
+
+  private updateDataStoreArrays(transactionObject: any) {
+    if (transactionObject.execute_on < this.currentDate || transactionObject.execute_on === null) {
+      this.dataStore.addToStoredData('transactions', transactionObject);
+    }
+    if (transactionObject.recurring) {
+      this.dataStore.addToStoredData('transactions/recurring', transactionObject);
+    }
+  }
+
+  // ########################################
+  // # Update Balance Signal Object
+  // ########################################
+
+  private updateBalanceSignal(transactionObject: any, from: string) {
+    let balanceBlueprint = this.dataStore.balance();
+    console.log(balanceBlueprint);
+
+    if (from === 'transactions') {
+
+    }
+    if (from === 'pots') {
+      
+    }
+    
+  }
+
 
 
 
