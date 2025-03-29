@@ -54,8 +54,6 @@ export class RecurringBillsListComponent {
   }
 
   private getSearchedTransactions(prevArray: any) {
-    console.log(prevArray);
-    
     if (!this.searchFieldInput || this.searchFieldInput === '') return prevArray;
     let array = prevArray.filter((transaction: any) => {
       return this.isSubsequence(this.searchFieldInput.toLowerCase().replace(/\s+/g, ''), transaction.name.toLowerCase().replace(/\s+/g, ''));

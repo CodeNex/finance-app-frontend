@@ -29,7 +29,7 @@
 
   <!-- Unorderd List -->
   <ul aria-label="list of latest spendings">
-    @for (item of this.recurringBillsArray$; let index = $index; track item) {
+    @for (item of this.renderReadyArray; let index = $index; track item) {
     <li
       aria-label="spending item"
       class="pt-5 pb-3"
