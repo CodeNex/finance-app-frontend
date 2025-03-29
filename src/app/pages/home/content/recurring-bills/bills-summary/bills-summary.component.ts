@@ -394,4 +394,11 @@ export class BillsSummaryComponent {
     this.selectedTimeWindow = target.value;
     this.updateCalculations();
   }
+
+  // boolean to control the dropdown
+  public isDropDownOpen: boolean = false;
+
+  public closeHideDropdown() {
+    this.isDropDownOpen = !this.isDropDownOpen;
+  }
 }
