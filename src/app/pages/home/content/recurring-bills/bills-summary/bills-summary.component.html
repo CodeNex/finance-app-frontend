@@ -1,0 +1,46 @@
+<div class="recurring-bills-summary flex gap-8" aria-label="Recurring Bills Summary Container">
+
+    <div class="w-[50%] bg-gray-900 rounded-xl p-6 flex flex-col justify-between gap-8 text-white">
+      <div class="summary-header flex justify-between items-center gap-4">
+        <app-icons [iconName]="'billsIcon'"></app-icons>
+        <div class="time-window-input flex items-center gap-4">
+          <p class="text3r">For the time window</p>
+          <div class="bg-gray-900 border-solid border-[1px] border-grey-500 rounded-lg p-2">
+            <select class="time-window-dropdown text2b bg-gray-900 outline-none"
+                  (change)="updateTimeWindow($event)">
+            <option value="monthly">Current Month</option>
+            <option value="quarterly">Current Quarter</option>
+            <option value="yearly">Current Year</option>
+            <option value="nextMonth">Next Month</option>
+            <option value="nextThreeMonths">Next Three Months</option>
+            <option value="nextSixMonths">Next six Months</option>
+          </select>
+          </div>
+          
+        </div>
+        
+      </div>
+      
+
+      <div class="total-bills flex justify-between items-center gap-4">
+        <p class="text3r">Total Bills</p>
+        <p class="text3r">${{ totalBillsAmount }}</p>
+      </div>
+
+      <div class="total-bills flex justify-between items-center gap-4">
+        <p class="text3r">Paid Bills</p>
+        <p class="text3r">${{ totalPaid }}</p>
+      </div>
+
+      <div class="total-bills flex justify-between items-center gap-4">
+        <p class="text2b">Upcoming Bills</p>
+        <p class="text1b">${{ totalUpcoming }}</p>
+      </div>
+    </div>  
+
+    <div class="w-[50%] bg-white rounded-xl p-6 flex flex-col justify-between gap-8">
+      <p class="text2b">Here comes a chart</p>
+      
+    </div>
+    
+</div>

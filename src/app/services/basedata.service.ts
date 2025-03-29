@@ -174,5 +174,40 @@ export class BasedataService {
         }
       },
     },
+    recurrings: {
+      types: {
+        singleTransaction: {
+          name: 'Single Transaction',
+          value: null,
+        },
+        weekly: {
+          name: 'Every Week',
+          value: 'weekly'
+        },
+        twoWeeks: {
+          name: 'Every Two Weeks',
+          value: 'twoWeeks'
+        },
+        monthly: {
+          name: 'Every Month',
+          value: 'monthly'
+        },
+        quarterly: {
+          name: 'Every Three Months',
+          value: 'quarterly'
+        },
+        halfYearly: {
+          name: 'Every Six Months',
+          value: 'halfYearly'
+        },
+        yearly: {
+          name: 'Every Year',
+          value: 'yearly'
+        }
+      },
+    }
   };
 }
+
+
+

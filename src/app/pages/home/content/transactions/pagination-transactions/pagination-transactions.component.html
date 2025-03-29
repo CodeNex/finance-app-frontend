@@ -1,0 +1,34 @@
+@if (this.totalSubPages() > 1) {
+
+<section class="flex justify-between items-center pt-6">
+  <div aria-label="Button to skip to the previous page" class="min-w-[93px]">
+    @if (this.currentPage() !== 1) {
+    <div
+      (click)="this.prevPage()"
+      class="skipPageButton cursor-pointer text4r flex items-center gap-4 pt-[9.5px] pb-[9.5px] pl-4 pr-4 border-beige-500 border-[1px] rounded-lg select-none"
+    >
+      <div class="rotate-180">
+        <app-icons [iconName]="'smallArrowRight'"></app-icons>
+      </div>
+      Prev
+    </div>
+    }
+  </div>
+
+  <div class="text5r text-grey-500 select-none">
+    {{ this.currentPage() }} / {{ this.totalSubPages() }}
+  </div>
+
+  <div aria-label="Button to skip to the next page" class="min-w-[93px]">
+    @if (this.currentPage() !== this.totalSubPages()) {
+    <div
+      (click)="this.nextPage()"
+      class="skipPageButton cursor-pointer text4r flex items-center gap-4 pt-[9.5px] pb-[9.5px] pl-4 pr-4 border-beige-500 border-[1px] rounded-lg select-none"
+    >
+      Next
+      <div><app-icons [iconName]="'smallArrowRight'"></app-icons></div>
+    </div>
+    }
+  </div>
+</section>
+}

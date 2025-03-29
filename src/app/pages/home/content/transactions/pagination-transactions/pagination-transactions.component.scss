@@ -1,0 +1,16 @@
+::ng-deep .skipPageButton {
+  transition: all 0.3s ease-in-out;
+
+  div svg path {
+    transition: all 0.3s ease-in-out;
+  }
+
+  &:hover {
+    background-color: #98908b;
+    color: white;
+
+    div svg path {
+      fill: white;
+    }
+  }
+}

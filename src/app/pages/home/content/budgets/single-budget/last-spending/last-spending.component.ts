@@ -12,8 +12,8 @@ import { BasedataService } from '../../../../../../services/basedata.service';
 })
 export class LastSpendingComponent {
   @Input() public spending: any = {
-    id: -1,
-    user: -1,
+    transaction_id: -1,
+    user_id: -1,
     name: '',
     amount: 0,
     recurring: null,
@@ -22,9 +22,6 @@ export class LastSpendingComponent {
     deleted_at: null,
     created_at: null,
     category: '',
-    budget: {
-      category: '',
-    },
   };
 
   public baseData: BasedataService = inject(BasedataService);
@@ -35,16 +32,22 @@ export class LastSpendingComponent {
   public iconName: string = '';
 
   ngOnInit() {
-    if (this.spending.id > -1) {
+    console.log("HubbaBubba");
+    if (this.spending.transaction_id > -1) {
+      
       this.amount = this.formatAmount(this.spending.amount);
       this.date = this.formatDate(this.spending.created_at);
-      this.iconName = this.getCategoryIcon(this.spending.budget.category);
+      // this.iconName = this.getCategoryIcon(this.spending.budget.category);
+      this.iconName = this.getCategoryIcon(this.spending.category);
+
       this.iconBackground = this.spending.theme;
     }
   }
 
   // private function to format amount
   private formatAmount(amount: number): string {
+    
+    
     return `-$${amount.toLocaleString('en-US', {
       minimumFractionDigits: 2,
       maximumFractionDigits: 2,

@@ -1,0 +1,20 @@
+<div
+  aria-label="transactions list header"
+  class="flex items-center justify-between text5r text-grey-500"
+>
+  <div class="flex items-center gap-4">
+    <div class="w-10 h-10 rounded-full flex items-center justify-center" [ngStyle]="{'background-color': this.theme}">
+      <app-icons [iconName]="this.iconName"></app-icons>
+    </div>
+    <p class="text4b text-grey-900">{{ this.name }}</p>
+  </div>
+  <div class="flex items-center justify-between w-[50%]">
+    <div class="flex items-center gap-8">
+      <span class="w-[120px]">{{ this.category }}</span>
+      <span class="w-[120px]">
+        {{ this.date}}
+      </span>
+    </div>
+    <p class="text4b" [ngStyle]="{'color': this.type === 'debit' ? '#201f24' : '#277c78'}">{{ this.type === 'debit' ? '-$' + this.amount : '+$' + this.amount }}</p>
+  </div>
+</div>

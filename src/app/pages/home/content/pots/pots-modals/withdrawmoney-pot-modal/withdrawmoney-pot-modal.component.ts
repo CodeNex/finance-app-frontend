@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { MainModalService } from '../../../../../../services/main-modal.service';
 import { DataStoreServiceService } from '../../../../../../services/data-store-service.service';
 import { ApiPotsService } from '../../api-pots.service';
+import { ApiTransactionService } from '../../../transactions/api-transaction.service';
 
 @Component({
   selector: 'app-withdrawmoney-pot-modal',
@@ -16,6 +17,9 @@ export class WithdrawmoneyPotModalComponent {
   public mainModalService: MainModalService = inject(MainModalService);
   public dataStore: DataStoreServiceService = inject(DataStoreServiceService);
   public apiPotService: ApiPotsService = inject(ApiPotsService);
+  public apiTransactionService: ApiTransactionService = inject(
+    ApiTransactionService
+  );
 
   // closes main modal and its children
   public closeMainModal() {
@@ -53,7 +57,6 @@ export class WithdrawmoneyPotModalComponent {
   ngOnInit() {
     this.currentPot = this.modalObject;
     this.currentPotIndex = this.potIndex;
-    console.log(this.currentPotIndex);
     this.newAmount = this.currentPot.total.toLocaleString('en-US', {
       minimumFractionDigits: 2,
     });
@@ -202,8 +205,14 @@ export class WithdrawmoneyPotModalComponent {
         this.currentPotIndex,
         this.currentPot
       );
-      this.mainModalService.hideMainModal();
-      console.log(this.currentPot);
+      this.apiTransactionService.startTransactionFromPots(
+        'potWithdraw', 
+        new Date().toISOString(),
+        Number(this.inputValueCache.replace(/,/g, '')),
+        this.currentPotIndex,
+        this.currentPot.theme
+      );
+      this.mainModalService.hideMainModal(); 
     }
   }
 }

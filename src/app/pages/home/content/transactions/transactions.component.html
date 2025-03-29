@@ -1,9 +1,88 @@
-<section class="w-full min-h-[100%]">
-  @if (isLoadingScreenVisible) {
-  <app-loading-screen></app-loading-screen>
-  } @if (isWarningScreenVisible) {
-  <app-warning-screen></app-warning-screen>
-  } @if (!isLoadingScreenVisible && !isWarningScreenVisible) {
-  <p>Transaction Works</p>
-  }
+<section class="w-full flex justify-center min-h-[100%]">
+  <main class="max-w-[1440px] w-full flex flex-col gap-8">
+    <header
+      aria-label="Budgets Header. Theres a button at the right side to create new Budgets."
+      class="potsHeader flex items-center justify-between"
+    >
+      <p class="text1b">Transactions</p>
+      <button
+        (click)="openSubModal('addTransaction', {})"
+        class="border-solid bg-grey-900 text4b text-white p-4 rounded-lg transition-all duration-300 hover:bg-grey-500"
+      >
+        + Add New Transaction
+      </button>
+    </header>
+
+    <!-- Transactions content section -->
+    <div
+      aria-label="transactions content section"
+      class="w-full bg-white rounded-xl p-8 flex flex-col gap-6"
+    >
+      <!-- Transactions Filter -->
+      <div
+        aria-label="transactions filter section"
+        class="flex justify-between items-center"
+      >
+        <div>
+          <app-search-transaction (searchFieldChange)="setSearchFieldInput($event)"></app-search-transaction>
+        </div>
+        <div class="flex items-center gap-6">
+          <div class="flex items-center gap-2">
+            <p class="text4r text-grey-500">Sort by</p>
+            <app-sortby-transactions (sortByChange)="setSortByInput($event)"></app-sortby-transactions>
+          </div>
+          <div class="flex items-center gap-2">
+            <p class="text4r text-grey-500">Category</p>
+            <app-categoryfilter-transactions (categoryFilterChange)="setCategoryFilterInput($event)"></app-categoryfilter-transactions>
+          </div>
+        </div>
+      </div>
+
+      <!-- Transactions List -->
+      <div aria-label="transactions list section">
+        <div
+          aria-label="transactions list header"
+          class="flex items-center justify-between pb-6 pl-4 pr-4 text5r text-grey-500"
+        >
+          <div class="flex items-center">
+            <span>Recipient / Sender</span>
+          </div>
+          <div class="flex items-center justify-between w-[50%]">
+            <div class="flex items-center gap-8">
+              <span class="w-[120px]">Category</span>
+              <span class="w-[120px]">Transaction Date</span>
+            </div>
+            <span>Amount</span>
+          </div>
+        </div>
+
+        @for (item of this.renderReadyArray; let index = $index;
+        track item) { @if (index === (this.currentPage$() - 1)) {
+
+        <ul id="" aria-label="list of latest spendings" class="">
+          @for (transaction of item; let index = $index; track transaction) {
+          <li
+            aria-label="spending item"
+            class="pt-4 pl-4 pr-4"
+            [ngStyle]="{
+              'padding-bottom': index < item.length - 1 ? '16px' : '0px'
+            }"
+          >
+            <app-single-transaction [transaction]="transaction" ></app-single-transaction>
+          </li>
+          @if ( index < item.length - 1) {
+          <div class="w-full h-[1.5px] rounded-full bg-grey-100"></div>
+          } }
+        </ul>
+        } }
+      </div>
+
+      <!-- Transactions Navigation -->
+      <div aria-label="transactions window navigation">
+        @if (this.renderReadyArray.length > 1) {
+        <app-pagination-transactions [currentPage$]="currentPage$" [totalSubPages$]="totalSubPages$" (changePage)="setCurrentPage$($event)" ></app-pagination-transactions>
+        }
+      </div>
+    </div>
+  </main>
 </section>

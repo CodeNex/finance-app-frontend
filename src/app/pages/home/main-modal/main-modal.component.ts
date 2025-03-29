@@ -13,6 +13,7 @@ import { EditPotModalComponent } from '../content/pots/pots-modals/edit-pot-moda
 import { DeletePotModalComponent } from '../content/pots/pots-modals/delete-pot-modal/delete-pot-modal.component';
 import { AddmoneyPotModalComponent } from '../content/pots/pots-modals/addmoney-pot-modal/addmoney-pot-modal.component';
 import { WithdrawmoneyPotModalComponent } from '../content/pots/pots-modals/withdrawmoney-pot-modal/withdrawmoney-pot-modal.component';
+import { AddTransactionModalComponent } from '../content/transactions/add-transaction-modal/add-transaction-modal.component';
 
 @Component({
   selector: 'app-main-modal',
@@ -25,6 +26,7 @@ import { WithdrawmoneyPotModalComponent } from '../content/pots/pots-modals/with
     DeletePotModalComponent,
     AddmoneyPotModalComponent,
     WithdrawmoneyPotModalComponent,
+    AddTransactionModalComponent
   ],
   templateUrl: './main-modal.component.html',
   styleUrl: './main-modal.component.scss',

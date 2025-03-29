@@ -39,6 +39,7 @@
       </button>
     </div>
     }
+    
   </div>
 
   <div
@@ -119,7 +120,7 @@
         ><app-icons [iconName]="'smallArrowRight'"></app-icons
       ></a>
     </div>
-    @if (this.budget.last_spendings && this.budget.last_spendings[0].id != -1)
+    @if (this.budget.last_spendings && this.budget.last_spendings[0].transaction_id != -1)
     {
 
     <ul aria-label="list of latest spendings">

@@ -1,6 +1,5 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { catchError, Observable, tap, throwError } from 'rxjs';
 
 import { AuthenticationService } from '../../../../services/authentication.service';
 import { BasedataService } from '../../../../services/basedata.service';
