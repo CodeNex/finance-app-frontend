@@ -1,5 +1,4 @@
 import { Component, effect, inject, Input, OnInit } from '@angular/core';
-import { IconsComponent } from '../../../../../components/icons/icons.component';
 import { RouterModule } from '@angular/router';
 import { APIService } from '../../../../../services/api.service';
 import { AuthenticationService } from '../../../../../services/authentication.service';
@@ -8,7 +7,7 @@ import { BillsSummaryComponent } from '../../recurring-bills/bills-summary/bills
 
 @Component({
   selector: 'app-recurring-bills-summary',
-  imports: [IconsComponent, RouterModule, BillsSummaryComponent],
+  imports: [ RouterModule, BillsSummaryComponent],
   templateUrl: './recurring-bills-summary.component.html',
   styleUrl: './recurring-bills-summary.component.scss'
 })

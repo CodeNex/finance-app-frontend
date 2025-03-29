@@ -20,7 +20,7 @@ export const routes: Routes = [
     component: HomeComponent,
     children: [
 
-      { path: '', redirectTo: 'recurringBills', pathMatch: 'full' },
+      { path: '', redirectTo: 'overview', pathMatch: 'full' },
       { path: 'overview', component: OverviewComponent },
       { path: 'transactions', component: TransactionsComponent },
       { path: 'budgets', component: BudgetsComponent },
