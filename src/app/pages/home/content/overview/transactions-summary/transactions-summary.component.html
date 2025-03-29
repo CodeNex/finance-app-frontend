@@ -13,14 +13,14 @@
   </p>
 
   <ul aria-label="list of latest spendings">
-    @for (item of this.transactionsArray(); let index = $index; track item)
+    @for (item of this.readyToRenderArray; let index = $index; track item)
     {
     <li
       aria-label="spending item"
       class="pt-5 pb-3"
       [ngStyle]="{
         'padding-bottom':
-          this.transactionsArray &&
+          this.readyToRenderArray &&
           index < 4
             ? '20px'
             : '0px'
@@ -28,7 +28,7 @@
     >
       <app-single-transaction [transaction]="item"></app-single-transaction>
     </li>
-    @if (this.transactionsArray && index < 4) {
+    @if (this.readyToRenderArray && index < 4) {
     <div class="w-full h-[2px] rounded-full bg-grey-100"></div>
     } }
   </ul>
