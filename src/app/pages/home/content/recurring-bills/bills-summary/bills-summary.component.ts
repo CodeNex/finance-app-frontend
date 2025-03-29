@@ -73,17 +73,19 @@ export class BillsSummaryComponent {
     const { periodStartMonth, periodEndMonth } = this.definePeriodRange();
 
     recurringBillsArray$.forEach((bill) => {
-      const { billDate, billMonth, billYear } = this.getBillsDates(bill);
+      if (bill.type === 'debit') {
+        const { billDate, billMonth, billYear } = this.getBillsDates(bill);
 
-      let remainingOccurrences = this.getRemainingOccurrences(
-        bill,
-        billDate,
-        billMonth,
-        periodStartMonth,
-        periodEndMonth
-      );
+        let remainingOccurrences = this.getRemainingOccurrences(
+          bill,
+          billDate,
+          billMonth,
+          periodStartMonth,
+          periodEndMonth
+        );
 
-      upcoming += bill.amount! * remainingOccurrences;
+        upcoming += bill.amount! * remainingOccurrences;
+      }
     });
 
     return upcoming;
@@ -123,21 +125,21 @@ export class BillsSummaryComponent {
     recurringBillsArray$.forEach((bill) => {
       console.log(bill);
 
-      const { billDate, billMonth, billYear } = this.getBillsDates(bill);
+      if (bill.type === 'debit') {
+        const { billDate, billMonth, billYear } = this.getBillsDates(bill);
 
-      if (billYear === this.currentYear && billMonth <= periodEndMonth) {
-        let occurrences = this.getFutureOccurences(
-          bill,
-          billDate,
-          billMonth,
-          this.selectedTimeWindow,
-          periodEndMonth
-        );
+        if (billYear === this.currentYear && billMonth <= periodEndMonth) {
+          let occurrences = this.getFutureOccurences(
+            bill,
+            billDate,
+            billMonth,
+            this.selectedTimeWindow,
+            periodEndMonth
+          );
 
-        upcoming += bill.amount! * occurrences;
+          upcoming += bill.amount! * occurrences;
+        }
       }
-
-      
     });
 
     return upcoming;
@@ -233,28 +235,30 @@ export class BillsSummaryComponent {
     let paid = 0;
 
     transactionsArray$.forEach((transaction) => {
-      if (
-        transaction.amount &&
-        transaction.execute_on &&
-        transaction.recurring_id
-      ) {
-        const transactionDate = new Date(transaction.execute_on);
-
+      if (transaction.type === 'debit') {
         if (
-          this.selectedTimeWindow === 'monthly' &&
-          this.inCurrentMonth(transactionDate)
+          transaction.amount &&
+          transaction.execute_on &&
+          transaction.recurring_id
         ) {
-          paid += transaction.amount;
-        } else if (
-          this.selectedTimeWindow === 'quarterly' &&
-          this.inCurrentQuarter(transactionDate)
-        ) {
-          paid += transaction.amount;
-        } else if (
-          this.selectedTimeWindow === 'yearly' &&
-          this.inCurrentYear(transactionDate)
-        ) {
-          paid += transaction.amount;
+          const transactionDate = new Date(transaction.execute_on);
+
+          if (
+            this.selectedTimeWindow === 'monthly' &&
+            this.inCurrentMonth(transactionDate)
+          ) {
+            paid += transaction.amount;
+          } else if (
+            this.selectedTimeWindow === 'quarterly' &&
+            this.inCurrentQuarter(transactionDate)
+          ) {
+            paid += transaction.amount;
+          } else if (
+            this.selectedTimeWindow === 'yearly' &&
+            this.inCurrentYear(transactionDate)
+          ) {
+            paid += transaction.amount;
+          }
         }
       }
     });
