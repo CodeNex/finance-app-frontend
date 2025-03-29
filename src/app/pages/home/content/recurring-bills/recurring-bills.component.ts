@@ -7,10 +7,11 @@ import { CommonModule } from '@angular/common';
 import { IconsComponent } from '../../../../components/icons/icons.component';
 import { AuthenticationService } from '../../../../services/authentication.service';
 import { BillsSummaryComponent } from './bills-summary/bills-summary.component';
+import { RecurringBillsListComponent } from './recurring-bills-list/recurring-bills-list.component';
 
 @Component({
   selector: 'app-recurring-bills',
-  imports: [ LoadingScreenComponent, WarningScreenComponent, CommonModule, BillsSummaryComponent],
+  imports: [ LoadingScreenComponent, WarningScreenComponent, CommonModule, BillsSummaryComponent, RecurringBillsListComponent],
   templateUrl: './recurring-bills.component.html',
   styleUrl: './recurring-bills.component.scss'
 })
@@ -21,6 +22,7 @@ export class RecurringBillsComponent {
   public authService: AuthenticationService = inject(AuthenticationService);
 
   public recurringBillsArray$ = this.dataStore.transactionsRecurring();
+  public transactionsArray$ = this.dataStore.transactions();
 
   isLoadingScreenVisible: boolean = false;
   isWarningScreenVisible: boolean = false;
@@ -28,6 +30,7 @@ export class RecurringBillsComponent {
   constructor() {
     effect(() => {
       this.recurringBillsArray$ = this.dataStore.transactionsRecurring();
+      this.transactionsArray$ = this.dataStore.transactions();
     });
   }
 }

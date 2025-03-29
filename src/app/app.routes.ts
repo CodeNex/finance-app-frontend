@@ -21,7 +21,6 @@ export const routes: Routes = [
     children: [
 
       { path: '', redirectTo: 'transactions', pathMatch: 'full' },
-
       { path: 'overview', component: OverviewComponent },
       { path: 'transactions', component: TransactionsComponent },
       { path: 'budgets', component: BudgetsComponent },

@@ -1,0 +1,52 @@
+<section
+  class="bills-list-component p-8"
+  aria-label="List of Recurring Bills with search and filter options"
+>
+  <div class="bills-list-toolbar h-[120px] rounded-xl flex items-center justify-between">
+    <div class="search-container w-[320px] p-5 pt-3 pb-3 border-solid border-2 border-grey-500 flex items-center justify-between rounded-lg">
+        <input type="text" placeholder="Search" class="search-input outline-none"/>
+        <app-icons iconName="searchLensIcon" class="search-icon"></app-icons>
+    </div>
+    <div class="sort-container flex items-center gap-4">
+        <p class="text3b text-grey-900">Sort by</p>
+        <div class="select-container w-[120px] p-5 pt-3 pb-3 border-solid border-2 border-grey-500 flex items-center justify-between rounded-lg">
+            <select class="sort-select outline-none">
+                <option value="dueDate">A to Z</option>
+                <option value="amount">Latest</option>
+                <option value="dueDate">Oldest</option>
+                <option value="amount">Highest</option>
+                <option value="amount">Lowest</option>
+            </select>
+        </div>    
+    </div>
+  </div>
+
+  <div class="bills-list-header h-[60px] rounded-xl flex flex-col justify-between">
+    <div class="w-full pt-4 flex items-center justify-between">
+      <p class="w-[30%] text3b text-grey-900">Bill Title</p>
+      <p class="w-[20%] text3b text-grey-900 text-right">Recurring</p>
+      <p class="w-[20%] text3b text-grey-900 text-right">Next Due Date</p>
+      <p class="w-[30%] text3b text-grey-900 text-right">Amount</p>
+    </div>
+    <div class="w-full h-[2px] rounded-full bg-grey-100"></div>
+  </div>
+
+  <ul aria-label="list of latest spendings">
+    @for (item of this.recurringBillsArray$; let index = $index; track item) {
+    <li
+      aria-label="spending item"
+      class="pt-5 pb-3"
+      [ngStyle]="{
+        'padding-bottom':
+          this.recurringBillsArray$ && index < recurringBillsArray$.length - 1
+            ? '20px'
+            : '0px'
+      }"
+    >
+      <app-single-bill [recurringBill]="item"></app-single-bill>
+    </li>
+    @if (this.recurringBillsArray$ && index < recurringBillsArray$.length - 1) {
+    <div class="w-full h-[2px] rounded-full bg-grey-100"></div>
+    } }
+  </ul>
+</section>
