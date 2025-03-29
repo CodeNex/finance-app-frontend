@@ -3,7 +3,7 @@
   aria-label="Recurring Bills Summary Container"
 >
   <div
-    class="w-[50%] bg-grey-900 rounded-xl p-6 flex flex-col justify-between gap-8 text-white"
+    class="w-full bg-grey-900 rounded-xl p-6 flex flex-col justify-between gap-8 text-white"
   >
     <div class="summary-header flex justify-between items-center gap-4">
       <app-icons [iconName]="'billsIcon'"></app-icons>
@@ -21,7 +21,7 @@
             </div>
             <div class="rightBox flex items-center">
               @if (!isDropDownOpen) {
-                <svg
+              <svg
                 width="16"
                 height="17"
                 viewBox="0 0 16 17"
@@ -34,7 +34,7 @@
                 />
               </svg>
               }@else {
-                <svg
+              <svg
                 width="16"
                 height="17"
                 viewBox="0 0 16 17"
@@ -95,11 +95,5 @@
       <p class="text3b">Upcoming Bills</p>
       <p class="text2b">${{ totalUpcoming }}</p>
     </div>
-  </div>
-
-  <div
-    class="w-[50%] bg-white rounded-xl p-6 flex flex-col justify-between gap-8"
-  >
-    <p class="text2b">Here comes a chart</p>
   </div>
 </div>
