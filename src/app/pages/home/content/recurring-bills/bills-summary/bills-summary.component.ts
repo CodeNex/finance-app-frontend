@@ -25,10 +25,20 @@ export class BillsSummaryComponent {
   public unformattedTotalUpcoming: number = 0;
   public totalUpcoming: string = '';
   public selectedTimeWindow: string = 'monthly';
+  public selectedTimeWindowName: string = 'Monthly';
 
   public currentDate = new Date();
   public currentMonth = this.currentDate.getMonth();
   public currentYear = this.currentDate.getFullYear();
+
+  public timeFrames: any = [
+    {name: 'Monthly', value: 'monthly'},
+    {name: 'Quarterly', value: 'quarterly'},
+    {name: 'Yearly', value: 'yearly'},
+    {name: 'Next Month', value: 'nextMonth'},
+    {name: 'Next 3 Months', value: 'nextThreeMonths'},
+    {name: 'Next 6 Months', value: 'nextSixMonths'},
+  ];
 
   constructor() {
     effect(() => {
@@ -389,10 +399,11 @@ export class BillsSummaryComponent {
     });
   }
 
-  updateTimeWindow(event: Event) {
-    const target = event.target as HTMLSelectElement;
-    this.selectedTimeWindow = target.value;
+  updateTimeWindow(timeFrame: any) {
+    this.selectedTimeWindow = timeFrame.value;
+    this.selectedTimeWindowName = timeFrame.name;
     this.updateCalculations();
+    this.closeHideDropdown();
   }
 
   // boolean to control the dropdown
