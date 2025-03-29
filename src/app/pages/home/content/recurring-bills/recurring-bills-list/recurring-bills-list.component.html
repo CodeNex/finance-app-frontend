@@ -5,7 +5,7 @@
   <!-- Toolbar -->
   <div class="bills-list-toolbar flex items-center justify-between">
     <!-- Search Input -->
-    <app-search-transaction></app-search-transaction>
+    <app-search-transaction (searchFieldChange)="setSearchFieldInput($event)"></app-search-transaction>
 
     <!-- Sort By Input -->
     <div class="sort-container flex items-center gap-4">
