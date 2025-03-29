@@ -23,9 +23,6 @@ export class RecurringBillsComponent {
 
   public recurringBillsArray$ = this.dataStore.transactionsRecurring();
   public transactionsArray$ = this.dataStore.transactions();
-
-  isLoadingScreenVisible: boolean = false;
-  isWarningScreenVisible: boolean = false;
   
   constructor() {
     effect(() => {
