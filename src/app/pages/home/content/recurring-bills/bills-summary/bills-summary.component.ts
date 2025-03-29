@@ -1,10 +1,7 @@
-import { Component, effect, inject, Input } from '@angular/core';
+import { Component, effect, inject } from '@angular/core';
 import { IconsComponent } from '../../../../../components/icons/icons.component';
 import { CommonModule } from '@angular/common';
-import { APIService } from '../../../../../services/api.service';
 import { DataStoreServiceService } from '../../../../../services/data-store-service.service';
-import { AuthenticationService } from '../../../../../services/authentication.service';
-import { MainModalService } from '../../../../../services/main-modal.service';
 
 @Component({
   selector: 'app-bills-summary',
@@ -13,10 +10,7 @@ import { MainModalService } from '../../../../../services/main-modal.service';
   styleUrl: './bills-summary.component.scss',
 })
 export class BillsSummaryComponent {
-  private apiService: APIService = inject(APIService);
   private dataStore: DataStoreServiceService = inject(DataStoreServiceService);
-  public authService: AuthenticationService = inject(AuthenticationService);
-  public mainModalService: MainModalService = inject(MainModalService);
 
   public recurringBillsSignal$ = this.dataStore.transactionsRecurring;
   public transactionsSignal$ = this.dataStore.transactions;
