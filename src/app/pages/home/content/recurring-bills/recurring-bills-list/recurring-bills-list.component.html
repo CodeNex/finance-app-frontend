@@ -5,18 +5,22 @@
   <!-- Toolbar -->
   <div class="bills-list-toolbar flex items-center justify-between">
     <!-- Search Input -->
-    <app-search-transaction (searchFieldChange)="setSearchFieldInput($event)"></app-search-transaction>
+    <app-search-transaction
+      (searchFieldChange)="setSearchFieldInput($event)"
+    ></app-search-transaction>
 
     <!-- Sort By Input -->
     <div class="sort-container flex items-center gap-4">
       <p class="text4r text-grey-500">Sort by</p>
-      <app-sortby-transactions (sortByChange)="setSortByInput($event)" ></app-sortby-transactions>
+      <app-sortby-transactions
+        (sortByChange)="setSortByInput($event)"
+      ></app-sortby-transactions>
     </div>
   </div>
 
   <!-- List Head -->
   <div
-    class="bills-list-header mt-6 rounded-xl flex flex-col justify-between"
+    class="bills-list-header mt-6 pt-3 pb-3 pl-4 pr-4 rounded-xl flex flex-col justify-between"
   >
     <div class="w-full flex items-center justify-between">
       <p class="w-[30%] text5r text-grey-500">Bill Title</p>
@@ -24,8 +28,8 @@
       <p class="w-[20%] text5r text-grey-500 text-right">Next Due Date</p>
       <p class="w-[30%] text5r text-grey-500 text-right">Amount</p>
     </div>
-    <div class="w-full h-[2px] mt-6 rounded-full bg-grey-100"></div>
   </div>
+  <div class="w-full h-[2px] mb-1 rounded-full bg-grey-100"></div>
 
   <!-- Unorderd List -->
   <ul aria-label="list of latest spendings">
