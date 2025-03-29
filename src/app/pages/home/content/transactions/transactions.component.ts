@@ -40,12 +40,6 @@ export class TransactionsComponent {
   public authService: AuthenticationService = inject(AuthenticationService);
 
   public transactionsSignal$: Signal<any[]> = this.dataStore.transactions;
-  public categoryFilterInput: string = 'All Transactions';
-  public sortByInput: string = 'Latest';
-  public searchFieldInput: string = '';
-  public totalSubPages$ = signal(0);
-  public currentPage$ = signal(1);
-
   public renderReadyArray: any[] = [];
 
   constructor() {
@@ -58,7 +52,10 @@ export class TransactionsComponent {
   ngOnInit() {
   }
 
-  // This function takes the transactions array and returns it in a format that is ready to be rendered
+  // ########################################
+  // # function takes the transactions array and returns it in a format that is ready to be rendered
+  // ########################################
+ 
   public formatTransactionsArray(prevArray: any) {
     let arrayByCategories = this.getTransactionsFilteredByCategories(prevArray);
     let searchedArray = this.getSearchedTransactions(arrayByCategories);
@@ -68,13 +65,36 @@ export class TransactionsComponent {
     this.renderReadyArray = splittedArray;
   }
 
-  // These functions are used in the formatTransactionsArray function to filter and sort the transactions array
+  // ########################################
+  // # functions to filter the array by category
+  // ########################################
+
+  public categoryFilterInput: string = 'All Transactions';
+
+  public setCategoryFilterInput(input: string) {
+    this.categoryFilterInput = input;
+    this.formatTransactionsArray(this.transactionsSignal$());
+    this.setCurrentPage$(1);
+  }
+
   private getTransactionsFilteredByCategories(prevArray: any) {
     if (this.categoryFilterInput === 'All Transactions') return prevArray;
     let array = prevArray.filter(
       (transactions: any) => transactions.category === this.categoryFilterInput
     );
     return array;
+  }
+
+  // ########################################
+  // # functions to filter the array by search field
+  // ########################################
+
+  public searchFieldInput: string = '';
+
+  public setSearchFieldInput(input: string) {
+    this.searchFieldInput = input;
+    this.formatTransactionsArray(this.transactionsSignal$());
+    this.setCurrentPage$(1);
   }
 
   private getSearchedTransactions(prevArray: any) {
@@ -101,16 +121,12 @@ export class TransactionsComponent {
     }
   }
 
-  private getSortedTransactions(prevArray: any) {
-    let array;
-    if (this.sortByInput === 'Latest' || this.sortByInput === 'Oldest' || this.sortByInput === null || this.sortByInput === '')
-      array = this.sortByDate(prevArray);
-    if (this.sortByInput === 'A to Z' || this.sortByInput === 'Z to A')
-      array = this.sortByAlphabet(prevArray);
-    if (this.sortByInput === 'Highest' || this.sortByInput === 'Lowest')
-      array = this.sortByAmount(prevArray);
-    return array;
-  }
+  // ########################################
+  // # functions to split the array into sub arrays for pagination
+  // ########################################
+
+  public totalSubPages$ = signal(0); // signal for paginantion 
+  public currentPage$ = signal(1); // signal for paginantion 
 
   private splitTransactionsArray(prevArray: any) {
     let transactionsPerPage = 7;
@@ -121,7 +137,28 @@ export class TransactionsComponent {
     return splittedArray;
   }
 
-  // functions to sort the array
+  // ########################################
+  // # functions to sort the array
+  // ########################################
+
+  public sortByInput: string = 'Latest';
+
+  public setSortByInput(input: string) {
+    this.sortByInput = input;
+    this.formatTransactionsArray(this.transactionsSignal$());
+  }
+
+  private getSortedTransactions(prevArray: any) {
+    let array;
+    if (this.sortByInput === 'Latest' || this.sortByInput === 'Oldest' || this.sortByInput === null || this.sortByInput === '')
+      array = this.sortByDate(prevArray);
+    if (this.sortByInput === 'A to Z' || this.sortByInput === 'Z to A')
+      array = this.sortByAlphabet(prevArray);
+    if (this.sortByInput === 'Highest' || this.sortByInput === 'Lowest')
+      array = this.sortByAmount(prevArray);
+    return array;
+  }
+ 
   private sortByDate(array: any) {
     return array.sort((a: any, b: any) => {
       if (!a.execute_on) return 1;
@@ -158,25 +195,10 @@ export class TransactionsComponent {
     });
   }
 
-  // functions to set inputs to filter and sort transactions
-  public setCategoryFilterInput(input: string) {
-    this.categoryFilterInput = input;
-    this.formatTransactionsArray(this.transactionsSignal$());
-    this.setCurrentPage$(1);
-  }
-
-  public setSortByInput(input: string) {
-    this.sortByInput = input;
-    this.formatTransactionsArray(this.transactionsSignal$());
-  }
-
-  public setSearchFieldInput(input: string) {
-    this.searchFieldInput = input;
-    this.formatTransactionsArray(this.transactionsSignal$());
-    this.setCurrentPage$(1);
-  }
-
-  // functions to handle pagination
+  // ########################################
+  // # functions to handle pagination
+  // ########################################
+  
   public setTotalSubPages$(value: number) {
     this.totalSubPages$.set(value);
   }
@@ -185,7 +207,10 @@ export class TransactionsComponent {
     this.currentPage$.set(value);
   }
 
-  // open add task sub modal
+  // ########################################
+  // # open add task sub modal
+  // ########################################
+   
   public openSubModal(subModal: string, subModalObject: Object) {
     this.mainModalService.chooseSubModal(subModal, subModalObject, null);
   }
