@@ -36,6 +36,7 @@ export class SingleBillComponent {
   public occurrency: string = '';
   public iconBackground: string = '';
   public iconName: string = '';
+  public type: string = '';
 
   ngOnInit() {
     this.name = this.recurringBill.name;
@@ -44,14 +45,15 @@ export class SingleBillComponent {
     this.occurrency = this.recurringBill.recurring;
     this.iconName = this.getCategoryIcon(this.recurringBill.category);
     this.iconBackground = this.recurringBill.theme;
+    this.type = this.recurringBill.type;
   }
 
   // private function to format amount
   private formatAmount(amount: number): string {
-    return `-$${amount.toLocaleString('en-US', {
+    return amount.toLocaleString('en-US', {
       minimumFractionDigits: 2,
       maximumFractionDigits: 2,
-    })}`;
+    });
   }
 
   // private function to format date

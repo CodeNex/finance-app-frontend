@@ -19,6 +19,6 @@
   </div>
 
   <div class="w-[30%] flex items-center justify-end gap-4">
-    <p class="text-right text4b text-grey-900">{{ this.amount }}</p>
+    <p class="text4b" [ngStyle]="{'color': this.type === 'debit' ? '#201f24' : '#277c78'}">{{ this.type === 'debit' ? '-$' + this.amount : '+$' + this.amount }}</p>
   </div>
 </div>
