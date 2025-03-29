@@ -139,7 +139,6 @@ export class BillsSummaryComponent {
     let upcoming = 0;
 
     recurringBillsArray$.forEach((bill) => {
-      console.log(bill);
 
       if (bill.type === 'debit') {
         const { billDate, billMonth, billYear } = this.getBillsDates(bill);
@@ -230,7 +229,6 @@ export class BillsSummaryComponent {
     let occurrences = 0;
     if (bill.recurring === 'weekly') {
       occurrences = this.getRemainingWeeklyOccurrences(billDate) - 1;
-      console.log('ID nr', bill.recurring_id, bill.recurring, 'X', occurrences);
     } else if (bill.recurring === 'monthly') {
       if (billMonth === this.currentMonth) {
         occurrences = periodEndMonth - this.currentMonth;
@@ -238,10 +236,8 @@ export class BillsSummaryComponent {
         occurrences =
           periodEndMonth - Math.max(billMonth, this.currentMonth) + 1;
       }
-      console.log('ID nr', bill.recurring_id, bill.recurring, 'X', occurrences);
     } else if (bill.recurring === 'quarterly') {
       occurrences = Math.floor((periodEndMonth - billMonth) / 3) + 1;
-      console.log('ID nr', bill.recurring_id, bill.recurring, 'X', occurrences);
     }
 
     return occurrences;
