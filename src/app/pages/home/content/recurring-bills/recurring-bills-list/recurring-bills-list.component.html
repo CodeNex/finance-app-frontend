@@ -2,11 +2,18 @@
   class="bills-list-component p-8"
   aria-label="List of Recurring Bills with search and filter options"
 >
-  <div class="bills-list-toolbar h-[120px] rounded-xl flex items-center justify-between">
+  <!-- Toolbar -->
+  <div class="bills-list-toolbar h-[120px] flex items-center justify-between">
+
+
+    <!-- Search Input -->
     <div class="search-container w-[320px] p-5 pt-3 pb-3 border-solid border-2 border-grey-500 flex items-center justify-between rounded-lg">
         <input type="text" placeholder="Search" class="search-input outline-none"/>
         <app-icons iconName="searchLensIcon" class="search-icon"></app-icons>
     </div>
+
+
+    <!-- Sort By Input -->
     <div class="sort-container flex items-center gap-4">
         <p class="text3b text-grey-900">Sort by</p>
         <div class="select-container w-[120px] p-5 pt-3 pb-3 border-solid border-2 border-grey-500 flex items-center justify-between rounded-lg">
@@ -19,8 +26,12 @@
             </select>
         </div>    
     </div>
+
+
+
   </div>
 
+  <!-- List Head -->
   <div class="bills-list-header h-[60px] rounded-xl flex flex-col justify-between">
     <div class="w-full pt-4 flex items-center justify-between">
       <p class="w-[30%] text5r text-grey-500">Bill Title</p>
@@ -31,6 +42,7 @@
     <div class="w-full h-[2px] rounded-full bg-grey-100"></div>
   </div>
 
+  <!-- Unorderd List -->
   <ul aria-label="list of latest spendings">
     @for (item of this.recurringBillsArray$; let index = $index; track item) {
     <li
