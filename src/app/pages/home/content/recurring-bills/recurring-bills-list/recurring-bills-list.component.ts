@@ -8,10 +8,11 @@ import { MainModalService } from '../../../../../services/main-modal.service';
 import { SingleTransactionComponent } from '../../overview/transactions-summary/single-transaction/single-transaction.component';
 import { SingleBillComponent } from './single-bill/single-bill.component';
 import { SortbyTransactionsComponent } from '../../transactions/sortby-transactions/sortby-transactions.component';
+import { SearchTransactionComponent } from '../../transactions/search-transaction/search-transaction.component';
 
 @Component({
   selector: 'app-recurring-bills-list',
-  imports: [SingleBillComponent, IconsComponent, CommonModule, SortbyTransactionsComponent],
+  imports: [SingleBillComponent, IconsComponent, CommonModule, SearchTransactionComponent,SortbyTransactionsComponent],
   templateUrl: './recurring-bills-list.component.html',
   styleUrl: './recurring-bills-list.component.scss'
 })
