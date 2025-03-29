@@ -1,4 +1,4 @@
-import { Component, effect, inject} from '@angular/core';
+import { Component, effect, inject } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { IconsComponent } from '../../../../../components/icons/icons.component';
 import { DataStoreServiceService } from '../../../../../services/data-store-service.service';
@@ -31,14 +31,12 @@ export class TransactionsSummaryComponent {
     effect(() => {
       let potsSignal = this.transactionsArraySignal$();
       this.ngOnInit();
-     
     });
   }
 
   ngOnInit() {
     this.readyToRenderArray = this.sortByDate(this.transactionsArraySignal$());
   }
-
 
   private sortByDate(array: any) {
     return array.sort((a: any, b: any) => {
@@ -47,6 +45,6 @@ export class TransactionsSummaryComponent {
       return (
         new Date(b.execute_on).getTime() - new Date(a.execute_on).getTime()
       );
-    });
+    }).slice(0, 4);
   }
 }
