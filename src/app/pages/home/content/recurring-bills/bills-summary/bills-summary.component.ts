@@ -18,9 +18,11 @@ export class BillsSummaryComponent {
   public authService: AuthenticationService = inject(AuthenticationService);
   public mainModalService: MainModalService = inject(MainModalService);
 
-  @Input() public recurringBillsArray$!: TransactionsObject[];
+  public recurringBillsSignal$ = this.dataStore.transactionsRecurring;
+  public transactionsSignal$ = this.dataStore.transactions;
 
-  @Input() public transactionsArray$!: TransactionsObject[];
+  public recurringBillsArray$: any[] = [];
+  public transactionsArray$: any[] = [];
 
   public unformattedTotalBillsAmount: number = 0;
   public totalBillsAmount: string = '';
@@ -34,7 +36,17 @@ export class BillsSummaryComponent {
   public currentMonth = this.currentDate.getMonth();
   public currentYear = this.currentDate.getFullYear();
 
+  constructor() {
+    effect(() => {
+      let signalRecurrings = this.recurringBillsSignal$();
+      let signalTransactions = this.transactionsSignal$();
+      this.ngOnInit();
+    });
+  }
+
   ngOnInit() {
+    this.recurringBillsArray$ = this.recurringBillsSignal$();
+    this.transactionsArray$ = this.transactionsSignal$();
     this.updateCalculations();
   }
 
