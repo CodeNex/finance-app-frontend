@@ -11,7 +11,7 @@ export class DataStoreServiceService {
     income: 5669.0,
     expenses: 2798.0,
     deleted_at: null,
-    created_at: '2025-02-24T16:14:01.000000Z',
+    created_at: '',
   });
 
   // public budgets = signal<BudgetsObject[]>([]);
@@ -321,7 +321,7 @@ export class DataStoreServiceService {
       receiver: '',
       name: 'Game Purchase',
       category: 'entertainment',
-      type: 'credit',
+      type: 'debit',
     },
     {
       transaction_id: 1,
@@ -406,7 +406,7 @@ export class DataStoreServiceService {
       receiver: '',
       name: 'Massage Session',
       category: 'personalCare',
-      type: 'credit',
+      type: 'debit',
     },
     {
       transaction_id: 6,
@@ -423,7 +423,7 @@ export class DataStoreServiceService {
       receiver: '',
       name: 'Bookstore Purchase',
       category: 'education',
-      type: 'credit',
+      type: 'debit',
     },
     {
       transaction_id: 7,
@@ -457,7 +457,7 @@ export class DataStoreServiceService {
       receiver: '',
       name: 'Tech Gadget',
       category: 'shopping',
-      type: 'credit',
+      type: 'debit',
     },
     {
       transaction_id: 9,
@@ -474,7 +474,7 @@ export class DataStoreServiceService {
       receiver: '',
       name: 'Charity Donation',
       category: 'general',
-      type: 'credit',
+      type: 'debit',
     },
     {
       transaction_id: 10,
@@ -491,7 +491,7 @@ export class DataStoreServiceService {
       receiver: '',
       name: 'Event Entry',
       category: 'lifestyle',
-      type: 'credit',
+      type: 'debit',
     },
     {
       transaction_id: 11,
@@ -525,7 +525,7 @@ export class DataStoreServiceService {
       receiver: '',
       name: 'Organic Food Store',
       category: 'groceries',
-      type: 'credit',
+      type: 'debit',
     },
     {
       transaction_id: 13,
@@ -542,7 +542,7 @@ export class DataStoreServiceService {
       receiver: '',
       name: 'Furniture Purchase',
       category: 'shopping',
-      type: 'credit',
+      type: 'debit',
     },
     {
       transaction_id: 14,
@@ -610,7 +610,7 @@ export class DataStoreServiceService {
       receiver: '',
       name: 'Spa Treatment',
       category: 'personalCare',
-      type: 'credit',
+      type: 'debit',
     },
     {
       transaction_id: 18,
@@ -678,7 +678,7 @@ export class DataStoreServiceService {
       receiver: '',
       name: 'Train Ticket',
       category: 'transportation',
-      type: 'credit',
+      type: 'debit',
     },
     {
       transaction_id: 22,
@@ -729,7 +729,7 @@ export class DataStoreServiceService {
       receiver: '',
       name: 'Food Delivery',
       category: 'diningOut',
-      type: 'credit',
+      type: 'debit',
     },
     {
       transaction_id: 25,
@@ -763,7 +763,7 @@ export class DataStoreServiceService {
       receiver: '',
       name: 'Train Ticket',
       category: 'transportation',
-      type: 'credit',
+      type: 'debit',
     },
     {
       transaction_id: 27,
@@ -780,7 +780,7 @@ export class DataStoreServiceService {
       receiver: '',
       name: 'Bank Fee',
       category: 'general',
-      type: 'credit',
+      type: 'debit',
     },
     {
       transaction_id: 28,
@@ -814,7 +814,7 @@ export class DataStoreServiceService {
       receiver: '',
       name: 'Gym Membership',
       category: 'personalCare',
-      type: 'credit',
+      type: 'debit',
     },
     {
       transaction_id: 30,
@@ -831,7 +831,7 @@ export class DataStoreServiceService {
       receiver: '',
       name: 'Furniture Purchase',
       category: 'shopping',
-      type: 'credit',
+      type: 'debit',
     },
     {
       transaction_id: 31,
@@ -848,7 +848,7 @@ export class DataStoreServiceService {
       receiver: '',
       name: 'Service Charge',
       category: 'general',
-      type: 'credit',
+      type: 'debit',
     },
     {
       transaction_id: 32,
@@ -899,7 +899,7 @@ export class DataStoreServiceService {
       receiver: '',
       name: 'Haircut',
       category: 'personalCare',
-      type: 'credit',
+      type: 'debit',
     },
     {
       transaction_id: 35,
@@ -916,7 +916,7 @@ export class DataStoreServiceService {
       receiver: '',
       name: 'Supermarket Purchase',
       category: 'groceries',
-      type: 'credit',
+      type: 'debit',
     },
     {
       transaction_id: 36,
@@ -1001,7 +1001,7 @@ export class DataStoreServiceService {
       receiver: '',
       name: 'Supermarket Purchase',
       category: 'groceries',
-      type: 'credit',
+      type: 'debit',
     },
     {
       transaction_id: 41,
@@ -1018,7 +1018,7 @@ export class DataStoreServiceService {
       receiver: '',
       name: 'Concert Ticket',
       category: 'lifestyle',
-      type: 'credit',
+      type: 'debit',
     },
     {
       transaction_id: 42,
@@ -1052,7 +1052,7 @@ export class DataStoreServiceService {
       receiver: '',
       name: 'Spa Treatment',
       category: 'personalCare',
-      type: 'credit',
+      type: 'debit',
     },
     {
       transaction_id: 44,
@@ -1069,7 +1069,7 @@ export class DataStoreServiceService {
       receiver: '',
       name: 'Gas Bill',
       category: 'bills',
-      type: 'credit',
+      type: 'debit',
     },
     {
       transaction_id: 2,
@@ -1369,7 +1369,6 @@ export class DataStoreServiceService {
       name: 'Apartment Rent',
       category: 'bills',
       type: 'debit',
-
     },
     {
       transaction_id: 1,
@@ -1387,7 +1386,6 @@ export class DataStoreServiceService {
       name: 'Internet Bill',
       category: 'bills',
       type: 'debit',
-
     },
     {
       transaction_id: 2,
@@ -1405,7 +1403,6 @@ export class DataStoreServiceService {
       name: 'Car Loan',
       category: 'bills',
       type: 'debit',
-
     },
     {
       transaction_id: 3,
@@ -1524,7 +1521,7 @@ export class DataStoreServiceService {
   }
 
   // get the hole data package without signal and UI update
-  getStoredData(endpoint: string) {
+  public getStoredData(endpoint: string) {
     if (endpoint === 'balance') return this.balance;
     if (endpoint === 'budgets') return this.budgets;
     if (endpoint === 'pots') return this.pots;
@@ -1535,7 +1532,7 @@ export class DataStoreServiceService {
   }
 
   // add new data to the existing dataArray and update the signal and UI
-  addToStoredData(endpoint: string, data: any) {
+  public addToStoredData(endpoint: string, data: any) {
     if (endpoint === 'budgets') this.budgets.update((prev) => [data, ...prev]);
     if (endpoint === 'pots') this.pots.update((prev) => [data, ...prev]);
     if (endpoint === 'transactions')
@@ -1545,7 +1542,7 @@ export class DataStoreServiceService {
   }
 
   // chose what kind of data to soft delete and update the signal and UI
-  choseDataAndSoftDelete(endpoint: string, index: number) {
+  public choseDataAndSoftDelete(endpoint: string, index: number) {
     if (endpoint === 'budgets' && index >= 0)
       this.budgets.update((prev) => {
         return this.softdeleted_ata(prev, index);
@@ -1561,14 +1558,14 @@ export class DataStoreServiceService {
   }
 
   // soft delete data
-  softdeleted_ata(prev: any, index: number) {
+  public softdeleted_ata(prev: any, index: number) {
     let array = [...prev];
     array[index].deleted_at = new Date().toISOString();
     return array;
   }
 
   // update the balance and update the signal and UI
-  updateStoredBalance(key: string, amount: number) {
+  public updateStoredBalance(key: string, amount: number) {
     this.balance.update((prev) => {
       let prevBalance = { ...prev };
       if (key === 'current') prevBalance.current += amount;
@@ -1579,7 +1576,7 @@ export class DataStoreServiceService {
   }
 
   // update the existing data and update the signal and UI
-  editStoredData(endpoint: string, index: number, data: any) {
+  public editStoredData(endpoint: string, index: number, data: any) {
     if (endpoint === 'budgets' && data && index >= 0) {
       this.budgets.update((prev) => {
         return prev.map((item, i) => (i === index ? { ...data } : item));

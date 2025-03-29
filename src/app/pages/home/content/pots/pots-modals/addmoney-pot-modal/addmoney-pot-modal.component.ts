@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { MainModalService } from '../../../../../../services/main-modal.service';
 import { DataStoreServiceService } from '../../../../../../services/data-store-service.service';
 import { ApiPotsService } from '../../api-pots.service';
+import { ApiTransactionService } from '../../../transactions/api-transaction.service';
 
 @Component({
   selector: 'app-addmoney-pot-modal',
@@ -16,6 +17,9 @@ export class AddmoneyPotModalComponent {
   public mainModalService: MainModalService = inject(MainModalService);
   public dataStore: DataStoreServiceService = inject(DataStoreServiceService);
   public apiPotService: ApiPotsService = inject(ApiPotsService);
+  public apiTransactionService: ApiTransactionService = inject(
+    ApiTransactionService
+  );
 
   // closes main modal and its children
   public closeMainModal() {
@@ -244,8 +248,14 @@ export class AddmoneyPotModalComponent {
         this.currentPotIndex,
         this.currentPot
       );
+      this.apiTransactionService.startTransactionFromPots(
+        'potAdd',
+        new Date().toISOString(),
+        Number(this.inputValueCache.replace(/,/g, '')),
+        this.currentPotIndex,
+        this.currentPot.theme
+      );
       this.mainModalService.hideMainModal();
-      console.log(this.currentPot);
     }
   }
 }

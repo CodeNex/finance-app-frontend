@@ -1,0 +1,52 @@
+.themeDropDown::-webkit-scrollbar {
+  display: none;
+}
+
+.themeDropDown {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.chosenType {
+  border-color: #201f24;
+  background-color: #201f24;
+  p {
+    color: white;
+    user-select: none;
+  }
+}
+
+.nonChosenType {
+  cursor: pointer;
+  border-color: #98908b8a;
+  p {
+    color: #98908b8a;
+    user-select: none;
+  }
+  &:hover {
+    border-color: #201f24;
+    p {
+      color: #201f24;
+    }
+  }  
+}
+
+.borderValid {
+  border-color: #98908b;
+
+  &:hover {
+    border-color: #201f24;
+  }
+
+  &:focus {
+    border-color: #201f24;
+  }
+}
+
+.borderInvalid {
+  border-color: #c94736;
+}

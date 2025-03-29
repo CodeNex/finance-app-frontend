@@ -20,7 +20,9 @@ export class BillsSummaryComponent {
   public mainModalService: MainModalService = inject(MainModalService);
 
   @Input() public recurringBillsArray$!: TransactionsObject[];
+
   @Input() public transactionsArray$!: TransactionsObject[];
+
 
   public unformattedTotalBillsAmount: number = 0;
   public totalBillsAmount: string = "";
@@ -57,6 +59,7 @@ export class BillsSummaryComponent {
     this.totalBillsAmount = this.getformattedValue(this.unformattedTotalPaid + this.unformattedTotalUpcoming);
   }
 
+
   getTotalUpcomingAmount(recurringBillsArray$: TransactionsObject[]): number {
     let upcoming = 0;
 
@@ -71,6 +74,7 @@ export class BillsSummaryComponent {
       
       upcoming += bill.amount! * remainingOccurrences;
     });
+
 
     return upcoming;
   }
@@ -117,12 +121,14 @@ export class BillsSummaryComponent {
         let occurrences = this.getFutureOccurences(bill, billDate, billMonth, this.selectedTimeWindow, periodEndMonth);
 
         upcoming += bill.amount! * occurrences;
+
       }
 
     });
 
     return upcoming;
   }
+
 
   getBillsDates(bill: TransactionsObject): { billDate: Date, billMonth: number, billYear: number } {
     const billDate: Date = new Date(bill.execute_on!);
