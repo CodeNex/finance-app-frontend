@@ -169,6 +169,7 @@ export class ApiTransactionService {
         : budgets[matchingBudgetIndex].last_spendings?.unshift(
             transactionObject
           );
+      budgets[matchingBudgetIndex].amount += transactionObject.amount;
       this.dataStore.setStoredData('budgets', budgets);
     }
   }
