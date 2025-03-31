@@ -169,8 +169,7 @@ export class ApiTransactionService {
         : budgets[matchingBudgetIndex].last_spendings?.unshift(
             transactionObject
           );
-
-      console.log(budgets[matchingBudgetIndex]);
+      this.dataStore.setStoredData('budgets', budgets);
     }
   }
 
