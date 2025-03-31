@@ -125,6 +125,19 @@ export class ApiTransactionService {
         transactionObject
       );
     }
+    if (from === 'transactions' && transactionObject.type === 'debit' && (transactionObject.execute_on <= this.currentDate ||
+      transactionObject.execute_on === null)) {
+      this.updateBudgetsArray(transactionObject);
+    }
+  }
+
+  private updateBudgetsArray(transactionObject: any) {
+    let budgets = this.dataStore.budgets();
+    let matchingBudgetIndex = budgets.findIndex((budget) => {
+      return budget.name.replace(/^./, c => c.toLowerCase()).replace(/\s+/g, '') === transactionObject.category;
+    })
+    
+    
   }
 
   // ########################################
