@@ -1080,14 +1080,13 @@ export class DataStoreServiceService {
       execute_on: '2025-03-10T00:00:00Z',
       deleted_at: null,
       recurring: 'monthly',
-      recurring_id: "2",
+      recurring_id: '2',
       theme: '#97a0ac',
       sender: '',
       receiver: '',
       name: 'Car Loan',
       category: 'bills',
       type: 'debit',
-
     },
     {
       transaction_id: 3,
@@ -1098,7 +1097,7 @@ export class DataStoreServiceService {
       execute_on: '2025-03-02T00:00:00Z',
       deleted_at: null,
       recurring: 'monthly',
-      recurring_id: "3",
+      recurring_id: '3',
       theme: '#F2CDAC',
       sender: '',
       receiver: '',
@@ -1115,7 +1114,7 @@ export class DataStoreServiceService {
       execute_on: '2025-03-16T00:00:00Z',
       deleted_at: null,
       recurring: 'monthly',
-      recurring_id: "5",
+      recurring_id: '5',
       theme: '#cab361',
       sender: '',
       receiver: '',
@@ -1126,38 +1125,36 @@ export class DataStoreServiceService {
     {
       transaction_id: 0,
       user_id: 0,
-      amount: 345.00,
+      amount: 345.0,
       budget_id: null,
       created_at: '2024-09-12T00:00:00Z',
       execute_on: '2025-02-26T00:00:00Z',
       deleted_at: null,
       recurring: 'monthly',
-      recurring_id: "0",
+      recurring_id: '0',
       theme: '#597C7C',
       sender: '',
       receiver: '',
       name: 'Apartment Rent',
       category: 'bills',
       type: 'debit',
-
     },
     {
       transaction_id: 0,
       user_id: 0,
-      amount: 345.00,
+      amount: 345.0,
       budget_id: null,
       created_at: '2024-09-12T00:00:00Z',
       execute_on: '2025-01-26T00:00:00Z',
       deleted_at: null,
       recurring: 'monthly',
-      recurring_id: "0",
+      recurring_id: '0',
       theme: '#597C7C',
       sender: '',
       receiver: '',
       name: 'Apartment Rent',
       category: 'bills',
       type: 'debit',
-
     },
     {
       transaction_id: 1,
@@ -1168,14 +1165,13 @@ export class DataStoreServiceService {
       execute_on: '2025-02-19T00:00:00Z',
       deleted_at: null,
       recurring: 'monthly',
-      recurring_id: "1",
+      recurring_id: '1',
       theme: '#626070',
       sender: '',
       receiver: '',
       name: 'Internet Bill',
       category: 'bills',
       type: 'debit',
-
     },
     {
       transaction_id: 2,
@@ -1186,14 +1182,13 @@ export class DataStoreServiceService {
       execute_on: '2025-02-10T00:00:00Z',
       deleted_at: null,
       recurring: 'monthly',
-      recurring_id: "2",
+      recurring_id: '2',
       theme: '#97a0ac',
       sender: '',
       receiver: '',
       name: 'Car Loan',
       category: 'bills',
       type: 'debit',
-
     },
     {
       transaction_id: 2,
@@ -1204,25 +1199,24 @@ export class DataStoreServiceService {
       execute_on: '2025-01-10T00:00:00Z',
       deleted_at: null,
       recurring: 'monthly',
-      recurring_id: "2",
+      recurring_id: '2',
       theme: '#97a0ac',
       sender: '',
       receiver: '',
       name: 'Car Loan',
       category: 'bills',
       type: 'debit',
-
     },
     {
       transaction_id: 4,
       user_id: 0,
-      amount: 45.00,
+      amount: 45.0,
       budget_id: null,
       created_at: '2024-11-04T00:00:00Z',
       execute_on: '2025-02-28T00:00:00Z',
       deleted_at: null,
       recurring: 'monthly',
-      recurring_id: "4",
+      recurring_id: '4',
       theme: '#af81ba',
       sender: '',
       receiver: '',
@@ -1233,13 +1227,13 @@ export class DataStoreServiceService {
     {
       transaction_id: 4,
       user_id: 0,
-      amount: 45.00,
+      amount: 45.0,
       budget_id: null,
       created_at: '2024-11-04T00:00:00Z',
       execute_on: '2025-01-30T00:00:00Z',
       deleted_at: null,
       recurring: 'monthly',
-      recurring_id: "4",
+      recurring_id: '4',
       theme: '#af81ba',
       sender: '',
       receiver: '',
@@ -1256,7 +1250,7 @@ export class DataStoreServiceService {
       execute_on: '2025-02-16T00:00:00Z',
       deleted_at: null,
       recurring: 'monthly',
-      recurring_id: "5",
+      recurring_id: '5',
       theme: '#cab361',
       sender: '',
       receiver: '',
@@ -1273,7 +1267,7 @@ export class DataStoreServiceService {
       execute_on: '2025-01-16T00:00:00Z',
       deleted_at: null,
       recurring: 'monthly',
-      recurring_id: "5",
+      recurring_id: '5',
       theme: '#cab361',
       sender: '',
       receiver: '',
@@ -1284,13 +1278,13 @@ export class DataStoreServiceService {
     {
       transaction_id: 6,
       user_id: 0,
-      amount: 40.00,
+      amount: 40.0,
       budget_id: null,
       created_at: '2024-03-25T00:00:00Z',
       execute_on: '2025-03-17T00:00:00Z',
       deleted_at: null,
       recurring: 'weekly',
-      recurring_id: "6",
+      recurring_id: '6',
       theme: '#cab361',
       sender: '',
       receiver: '',
@@ -1301,13 +1295,13 @@ export class DataStoreServiceService {
     {
       transaction_id: 6,
       user_id: 0,
-      amount: 40.00,
+      amount: 40.0,
       budget_id: null,
       created_at: '2024-03-25T00:00:00Z',
       execute_on: '2025-03-10T00:00:00Z',
       deleted_at: null,
       recurring: 'weekly',
-      recurring_id: "6",
+      recurring_id: '6',
       theme: '#cab361',
       sender: '',
       receiver: '',
@@ -1318,13 +1312,13 @@ export class DataStoreServiceService {
     {
       transaction_id: 6,
       user_id: 0,
-      amount: 40.00,
+      amount: 40.0,
       budget_id: null,
       created_at: '2024-03-25T00:00:00Z',
       execute_on: '2025-03-03T00:00:00Z',
       deleted_at: null,
       recurring: 'weekly',
-      recurring_id: "6",
+      recurring_id: '6',
       theme: '#cab361',
       sender: '',
       receiver: '',
@@ -1335,13 +1329,13 @@ export class DataStoreServiceService {
     {
       transaction_id: 7,
       user_id: 0,
-      amount: 100.00,
+      amount: 100.0,
       budget_id: null,
       created_at: '2024-03-25T00:00:00Z',
       execute_on: '2025-01-24T00:00:00Z',
       deleted_at: null,
       recurring: 'quarterly',
-      recurring_id: "7",
+      recurring_id: '7',
       theme: '#cab361',
       sender: '',
       receiver: '',
@@ -1356,13 +1350,13 @@ export class DataStoreServiceService {
     {
       transaction_id: 0,
       user_id: 0,
-      amount: 345.00,
+      amount: 345.0,
       budget_id: null,
       created_at: '2024-09-12T00:00:00Z',
       execute_on: '2025-03-26T00:00:00Z',
       deleted_at: null,
       recurring: 'monthly',
-      recurring_id: "0",
+      recurring_id: '0',
       theme: '#597C7C',
       sender: '',
       receiver: '',
@@ -1379,7 +1373,7 @@ export class DataStoreServiceService {
       execute_on: '2025-03-19T00:00:00Z',
       deleted_at: null,
       recurring: 'monthly',
-      recurring_id: "1",
+      recurring_id: '1',
       theme: '#626070',
       sender: '',
       receiver: '',
@@ -1396,7 +1390,7 @@ export class DataStoreServiceService {
       execute_on: '2025-04-10T00:00:00Z',
       deleted_at: null,
       recurring: 'monthly',
-      recurring_id: "2",
+      recurring_id: '2',
       theme: '#97a0ac',
       sender: '',
       receiver: '',
@@ -1413,7 +1407,7 @@ export class DataStoreServiceService {
       execute_on: '2025-04-02T00:00:00Z',
       deleted_at: null,
       recurring: 'monthly',
-      recurring_id: "3",
+      recurring_id: '3',
       theme: '#F2CDAC',
       sender: '',
       receiver: '',
@@ -1424,13 +1418,13 @@ export class DataStoreServiceService {
     {
       transaction_id: 4,
       user_id: 0,
-      amount: 45.00,
+      amount: 45.0,
       budget_id: null,
       created_at: '2024-11-04T00:00:00Z',
       execute_on: '2025-03-30T00:00:00Z',
       deleted_at: null,
       recurring: 'monthly',
-      recurring_id: "4",
+      recurring_id: '4',
       theme: '#af81ba',
       sender: '',
       receiver: '',
@@ -1447,7 +1441,7 @@ export class DataStoreServiceService {
       execute_on: '2025-04-16T00:00:00Z',
       deleted_at: null,
       recurring: 'monthly',
-      recurring_id: "5",
+      recurring_id: '5',
       theme: '#cab361',
       sender: '',
       receiver: '',
@@ -1458,13 +1452,13 @@ export class DataStoreServiceService {
     {
       transaction_id: 6,
       user_id: 0,
-      amount: 40.00,
+      amount: 40.0,
       budget_id: null,
       created_at: '2024-03-25T00:00:00Z',
       execute_on: '2025-03-23T00:00:00Z',
       deleted_at: null,
       recurring: 'weekly',
-      recurring_id: "6",
+      recurring_id: '6',
       theme: '#cab361',
       sender: '',
       receiver: '',
@@ -1475,13 +1469,13 @@ export class DataStoreServiceService {
     {
       transaction_id: 7,
       user_id: 0,
-      amount: 100.00,
+      amount: 100.0,
       budget_id: null,
       created_at: '2024-03-25T00:00:00Z',
       execute_on: '2025-04-24T00:00:00Z',
       deleted_at: null,
       recurring: 'quarterly',
-      recurring_id: "7",
+      recurring_id: '7',
       theme: '#cab361',
       sender: '',
       receiver: '',
@@ -1492,13 +1486,13 @@ export class DataStoreServiceService {
     {
       transaction_id: 8,
       user_id: 0,
-      amount: 200.00,
+      amount: 200.0,
       budget_id: null,
       created_at: '2025-03-21T00:00:00Z',
       execute_on: '2025-03-23T00:00:00Z',
       deleted_at: null,
       recurring: 'twoMonths',
-      recurring_id: "8",
+      recurring_id: '8',
       theme: '#cab361',
       sender: '',
       receiver: '',
@@ -1508,9 +1502,7 @@ export class DataStoreServiceService {
     },
   ]);
 
-  constructor() {
-    
-  }
+  constructor() {}
 
   // set the hole data package within signal and UI update
   setStoredData(endpoint: string, data: any) {
@@ -1547,20 +1539,20 @@ export class DataStoreServiceService {
   public choseDataAndSoftDelete(endpoint: string, index: number) {
     if (endpoint === 'budgets' && index >= 0)
       this.budgets.update((prev) => {
-        return this.softdeleted_ata(prev, index);
+        return this.softDeleteData(prev, index);
       });
     if (endpoint === 'pots' && index >= 0)
       this.pots.update((prev) => {
-        return this.softdeleted_ata(prev, index);
+        return this.softDeleteData(prev, index);
       });
     if (endpoint === 'transactions/recurring' && index >= 0)
       this.transactionsRecurring.update((prev) => {
-        return this.softdeleted_ata(prev, index);
+        return this.softDeleteData(prev, index);
       });
   }
 
   // soft delete data
-  public softdeleted_ata(prev: any, index: number) {
+  public softDeleteData(prev: any, index: number) {
     let array = [...prev];
     array[index].deleted_at = new Date().toISOString();
     return array;

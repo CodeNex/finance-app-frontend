@@ -100,7 +100,7 @@ export class ApiTransactionService {
         }
       },
       error: (error) => {
-        this.updateDataStoreArrays(transactionObject);
+        this.updateDataStoreArrays(transactionObject, from);
         this.updateBalanceSignal(transactionObject, from);
         console.error(error);
         return;
@@ -112,7 +112,7 @@ export class ApiTransactionService {
   // # Update data-store-service.service
   // ########################################
 
-  private updateDataStoreArrays(transactionObject: any) {
+  private updateDataStoreArrays(transactionObject: any, from: string) {
     if (
       transactionObject.execute_on <= this.currentDate ||
       transactionObject.execute_on === null
