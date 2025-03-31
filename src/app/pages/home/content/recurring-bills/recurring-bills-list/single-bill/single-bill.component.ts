@@ -2,6 +2,7 @@ import { Component, inject, Input, OnInit } from '@angular/core';
 import { IconsComponent } from '../../../../../../components/icons/icons.component';
 import { CommonModule } from '@angular/common';
 import { BasedataService } from '../../../../../../services/basedata.service';
+import { MainModalService } from '../../../../../../services/main-modal.service';
 
 @Component({
   selector: 'app-single-bill',
@@ -29,6 +30,7 @@ export class SingleBillComponent {
   };
 
   public baseData: BasedataService = inject(BasedataService);
+  public mainModalService: MainModalService = inject(MainModalService);
 
   // components basic data
   public name: string = '';
@@ -87,4 +89,8 @@ export class SingleBillComponent {
   // ########################################
   // # delete recurring bill
   // ########################################
+
+  public openDeleteModal() {
+    this.mainModalService.chooseSubModal('deleteRecurring', this.recurringBill, this.recurringBill.recurring_id);
+  }
 }

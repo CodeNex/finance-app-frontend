@@ -11,7 +11,7 @@
     </div>
 
     <!-- Delete Icon -->
-     <div class="deleteButton w-10 h-10 rounded-full bg-secondary-red cursor-pointer transition-all duration-300 ease-in-out absolute">
+     <div (click)="openDeleteModal()" class="deleteButton w-10 h-10 rounded-full bg-secondary-red cursor-pointer transition-all duration-300 ease-in-out absolute">
       <app-icons class="absolute top-1/2 left-1/2 translate-x-[-50%] translate-y-[-50%]" [iconName]="'trashCan'"></app-icons>
      </div>
 
