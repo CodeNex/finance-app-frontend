@@ -55,7 +55,10 @@ export class ApiTransactionService {
   // # Start transaction from TransactionsComponent
   // ########################################
 
-  public startTransactionFromTransactions(transactionObject: any, from: string) {
+  public startTransactionFromTransactions(
+    transactionObject: any,
+    from: string
+  ) {
     this.currentTransaction = transactionObject;
     this.getCurrentDate();
     this.addNewTransaction(this.currentTransaction, from);
@@ -65,19 +68,34 @@ export class ApiTransactionService {
   // # Start transaction from PotsComponent
   // ########################################
 
-  public startTransactionFromPots(type: string, date: string, amount: number, pot_id: number, theme: string) {
+  public startTransactionFromPots(
+    type: string,
+    date: string,
+    amount: number,
+    pot_id: number,
+    theme: string
+  ) {
     this.mergeAndOverwriteTransactionWithPot(type, date, amount, pot_id, theme);
     this.getCurrentDate();
     this.addNewTransaction(this.currentTransaction, 'pots');
   }
 
-  public mergeAndOverwriteTransactionWithPot(type: string, date: string, amount: number, pot_id: number, theme: string) {
+  public mergeAndOverwriteTransactionWithPot(
+    type: string,
+    date: string,
+    amount: number,
+    pot_id: number,
+    theme: string
+  ) {
     this.currentTransaction.amount = amount;
     this.currentTransaction.execute_on = date;
     this.currentTransaction.theme = theme;
-    this.currentTransaction.sender = type === 'potAdd' ? 'balance.current' : `potID_${pot_id}`;
-    this.currentTransaction.receiver = type === 'potAdd' ? `potID_${pot_id}` : 'balance.current';
-    this.currentTransaction.name = type === 'potAdd' ? 'Add Money to Pots' : 'Withdraw Money from Pots';
+    this.currentTransaction.sender =
+      type === 'potAdd' ? 'balance.current' : `potID_${pot_id}`;
+    this.currentTransaction.receiver =
+      type === 'potAdd' ? `potID_${pot_id}` : 'balance.current';
+    this.currentTransaction.name =
+      type === 'potAdd' ? 'Add Money to Pots' : 'Withdraw Money from Pots';
     this.currentTransaction.type = type === 'potAdd' ? 'debit' : 'credit';
   }
 
@@ -125,8 +143,12 @@ export class ApiTransactionService {
         transactionObject
       );
     }
-    if (from === 'transactions' && transactionObject.type === 'debit' && (transactionObject.execute_on <= this.currentDate ||
-      transactionObject.execute_on === null)) {
+    if (
+      from === 'transactions' &&
+      transactionObject.type === 'debit' &&
+      (transactionObject.execute_on <= this.currentDate ||
+        transactionObject.execute_on === null)
+    ) {
       this.updateBudgetsArray(transactionObject);
     }
   }
@@ -134,10 +156,22 @@ export class ApiTransactionService {
   private updateBudgetsArray(transactionObject: any) {
     let budgets = this.dataStore.budgets();
     let matchingBudgetIndex = budgets.findIndex((budget) => {
-      return budget.name.replace(/^./, c => c.toLowerCase()).replace(/\s+/g, '') === transactionObject.category;
-    })
-    
-    
+      return (
+        budget.name
+          .replace(/^./, (c) => c.toLowerCase())
+          .replace(/\s+/g, '') === transactionObject.category
+      );
+    });
+    if (matchingBudgetIndex === -1) return;
+    if (matchingBudgetIndex !== -1) {
+      budgets[matchingBudgetIndex].last_spendings === null
+        ? (budgets[matchingBudgetIndex].last_spendings = [transactionObject])
+        : budgets[matchingBudgetIndex].last_spendings?.unshift(
+            transactionObject
+          );
+
+      console.log(budgets[matchingBudgetIndex]);
+    }
   }
 
   // ########################################
