@@ -89,7 +89,7 @@ export class BillsSummaryComponent {
     const { periodStartMonth, periodEndMonth } = this.definePeriodRange();
 
     recurringBillsArray$.forEach((bill) => {
-      if (bill.type === 'debit') {
+      if (bill.type === 'debit' && !bill.deleted_at) {
         const { billDate, billMonth, billYear } = this.getBillsDates(bill);
 
         let remainingOccurrences = this.getRemainingOccurrences(
@@ -140,7 +140,7 @@ export class BillsSummaryComponent {
 
     recurringBillsArray$.forEach((bill) => {
 
-      if (bill.type === 'debit') {
+      if (bill.type === 'debit' && !bill.deleted_at) {
         const { billDate, billMonth, billYear } = this.getBillsDates(bill);
 
         if (billYear === this.currentYear && billMonth <= periodEndMonth) {
@@ -247,7 +247,7 @@ export class BillsSummaryComponent {
     let paid = 0;
 
     transactionsArray$.forEach((transaction) => {
-      if (transaction.type === 'debit') {
+      if (transaction.type === 'debit' && !transaction.deleted_at) {
         if (
           transaction.amount &&
           transaction.execute_on &&
