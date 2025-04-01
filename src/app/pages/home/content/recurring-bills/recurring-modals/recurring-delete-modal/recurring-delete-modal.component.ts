@@ -15,13 +15,16 @@ export class RecurringDeleteModalComponent {
     ApiTransactionService
   );
 
-  // closes main modal and its children
+  @Input() public modalObject: any = {};
+  @Input() public recurringIndex: number = -1;
+
+  // ########################################
+  // # Close Main Modal and its Children
+  // ########################################
+  
   public closeMainModal() {
     this.mainModalService.hideMainModal();
   }
-
-  @Input() public modalObject: any = {};
-  @Input() public recurringIndex: number = -1;
 
   // ########################################
   // # Soft-Delete Current Recurring Transaction
@@ -29,11 +32,6 @@ export class RecurringDeleteModalComponent {
 
   public deleteCurrentRecurring() {
     this.apiTransactionService.deleteRecurring(
-      this.modalObject,
-      this.recurringIndex
-    );
-    console.log(
-      'deleteCurrentRecurring',
       this.modalObject,
       this.recurringIndex
     );
