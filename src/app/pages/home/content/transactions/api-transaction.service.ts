@@ -218,18 +218,14 @@ export class ApiTransactionService {
     this.http.delete(`${this.baseUrl}/${path}`, { headers }).subscribe({
       next: (response: any) => {
         if (response.message === 'Recurring deleted') {
-          this.dataStore.choseDataAndSoftDelete('transactions/recurring', index);
-          this.mainModalService.hideMainModal();
-          console.log('Recurring deleted');
+          // this.dataStore.choseDataAndSoftDelete('transactions/recurring', index);
+          // this.mainModalService.hideMainModal();
         }
       },
       error: (error) => {
         console.error(error);
         this.dataStore.choseDataAndSoftDelete('transactions/recurring', index);
-        this.mainModalService.hideMainModal();
-        console.log('Recurring ' + index + ' deleted');
-        console.log(this.dataStore.transactionsRecurring());
-        
+        this.mainModalService.hideMainModal();  
         return;
       },
     });
