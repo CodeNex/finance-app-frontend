@@ -37,7 +37,7 @@ export class SingleTransactionComponent implements OnInit {
   ngOnInit() {
     this.name = this.transaction.name;
     this.amount = this.formatAmount(this.transaction.amount);
-    this.date = this.formatDate(this.transaction.created_at);
+    this.date = this.formatDate(this.transaction.execute_on);
     this.iconName = this.getCategoryIcon(this.transaction.category);
     this.iconBackground = this.transaction.theme;
   }

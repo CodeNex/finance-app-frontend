@@ -1,7 +1,7 @@
 <div class="relative">
   <div
     (click)="closeHideDropdown()"
-    class="min-w-[180px] flex justify-center gap-4 border-[1px] border-beige-500 hover:border-grey-900 focus:border-grey-900 transition-all duration-300 ease-in-out rounded-lg pl-4 pr-4 pt-3 pb-3 cursor-pointer"
+    class="min-w-[180px] flex justify-between gap-4 border-[1px] border-beige-500 hover:border-grey-900 focus:border-grey-900 transition-all duration-300 ease-in-out rounded-lg pl-4 pr-4 pt-3 pb-3 cursor-pointer"
   >
     <div class="leftBox flex items-center gap-3">
       <p class="text4r text-grey-900">{{ chosenCategory }}</p>
@@ -25,9 +25,9 @@
       class="w-full flex items-center justify-between pt-3 transition-all duration-300 ease-in-out rounded-lg"
     >
       <!-- Category Box Left Part -->
-      <div class="w-full flex gap-3 items-center mb-3">
+      <div class="w-full flex gap-3 items-center mb-3 cursor-pointer">
         <p
-          class="text4r text-grey-900 cursor-pointer" 
+          class="text4r text-grey-900" 
           [ngStyle]="{ 'font-weight': item.name === chosenCategory ? 'bold' : 'normal' }" 
         >
           {{ item.name }}

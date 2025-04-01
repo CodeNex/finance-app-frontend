@@ -40,6 +40,11 @@
       [modalObject]="subModalObject"
       [potIndex]="index"
     ></app-withdrawmoney-pot-modal>
+    } @if (currentShownSubModal === "deleteRecurring") {
+      <app-recurring-delete-modal
+      [modalObject]="subModalObject"
+      [recurringIndex]="index"
+      ></app-recurring-delete-modal>
     }
   </div>
 </section>

@@ -320,7 +320,6 @@ export class AddTransactionModalComponent {
     if (this.validateInputValues()) {
       this.apiTransactionsService.startTransactionFromTransactions(this.currentTransaction, 'transactions');
       this.mainModalService.hideMainModal();
-      console.log(this.currentTransaction);
     }
   }
 }

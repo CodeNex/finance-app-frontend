@@ -5,6 +5,7 @@ import { AuthenticationService } from '../../../../services/authentication.servi
 import { APIService } from '../../../../services/api.service';
 import { DataStoreServiceService } from '../../../../services/data-store-service.service';
 import { BasedataService } from '../../../../services/basedata.service';
+import { MainModalService } from '../../../../services/main-modal.service';
 
 @Injectable({
   providedIn: 'root',
@@ -17,6 +18,7 @@ export class ApiTransactionService {
   private dataStore: DataStoreServiceService = inject(DataStoreServiceService);
   private baseData: BasedataService = inject(BasedataService);
   private http: HttpClient = inject(HttpClient);
+  private mainModalService: MainModalService = inject(MainModalService);
 
   private baseUrl: string = this.baseData.financeApp.basics.apiData.baseUrl;
 
@@ -55,7 +57,10 @@ export class ApiTransactionService {
   // # Start transaction from TransactionsComponent
   // ########################################
 
-  public startTransactionFromTransactions(transactionObject: any, from: string) {
+  public startTransactionFromTransactions(
+    transactionObject: any,
+    from: string
+  ) {
     this.currentTransaction = transactionObject;
     this.getCurrentDate();
     this.addNewTransaction(this.currentTransaction, from);
@@ -65,19 +70,34 @@ export class ApiTransactionService {
   // # Start transaction from PotsComponent
   // ########################################
 
-  public startTransactionFromPots(type: string, date: string, amount: number, pot_id: number, theme: string) {
+  public startTransactionFromPots(
+    type: string,
+    date: string,
+    amount: number,
+    pot_id: number,
+    theme: string
+  ) {
     this.mergeAndOverwriteTransactionWithPot(type, date, amount, pot_id, theme);
     this.getCurrentDate();
     this.addNewTransaction(this.currentTransaction, 'pots');
   }
 
-  public mergeAndOverwriteTransactionWithPot(type: string, date: string, amount: number, pot_id: number, theme: string) {
+  public mergeAndOverwriteTransactionWithPot(
+    type: string,
+    date: string,
+    amount: number,
+    pot_id: number,
+    theme: string
+  ) {
     this.currentTransaction.amount = amount;
     this.currentTransaction.execute_on = date;
     this.currentTransaction.theme = theme;
-    this.currentTransaction.sender = type === 'potAdd' ? 'balance.current' : `potID_${pot_id}`;
-    this.currentTransaction.receiver = type === 'potAdd' ? `potID_${pot_id}` : 'balance.current';
-    this.currentTransaction.name = type === 'potAdd' ? 'Add Money to Pots' : 'Withdraw Money from Pots';
+    this.currentTransaction.sender =
+      type === 'potAdd' ? 'balance.current' : `potID_${pot_id}`;
+    this.currentTransaction.receiver =
+      type === 'potAdd' ? `potID_${pot_id}` : 'balance.current';
+    this.currentTransaction.name =
+      type === 'potAdd' ? 'Add Money to Pots' : 'Withdraw Money from Pots';
     this.currentTransaction.type = type === 'potAdd' ? 'debit' : 'credit';
   }
 
@@ -87,7 +107,8 @@ export class ApiTransactionService {
 
   // response: {message: "Transaction created"} ???
   addNewTransaction(transactionObject: any, from: string) {
-    const path = 'transactions';
+    const path =
+      transactionObject.recurring === null ? 'transactions' : 'recurrings';
     const body = transactionObject;
     const headers = new HttpHeaders({
       Authorization: `Bearer ${this.AuthenticationService.authToken}`,
@@ -96,11 +117,17 @@ export class ApiTransactionService {
 
     this.http.post(`${this.baseUrl}/${path}`, body, { headers }).subscribe({
       next: (response: any) => {
-        if (response.message === 'Transaction created') {
-        }
+        // if (response.message === 'Transaction created') {
+        //   this.updateDataStoreArrays(transactionObject, from);
+        //   this.updateBalanceSignal(transactionObject, from);
+        // }
+        // if (response.message === 'Recurring created') {
+        //   this.updateDataStoreArrays(response, from);
+        //   this.updateBalanceSignal(response, from);
+        // }
       },
       error: (error) => {
-        this.updateDataStoreArrays(transactionObject);
+        this.updateDataStoreArrays(transactionObject, from);
         this.updateBalanceSignal(transactionObject, from);
         console.error(error);
         return;
@@ -112,7 +139,7 @@ export class ApiTransactionService {
   // # Update data-store-service.service
   // ########################################
 
-  private updateDataStoreArrays(transactionObject: any) {
+  private updateDataStoreArrays(transactionObject: any, from: string) {
     if (
       transactionObject.execute_on <= this.currentDate ||
       transactionObject.execute_on === null
@@ -120,10 +147,36 @@ export class ApiTransactionService {
       this.dataStore.addToStoredData('transactions', transactionObject);
     }
     if (transactionObject.recurring) {
-      this.dataStore.addToStoredData(
-        'transactions/recurring',
-        transactionObject
+      this.dataStore.addToStoredData('recurrings', transactionObject);
+    }
+    if (
+      from === 'transactions' &&
+      transactionObject.type === 'debit' &&
+      (transactionObject.execute_on <= this.currentDate ||
+        transactionObject.execute_on === null)
+    ) {
+      this.updateBudgetsArray(transactionObject);
+    }
+  }
+
+  private updateBudgetsArray(transactionObject: any) {
+    let budgets = this.dataStore.budgets();
+    let matchingBudgetIndex = budgets.findIndex((budget) => {
+      return (
+        budget.name
+          .replace(/^./, (c) => c.toLowerCase())
+          .replace(/\s+/g, '') === transactionObject.category
       );
+    });
+    if (matchingBudgetIndex === -1) return;
+    if (matchingBudgetIndex !== -1) {
+      budgets[matchingBudgetIndex].last_spendings === null
+        ? (budgets[matchingBudgetIndex].last_spendings = [transactionObject])
+        : budgets[matchingBudgetIndex].last_spendings?.unshift(
+            transactionObject
+          );
+      budgets[matchingBudgetIndex].amount += transactionObject.amount;
+      this.dataStore.setStoredData('budgets', budgets);
     }
   }
 
@@ -136,7 +189,6 @@ export class ApiTransactionService {
     transactionObject.type === 'debit'
       ? (balanceBlueprint.current -= transactionObject.amount)
       : (balanceBlueprint.current += transactionObject.amount);
-
     if (from === 'transactions') {
       if (transactionObject.type === 'debit') {
         balanceBlueprint.expenses += transactionObject.amount;
@@ -146,5 +198,32 @@ export class ApiTransactionService {
       }
     }
     this.dataStore.setStoredData('balance', balanceBlueprint);
+  }
+
+  // ########################################
+  // # Soft-Delete Recurring Transaction
+  // ########################################
+
+  public deleteRecurring(recurringObject: any, index: number) {
+    const path = `recurrings/${recurringObject.recurring_id}`;
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${this.AuthenticationService.authToken}`,
+      Accept: 'application/json',
+    });
+
+    this.http.delete(`${this.baseUrl}/${path}`, { headers }).subscribe({
+      next: (response: any) => {
+        if (response.message === 'Recurring deleted') {
+          // this.dataStore.choseDataAndSoftDelete('recurrings', index);
+          // this.mainModalService.hideMainModal();
+        }
+      },
+      error: (error) => {
+        console.error(error);
+        this.dataStore.choseDataAndSoftDelete('recurrings', index);
+        this.mainModalService.hideMainModal();
+        return;
+      },
+    });
   }
 }

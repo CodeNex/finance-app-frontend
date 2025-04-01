@@ -111,7 +111,7 @@ export class BasedataService {
             img: '/img/navbar/pots-img.svg',
           },
           {
-            name: 'Recurring Bills',
+            name: 'Recurrings',
             path: 'recurringBills',
             img: '/img/navbar/bills-img.svg',
           },
