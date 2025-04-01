@@ -1,6 +1,7 @@
-<div class="singleBill w-full flex items-center justify-between pl-4 pr-4 pt-5 pb-5">
+<div
+  class="singleBill w-full flex items-center justify-between pl-4 pr-4 pt-5 pb-5"
+>
   <div class="w-[30%] flex items-center gap-4 relative">
-
     <!-- Category Icon -->
     <div
       aria-labelledby="logo"
@@ -11,22 +12,37 @@
     </div>
 
     <!-- Delete Icon -->
-     <div (click)="openDeleteModal()" class="deleteButton w-10 h-10 rounded-full bg-secondary-red cursor-pointer transition-all duration-300 ease-in-out absolute">
-      <app-icons class="absolute top-1/2 left-1/2 translate-x-[-50%] translate-y-[-50%]" [iconName]="'trashCan'"></app-icons>
-     </div>
+    <div
+      (click)="openDeleteModal()"
+      class="deleteButton w-10 h-10 rounded-full bg-secondary-red cursor-pointer transition-all duration-300 ease-in-out absolute"
+    >
+      <app-icons
+        class="absolute top-1/2 left-1/2 translate-x-[-50%] translate-y-[-50%]"
+        [iconName]="'trashCan'"
+      ></app-icons>
+    </div>
 
     <p class="text4b text-grey-900 select-none">{{ this.name }}</p>
   </div>
 
-  <div class="w-[20%] flex items-center justify-end gap-4">
-    <p class="text-left text5r text-grey-500 select-none">{{ this.occurrency }}</p>
-  </div>
+  <div class="flex items-center justify-between w-[50%]">
+    <div class="flex items-center gap-8">
+      <p class="w-[120px] text5r text-grey-500 select-none">
+        {{ this.occurrency }}
+      </p>
 
-  <div class="w-[20%] flex items-center justify-end gap-4">
-    <p class="text-left text5r text-grey-500 select-none">{{ this.dueDate }}</p>
-  </div>
+      <p class="w-[120px] text5r text-grey-500 select-none">
+        {{ this.dueDate }}
+      </p>
+    </div>
 
-  <div class="w-[30%] flex items-center justify-end gap-4">
-    <p class="text4b select-none" [ngStyle]="{'color': this.type === 'debit' ? '#201f24' : '#277c78'}">{{ this.type === 'debit' ? '-$' + this.amount : '+$' + this.amount }}</p>
+    <div class="w-[30%] flex items-center justify-end gap-4">
+      <p
+        class="text4b select-none"
+        [ngStyle]="{ color: this.type === 'debit' ? '#201f24' : '#277c78' }"
+      >
+        {{ this.type === "debit" ? "-$" + this.amount : "+$" + this.amount }}
+      </p>
+    </div>
   </div>
 </div>
