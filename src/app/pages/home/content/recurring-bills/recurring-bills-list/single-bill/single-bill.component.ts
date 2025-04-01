@@ -55,7 +55,7 @@ export class SingleBillComponent {
     this.name = this.recurringBill.name;
     this.amount = this.formatAmount(this.recurringBill.amount);
     this.dueDate = this.formatDate(this.recurringBill.execute_on);
-    this.occurrency = this.recurringBill.recurring;
+    this.occurrency = this.baseData.financeApp.recurrings.types[this.recurringBill.recurring].name;
     this.iconName = this.getCategoryIcon(this.recurringBill.category);
     this.iconBackground = this.recurringBill.theme;
     this.type = this.recurringBill.type;

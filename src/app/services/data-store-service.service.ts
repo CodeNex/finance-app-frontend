@@ -1389,7 +1389,7 @@ export class DataStoreServiceService {
       created_at: '2025-03-21T00:00:00Z',
       execute_on: '2025-03-23T00:00:00Z',
       deleted_at: null,
-      recurring: 'twoMonths',
+      recurring: 'quarterly',
       recurring_id: 8,
       theme: '#cab361',
       sender: '',
