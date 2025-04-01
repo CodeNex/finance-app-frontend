@@ -1,6 +1,4 @@
 import { Component, effect, inject } from '@angular/core';
-import { LoadingScreenComponent } from '../../../../components/loading-screen/loading-screen.component';
-import { WarningScreenComponent } from '../../../../components/warning-screen/warning-screen.component';
 import { DataStoreServiceService } from '../../../../services/data-store-service.service';
 import { APIService } from '../../../../services/api.service';
 import { CommonModule } from '@angular/common';
@@ -11,7 +9,7 @@ import { RecurringBillsListComponent } from './recurring-bills-list/recurring-bi
 
 @Component({
   selector: 'app-recurring-bills',
-  imports: [ LoadingScreenComponent, WarningScreenComponent, CommonModule, BillsSummaryComponent, RecurringBillsListComponent],
+  imports: [ CommonModule, BillsSummaryComponent, RecurringBillsListComponent],
   templateUrl: './recurring-bills.component.html',
   styleUrl: './recurring-bills.component.scss'
 })
