@@ -36,6 +36,7 @@ export class APIService {
     this.loadData('transactions');
     this.loadData('budgets');
     this.loadData('pots');
+    this.loadData('transactions/recurring');
   }
 
   balanceDataLoaded: boolean = false;
