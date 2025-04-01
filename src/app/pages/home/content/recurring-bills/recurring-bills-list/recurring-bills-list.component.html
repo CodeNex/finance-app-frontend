@@ -37,13 +37,8 @@
     (!item.deleted_at) {
     <li
       aria-label="spending item"
-      class="pt-5 pb-3"
-      [ngStyle]="{
-        'padding-bottom':
-          this.recurringBillsArray$ && index < recurringBillsArray$.length - 1
-            ? '20px'
-            : '0px'
-      }"
+      class=""
+      
     >
       <app-single-bill
         [recurringBill]="item"
