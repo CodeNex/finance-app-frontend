@@ -192,7 +192,6 @@ export class ApiTransactionService {
     transactionObject.type === 'debit'
       ? (balanceBlueprint.current -= transactionObject.amount)
       : (balanceBlueprint.current += transactionObject.amount);
-
     if (from === 'transactions') {
       if (transactionObject.type === 'debit') {
         balanceBlueprint.expenses += transactionObject.amount;

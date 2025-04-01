@@ -70,7 +70,7 @@ export class APIService {
   }
 
   // GET data from the server
-  // endpoints: balance, budgets, pots, transactions, transactions/recurring
+  // endpoints: balance, budgets, pots, transactions, recurrings
   getData(endpoint: string): Observable<any> {
     const headers = new HttpHeaders({
       Authorization: `Bearer ${this.AuthenticationService.authToken}`,
