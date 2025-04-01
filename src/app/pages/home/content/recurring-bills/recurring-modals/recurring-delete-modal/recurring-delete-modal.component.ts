@@ -24,17 +24,18 @@ export class RecurringDeleteModalComponent {
     @Input() public modalObject: any = {};
     @Input() public recurringIndex: number = -1;
   
-    public currentBudgetIndex: number = -1;
+    public currentRecurringIndex: number = -1;
   
     ngOnInit() {
-      this.currentBudgetIndex = this.recurringIndex;
+      this.currentRecurringIndex = this.recurringIndex;
       if (this.modalObject.name) {this.currentBudgetToDelete = this.modalObject.name} ;
     }
   
-    deleteCurrentBudget() {
-      // this.apiBudgetsService.deleteBudget(this.modalObject, this.currentBudgetIndex);
+    public deleteCurrentRecurring() {
+      // this.apiBudgetsService.deleteBudget(this.modalObject, this.currentRecurringIndex);
+      this.apiTransactionService.deleteRecurring(this.modalObject, 4)
 
-      console.log('deleteCurrentBudget', this.modalObject, this.currentBudgetIndex);
+      console.log('deleteCurrentBudget', this.modalObject, this.currentRecurringIndex);
       
     }
 

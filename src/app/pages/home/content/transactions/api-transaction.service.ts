@@ -5,6 +5,7 @@ import { AuthenticationService } from '../../../../services/authentication.servi
 import { APIService } from '../../../../services/api.service';
 import { DataStoreServiceService } from '../../../../services/data-store-service.service';
 import { BasedataService } from '../../../../services/basedata.service';
+import { MainModalService } from '../../../../services/main-modal.service';
 
 @Injectable({
   providedIn: 'root',
@@ -17,6 +18,7 @@ export class ApiTransactionService {
   private dataStore: DataStoreServiceService = inject(DataStoreServiceService);
   private baseData: BasedataService = inject(BasedataService);
   private http: HttpClient = inject(HttpClient);
+  private mainModalService: MainModalService = inject(MainModalService);
 
   private baseUrl: string = this.baseData.financeApp.basics.apiData.baseUrl;
 
@@ -200,5 +202,33 @@ export class ApiTransactionService {
       }
     }
     this.dataStore.setStoredData('balance', balanceBlueprint);
+  }
+
+  // ########################################
+  // # Soft-Delete Recurring Transaction
+  // ########################################
+
+  public deleteRecurring(recurringObject: any, index: number) {
+    const path = `recurrings/${recurringObject.recurring_id}`;
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${this.AuthenticationService.authToken}`,
+      Accept: 'application/json',
+    });
+
+    this.http.delete(`${this.baseUrl}/${path}`, { headers }).subscribe({
+      next: (response: any) => {
+        if (response.message === 'Recurring deleted') {
+          this.dataStore.choseDataAndSoftDelete('transactions/recurring', index);
+          this.mainModalService.hideMainModal();
+          console.log('Recurring deleted');
+        }
+      },
+      error: (error) => {
+        console.error(error);
+        this.dataStore.choseDataAndSoftDelete('transactions/recurring', index);
+        this.mainModalService.hideMainModal();
+        return;
+      },
+    });
   }
 }
