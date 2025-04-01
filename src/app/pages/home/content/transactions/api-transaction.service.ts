@@ -147,10 +147,7 @@ export class ApiTransactionService {
       this.dataStore.addToStoredData('transactions', transactionObject);
     }
     if (transactionObject.recurring) {
-      this.dataStore.addToStoredData(
-        'transactions/recurring',
-        transactionObject
-      );
+      this.dataStore.addToStoredData('recurrings', transactionObject);
     }
     if (
       from === 'transactions' &&
@@ -217,14 +214,14 @@ export class ApiTransactionService {
     this.http.delete(`${this.baseUrl}/${path}`, { headers }).subscribe({
       next: (response: any) => {
         if (response.message === 'Recurring deleted') {
-          // this.dataStore.choseDataAndSoftDelete('transactions/recurring', index);
+          // this.dataStore.choseDataAndSoftDelete('recurrings', index);
           // this.mainModalService.hideMainModal();
         }
       },
       error: (error) => {
         console.error(error);
-        this.dataStore.choseDataAndSoftDelete('transactions/recurring', index);
-        this.mainModalService.hideMainModal();  
+        this.dataStore.choseDataAndSoftDelete('recurrings', index);
+        this.mainModalService.hideMainModal();
         return;
       },
     });

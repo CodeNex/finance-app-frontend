@@ -1408,8 +1408,7 @@ export class DataStoreServiceService {
     if (endpoint === 'budgets') this.budgets.set(data);
     if (endpoint === 'pots') this.pots.set(data);
     if (endpoint === 'transactions') this.transactions.set(data);
-    if (endpoint === 'transactions/recurring')
-      this.transactionsRecurring.set(data);
+    if (endpoint === 'recurrings') this.transactionsRecurring.set(data);
   }
 
   // get the hole data package without signal and UI update
@@ -1418,8 +1417,7 @@ export class DataStoreServiceService {
     if (endpoint === 'budgets') return this.budgets;
     if (endpoint === 'pots') return this.pots;
     if (endpoint === 'transactions') return this.transactions;
-    if (endpoint === 'transactions/recurring')
-      return this.transactionsRecurring;
+    if (endpoint === 'recurrings') return this.transactionsRecurring;
     return null;
   }
 
@@ -1429,7 +1427,7 @@ export class DataStoreServiceService {
     if (endpoint === 'pots') this.pots.update((prev) => [data, ...prev]);
     if (endpoint === 'transactions')
       this.transactions.update((prev) => [...prev, data]);
-    if (endpoint === 'transactions/recurring')
+    if (endpoint === 'recurrings')
       this.transactionsRecurring.update((prev) => [...prev, data]);
   }
 
@@ -1443,7 +1441,7 @@ export class DataStoreServiceService {
       this.pots.update((prev) => {
         return this.softDeleteData(prev, index);
       });
-    if (endpoint === 'transactions/recurring' && index >= 0)
+    if (endpoint === 'recurrings' && index >= 0)
       this.transactionsRecurring.update((prev) => {
         return this.softDeleteData(prev, index);
       });

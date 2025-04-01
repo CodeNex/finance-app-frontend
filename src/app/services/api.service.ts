@@ -36,7 +36,7 @@ export class APIService {
     this.loadData('transactions');
     this.loadData('budgets');
     this.loadData('pots');
-    this.loadData('transactions/recurring');
+    this.loadData('recurrings');
   }
 
   balanceDataLoaded: boolean = false;
@@ -54,7 +54,7 @@ export class APIService {
         if (endpoint === 'budgets') this.budgetsDataLoaded = true;
         if (endpoint === 'pots') this.potsDataLoaded = true;
         if (endpoint === 'transactions') this.transactionsDataLoaded = true;
-        if (endpoint === 'transactions/recurring')
+        if (endpoint === 'recurrings')
           this.transactionsRecurringDataLoaded = true;
         this.checkDataLoaded(endpoint);
         this.AuthenticationService.setWarningScreen(false);
