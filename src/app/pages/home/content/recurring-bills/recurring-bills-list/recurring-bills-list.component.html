@@ -44,7 +44,7 @@
             : '0px'
       }"
     >
-      <app-single-bill [recurringBill]="item"></app-single-bill>
+      <app-single-bill [recurringBill]="item" [recurringIndex]="$index"></app-single-bill>
     </li>
     @if (this.recurringBillsArray$ && index < recurringBillsArray$.length - 1) {
     <div class="w-full h-[2px] rounded-full bg-grey-100"></div>

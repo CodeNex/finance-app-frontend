@@ -29,6 +29,8 @@ export class SingleBillComponent {
     type: 'debit',
   };
 
+  @Input() public recurringIndex: number = -1;
+
   public baseData: BasedataService = inject(BasedataService);
   public mainModalService: MainModalService = inject(MainModalService);
 
@@ -91,6 +93,6 @@ export class SingleBillComponent {
   // ########################################
 
   public openDeleteModal() {
-    this.mainModalService.chooseSubModal('deleteRecurring', this.recurringBill, this.recurringBill.recurring_id);
+    this.mainModalService.chooseSubModal('deleteRecurring', this.recurringBill, this.recurringIndex);
   }
 }
