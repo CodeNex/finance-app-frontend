@@ -227,6 +227,9 @@ export class ApiTransactionService {
         console.error(error);
         this.dataStore.choseDataAndSoftDelete('transactions/recurring', index);
         this.mainModalService.hideMainModal();
+        console.log('Recurring ' + index + ' deleted');
+        console.log(this.dataStore.transactionsRecurring());
+        
         return;
       },
     });
