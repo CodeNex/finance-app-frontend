@@ -105,7 +105,8 @@ export class ApiTransactionService {
 
   // response: {message: "Transaction created"} ???
   addNewTransaction(transactionObject: any, from: string) {
-    const path = 'transactions';
+    const path =
+      transactionObject.recurring === null ? 'transactions' : 'recurrings';
     const body = transactionObject;
     const headers = new HttpHeaders({
       Authorization: `Bearer ${this.AuthenticationService.authToken}`,
@@ -114,8 +115,14 @@ export class ApiTransactionService {
 
     this.http.post(`${this.baseUrl}/${path}`, body, { headers }).subscribe({
       next: (response: any) => {
-        if (response.message === 'Transaction created') {
-        }
+        // if (response.message === 'Transaction created') {
+        //   this.updateDataStoreArrays(transactionObject, from);
+        //   this.updateBalanceSignal(transactionObject, from);
+        // }
+        // if (response.message === 'Recurring created') {
+        //   this.updateDataStoreArrays(response, from);
+        //   this.updateBalanceSignal(response, from);
+        // }
       },
       error: (error) => {
         this.updateDataStoreArrays(transactionObject, from);
