@@ -33,7 +33,8 @@
 
   <!-- Unorderd List -->
   <ul aria-label="list of latest spendings">
-    @for (item of this.renderReadyArray; let index = $index; track item) {
+    @for (item of this.renderReadyArray; let index = $index; track item) { @if
+    (!item.deleted_at) {
     <li
       aria-label="spending item"
       class="pt-5 pb-3"
@@ -44,10 +45,13 @@
             : '0px'
       }"
     >
-      <app-single-bill [recurringBill]="item" [recurringIndex]="$index"></app-single-bill>
+      <app-single-bill
+        [recurringBill]="item"
+        [recurringIndex]="$index"
+      ></app-single-bill>
     </li>
     @if (this.recurringBillsArray$ && index < recurringBillsArray$.length - 1) {
     <div class="w-full h-[2px] rounded-full bg-grey-100"></div>
-    } }
+    } } }
   </ul>
 </section>
