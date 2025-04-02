@@ -1,4 +1,4 @@
-import { Component, inject, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, inject, Input, OnChanges, OnInit, SimpleChanges, WritableSignal, computed } from '@angular/core';
 import { DataStoreServiceService } from '../../../../../services/data-store-service.service';
 import { AuthenticationService } from '../../../../../services/authentication.service';
 import { APIService } from '../../../../../services/api.service';
@@ -18,22 +18,35 @@ export class BalanceComponent implements OnInit, OnChanges {
     balance: -1,
   };
 
-  public formattedCurrent: string = '';
-  public formattedIncome: string = '';
-  public formattedExpenses: string = '';
+  public balanceSignal$: WritableSignal<BalanceObject> = this.dataStore.balance;
 
   ngOnInit() {
     this.updateBalance(this.balance);
+    console.log(this.formattedBalance);
   }
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['balance']) {
       this.updateBalance(this.balance);
     }
+    
+    
   }
 
+  // ########################################
+  // # Format and Update Values in the Component 
+  // # This function updates the values in the component when the balance changes.
+  // ########################################
+
+  public formattedBalance: any = computed(() => {
+    return this.getformattedValue(this.balanceSignal$().balance);
+  });
+
+  public formattedIncome: string = '';
+  public formattedExpenses: string = '';
+
   updateBalance(balance: BalanceObject) {
-    this.formattedCurrent = this.getformattedValue(this.balance.balance);
+    // this.formattedBalance = this.getformattedValue(this.balance.balance);
     // this.formattedIncome = this.getformattedValue(this.balance.income);
     // this.formattedExpenses = this.getformattedValue(this.balance.expenses);
     
