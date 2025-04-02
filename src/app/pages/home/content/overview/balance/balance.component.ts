@@ -87,7 +87,6 @@ export class BalanceComponent {
     let oldestDate = this.getSubstractedDate(currentDate, timeFrame);
     let income = 0;
     let expenses = 0;
-    console.log(currentDate, oldestDate);
 
     if (timeFrame === null) {
       this.transactionsSignal$().forEach((transaction) => {
@@ -99,7 +98,10 @@ export class BalanceComponent {
       });
     } else {
       this.transactionsSignal$().forEach((transaction) => {
-        if (transaction.execute_on <= currentDate && transaction.execute_on >= oldestDate) {
+        if (
+          transaction.execute_on <= currentDate &&
+          transaction.execute_on >= oldestDate
+        ) {
           if (transaction.type === 'debit') {
             expenses += transaction.amount;
           } else {
@@ -111,11 +113,6 @@ export class BalanceComponent {
 
     this.formattedIncome = this.getformattedValue(income);
     this.formattedExpenses = this.getformattedValue(expenses);
-
-    console.log('income :' + this.formattedIncome);
-    console.log('expenses :' + this.formattedExpenses);
-    
-    
   }
 
   // ########################################
