@@ -1,4 +1,10 @@
-import { Component, inject, Input, OnChanges, OnInit, SimpleChanges, WritableSignal, computed } from '@angular/core';
+import {
+  Component,
+  inject,
+  WritableSignal,
+  computed,
+  effect,
+} from '@angular/core';
 import { DataStoreServiceService } from '../../../../../services/data-store-service.service';
 import { AuthenticationService } from '../../../../../services/authentication.service';
 import { APIService } from '../../../../../services/api.service';
@@ -7,50 +13,35 @@ import { APIService } from '../../../../../services/api.service';
   selector: 'app-balance',
   imports: [],
   templateUrl: './balance.component.html',
-  styleUrl: './balance.component.scss'
+  styleUrl: './balance.component.scss',
 })
-export class BalanceComponent implements OnInit, OnChanges {
+export class BalanceComponent {
   public dataStore: DataStoreServiceService = inject(DataStoreServiceService);
   public authService: AuthenticationService = inject(AuthenticationService);
   public apiService: APIService = inject(APIService);
 
-  @Input() public balance: BalanceObject = {
-    balance: -1,
-  };
-
   public balanceSignal$: WritableSignal<BalanceObject> = this.dataStore.balance;
+  public transactionsSignal$: WritableSignal<any[]> =
+    this.dataStore.transactions;
 
-  ngOnInit() {
-    this.updateBalance(this.balance);
-    console.log(this.formattedBalance);
+  constructor() {
+    effect(() => {
+      let signal$ = this.transactionsSignal$();
+    });
   }
 
-  ngOnChanges(changes: SimpleChanges) {
-    if (changes['balance']) {
-      this.updateBalance(this.balance);
-    }
-    
-    
-  }
+  ngOnInit() {}
+
+  public formattedIncome: string = '';
+  public formattedExpenses: string = '';
 
   // ########################################
-  // # Format and Update Values in the Component 
-  // # This function updates the values in the component when the balance changes.
+  // # Balance Value Update and Formatting
   // ########################################
 
   public formattedBalance: any = computed(() => {
     return this.getformattedValue(this.balanceSignal$().balance);
   });
-
-  public formattedIncome: string = '';
-  public formattedExpenses: string = '';
-
-  updateBalance(balance: BalanceObject) {
-    // this.formattedBalance = this.getformattedValue(this.balance.balance);
-    // this.formattedIncome = this.getformattedValue(this.balance.income);
-    // this.formattedExpenses = this.getformattedValue(this.balance.expenses);
-    
-  }
 
   getformattedValue(value: number): string {
     return value.toLocaleString('en-US', {
@@ -58,5 +49,22 @@ export class BalanceComponent implements OnInit, OnChanges {
       maximumFractionDigits: 2,
     });
   }
-}
 
+  // ########################################
+  // # DropDown & selected Value handling
+  // # values: 30days, 90days, halfYear, all
+  // ########################################
+
+  public timeFrames: { [key: string]: { name: string; value: string } } = {
+    '30days': { name: '30 Days', value: '30days' },
+    '90days': { name: '90 Days', value: '90days' },
+    'halfYear': { name: '6 Months', value: 'halfYear' },
+    'all': { name: 'All', value: 'all' },
+  };
+
+  public isDropdownOpen: boolean = false;
+
+  public openCloseDropdown() {
+    this.isDropdownOpen = !this.isDropdownOpen;
+  }
+}
