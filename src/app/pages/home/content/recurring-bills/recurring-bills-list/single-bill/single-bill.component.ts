@@ -2,6 +2,7 @@ import { Component, inject, Input, OnInit } from '@angular/core';
 import { IconsComponent } from '../../../../../../components/icons/icons.component';
 import { CommonModule } from '@angular/common';
 import { BasedataService } from '../../../../../../services/basedata.service';
+import { MainModalService } from '../../../../../../services/main-modal.service';
 
 @Component({
   selector: 'app-single-bill',
@@ -28,33 +29,49 @@ export class SingleBillComponent {
     type: 'debit',
   };
 
-  public baseData: BasedataService = inject(BasedataService);
+  @Input() public recurringIndex: number = -1;
 
+  public baseData: BasedataService = inject(BasedataService);
+  public mainModalService: MainModalService = inject(MainModalService);
+
+  // components basic data
   public name: string = '';
   public amount: string = '';
   public dueDate: string = '';
   public occurrency: string = '';
   public iconBackground: string = '';
   public iconName: string = '';
+  public type: string = '';
 
   ngOnInit() {
+    this.completeComponentsBasicData();
+  }
+
+  // ########################################
+  // # complete components basic data
+  // ########################################
+
+  public completeComponentsBasicData() {
     this.name = this.recurringBill.name;
     this.amount = this.formatAmount(this.recurringBill.amount);
     this.dueDate = this.formatDate(this.recurringBill.execute_on);
-    this.occurrency = this.recurringBill.recurring;
+    this.occurrency = this.baseData.financeApp.recurrings.types[this.recurringBill.recurring].name;
     this.iconName = this.getCategoryIcon(this.recurringBill.category);
     this.iconBackground = this.recurringBill.theme;
+    this.type = this.recurringBill.type;
   }
 
-  // private function to format amount
+  // ########################################
+  // # format amount and date
+  // ########################################
+
   private formatAmount(amount: number): string {
-    return `-$${amount.toLocaleString('en-US', {
+    return amount.toLocaleString('en-US', {
       minimumFractionDigits: 2,
       maximumFractionDigits: 2,
-    })}`;
+    });
   }
 
-  // private function to format date
   private formatDate(date: string): string {
     return new Date(date).toLocaleDateString('en-US', {
       month: 'short',
@@ -63,8 +80,19 @@ export class SingleBillComponent {
     });
   }
 
-  // public function to get category icon
+  // ########################################
+  // # get specific category icon
+  // ########################################
+
   private getCategoryIcon(category: string): string {
     return this.baseData.financeApp.budgets.categories[category].iconName;
+  }
+
+  // ########################################
+  // # delete recurring bill
+  // ########################################
+
+  public openDeleteModal() {
+    this.mainModalService.chooseSubModal('deleteRecurring', this.recurringBill, this.recurringIndex);
   }
 }

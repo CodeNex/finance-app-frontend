@@ -21,6 +21,8 @@ export class LastSpendingComponent {
     budget_id: null,
     deleted_at: null,
     created_at: null,
+    execute_on: null,
+    type: '',
     category: '',
   };
 
@@ -32,22 +34,17 @@ export class LastSpendingComponent {
   public iconName: string = '';
 
   ngOnInit() {
-    console.log("HubbaBubba");
     if (this.spending.transaction_id > -1) {
-      
       this.amount = this.formatAmount(this.spending.amount);
-      this.date = this.formatDate(this.spending.created_at);
+      this.date = this.formatDate(this.spending.execute_on);
       // this.iconName = this.getCategoryIcon(this.spending.budget.category);
       this.iconName = this.getCategoryIcon(this.spending.category);
-
       this.iconBackground = this.spending.theme;
     }
   }
 
   // private function to format amount
   private formatAmount(amount: number): string {
-    
-    
     return `-$${amount.toLocaleString('en-US', {
       minimumFractionDigits: 2,
       maximumFractionDigits: 2,

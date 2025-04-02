@@ -4,6 +4,7 @@ import jsonData from '../../../shared/data/financeapp.basedata.json';
 import { IconsComponent } from '../../../components/icons/icons.component';
 
 import { AuthenticationService } from '../../../services/authentication.service';
+import { BasedataService } from '../../../services/basedata.service';
 
 @Component({
   selector: 'app-navbar',
@@ -12,9 +13,15 @@ import { AuthenticationService } from '../../../services/authentication.service'
   styleUrl: './navbar.component.scss',
 })
 export class NavbarComponent {
-  public readonly navData = jsonData.financeapp.navbar.links;
 
   public authService: AuthenticationService = inject(AuthenticationService);
+  public baseData: BasedataService = inject(BasedataService);
+
+  public navData: any;
+
+  ngOnInit() {
+    this.navData = this.baseData.financeApp.navbar.links;
+  }
 
   isNavbarThin: boolean = false;
 

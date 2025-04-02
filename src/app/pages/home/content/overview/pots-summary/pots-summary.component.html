@@ -1,5 +1,5 @@
 <section
-  class="pots-summary bg-white flex flex-col gap-5 p-8 rounded-xl"
+  class="pots-summary bg-white flex flex-col gap-8 p-8 rounded-xl"
   aria-label="Pots Summary"
 >
   <p class="pots-summary-header flex items-center justify-between">
@@ -26,10 +26,10 @@
       </div>
     </div>
 
-    <div class="pots-listing h-[110px] flex flex-wrap gap-4 overflow-auto" aria-label="The first four Pots of the list">
+    <div id="pots-listing" class="pots-listing h-[110px] flex flex-wrap gap-4 overflow-auto" aria-label="The first four Pots of the list">
         @for (pot of potsArray(); track $index) {
           <div class="list-element min-w-[130px] flex items-center gap-4">
-            <div class="theme-element bg-grey-900 w-1 h-[43px] rounded-full"
+            <div class="theme-element w-1 h-[43px] rounded-full"
             [ngStyle]="{
               'background-color': pot.theme
             }"

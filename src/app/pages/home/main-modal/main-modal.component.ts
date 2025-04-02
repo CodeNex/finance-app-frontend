@@ -14,6 +14,7 @@ import { DeletePotModalComponent } from '../content/pots/pots-modals/delete-pot-
 import { AddmoneyPotModalComponent } from '../content/pots/pots-modals/addmoney-pot-modal/addmoney-pot-modal.component';
 import { WithdrawmoneyPotModalComponent } from '../content/pots/pots-modals/withdrawmoney-pot-modal/withdrawmoney-pot-modal.component';
 import { AddTransactionModalComponent } from '../content/transactions/add-transaction-modal/add-transaction-modal.component';
+import { RecurringDeleteModalComponent } from '../content/recurring-bills/recurring-modals/recurring-delete-modal/recurring-delete-modal.component';
 
 @Component({
   selector: 'app-main-modal',
@@ -26,7 +27,8 @@ import { AddTransactionModalComponent } from '../content/transactions/add-transa
     DeletePotModalComponent,
     AddmoneyPotModalComponent,
     WithdrawmoneyPotModalComponent,
-    AddTransactionModalComponent
+    AddTransactionModalComponent,
+    RecurringDeleteModalComponent
   ],
   templateUrl: './main-modal.component.html',
   styleUrl: './main-modal.component.scss',

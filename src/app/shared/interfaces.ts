@@ -1,10 +1,5 @@
 interface BalanceObject {
-  id: number;
-  current: number;
-  income: number;
-  expenses: number;
-  deleted_at: string | null;
-  created_at: string | null;
+  balance: number;
 }
 
 interface BudgetsObject {
@@ -37,7 +32,7 @@ interface TransactionsObject {
   deleted_at: string | null;
   execute_on: string | null;
   recurring: string | null;
-  recurring_id: string | null;
+  recurring_id: number | null;
   theme: string;
   name: string;
   sender: string | null;

@@ -1,0 +1,12 @@
+.singleBill {
+  .deleteButton {
+    display: none;
+  }
+
+  &:hover {
+    
+    .deleteButton {
+      display: block;
+    }
+  }
+}
