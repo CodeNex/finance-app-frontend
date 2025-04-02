@@ -52,7 +52,6 @@ export class BalanceComponent {
 
   // ########################################
   // # DropDown & selected Value handling
-  // # values: 30days, 90days, halfYear, all
   // ########################################
 
   public timeFrames: { [key: string]: { name: string; value: string } } = {
@@ -61,6 +60,14 @@ export class BalanceComponent {
     'halfYear': { name: '6 Months', value: 'halfYear' },
     'all': { name: 'All', value: 'all' },
   };
+
+  public selectedTimeFrameValue: string = '30days';
+  public selectedTimeFrameName: string = '30 Days';
+
+  public selectTimeFrame(data: { name: string; value: string}) {
+    this.selectedTimeFrameValue = data.value;
+    this.selectedTimeFrameName = data.name;
+  }
 
   public isDropdownOpen: boolean = false;
 
