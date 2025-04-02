@@ -54,24 +54,26 @@ export class BalanceComponent {
   // # DropDown & selected Value handling
   // ########################################
 
-  public timeFrames: { [key: string]: { name: string; value: string } } = {
-    '30days': { name: '30 Days', value: '30days' },
-    '90days': { name: '90 Days', value: '90days' },
-    'halfYear': { name: '6 Months', value: 'halfYear' },
-    'all': { name: 'All', value: 'all' },
-  };
-
-  public selectedTimeFrameValue: string = '30days';
-  public selectedTimeFrameName: string = '30 Days';
-
-  public selectTimeFrame(data: { name: string; value: string}) {
-    this.selectedTimeFrameValue = data.value;
-    this.selectedTimeFrameName = data.name;
-  }
-
   public isDropdownOpen: boolean = false;
 
   public openCloseDropdown() {
     this.isDropdownOpen = !this.isDropdownOpen;
   }
+
+  public timeFrames: { [key: string]: { name: string; value: number | null } } = {
+    '30days': { name: '30 Days', value: 30 },
+    '90days': { name: '90 Days', value: 90 },
+    'halfYear': { name: '6 Months', value: 182 },
+    'all': { name: 'All', value: null },
+  };
+
+  public selectedTimeFrame: {name: string; value: number | null} = this.timeFrames['30days'];
+
+  public selectTimeFrame(type: string) {
+    this.selectedTimeFrame = this.timeFrames[type];
+  }
+
+  // ########################################
+  // # Get Timebased Income and Expenses
+  // ########################################
 }
