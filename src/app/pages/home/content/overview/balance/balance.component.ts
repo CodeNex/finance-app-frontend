@@ -27,13 +27,11 @@ export class BalanceComponent {
   constructor() {
     effect(() => {
       let signal$ = this.transactionsSignal$();
+      this.getTimeBasedIncomeAndExpenses(this.selectedTimeFrame.value);
     });
   }
 
   ngOnInit() {}
-
-  public formattedIncome: string = '';
-  public formattedExpenses: string = '';
 
   // ########################################
   // # Balance Value Update and Formatting
@@ -60,14 +58,16 @@ export class BalanceComponent {
     this.isDropdownOpen = !this.isDropdownOpen;
   }
 
-  public timeFrames: { [key: string]: { name: string; value: number | null } } = {
-    '30days': { name: '30 Days', value: 30 },
-    '90days': { name: '90 Days', value: 90 },
-    'halfYear': { name: '6 Months', value: 182 },
-    'all': { name: 'All', value: null },
-  };
+  public timeFrames: { [key: string]: { name: string; value: number | null } } =
+    {
+      '30days': { name: '30 Days', value: 30 },
+      '90days': { name: '90 Days', value: 90 },
+      halfYear: { name: '6 Months', value: 182 },
+      all: { name: 'All', value: null },
+    };
 
-  public selectedTimeFrame: {name: string; value: number | null} = this.timeFrames['30days'];
+  public selectedTimeFrame: { name: string; value: number | null } =
+    this.timeFrames['30days'];
 
   public selectTimeFrame(type: string) {
     this.selectedTimeFrame = this.timeFrames[type];
@@ -76,4 +76,40 @@ export class BalanceComponent {
   // ########################################
   // # Get Timebased Income and Expenses
   // ########################################
+
+  public formattedIncome: string = '';
+  public formattedExpenses: string = '';
+
+  public getTimeBasedIncomeAndExpenses(timeFrame: number | null = null): void {
+    let currentDate = this.getCurrentDate();
+    let oldestDate = this.getSubstractedDate(currentDate, timeFrame);
+    let income = 0;
+    let expenses = 0;
+    console.log(currentDate, oldestDate);
+
+    this.transactionsSignal$().forEach((transaction) => {
+      if (transaction.execute_on <= currentDate) {
+        if (transaction.type === 'credit') {
+          income += transaction.amount;
+        } else {
+          expenses += transaction.amount;
+        }
+      }
+    });
+
+    this.formattedIncome = this.getformattedValue(income);
+    this.formattedExpenses = this.getformattedValue(expenses);
+  }
+
+  private getCurrentDate(): string {
+    return new Date().toISOString();
+  }
+
+  private getSubstractedDate(currentDate: string, days: number | null): string {
+    if (days === null) return currentDate;
+    const date = new Date(currentDate);
+    const msPerDay = 24 * 60 * 60 * 1000;
+    date.setTime(date.getTime() - days * msPerDay);
+    return date.toISOString();
+  }
 }
