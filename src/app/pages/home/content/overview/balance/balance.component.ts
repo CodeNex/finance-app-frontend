@@ -62,8 +62,11 @@ export class BalanceComponent {
 
   public timeFrames: { [key: string]: { name: string; value: number | null } } =
     {
+      'week': { name: 'Week', value: 7 },
+      '2weeks': { name: '2 Weeks', value: 14 },
       '30days': { name: '30 Days', value: 30 },
-      '90days': { name: '90 Days', value: 90 },
+      '60days': { name: '30 Days', value: 30 },
+      '90days': { name: '2 Months', value: 90 },
       halfYear: { name: '6 Months', value: 182 },
       all: { name: 'All time', value: null },
     };
