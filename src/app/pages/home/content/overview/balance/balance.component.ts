@@ -8,6 +8,7 @@ import {
 import { DataStoreServiceService } from '../../../../../services/data-store-service.service';
 import { AuthenticationService } from '../../../../../services/authentication.service';
 import { APIService } from '../../../../../services/api.service';
+import { transition } from '@angular/animations';
 
 @Component({
   selector: 'app-balance',
@@ -88,19 +89,38 @@ export class BalanceComponent {
     let expenses = 0;
     console.log(currentDate, oldestDate);
 
-    this.transactionsSignal$().forEach((transaction) => {
-      if (transaction.execute_on <= currentDate) {
-        if (transaction.type === 'credit') {
-          income += transaction.amount;
-        } else {
+    if (timeFrame === null) {
+      this.transactionsSignal$().forEach((transaction) => {
+        if (transaction.type === 'debit') {
           expenses += transaction.amount;
+        } else {
+          income += transaction.amount;
         }
-      }
-    });
+      });
+    } else {
+      this.transactionsSignal$().forEach((transaction) => {
+        if (transaction.execute_on <= currentDate && transaction.execute_on >= oldestDate) {
+          if (transaction.type === 'debit') {
+            expenses += transaction.amount;
+          } else {
+            income += transaction.amount;
+          }
+        }
+      });
+    }
 
     this.formattedIncome = this.getformattedValue(income);
     this.formattedExpenses = this.getformattedValue(expenses);
+
+    console.log('income :' + this.formattedIncome);
+    console.log('expenses :' + this.formattedExpenses);
+    
+    
   }
+
+  // ########################################
+  // # Get Current & Substracted Date
+  // ########################################
 
   private getCurrentDate(): string {
     return new Date().toISOString();
