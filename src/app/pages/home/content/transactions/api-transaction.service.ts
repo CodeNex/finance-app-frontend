@@ -187,14 +187,14 @@ export class ApiTransactionService {
   private updateBalanceSignal(transactionObject: any, from: string) {
     let balanceBlueprint = this.dataStore.balance();
     transactionObject.type === 'debit'
-      ? (balanceBlueprint.current -= transactionObject.amount)
-      : (balanceBlueprint.current += transactionObject.amount);
+      ? (balanceBlueprint.balance -= transactionObject.amount)
+      : (balanceBlueprint.balance += transactionObject.amount);
     if (from === 'transactions') {
       if (transactionObject.type === 'debit') {
-        balanceBlueprint.expenses += transactionObject.amount;
+        // balanceBlueprint.expenses += transactionObject.amount;
       }
       if (transactionObject.type === 'credit') {
-        balanceBlueprint.income += transactionObject.amount;
+        // balanceBlueprint.income += transactionObject.amount;
       }
     }
     this.dataStore.setStoredData('balance', balanceBlueprint);

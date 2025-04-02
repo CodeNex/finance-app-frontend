@@ -15,12 +15,7 @@ export class BalanceComponent implements OnInit, OnChanges {
   public apiService: APIService = inject(APIService);
 
   @Input() public balance: BalanceObject = {
-    id: 1,
-    current: 0,
-    income: 0,
-    expenses: 0,
-    deleted_at: null,
-    created_at: null
+    balance: -1,
   };
 
   public formattedCurrent: string = '';
@@ -38,9 +33,9 @@ export class BalanceComponent implements OnInit, OnChanges {
   }
 
   updateBalance(balance: BalanceObject) {
-    this.formattedCurrent = this.getformattedValue(this.balance.current);
-    this.formattedIncome = this.getformattedValue(this.balance.income);
-    this.formattedExpenses = this.getformattedValue(this.balance.expenses);
+    this.formattedCurrent = this.getformattedValue(this.balance.balance);
+    // this.formattedIncome = this.getformattedValue(this.balance.income);
+    // this.formattedExpenses = this.getformattedValue(this.balance.expenses);
     
   }
 

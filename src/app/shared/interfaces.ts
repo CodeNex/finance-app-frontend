@@ -1,10 +1,5 @@
 interface BalanceObject {
-  id: number;
-  current: number;
-  income: number;
-  expenses: number;
-  deleted_at: string | null;
-  created_at: string | null;
+  balance: number;
 }
 
 interface BudgetsObject {
