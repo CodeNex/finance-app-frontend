@@ -8,11 +8,12 @@ import {
 import { DataStoreServiceService } from '../../../../../services/data-store-service.service';
 import { AuthenticationService } from '../../../../../services/authentication.service';
 import { APIService } from '../../../../../services/api.service';
-import { transition } from '@angular/animations';
+import { CommonModule } from '@angular/common';
+import { IconsComponent } from '../../../../../components/icons/icons.component';
 
 @Component({
   selector: 'app-balance',
-  imports: [],
+  imports: [CommonModule, IconsComponent],
   templateUrl: './balance.component.html',
   styleUrl: './balance.component.scss',
 })
@@ -53,10 +54,10 @@ export class BalanceComponent {
   // # DropDown & selected Value handling
   // ########################################
 
-  public isDropdownOpen: boolean = false;
+  public isDropDownOpen: boolean = false;
 
   public openCloseDropdown() {
-    this.isDropdownOpen = !this.isDropdownOpen;
+    this.isDropDownOpen = !this.isDropDownOpen;
   }
 
   public timeFrames: { [key: string]: { name: string; value: number | null } } =
@@ -64,15 +65,18 @@ export class BalanceComponent {
       '30days': { name: '30 Days', value: 30 },
       '90days': { name: '90 Days', value: 90 },
       halfYear: { name: '6 Months', value: 182 },
-      all: { name: 'All', value: null },
+      all: { name: 'All time', value: null },
     };
+
+  public renderableTimesFrames: any = Object.values(this.timeFrames);
 
   public selectedTimeFrame: { name: string; value: number | null } =
     this.timeFrames['30days'];
 
-  public selectTimeFrame(type: string) {
-    this.selectedTimeFrame = this.timeFrames[type];
-    this.getTimeBasedIncomeAndExpenses(this.selectedTimeFrame.value);
+  public selectTimeFrame(type: any) {
+    this.selectedTimeFrame = type;
+    this.getTimeBasedIncomeAndExpenses(type.value);
+    this.openCloseDropdown();
   }
 
   // ########################################
