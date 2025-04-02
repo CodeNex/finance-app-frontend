@@ -1,48 +1,47 @@
-import { Component, inject, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import {
+  Component,
+  inject,
+  WritableSignal,
+  computed,
+  effect,
+} from '@angular/core';
 import { DataStoreServiceService } from '../../../../../services/data-store-service.service';
 import { AuthenticationService } from '../../../../../services/authentication.service';
 import { APIService } from '../../../../../services/api.service';
+import { CommonModule } from '@angular/common';
+import { IconsComponent } from '../../../../../components/icons/icons.component';
 
 @Component({
   selector: 'app-balance',
-  imports: [],
+  imports: [CommonModule, IconsComponent],
   templateUrl: './balance.component.html',
-  styleUrl: './balance.component.scss'
+  styleUrl: './balance.component.scss',
 })
-export class BalanceComponent implements OnInit, OnChanges {
+export class BalanceComponent {
   public dataStore: DataStoreServiceService = inject(DataStoreServiceService);
   public authService: AuthenticationService = inject(AuthenticationService);
   public apiService: APIService = inject(APIService);
 
-  @Input() public balance: BalanceObject = {
-    id: 1,
-    current: 0,
-    income: 0,
-    expenses: 0,
-    deleted_at: null,
-    created_at: null
-  };
+  public balanceSignal$: WritableSignal<BalanceObject> = this.dataStore.balance;
+  public transactionsSignal$: WritableSignal<any[]> =
+    this.dataStore.transactions;
 
-  public formattedCurrent: string = '';
-  public formattedIncome: string = '';
-  public formattedExpenses: string = '';
-
-  ngOnInit() {
-    this.updateBalance(this.balance);
+  constructor() {
+    effect(() => {
+      let signal$ = this.transactionsSignal$();
+      this.getTimeBasedIncomeAndExpenses(this.selectedTimeFrame.value);
+    });
   }
 
-  ngOnChanges(changes: SimpleChanges) {
-    if (changes['balance']) {
-      this.updateBalance(this.balance);
-    }
-  }
+  ngOnInit() {}
 
-  updateBalance(balance: BalanceObject) {
-    this.formattedCurrent = this.getformattedValue(this.balance.current);
-    this.formattedIncome = this.getformattedValue(this.balance.income);
-    this.formattedExpenses = this.getformattedValue(this.balance.expenses);
-    
-  }
+  // ########################################
+  // # Balance Value Update and Formatting
+  // ########################################
+
+  public formattedBalance: any = computed(() => {
+    return this.getformattedValue(this.balanceSignal$().balance);
+  });
 
   getformattedValue(value: number): string {
     return value.toLocaleString('en-US', {
@@ -50,5 +49,89 @@ export class BalanceComponent implements OnInit, OnChanges {
       maximumFractionDigits: 2,
     });
   }
-}
 
+  // ########################################
+  // # DropDown & selected Value handling
+  // ########################################
+
+  public isDropDownOpen: boolean = false;
+
+  public openCloseDropdown() {
+    this.isDropDownOpen = !this.isDropDownOpen;
+  }
+
+  public timeFrames: { [key: string]: { name: string; value: number | null } } =
+    {
+      '30days': { name: '30 Days', value: 30 },
+      '90days': { name: '90 Days', value: 90 },
+      halfYear: { name: '6 Months', value: 182 },
+      all: { name: 'All time', value: null },
+    };
+
+  public renderableTimesFrames: any = Object.values(this.timeFrames);
+
+  public selectedTimeFrame: { name: string; value: number | null } =
+    this.timeFrames['30days'];
+
+  public selectTimeFrame(type: any) {
+    this.selectedTimeFrame = type;
+    this.getTimeBasedIncomeAndExpenses(type.value);
+    this.openCloseDropdown();
+  }
+
+  // ########################################
+  // # Get Timebased Income and Expenses
+  // ########################################
+
+  public formattedIncome: string = '';
+  public formattedExpenses: string = '';
+
+  public getTimeBasedIncomeAndExpenses(timeFrame: number | null = null): void {
+    let currentDate = this.getCurrentDate();
+    let oldestDate = this.getSubstractedDate(currentDate, timeFrame);
+    let income = 0;
+    let expenses = 0;
+
+    if (timeFrame === null) {
+      this.transactionsSignal$().forEach((transaction) => {
+        if (transaction.type === 'debit') {
+          expenses += transaction.amount;
+        } else {
+          income += transaction.amount;
+        }
+      });
+    } else {
+      this.transactionsSignal$().forEach((transaction) => {
+        if (
+          transaction.execute_on <= currentDate &&
+          transaction.execute_on >= oldestDate
+        ) {
+          if (transaction.type === 'debit') {
+            expenses += transaction.amount;
+          } else {
+            income += transaction.amount;
+          }
+        }
+      });
+    }
+
+    this.formattedIncome = this.getformattedValue(income);
+    this.formattedExpenses = this.getformattedValue(expenses);
+  }
+
+  // ########################################
+  // # Get Current & Substracted Date
+  // ########################################
+
+  private getCurrentDate(): string {
+    return new Date().toISOString();
+  }
+
+  private getSubstractedDate(currentDate: string, days: number | null): string {
+    if (days === null) return currentDate;
+    const date = new Date(currentDate);
+    const msPerDay = 24 * 60 * 60 * 1000;
+    date.setTime(date.getTime() - days * msPerDay);
+    return date.toISOString();
+  }
+}

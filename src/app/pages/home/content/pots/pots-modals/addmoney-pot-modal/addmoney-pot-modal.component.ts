@@ -153,7 +153,7 @@ export class AddmoneyPotModalComponent {
   // validate the input value
   validateInputValue(inputValueNumber: number) {
     let inputAmount: any;
-    let balance = this.dataStore.balance().current;
+    let balance = this.dataStore.balance().balance;
     let remainingAmount = this.currentPot.target - this.currentPot.total;
     // if the input value is null, less than or equal to 0, or undefined, set the input amount to 0
     if (

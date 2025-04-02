@@ -5,13 +5,11 @@ import '../shared/interfaces.ts';
   providedIn: 'root',
 })
 export class DataStoreServiceService {
+
+  public settings = signal<any>({});
+
   public balance = signal<BalanceObject>({
-    id: 1,
-    current: 10060.98,
-    income: 5669.0,
-    expenses: 2798.0,
-    deleted_at: null,
-    created_at: '',
+    balance: 10060.98,
   });
 
   // public budgets = signal<BudgetsObject[]>([]);
@@ -1404,6 +1402,7 @@ export class DataStoreServiceService {
 
   // set the hole data package within signal and UI update
   setStoredData(endpoint: string, data: any) {
+    if (endpoint === 'settings') this.settings.set(data);
     if (endpoint === 'balance') this.balance.set(data);
     if (endpoint === 'budgets') this.budgets.set(data);
     if (endpoint === 'pots') this.pots.set(data);
@@ -1458,9 +1457,9 @@ export class DataStoreServiceService {
   public updateStoredBalance(key: string, amount: number) {
     this.balance.update((prev) => {
       let prevBalance = { ...prev };
-      if (key === 'current') prevBalance.current += amount;
-      if (key === 'income') prevBalance.income += amount;
-      if (key === 'expenses') prevBalance.expenses += amount;
+      // if (key === 'current') prevBalance.current += amount;
+      // if (key === 'income') prevBalance.income += amount;
+      // if (key === 'expenses') prevBalance.expenses += amount;
       return prevBalance;
     });
   }
