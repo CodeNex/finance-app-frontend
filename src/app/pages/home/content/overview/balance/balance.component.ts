@@ -71,6 +71,7 @@ export class BalanceComponent {
 
   public selectTimeFrame(type: string) {
     this.selectedTimeFrame = this.timeFrames[type];
+    this.getTimeBasedIncomeAndExpenses(this.selectedTimeFrame.value);
   }
 
   // ########################################
