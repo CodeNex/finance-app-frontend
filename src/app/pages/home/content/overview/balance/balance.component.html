@@ -3,31 +3,16 @@
   aria-label="Overview Balance Container"
 >
   <div
-    class="overview-balance bg-grey-900 text-white flex flex-col gap-4 flex-[1] p-6 rounded-xl"
+    class="overview-balance bg-grey-900 text-white flex flex-col justify-between gap-4 flex-[1] p-6 rounded-xl"
     aria-label="Current Balance"
   >
-    <p class="text4r">Current Balance</p>
+    <p class="text2b">Current Balance</p>
     <p class="text1b">${{ formattedBalance() }}</p>
   </div>
 
-  <!-- <div
-    class="overview-income bg-white flex flex-col gap-4 flex-1 p-6 rounded-xl"
-    aria-label="Income"
-  >
-    <p class="text4r text-grey-500">Income</p>
-    <p class="text1b">${{ formattedIncome }}</p>
-  </div>
-
-  <div
-    class="overview-expenses bg-white flex flex-col gap-4 flex-1 p-6 rounded-xl"
-    aria-label="Total Expenses"
-  >
-    <p class="text4r text-grey-500">Expenses</p>
-    <p class="text1b">${{ formattedExpenses }}</p>
-  </div> -->
-
-  <div class="flex-[2] bg-white flex flex-col gap-4 p-6 rounded-xl">
-    <div class="flex justify-between items-center">
+  <div class="flex-[2] bg-white flex flex-col gap-3 p-6 rounded-xl">
+    <!-- Details Upper Part -->
+    <div class="flex justify-between">
       <p class="text2b text-grey-900">
         Details for
       </p>
@@ -35,7 +20,7 @@
       <div class="relative">
         <div
           (click)="openCloseDropdown()"
-          class="min-w-[180px] flex justify-between gap-4 border-[1px] border-beige-500 hover:border-grey-900 focus:border-grey-900 transition-all duration-300 ease-in-out rounded-lg pl-4 pr-4 pt-3 pb-3 cursor-pointer"
+          class="min-w-[120px] flex justify-between gap-4 border-[1px] border-beige-500 hover:border-grey-900 focus:border-grey-900 transition-all duration-300 ease-in-out rounded-lg pl-4 pr-4 pt-3 pb-3 cursor-pointer"
         >
           <div class="leftBox flex items-center gap-3">
             <p class="text4r text-grey-900">{{ this.selectedTimeFrame.name }}</p>
@@ -75,6 +60,30 @@
         }
       </div>
     </div>
+    <!-- Details Lower Part -->
+     <div class="flex justify-between items-center gap-5 ">
+
+      <!-- Income Box -->
+      <div class="flex-1 flex gap-4 flex-row h-full"
+      aria-label="Income Box">
+        <div class="h-full w-1 rounded-full bg-secondary-green"></div>
+        <div class="flex flex-col gap-2">
+          <p class="text4r text-grey-500">Income</p>
+          <p class="text1b text-grey-900">${{ this.formattedIncome }}</p>
+        </div>
+      </div>
+
+      <!-- Expenses Box -->
+      <div class="flex-1 flex gap-4 flex-row h-full"
+      aria-label="Expenses Box">
+        <div class="h-full w-1 rounded-full bg-secondary-lightRed"></div>
+        <div class="flex flex-col gap-2">
+          <p class="text4r text-grey-500">Expenses</p>
+          <p class="text1b text-grey-900">${{ this.formattedExpenses }}</p>
+        </div>
+      </div>
+
+     </div>
   </div>
 
 </div>

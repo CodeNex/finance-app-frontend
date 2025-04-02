@@ -14,7 +14,7 @@
     <div class="flex gap-4">
       <div class="theme-element min-h-[21px] w-1 rounded-full" [ngStyle]="{'background-color': summaryItem.theme}"></div>
       <div class="flex flex-col gap-1 text-left">
-        <p class="text4r text-grey-500">{{ summaryItem.name }}</p>
+        <p class="text5r text-grey-500">{{ summaryItem.name }}</p>
         <p class="text3b text-grey-900" [ngStyle]="{'color': ((this.summaryItem.amount > this.summaryItem.maximum) ? '#c94736' : '#201f24')}">${{ spendedAmount }}</p>
       </div>  
     </div>
