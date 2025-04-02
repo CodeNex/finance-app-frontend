@@ -5,6 +5,9 @@ import '../shared/interfaces.ts';
   providedIn: 'root',
 })
 export class DataStoreServiceService {
+
+  public settings = signal<any>({});
+
   public balance = signal<BalanceObject>({
     balance: 10060.98,
   });
@@ -1399,6 +1402,7 @@ export class DataStoreServiceService {
 
   // set the hole data package within signal and UI update
   setStoredData(endpoint: string, data: any) {
+    if (endpoint === 'settings') this.settings.set(data);
     if (endpoint === 'balance') this.balance.set(data);
     if (endpoint === 'budgets') this.budgets.set(data);
     if (endpoint === 'pots') this.pots.set(data);
