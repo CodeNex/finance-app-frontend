@@ -36,7 +36,7 @@ export class SingleBudgetComponent {
     amount: -1,
     maximum: -1,
     theme: '',
-    time_frame: '',
+    time_frame: 'month',
     deleted_at: null,
     created_at: null,
     last_spendings: [
@@ -79,7 +79,8 @@ export class SingleBudgetComponent {
     })}`;
     this.remaining = this.calculateRemaining();
     this.percentageProgress = this.calculatePercentageProgress();
-    this.timeRange = this.getDateRange('2weeks');
+    this.timeRange = this.getDateRange(this.budget.time_frame);
+    this.timeFrameString = this.getTimeFrameString(this.budget.time_frame);
     console.log(this.timeRange);
     console.log(this.currentDate);
   }
@@ -93,7 +94,7 @@ export class SingleBudgetComponent {
     start: 0,
     end: 0,
   };
-  public timeFrame: string = '';
+  public timeFrameString: string = '';
 
   private getDateRange(type: string): { start: number; end: number } {
     const now = new Date();
