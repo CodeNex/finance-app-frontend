@@ -13,7 +13,6 @@ export class DataStoreServiceService {
   });
 
   // public budgets = signal<BudgetsObject[]>([]);
-
   public budgets = signal<BudgetsObject[]>([
     {
       id: 1,
@@ -259,7 +258,6 @@ export class DataStoreServiceService {
   ]);
 
   // public pots = signal<PotsObject[]>([]);
-
   public pots = signal<PotsObject[]>([
     {
       id: 0,
