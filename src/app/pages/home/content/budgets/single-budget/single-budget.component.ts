@@ -9,6 +9,8 @@ import { APIService } from '../../../../../services/api.service';
 import { MainModalService } from '../../../../../services/main-modal.service';
 import { LastSpendingComponent } from './last-spending/last-spending.component';
 
+import { FormatAmountPipe } from '../../../../../shared/pipes/format-amount.pipe';
+
 @Component({
   selector: 'app-single-budget',
   imports: [CommonModule, RouterModule, IconsComponent, LastSpendingComponent],
