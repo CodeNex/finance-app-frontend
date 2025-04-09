@@ -82,6 +82,46 @@ export class SingleBudgetComponent {
     this.percentageProgress = this.calculatePercentageProgress();
   }
 
+  // ########################################
+  // # logics to get the time frame of the budget  
+  // ########################################
+
+  private getDateRange(type: string): { start: Date; end: Date } {
+    const now = new Date();
+    let start, end;
+  
+    switch (type) {
+      case 'month':
+        start = new Date(now.getFullYear(), now.getMonth(), 1);
+        end = new Date(now.getFullYear(), now.getMonth() + 1, 0);
+        break;
+      case 'quarter':
+        const quarter = Math.floor(now.getMonth() / 3);
+        start = new Date(now.getFullYear(), quarter * 3, 1);
+        end = new Date(now.getFullYear(), quarter * 3 + 3, 0);
+        break;
+      case 'half':
+        const half = now.getMonth() < 6 ? 0 : 1;
+        start = new Date(now.getFullYear(), half * 6, 1);
+        end = new Date(now.getFullYear(), half * 6 + 6, 0);
+        break;
+      case 'year':
+        start = new Date(now.getFullYear(), 0, 1);
+        end = new Date(now.getFullYear(), 12, 0);
+        break;
+      default:
+        throw new Error('Ungültiger Zeitraumtyp');
+    }
+  
+    return { start, end };
+  }
+  
+
+  // ########################################
+  // # Calculate the percentage of the progress of the budget
+  // # and the remaining amount of the budget 
+  // ########################################
+
   // Calculate the percentage of the progress of the budget
   calculatePercentageProgress() {
     if (this.budget.amount <= 0) {
@@ -110,7 +150,12 @@ export class SingleBudgetComponent {
     }
   }
 
-  // Open the modal when the user clicks on any button which opens a modal, givs the modal name as a string and the current pot object as "subModalObject" to the function as arguments
+  // ########################################
+  // # Open the modal when the user clicks on any button which opens a modal, givs the modal
+  // # name as a string and the current pot object as "subModalObject" to the function as arguments
+  // ########################################
+
+  
   public openSubModal(subModal: string, subModalObject: Object) {
     this.mainModalService.chooseSubModal(
       subModal,
@@ -119,6 +164,10 @@ export class SingleBudgetComponent {
     );
     this.isPopUpOpen = false;
   }
+
+  // ########################################
+  // # logics to control opening and closing of the pop-up menus
+  // ########################################
 
   // Open the pop-up when the user clicks on the three dots
   public openPopUp() {
