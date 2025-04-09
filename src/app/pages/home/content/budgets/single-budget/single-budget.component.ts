@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, Input, signal, effect } from '@angular/core';
+import { Component, inject, Input, effect } from '@angular/core';
 import { IconsComponent } from '../../../../../components/icons/icons.component';
-import { Router, RouterModule } from '@angular/router';
+import { RouterModule } from '@angular/router';
 
 import { DataStoreServiceService } from '../../../../../services/data-store-service.service';
 import { AuthenticationService } from '../../../../../services/authentication.service';
@@ -13,7 +13,13 @@ import { FormatAmountPipe } from '../../../../../shared/pipes/format-amount.pipe
 
 @Component({
   selector: 'app-single-budget',
-  imports: [CommonModule, RouterModule, IconsComponent, LastSpendingComponent, FormatAmountPipe],
+  imports: [
+    CommonModule,
+    RouterModule,
+    IconsComponent,
+    LastSpendingComponent,
+    FormatAmountPipe,
+  ],
   templateUrl: './single-budget.component.html',
   styleUrl: './single-budget.component.scss',
 })
@@ -66,25 +72,18 @@ export class SingleBudgetComponent {
 
   @Input() public budgetIndex: number = -1;
 
-  public maximum: string = '';
-  public spent: string = '';
-  
-  
-  
+  ngOnInit() {}
 
-  ngOnInit() {
-  }
+  // ########################################
+  // # logics to update the component view
+  // # when the budget signal or the transactions signal changes
+  // ########################################
 
   private updateComponentView() {
-    this.maximum = `$${this.budget.maximum.toLocaleString('en-US', {
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2,
-    })}`;
-    this.spent = `$${this.budget.amount.toLocaleString('en-US', {
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2,
-    })}`;
-    this.budget.amount = this.calculateCurrentSpent(this.transActionsSignal$(), this.getDateRange(this.budget.time_frame));
+    this.budget.amount = this.calculateCurrentSpent(
+      this.transActionsSignal$(),
+      this.getDateRange(this.budget.time_frame)
+    );
     this.remaining = this.calculateRemaining();
     this.percentageProgress = this.calculatePercentageProgress();
   }
@@ -120,7 +119,7 @@ export class SingleBudgetComponent {
       default:
         throw new Error('Invalid Timeframe type');
     }
-    
+
     return { start, end };
   }
 
@@ -135,13 +134,13 @@ export class SingleBudgetComponent {
       let today = new Date().getTime();
       if (
         transaction.category ===
-        this.budget.name
-          .replace(/\s+/g, '')
-          .replace(/^./, (c) => c.toLowerCase()) &&
+          this.budget.name
+            .replace(/\s+/g, '')
+            .replace(/^./, (c) => c.toLowerCase()) &&
         executeDate >= timeRange.start &&
         executeDate <= timeRange.end
       ) {
-        spent += transaction.amount
+        spent += transaction.amount;
       }
     });
     return spent;
@@ -153,22 +152,16 @@ export class SingleBudgetComponent {
   // ########################################
 
   // Calculate the remaining amount
-  public remaining: string = '';
+  public remaining: number = 0;
   public isTooMuchSpent: boolean = false;
 
   private calculateRemaining() {
     if (this.budget.maximum - this.budget.amount <= 0) {
       this.isTooMuchSpent = true;
-      return '$0.00';
+      return 0;
     } else {
       this.isTooMuchSpent = false;
-      return `$${(this.budget.maximum - this.budget.amount).toLocaleString(
-        'en-US',
-        {
-          minimumFractionDigits: 2,
-          maximumFractionDigits: 2,
-        }
-      )}`;
+      return this.budget.maximum - this.budget.amount;
     }
   }
 
