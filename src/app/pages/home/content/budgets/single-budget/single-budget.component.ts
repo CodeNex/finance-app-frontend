@@ -61,7 +61,7 @@ export class SingleBudgetComponent {
 
   @Input() public budgetIndex: number = -1;
 
-  public isPopUpOpen: boolean = false;
+  
 
   public maximum: string = '';
   public spent: string = '';
@@ -122,15 +122,10 @@ export class SingleBudgetComponent {
   // # and the remaining amount of the budget 
   // ########################################
 
-  // Calculate the percentage of the progress of the budget
-  calculatePercentageProgress() {
-    if (this.budget.amount <= 0) {
-      return '0%';
-    } else if (this.budget.amount >= this.budget.maximum) {
-      return '100%';
-    } else {
-      return `${Math.trunc((this.budget.amount / this.budget.maximum) * 100)}%`;
-    }
+  //calculate the current spent amount of the budget
+  private calculateCurrentSpent(): number {
+
+    return 0;
   }
 
   // Calculate the remaining amount
@@ -150,24 +145,23 @@ export class SingleBudgetComponent {
     }
   }
 
-  // ########################################
-  // # Open the modal when the user clicks on any button which opens a modal, givs the modal
-  // # name as a string and the current pot object as "subModalObject" to the function as arguments
-  // ########################################
-
-  
-  public openSubModal(subModal: string, subModalObject: Object) {
-    this.mainModalService.chooseSubModal(
-      subModal,
-      subModalObject,
-      this.budgetIndex
-    );
-    this.isPopUpOpen = false;
+  // Calculate the percentage of the progress of the budget
+  calculatePercentageProgress() {
+    if (this.budget.amount <= 0) {
+      return '0%';
+    } else if (this.budget.amount >= this.budget.maximum) {
+      return '100%';
+    } else {
+      return `${Math.trunc((this.budget.amount / this.budget.maximum) * 100)}%`;
+    }
   }
 
   // ########################################
-  // # logics to control opening and closing of the pop-up menus
+  // # logics to control opening and closing of the pop-up menu
+  // # open the submodals when the user clicks on the buttons in the pop-up menu
   // ########################################
+
+  public isPopUpOpen: boolean = false;
 
   // Open the pop-up when the user clicks on the three dots
   public openPopUp() {
@@ -188,5 +182,15 @@ export class SingleBudgetComponent {
     if (allowedIDs.includes(target.id)) return;
     this.isPopUpOpen = false;
     document.removeEventListener('click', this.closePopUp.bind(this));
+  }
+
+  // open either the edit or delete modal when the user clicks on the edit or delete button in the pop-up menu
+  public openSubModal(subModal: string, subModalObject: Object) {
+    this.mainModalService.chooseSubModal(
+      subModal,
+      subModalObject,
+      this.budgetIndex
+    );
+    this.isPopUpOpen = false;
   }
 }
