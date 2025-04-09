@@ -5,8 +5,11 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class FormatAmountPipe implements PipeTransform {
 
-  transform(value: unknown, ...args: unknown[]): unknown {
-    return null;
+  transform(value: number, ...args: unknown[]): string {
+    return `$${value.toLocaleString('en-US', {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    })}`;
   }
 
 }
