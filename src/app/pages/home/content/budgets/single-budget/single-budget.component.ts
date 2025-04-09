@@ -13,7 +13,7 @@ import { FormatAmountPipe } from '../../../../../shared/pipes/format-amount.pipe
 
 @Component({
   selector: 'app-single-budget',
-  imports: [CommonModule, RouterModule, IconsComponent, LastSpendingComponent],
+  imports: [CommonModule, RouterModule, IconsComponent, LastSpendingComponent, FormatAmountPipe],
   templateUrl: './single-budget.component.html',
   styleUrl: './single-budget.component.scss',
 })

@@ -47,7 +47,7 @@
     class="w-full flex flex-col gap-4"
   >
     <p class="text4r text-grey-500">
-      Maximum of <span>{{ this.maximum }}</span>
+      Maximum of <span>{{ this.budget.maximum | formatAmount: 'credit' }}</span>
     </p>
     <div aria-label="progress bar">
       <div
