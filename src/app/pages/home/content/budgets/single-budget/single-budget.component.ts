@@ -81,39 +81,45 @@ export class SingleBudgetComponent {
     })}`;
     this.remaining = this.calculateRemaining();
     this.percentageProgress = this.calculatePercentageProgress();
+    this.timeRange = this.getDateRange('month');
+    console.log(this.timeRange);
+    console.log(this.currentDate);
+    
+    
   }
 
   // ########################################
   // # logics to get the time frame of the budget  
   // ########################################
 
-  timeRange: DateRange = {
-    start: new Date(),
-    end: new Date(),
+  private currentDate: number = new Date().getTime();
+  private timeRange: DateRange = {
+    start: 0,
+    end: 0,
   }
 
-  private getDateRange(type: string): { start: Date; end: Date } {
+  private getDateRange(type: string): { start: number; end: number } {
     const now = new Date();
     let start, end;
   
     switch (type) {
       case 'month':
-        start = new Date(now.getFullYear(), now.getMonth(), 1);
-        end = new Date(now.getFullYear(), now.getMonth() + 1, 0);
+        start = new Date(now.getFullYear(), now.getMonth(), 1).getTime();
+        end = new Date(now.getFullYear(), now.getMonth() + 1, 0).getTime();
         break;
       case 'quarter':
         const quarter = Math.floor(now.getMonth() / 3);
-        start = new Date(now.getFullYear(), quarter * 3, 1);
-        end = new Date(now.getFullYear(), quarter * 3 + 3, 0);
+        start = new Date(now.getFullYear(), quarter * 3, 1).getTime();
+        end = new Date(now.getFullYear(), quarter * 3 + 3, 0).getTime();
         break;
       case 'half':
         const half = now.getMonth() < 6 ? 0 : 1;
-        start = new Date(now.getFullYear(), half * 6, 1);
-        end = new Date(now.getFullYear(), half * 6 + 6, 0);
+        start = new Date(now.getFullYear(), half * 6, 1).getTime();
+        end = new Date(now.getFullYear(), half * 6 + 6, 0).getTime();
         break;
       case 'year':
-        start = new Date(now.getFullYear(), 0, 1);
-        end = new Date(now.getFullYear(), 12, 0);
+        start = new Date(now.getFullYear(), 0, 1).getTime();
+        end = new Date(now.getFullYear(), 12, 0).getTime();
         break;
       default:
         throw new Error('Ungültiger Zeitraumtyp');
