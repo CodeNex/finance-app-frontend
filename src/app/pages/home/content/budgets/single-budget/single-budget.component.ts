@@ -81,8 +81,6 @@ export class SingleBudgetComponent {
     this.percentageProgress = this.calculatePercentageProgress();
     this.timeRange = this.getDateRange(this.budget.time_frame);
     this.timeFrameString = this.getTimeFrameString(this.budget.time_frame);
-    console.log(this.timeRange);
-    console.log(this.currentDate);
   }
 
   // ########################################
