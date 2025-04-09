@@ -22,11 +22,13 @@ export class SingleBudgetComponent {
   public apiService: APIService = inject(APIService);
 
   public budgetSignal$ = this.dataStore.budgets;
+  public transActionsSignal$ = this.dataStore.transactions;
 
   constructor() {
     effect(() => {
       let budgetSignal = this.budgetSignal$();
-      this.ngOnInit();
+      let transactionsSignal = this.transActionsSignal$();
+      this.updateComponentView();
     });
   }
 
@@ -69,6 +71,10 @@ export class SingleBudgetComponent {
   public percentageProgress: string = '';
 
   ngOnInit() {
+    this.updateComponentView();
+  }
+
+  private updateComponentView() {
     this.maximum = `$${this.budget.maximum.toLocaleString('en-US', {
       minimumFractionDigits: 2,
       maximumFractionDigits: 2,
