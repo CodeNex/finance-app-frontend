@@ -62,8 +62,6 @@ export class SingleBudgetComponent {
 
   @Input() public budgetIndex: number = -1;
 
-  
-
   public maximum: string = '';
   public spent: string = '';
   public isTooMuchSpent: boolean = false;
@@ -81,27 +79,26 @@ export class SingleBudgetComponent {
     })}`;
     this.remaining = this.calculateRemaining();
     this.percentageProgress = this.calculatePercentageProgress();
-    this.timeRange = this.getDateRange('month');
+    this.timeRange = this.getDateRange('2weeks');
     console.log(this.timeRange);
     console.log(this.currentDate);
-    
-    
   }
 
   // ########################################
-  // # logics to get the time frame of the budget  
+  // # logics to get the time frame of the budget
   // ########################################
 
   private currentDate: number = new Date().getTime();
   private timeRange: DateRange = {
     start: 0,
     end: 0,
-  }
+  };
+  public timeFrame: string = '';
 
   private getDateRange(type: string): { start: number; end: number } {
     const now = new Date();
     let start, end;
-  
+
     switch (type) {
       case 'month':
         start = new Date(now.getFullYear(), now.getMonth(), 1).getTime();
@@ -122,20 +119,40 @@ export class SingleBudgetComponent {
         end = new Date(now.getFullYear(), 12, 0).getTime();
         break;
       default:
-        throw new Error('Ungültiger Zeitraumtyp');
+        throw new Error('Invalid Timeframe type');
     }
-  
+
     return { start, end };
+  }
+
+  private getTimeFrameString(type: string): string {
+    let timeFrame: string = '';
+    switch (type) {
+      case 'month':
+        timeFrame = 'this month';
+        break;
+      case 'quarter':
+        timeFrame = 'this quarter';
+        break;
+      case 'half':
+        timeFrame = 'this half-year';
+        break;
+      case 'year':
+        timeFrame = 'this year';
+        break;
+      default:
+        throw new Error('Invalid Timeframe type');
+    }
+    return timeFrame;
   }
 
   // ########################################
   // # Calculate the percentage of the progress of the budget
-  // # and the remaining amount of the budget 
+  // # and the remaining amount of the budget
   // ########################################
 
   //calculate the current spent amount of the budget and set it to the this.budget.amount
   private calculateCurrentSpent(): number {
-
     return 0;
   }
 
