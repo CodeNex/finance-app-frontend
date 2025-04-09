@@ -238,6 +238,7 @@ export class EditBudgetModalComponent {
     this.currentBudget.theme = this.chosenTheme.hex;
     this.apiBudgetsService.updateBudget('budgets', 'editBudget', this.currentBudgetIndex, this.currentBudget);
     this.mainModalService.hideMainModal();
+    this.currentBudget.time_frame = 'month';
     console.log(this.currentBudget);
   }
 }

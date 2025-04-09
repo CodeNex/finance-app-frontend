@@ -79,71 +79,69 @@ export class SingleBudgetComponent {
     })}`;
     this.remaining = this.calculateRemaining();
     this.percentageProgress = this.calculatePercentageProgress();
-    this.timeRange = this.getDateRange(this.budget.time_frame);
-    this.timeFrameString = this.getTimeFrameString(this.budget.time_frame);
   }
 
   // ########################################
   // # logics to get the time frame of the budget
   // ########################################
 
-  private currentDate: number = new Date().getTime();
-  private timeRange: DateRange = {
-    start: 0,
-    end: 0,
-  };
-  public timeFrameString: string = '';
+  // private currentDate: number = new Date().getTime();
+  // private timeRange: DateRange = {
+  //   start: 0,
+  //   end: 0,
+  // };
+  // public timeFrameString: string = '';
 
-  private getDateRange(type: string): { start: number; end: number } {
-    const now = new Date();
-    let start, end;
+  // private getDateRange(type: string): { start: number; end: number } {
+  //   const now = new Date();
+  //   let start, end;
 
-    switch (type) {
-      case 'month':
-        start = new Date(now.getFullYear(), now.getMonth(), 1).getTime();
-        end = new Date(now.getFullYear(), now.getMonth() + 1, 0).getTime();
-        break;
-      case 'quarter':
-        const quarter = Math.floor(now.getMonth() / 3);
-        start = new Date(now.getFullYear(), quarter * 3, 1).getTime();
-        end = new Date(now.getFullYear(), quarter * 3 + 3, 0).getTime();
-        break;
-      case 'half':
-        const half = now.getMonth() < 6 ? 0 : 1;
-        start = new Date(now.getFullYear(), half * 6, 1).getTime();
-        end = new Date(now.getFullYear(), half * 6 + 6, 0).getTime();
-        break;
-      case 'year':
-        start = new Date(now.getFullYear(), 0, 1).getTime();
-        end = new Date(now.getFullYear(), 12, 0).getTime();
-        break;
-      default:
-        throw new Error('Invalid Timeframe type');
-    }
+  //   switch (type) {
+  //     case 'month':
+  //       start = new Date(now.getFullYear(), now.getMonth(), 1).getTime();
+  //       end = new Date(now.getFullYear(), now.getMonth() + 1, 0).getTime();
+  //       break;
+  //     case 'quarter':
+  //       const quarter = Math.floor(now.getMonth() / 3);
+  //       start = new Date(now.getFullYear(), quarter * 3, 1).getTime();
+  //       end = new Date(now.getFullYear(), quarter * 3 + 3, 0).getTime();
+  //       break;
+  //     case 'half':
+  //       const half = now.getMonth() < 6 ? 0 : 1;
+  //       start = new Date(now.getFullYear(), half * 6, 1).getTime();
+  //       end = new Date(now.getFullYear(), half * 6 + 6, 0).getTime();
+  //       break;
+  //     case 'year':
+  //       start = new Date(now.getFullYear(), 0, 1).getTime();
+  //       end = new Date(now.getFullYear(), 12, 0).getTime();
+  //       break;
+  //     default:
+  //       throw new Error('Invalid Timeframe type');
+  //   }
 
-    return { start, end };
-  }
+  //   return { start, end };
+  // }
 
-  private getTimeFrameString(type: string): string {
-    let timeFrame: string = '';
-    switch (type) {
-      case 'month':
-        timeFrame = 'this month';
-        break;
-      case 'quarter':
-        timeFrame = 'this quarter';
-        break;
-      case 'half':
-        timeFrame = 'this half-year';
-        break;
-      case 'year':
-        timeFrame = 'this year';
-        break;
-      default:
-        throw new Error('Invalid Timeframe type');
-    }
-    return timeFrame;
-  }
+  // private getTimeFrameString(type: string): string {
+  //   let timeFrame: string = '';
+  //   switch (type) {
+  //     case 'month':
+  //       timeFrame = 'this month';
+  //       break;
+  //     case 'quarter':
+  //       timeFrame = 'this quarter';
+  //       break;
+  //     case 'half':
+  //       timeFrame = 'this half-year';
+  //       break;
+  //     case 'year':
+  //       timeFrame = 'this year';
+  //       break;
+  //     default:
+  //       throw new Error('Invalid Timeframe type');
+  //   }
+  //   return timeFrame;
+  // }
 
   // ########################################
   // # Calculate the percentage of the progress of the budget
@@ -151,9 +149,9 @@ export class SingleBudgetComponent {
   // ########################################
 
   //calculate the current spent amount of the budget and set it to the this.budget.amount
-  private calculateCurrentSpent(): number {
-    return 0;
-  }
+  // private calculateCurrentSpent(): number {
+  //   return 0;
+  // }
 
   // Calculate the remaining amount
   calculateRemaining() {
