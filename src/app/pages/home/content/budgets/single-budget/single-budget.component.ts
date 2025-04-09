@@ -40,37 +40,9 @@ export class SingleBudgetComponent {
     });
   }
 
-  @Input() public budget: BudgetsObject = {
-    id: -1,
-    name: '',
-    amount: -1,
-    maximum: -1,
-    theme: '',
-    time_frame: 'month',
-    deleted_at: null,
-    created_at: null,
-    last_spendings: [
-      {
-        transaction_id: -1,
-        user_id: -1,
-        sender: '',
-        receiver: '',
-        name: '',
-        amount: -1,
-        recurring: null,
-        recurring_id: null,
-        theme: '',
-        budget_id: null,
-        deleted_at: null,
-        created_at: null,
-        execute_on: null,
-        category: '',
-        type: '',
-      },
-    ],
-  };
+  @Input() public budget!: BudgetsObject; 
 
-  @Input() public budgetIndex: number = -1;
+  @Input() public budgetIndex!: number;
 
   ngOnInit() {}
 
