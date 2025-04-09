@@ -1,3 +1,8 @@
+interface DateRange {
+  start: Date;
+  end: Date;
+}
+
 interface BalanceObject {
   balance: number;
 }

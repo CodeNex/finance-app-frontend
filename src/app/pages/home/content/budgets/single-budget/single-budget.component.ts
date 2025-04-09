@@ -87,6 +87,11 @@ export class SingleBudgetComponent {
   // # logics to get the time frame of the budget  
   // ########################################
 
+  timeRange: DateRange = {
+    start: new Date(),
+    end: new Date(),
+  }
+
   private getDateRange(type: string): { start: Date; end: Date } {
     const now = new Date();
     let start, end;
