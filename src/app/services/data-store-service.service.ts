@@ -21,6 +21,7 @@ export class DataStoreServiceService {
       amount: 56.26,
       maximum: 419,
       theme: '#93674F',
+      time_frame: 'month',
       deleted_at: null,
       created_at: '2025-02-24T16:14:01.000000Z',
       last_spendings: [
@@ -66,6 +67,7 @@ export class DataStoreServiceService {
       amount: 397.54,
       maximum: 350,
       theme: '#82C9D7',
+      time_frame: 'half',
       deleted_at: null,
       created_at: '2025-02-24T16:14:01.000000Z',
       last_spendings: [
@@ -111,6 +113,7 @@ export class DataStoreServiceService {
       amount: 69.29,
       maximum: 267.59,
       theme: '#934F6F',
+      time_frame: 'month',
       deleted_at: null,
       created_at: '2025-02-24T16:14:01.000000Z',
       last_spendings: null,
@@ -121,6 +124,7 @@ export class DataStoreServiceService {
       amount: 207.74,
       maximum: 602.07,
       theme: '#F2CDAC',
+      time_frame: 'year',
       deleted_at: null,
       created_at: '2025-02-24T16:14:01.000000Z',
       last_spendings: [
@@ -166,6 +170,7 @@ export class DataStoreServiceService {
       amount: 229.81,
       maximum: 258.82,
       theme: '#277C78',
+      time_frame: 'month',
       deleted_at: null,
       created_at: '2025-02-24T16:14:01.000000Z',
       last_spendings: [
@@ -211,6 +216,7 @@ export class DataStoreServiceService {
       amount: 316.83,
       maximum: 929.42,
       theme: '#826CB0',
+      time_frame: 'quarter',
       deleted_at: null,
       created_at: '2025-02-24T16:14:01.000000Z',
       last_spendings: [

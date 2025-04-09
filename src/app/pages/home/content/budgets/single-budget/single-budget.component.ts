@@ -36,6 +36,7 @@ export class SingleBudgetComponent {
     amount: -1,
     maximum: -1,
     theme: '',
+    time_frame: '',
     deleted_at: null,
     created_at: null,
     last_spendings: [

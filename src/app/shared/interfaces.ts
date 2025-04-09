@@ -7,6 +7,7 @@ interface BudgetsObject {
   name: string;
   amount: number;
   maximum: number;
+  time_frame: string;
   theme: string;
   created_at: string | null;
   deleted_at: string | null;
