@@ -71,7 +71,6 @@ export class SingleBudgetComponent {
   public percentageProgress: string = '';
 
   ngOnInit() {
-    this.updateComponentView();
   }
 
   private updateComponentView() {
@@ -83,81 +82,77 @@ export class SingleBudgetComponent {
       minimumFractionDigits: 2,
       maximumFractionDigits: 2,
     })}`;
+    this.timeRange = this.getDateRange(this.budget.time_frame);
+    this.budget.amount = this.calculateCurrentSpent(this.transActionsSignal$(), this.currentDate, this.timeRange);
     this.remaining = this.calculateRemaining();
     this.percentageProgress = this.calculatePercentageProgress();
   }
 
   // ########################################
   // # logics to get the time frame of the budget
+  // and calculate the current spent amount of the budget
   // ########################################
 
-  // private currentDate: number = new Date().getTime();
-  // private timeRange: DateRange = {
-  //   start: 0,
-  //   end: 0,
-  // };
-  // public timeFrameString: string = '';
+  public currentDate: number = new Date().getTime();
+  public timeRange: DateRange = {
+    start: 0,
+    end: 0,
+  };
 
-  // private getDateRange(type: string): { start: number; end: number } {
-  //   const now = new Date();
-  //   let start, end;
+  private getDateRange(type: string): { start: number; end: number } {
+    const now = new Date();
+    let start, end;
 
-  //   switch (type) {
-  //     case 'month':
-  //       start = new Date(now.getFullYear(), now.getMonth(), 1).getTime();
-  //       end = new Date(now.getFullYear(), now.getMonth() + 1, 0).getTime();
-  //       break;
-  //     case 'quarter':
-  //       const quarter = Math.floor(now.getMonth() / 3);
-  //       start = new Date(now.getFullYear(), quarter * 3, 1).getTime();
-  //       end = new Date(now.getFullYear(), quarter * 3 + 3, 0).getTime();
-  //       break;
-  //     case 'half':
-  //       const half = now.getMonth() < 6 ? 0 : 1;
-  //       start = new Date(now.getFullYear(), half * 6, 1).getTime();
-  //       end = new Date(now.getFullYear(), half * 6 + 6, 0).getTime();
-  //       break;
-  //     case 'year':
-  //       start = new Date(now.getFullYear(), 0, 1).getTime();
-  //       end = new Date(now.getFullYear(), 12, 0).getTime();
-  //       break;
-  //     default:
-  //       throw new Error('Invalid Timeframe type');
-  //   }
+    switch (type) {
+      case 'month':
+        start = new Date(now.getFullYear(), now.getMonth(), 1).getTime();
+        end = new Date(now.getFullYear(), now.getMonth() + 1, 0).getTime();
+        break;
+      case 'quarter':
+        const quarter = Math.floor(now.getMonth() / 3);
+        start = new Date(now.getFullYear(), quarter * 3, 1).getTime();
+        end = new Date(now.getFullYear(), quarter * 3 + 3, 0).getTime();
+        break;
+      case 'half':
+        const half = now.getMonth() < 6 ? 0 : 1;
+        start = new Date(now.getFullYear(), half * 6, 1).getTime();
+        end = new Date(now.getFullYear(), half * 6 + 6, 0).getTime();
+        break;
+      case 'year':
+        start = new Date(now.getFullYear(), 0, 1).getTime();
+        end = new Date(now.getFullYear(), 12, 0).getTime();
+        break;
+      default:
+        throw new Error('Invalid Timeframe type');
+    }
 
-  //   return { start, end };
-  // }
+    return { start, end };
+  }
 
-  // private getTimeFrameString(type: string): string {
-  //   let timeFrame: string = '';
-  //   switch (type) {
-  //     case 'month':
-  //       timeFrame = 'this month';
-  //       break;
-  //     case 'quarter':
-  //       timeFrame = 'this quarter';
-  //       break;
-  //     case 'half':
-  //       timeFrame = 'this half-year';
-  //       break;
-  //     case 'year':
-  //       timeFrame = 'this year';
-  //       break;
-  //     default:
-  //       throw new Error('Invalid Timeframe type');
-  //   }
-  //   return timeFrame;
-  // }
+  // calculate the current spent amount of the budget and set it to the this.budget.amount
+  private calculateCurrentSpent(
+    transactions: any,
+    currDate: number,
+    timeRange: { start: number; end: number }
+  ): number {
+    let spent = 0;
+    transactions.forEach((transaction: any) => {
+      if (
+        transaction.category ===
+        this.budget.name
+          .replace(/\s+/g, '')
+          .replace(/^./, (c) => c.toLowerCase())
+      ) {
+        console.log(transaction.category);
+      }
+    });
+    return 0;
+  }
 
   // ########################################
   // # Calculate the percentage of the progress of the budget
   // # and the remaining amount of the budget
   // ########################################
-
-  //calculate the current spent amount of the budget and set it to the this.budget.amount
-  // private calculateCurrentSpent(): number {
-  //   return 0;
-  // }
 
   // Calculate the remaining amount
   calculateRemaining() {
