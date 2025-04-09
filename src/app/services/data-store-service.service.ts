@@ -66,7 +66,7 @@ export class DataStoreServiceService {
       amount: 397.54,
       maximum: 350,
       theme: '#82C9D7',
-      time_frame: 'half',
+      time_frame: 'month',
       deleted_at: null,
       created_at: '2025-02-24T16:14:01.000000Z',
       last_spendings: [
@@ -123,7 +123,7 @@ export class DataStoreServiceService {
       amount: 207.74,
       maximum: 602.07,
       theme: '#F2CDAC',
-      time_frame: 'year',
+      time_frame: 'month',
       deleted_at: null,
       created_at: '2025-02-24T16:14:01.000000Z',
       last_spendings: [
@@ -215,7 +215,7 @@ export class DataStoreServiceService {
       amount: 316.83,
       maximum: 929.42,
       theme: '#826CB0',
-      time_frame: 'quarter',
+      time_frame: 'month',
       deleted_at: null,
       created_at: '2025-02-24T16:14:01.000000Z',
       last_spendings: [
@@ -314,7 +314,7 @@ export class DataStoreServiceService {
       amount: 86.68,
       budget_id: null,
       created_at: '2025-09-12T00:00:00Z',
-      execute_on: '2025-07-26T00:00:00Z',
+      execute_on: '2025-04-26T00:00:00Z',
       deleted_at: null,
       recurring: null,
       recurring_id: null,

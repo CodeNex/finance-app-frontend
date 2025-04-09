@@ -82,8 +82,7 @@ export class SingleBudgetComponent {
       minimumFractionDigits: 2,
       maximumFractionDigits: 2,
     })}`;
-    this.timeRange = this.getDateRange(this.budget.time_frame);
-    this.budget.amount = this.calculateCurrentSpent(this.transActionsSignal$(), this.currentDate, this.timeRange);
+    this.budget.amount = this.calculateCurrentSpent(this.transActionsSignal$(), this.getDateRange(this.budget.time_frame));
     this.remaining = this.calculateRemaining();
     this.percentageProgress = this.calculatePercentageProgress();
   }
@@ -92,12 +91,6 @@ export class SingleBudgetComponent {
   // # logics to get the time frame of the budget
   // and calculate the current spent amount of the budget
   // ########################################
-
-  public currentDate: number = new Date().getTime();
-  public timeRange: DateRange = {
-    start: 0,
-    end: 0,
-  };
 
   private getDateRange(type: string): { start: number; end: number } {
     const now = new Date();
@@ -125,28 +118,31 @@ export class SingleBudgetComponent {
       default:
         throw new Error('Invalid Timeframe type');
     }
-
+    
     return { start, end };
   }
 
   // calculate the current spent amount of the budget and set it to the this.budget.amount
   private calculateCurrentSpent(
     transactions: any,
-    currDate: number,
     timeRange: { start: number; end: number }
   ): number {
     let spent = 0;
     transactions.forEach((transaction: any) => {
+      let executeDate = new Date(transaction.execute_on).getTime();
+      let today = new Date().getTime();
       if (
         transaction.category ===
         this.budget.name
           .replace(/\s+/g, '')
-          .replace(/^./, (c) => c.toLowerCase())
+          .replace(/^./, (c) => c.toLowerCase()) &&
+        executeDate >= timeRange.start &&
+        executeDate <= timeRange.end
       ) {
-        console.log(transaction.category);
+        spent += transaction.amount
       }
     });
-    return 0;
+    return spent;
   }
 
   // ########################################
