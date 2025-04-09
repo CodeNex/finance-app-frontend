@@ -24,27 +24,24 @@ import { FormatAmountPipe } from '../../../../../shared/pipes/format-amount.pipe
   styleUrl: './single-budget.component.scss',
 })
 export class SingleBudgetComponent {
-  public mainModalService: MainModalService = inject(MainModalService);
-  public dataStore: DataStoreServiceService = inject(DataStoreServiceService);
-  public authService: AuthenticationService = inject(AuthenticationService);
-  public apiService: APIService = inject(APIService);
+  public mainModalService = inject(MainModalService);
+  public dataStore = inject(DataStoreServiceService);
+  public authService = inject(AuthenticationService);
+  public apiService = inject(APIService);
 
-  public budgetSignal$ = this.dataStore.budgets;
-  public transActionsSignal$ = this.dataStore.transactions;
+  public budgetSignal = this.dataStore.budgets;
+  public transActionsSignal = this.dataStore.transactions;
+
+  @Input() public budget!: BudgetsObject; 
+  @Input() public budgetIndex!: number;
 
   constructor() {
     effect(() => {
-      let budgetSignal = this.budgetSignal$();
-      let transactionsSignal = this.transActionsSignal$();
+      this.budgetSignal();
+      this.transActionsSignal();
       this.updateComponentView();
     });
   }
-
-  @Input() public budget!: BudgetsObject; 
-
-  @Input() public budgetIndex!: number;
-
-  ngOnInit() {}
 
   // ########################################
   // # logics to update the component view
@@ -53,7 +50,7 @@ export class SingleBudgetComponent {
 
   private updateComponentView() {
     this.budget.amount = this.calculateCurrentSpent(
-      this.transActionsSignal$(),
+      this.transActionsSignal(),
       this.getDateRange(this.budget.time_frame)
     );
     this.remaining = this.calculateRemaining();
