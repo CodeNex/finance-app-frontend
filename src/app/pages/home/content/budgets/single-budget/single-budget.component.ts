@@ -115,14 +115,13 @@ export class SingleBudgetComponent {
   
     return { start, end };
   }
-  
 
   // ########################################
   // # Calculate the percentage of the progress of the budget
   // # and the remaining amount of the budget 
   // ########################################
 
-  //calculate the current spent amount of the budget
+  //calculate the current spent amount of the budget and set it to the this.budget.amount
   private calculateCurrentSpent(): number {
 
     return 0;
