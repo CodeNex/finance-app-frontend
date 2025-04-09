@@ -68,9 +68,9 @@ export class SingleBudgetComponent {
 
   public maximum: string = '';
   public spent: string = '';
-  public isTooMuchSpent: boolean = false;
-  public remaining: string = '';
-  public percentageProgress: string = '';
+  
+  
+  
 
   ngOnInit() {
   }
@@ -153,7 +153,10 @@ export class SingleBudgetComponent {
   // ########################################
 
   // Calculate the remaining amount
-  calculateRemaining() {
+  public remaining: string = '';
+  public isTooMuchSpent: boolean = false;
+
+  private calculateRemaining() {
     if (this.budget.maximum - this.budget.amount <= 0) {
       this.isTooMuchSpent = true;
       return '$0.00';
@@ -170,7 +173,9 @@ export class SingleBudgetComponent {
   }
 
   // Calculate the percentage of the progress of the budget
-  calculatePercentageProgress() {
+  public percentageProgress: string = '';
+
+  private calculatePercentageProgress() {
     if (this.budget.amount <= 0) {
       return '0%';
     } else if (this.budget.amount >= this.budget.maximum) {
