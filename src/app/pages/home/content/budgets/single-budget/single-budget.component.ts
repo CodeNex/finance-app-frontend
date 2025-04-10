@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, inject, Input, effect } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { IconsComponent } from '@components/icons/icons.component';
-import { LastSpendingComponent } from './last-spending/last-spending.component';
+import { LastSpendingComponent } from '@content/budgets/single-budget/last-spending/last-spending.component';
 
 import { DataStoreServiceService } from '@services/data-store-service.service';
 import { AuthenticationService } from '@services/authentication.service';

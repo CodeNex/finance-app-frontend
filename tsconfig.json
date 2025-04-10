@@ -20,10 +20,14 @@
     "module": "ES2022",
     "baseUrl": "src",
     "paths": {
+      "@content/*": ["app/pages/home/content/*"],
+      "@main-modal/*": ["app/pages/home/main-modal/*"],
+      "@navbar/*": ["app/pages/home/navbar/*"],
+      "@imprint/*": ["app/pages/imprint/*"],
+      "@login/*": ["app/pages/login/*"],
       "@components/*": ["app/components/*"],
-      "@pages/*": ["app/pages/*"],
       "@services/*": ["app/services/*"],
-      "@shared/*": ["app/shared/*"]
+      "@shared/*": ["app/shared/*"],
     }
   },
   "angularCompilerOptions": {
