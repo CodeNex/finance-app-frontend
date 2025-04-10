@@ -1,10 +1,9 @@
 import { Component, inject } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import jsonData from '../../../shared/data/financeapp.basedata.json';
-import { IconsComponent } from '../../../components/icons/icons.component';
+import { IconsComponent } from '@components/icons/icons.component';
 
-import { AuthenticationService } from '../../../services/authentication.service';
-import { BasedataService } from '../../../services/basedata.service';
+import { AuthenticationService } from '@services/authentication.service';
+import { BasedataService } from '@services/basedata.service';
 
 @Component({
   selector: 'app-navbar',

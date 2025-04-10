@@ -1,9 +1,9 @@
 import { Component, effect, inject } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { IconsComponent } from '../../../../../components/icons/icons.component';
-import { DataStoreServiceService } from '../../../../../services/data-store-service.service';
-import { AuthenticationService } from '../../../../../services/authentication.service';
-import { APIService } from '../../../../../services/api.service';
+import { IconsComponent } from '@components/icons/icons.component';
+import { DataStoreServiceService } from '@services/data-store-service.service';
+import { AuthenticationService } from '@services/authentication.service';
+import { APIService } from '@services/api.service';
 import { CommonModule } from '@angular/common';
 import { SingleTransactionComponent } from './single-transaction/single-transaction.component';
 

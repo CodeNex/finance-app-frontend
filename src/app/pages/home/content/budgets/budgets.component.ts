@@ -1,12 +1,10 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
+import { DataStoreServiceService } from '@services/data-store-service.service';
+import { AuthenticationService } from '@services/authentication.service';
 
-import { DataStoreServiceService } from '../../../../services/data-store-service.service';
-import { AuthenticationService } from '../../../../services/authentication.service';
-import { APIService } from '../../../../services/api.service';
-
-import { MainModalService } from '../../../../services/main-modal.service';
+import { MainModalService } from '@services/main-modal.service';
 import { SingleBudgetComponent } from './single-budget/single-budget.component';
 import { BudgetOverviewComponent } from './budget-overview/budget-overview.component';
 
@@ -18,7 +16,6 @@ import { BudgetOverviewComponent } from './budget-overview/budget-overview.compo
   styleUrl: './budgets.component.scss',
 })
 export class BudgetsComponent {
-  private apiService: APIService = inject(APIService);
   private dataStore: DataStoreServiceService = inject(DataStoreServiceService);
   public authService: AuthenticationService = inject(AuthenticationService);
   public mainModalService: MainModalService = inject(MainModalService);

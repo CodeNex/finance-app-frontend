@@ -3,11 +3,11 @@ import { FormsModule } from '@angular/forms';
 
 import { LoginFormComponent } from './login-form/login-form.component';
 import { SignUpFormComponent } from './sign-up-form/sign-up-form.component';
-import { LoadingScreenComponent } from '../../components/loading-screen/loading-screen.component';
-import { WarningScreenComponent } from '../../components/warning-screen/warning-screen.component';
+import { LoadingScreenComponent } from '@components/loading-screen/loading-screen.component';
+import { WarningScreenComponent } from '@components/warning-screen/warning-screen.component';
 import { ImprintComponent } from '@imprint/imprint.component';
 
-import { AuthenticationService } from '../../services/authentication.service';
+import { AuthenticationService } from '@services/authentication.service';
 
 @Component({
   selector: 'app-login',

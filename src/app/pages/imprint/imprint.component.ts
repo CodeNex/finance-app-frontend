@@ -1,7 +1,7 @@
 import { Component, inject, Input, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 
-import { IconsComponent } from '../../components/icons/icons.component';
+import { IconsComponent } from '@components/icons/icons.component';
 
 @Component({
   selector: 'app-imprint',

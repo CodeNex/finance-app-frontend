@@ -1,9 +1,9 @@
 import { Component, inject } from '@angular/core';
 
-import { MainModalService } from '../../../services/main-modal.service';
+import { MainModalService } from '@services/main-modal.service';
 import { Subscription } from 'rxjs';
 
-import '../../../shared/interfaces.ts';
+import '@shared/interfaces.ts';
 
 import { AddBudgetModalComponent } from '@content/budgets/budgets-modals/add-budget-modal/add-budget-modal.component';
 import { DeleteBudgetModalComponent } from '@content/budgets/budgets-modals/delete-budget-modal/delete-budget-modal.component';

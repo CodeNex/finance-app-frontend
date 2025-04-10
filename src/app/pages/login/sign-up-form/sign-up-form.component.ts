@@ -6,14 +6,13 @@ import {
   ReactiveFormsModule,
   AbstractControl,
   ValidationErrors,
-  ValidatorFn,
 } from '@angular/forms';
 import { NgClass } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
-import { IconsComponent } from '../../../components/icons/icons.component';
+import { IconsComponent } from '@components/icons/icons.component';
 
-import { AuthenticationService } from '../../../services/authentication.service';
+import { AuthenticationService } from '@services/authentication.service';
 
 @Component({
   selector: 'app-sign-up-form',

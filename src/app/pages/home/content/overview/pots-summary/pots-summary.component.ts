@@ -1,10 +1,10 @@
-import { Component, effect, inject, Input, OnInit, SimpleChanges } from '@angular/core';
-import { IconsComponent } from '../../../../../components/icons/icons.component';
+import { Component, effect, inject, OnInit } from '@angular/core';
+import { IconsComponent } from '@components/icons/icons.component';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { DataStoreServiceService } from '../../../../../services/data-store-service.service';
-import { AuthenticationService } from '../../../../../services/authentication.service';
-import { APIService } from '../../../../../services/api.service';
+import { DataStoreServiceService } from '@services/data-store-service.service';
+import { AuthenticationService } from '@services/authentication.service';
+import { APIService } from '@services/api.service';
 
 @Component({
   selector: 'app-pots-summary',

@@ -1,5 +1,5 @@
 import { Injectable, signal } from '@angular/core';
-import '../shared/interfaces.ts';
+import '@shared/interfaces.ts';
 
 @Injectable({
   providedIn: 'root',

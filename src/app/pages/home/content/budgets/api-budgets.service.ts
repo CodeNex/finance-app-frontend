@@ -1,10 +1,10 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
-import { AuthenticationService } from '../../../../services/authentication.service';
-import { BasedataService } from '../../../../services/basedata.service';
-import { DataStoreServiceService } from '../../../../services/data-store-service.service';
-import { MainModalService } from '../../../../services/main-modal.service';
+import { AuthenticationService } from '@services/authentication.service';
+import { BasedataService } from '@services/basedata.service';
+import { DataStoreServiceService } from '@services/data-store-service.service';
+import { MainModalService } from '@services/main-modal.service';
 
 @Injectable({
   providedIn: 'root'

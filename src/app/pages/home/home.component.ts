@@ -1,4 +1,4 @@
-import { Component, Inject, inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { NavbarComponent } from './navbar/navbar.component';
 import { ContentComponent } from '@content/content.component';
 import { RouterModule, Router } from '@angular/router';
@@ -6,8 +6,8 @@ import { Subscription } from 'rxjs';
 
 import { MainModalComponent } from './main-modal/main-modal.component';
 
-import { AuthenticationService } from '../../services/authentication.service';
-import { MainModalService } from '../../services/main-modal.service';
+import { AuthenticationService } from '@services/authentication.service';
+import { MainModalService } from '@services/main-modal.service';
 
 @Component({
   selector: 'app-home',

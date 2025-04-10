@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
-import { APIService } from '../../services/api.service';
-import { AuthenticationService } from '../../services/authentication.service';
+import { APIService } from '@services/api.service';
+import { AuthenticationService } from '@services/authentication.service';
 
 @Component({
   selector: 'app-warning-screen',

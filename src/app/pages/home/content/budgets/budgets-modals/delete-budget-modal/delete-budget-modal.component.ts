@@ -1,6 +1,6 @@
 import { Component, inject, Input } from '@angular/core';
 
-import { MainModalService } from '../../../../../../services/main-modal.service';
+import { MainModalService } from '@services/main-modal.service';
 import { ApiBudgetsService } from '../../api-budgets.service';
 import { CommonModule } from '@angular/common';
 

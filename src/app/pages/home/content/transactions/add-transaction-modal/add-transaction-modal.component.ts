@@ -1,11 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { IconsComponent } from '../../../../../components/icons/icons.component';
+import { IconsComponent } from '@components/icons/icons.component';
 
-import { MainModalService } from '../../../../../services/main-modal.service';
-import { BasedataService } from '../../../../../services/basedata.service';
-import { DataStoreServiceService } from '../../../../../services/data-store-service.service';
+import { MainModalService } from '@services/main-modal.service';
+import { BasedataService } from '@services/basedata.service';
+import { DataStoreServiceService } from '@services/data-store-service.service';
 import { ApiTransactionService } from '../api-transaction.service';
 
 @Component({

@@ -1,10 +1,9 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { DataStoreServiceService } from '../../../../services/data-store-service.service';
-import { AuthenticationService } from '../../../../services/authentication.service';
-import { APIService } from '../../../../services/api.service';
-import { MainModalService } from '../../../../services/main-modal.service';
+import { DataStoreServiceService } from '@services/data-store-service.service';
+import { AuthenticationService } from '@services/authentication.service';
+import { MainModalService } from '@services/main-modal.service';
 import { SinglePotComponent } from './single-pot/single-pot.component';
 
 @Component({
@@ -14,7 +13,6 @@ import { SinglePotComponent } from './single-pot/single-pot.component';
   styleUrl: './pots.component.scss',
 })
 export class PotsComponent {
-  private apiService: APIService = inject(APIService);
   private dataStore: DataStoreServiceService = inject(DataStoreServiceService);
   public authService: AuthenticationService = inject(AuthenticationService);
   public mainModalService: MainModalService = inject(MainModalService);

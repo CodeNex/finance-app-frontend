@@ -8,11 +8,11 @@ import {
 import { NgClass } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
-import { IconsComponent } from '../../../components/icons/icons.component';
+import { IconsComponent } from '@components/icons/icons.component';
 
-import { AutoLoginService } from '../../../services/auto-login.service';
-import { AuthenticationService } from '../../../services/authentication.service';
-import { BasedataService } from '../../../services/basedata.service';
+import { AutoLoginService } from '@services/auto-login.service';
+import { AuthenticationService } from '@services/authentication.service';
+import { BasedataService } from '@services/basedata.service';
 
 @Component({
   selector: 'app-login-form',

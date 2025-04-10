@@ -1,11 +1,10 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
-import { AuthenticationService } from '../../../../services/authentication.service';
-import { APIService } from '../../../../services/api.service';
-import { DataStoreServiceService } from '../../../../services/data-store-service.service';
-import { BasedataService } from '../../../../services/basedata.service';
-import { MainModalService } from '../../../../services/main-modal.service';
+import { AuthenticationService } from '@services/authentication.service';
+import { DataStoreServiceService } from '@services/data-store-service.service';
+import { BasedataService } from '@services/basedata.service';
+import { MainModalService } from '@services/main-modal.service';
 
 @Injectable({
   providedIn: 'root',
@@ -14,7 +13,6 @@ export class ApiTransactionService {
   private AuthenticationService: AuthenticationService = inject(
     AuthenticationService
   );
-  private APIService: APIService = inject(APIService);
   private dataStore: DataStoreServiceService = inject(DataStoreServiceService);
   private baseData: BasedataService = inject(BasedataService);
   private http: HttpClient = inject(HttpClient);
