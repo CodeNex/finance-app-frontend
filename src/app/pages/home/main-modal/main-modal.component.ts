@@ -5,16 +5,16 @@ import { Subscription } from 'rxjs';
 
 import '../../../shared/interfaces.ts';
 
-import { AddBudgetModalComponent } from '../content/budgets/budgets-modals/add-budget-modal/add-budget-modal.component';
-import { DeleteBudgetModalComponent } from '../content/budgets/budgets-modals/delete-budget-modal/delete-budget-modal.component';
-import { EditBudgetModalComponent } from '../content/budgets/budgets-modals/edit-budget-modal/edit-budget-modal.component';
-import { AddPotModalComponent } from '../content/pots/pots-modals/add-pot-modal/add-pot-modal.component';
-import { EditPotModalComponent } from '../content/pots/pots-modals/edit-pot-modal/edit-pot-modal.component';
-import { DeletePotModalComponent } from '../content/pots/pots-modals/delete-pot-modal/delete-pot-modal.component';
-import { AddmoneyPotModalComponent } from '../content/pots/pots-modals/addmoney-pot-modal/addmoney-pot-modal.component';
-import { WithdrawmoneyPotModalComponent } from '../content/pots/pots-modals/withdrawmoney-pot-modal/withdrawmoney-pot-modal.component';
-import { AddTransactionModalComponent } from '../content/transactions/add-transaction-modal/add-transaction-modal.component';
-import { RecurringDeleteModalComponent } from '../content/recurring-bills/recurring-modals/recurring-delete-modal/recurring-delete-modal.component';
+import { AddBudgetModalComponent } from '@content/budgets/budgets-modals/add-budget-modal/add-budget-modal.component';
+import { DeleteBudgetModalComponent } from '@content/budgets/budgets-modals/delete-budget-modal/delete-budget-modal.component';
+import { EditBudgetModalComponent } from '@content/budgets/budgets-modals/edit-budget-modal/edit-budget-modal.component';
+import { AddPotModalComponent } from '@content/pots/pots-modals/add-pot-modal/add-pot-modal.component';
+import { EditPotModalComponent } from '@content/pots/pots-modals/edit-pot-modal/edit-pot-modal.component';
+import { DeletePotModalComponent } from '@content/pots/pots-modals/delete-pot-modal/delete-pot-modal.component';
+import { AddmoneyPotModalComponent } from '@content/pots/pots-modals/addmoney-pot-modal/addmoney-pot-modal.component';
+import { WithdrawmoneyPotModalComponent } from '@content/pots/pots-modals/withdrawmoney-pot-modal/withdrawmoney-pot-modal.component';
+import { AddTransactionModalComponent } from '@content/transactions/add-transaction-modal/add-transaction-modal.component';
+import { RecurringDeleteModalComponent } from '@content/recurring-bills/recurring-modals/recurring-delete-modal/recurring-delete-modal.component';
 
 @Component({
   selector: 'app-main-modal',
@@ -28,7 +28,7 @@ import { RecurringDeleteModalComponent } from '../content/recurring-bills/recurr
     AddmoneyPotModalComponent,
     WithdrawmoneyPotModalComponent,
     AddTransactionModalComponent,
-    RecurringDeleteModalComponent
+    RecurringDeleteModalComponent,
   ],
   templateUrl: './main-modal.component.html',
   styleUrl: './main-modal.component.scss',

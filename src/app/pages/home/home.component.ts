@@ -1,6 +1,6 @@
 import { Component, Inject, inject } from '@angular/core';
 import { NavbarComponent } from './navbar/navbar.component';
-import { ContentComponent } from './content/content.component';
+import { ContentComponent } from '@content/content.component';
 import { RouterModule, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 
