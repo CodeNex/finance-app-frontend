@@ -1,5 +1,14 @@
-import { Component, inject, Input, Output, EventEmitter } from '@angular/core';
+import {
+  Component,
+  inject,
+  Input,
+  Output,
+  EventEmitter,
+  OnInit,
+  OnDestroy,
+} from '@angular/core';
 import { ActivatedRoute, RouterModule } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 import { IconsComponent } from '@components/icons/icons.component';
 
@@ -7,30 +16,33 @@ import { IconsComponent } from '@components/icons/icons.component';
   selector: 'app-imprint',
   imports: [RouterModule, IconsComponent],
   templateUrl: './imprint.component.html',
-  styleUrl: './imprint.component.scss'
+  styleUrl: './imprint.component.scss',
 })
-export class ImprintComponent {
+export class ImprintComponent implements OnInit, OnDestroy {
+  private subscription = new Subscription();
 
-  public route: ActivatedRoute = inject(ActivatedRoute);
+  public readonly route = inject(ActivatedRoute);
 
   public location: string = 'loggedOut';
 
   @Input() public lastShownLoginWindow: string = 'loginForm';
 
-  @Output() public switchToLogInComponent: EventEmitter<string> = new EventEmitter<string>();
-
-  ngOnInit() {
-    this.getImprintLocation();
-  }
-
-  getImprintLocation() {
-    this.route.data.subscribe(data => {
-      this.location = data['location'];
-    })
-  }
+  @Output() public switchToLogInComponent: EventEmitter<string> =
+    new EventEmitter<string>();
 
   switchToLoginComponent() {
     this.switchToLogInComponent.emit(this.lastShownLoginWindow);
   }
 
+  ngOnInit() {
+    this.subscription.add(
+      this.route.data.subscribe((data) => {
+        this.location = data?.['location'] ?? 'loggedOut';
+      })
+    );
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
 }
