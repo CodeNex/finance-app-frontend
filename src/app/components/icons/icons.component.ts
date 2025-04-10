@@ -7,5 +7,5 @@ import { Component, Input, } from '@angular/core';
   styleUrl: './icons.component.scss'
 })
 export class IconsComponent {
-  @Input("iconName") public iconName: any = "";
+  @Input("iconName") public iconName: string = "";
 }
