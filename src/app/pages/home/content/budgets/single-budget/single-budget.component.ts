@@ -1,13 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, Input, effect } from '@angular/core';
-import { IconsComponent } from '../../../../../components/icons/icons.component';
 import { RouterModule } from '@angular/router';
+import { IconsComponent } from '../../../../../components/icons/icons.component';
+import { LastSpendingComponent } from './last-spending/last-spending.component';
 
 import { DataStoreServiceService } from '../../../../../services/data-store-service.service';
 import { AuthenticationService } from '../../../../../services/authentication.service';
 import { APIService } from '../../../../../services/api.service';
 import { MainModalService } from '../../../../../services/main-modal.service';
-import { LastSpendingComponent } from './last-spending/last-spending.component';
 
 import { FormatAmountPipe } from '../../../../../shared/pipes/format-amount.pipe';
 
