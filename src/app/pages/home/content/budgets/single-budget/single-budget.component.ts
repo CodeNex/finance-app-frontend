@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, Input, effect } from '@angular/core';
+import { Component, inject, Input, effect, runInInjectionContext, OnInit, OnDestroy, Injector } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { IconsComponent } from '@components/icons/icons.component';
 import { LastSpendingComponent } from '@content/budgets/single-budget/last-spending/last-spending.component';
@@ -23,11 +23,12 @@ import { FormatAmountPipe } from '@shared/pipes/format-amount.pipe';
   templateUrl: './single-budget.component.html',
   styleUrl: './single-budget.component.scss',
 })
-export class SingleBudgetComponent {
+export class SingleBudgetComponent implements OnInit, OnDestroy {
   public mainModalService = inject(MainModalService);
   public dataStore = inject(DataStoreServiceService);
   public authService = inject(AuthenticationService);
   public apiService = inject(APIService);
+  public injector = inject(Injector);
 
   public budgetSignal = this.dataStore.budgets;
   public transActionsSignal = this.dataStore.transactions;
@@ -35,11 +36,13 @@ export class SingleBudgetComponent {
   @Input() public budget!: BudgetsObject;
   @Input() public budgetIndex!: number;
 
-  constructor() {
-    effect(() => {
-      this.budgetSignal();
-      this.transActionsSignal();
-      this.updateComponentView();
+  ngOnInit() {
+    runInInjectionContext(this.injector,() => {
+      effect(() => {
+        this.budgetSignal();
+        this.transActionsSignal();
+        this.updateComponentView();
+      });
     });
   }
 
