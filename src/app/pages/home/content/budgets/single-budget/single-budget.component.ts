@@ -58,8 +58,7 @@ export class SingleBudgetComponent {
   }
 
   /**
-   * logics to get the time frame of the budget
-   * and calculate the current spent amount of the budget
+   * Returns the time range (start and end timestamp) based on the given budget type
    */
 
   private getDateRange(type: string): { start: number; end: number } {
@@ -98,7 +97,8 @@ export class SingleBudgetComponent {
     timeRange: { start: number; end: number }
   ): number {
     let spent = 0;
-    transactions.forEach((transaction: any) => {
+    transactions.forEach((transaction: TransactionsObject) => {
+      if (!transaction.execute_on) return;
       let executeDate = new Date(transaction.execute_on).getTime();
       if (
         transaction.category ===
@@ -108,7 +108,7 @@ export class SingleBudgetComponent {
         executeDate >= timeRange.start &&
         executeDate <= timeRange.end
       ) {
-        spent += transaction.amount;
+        if (transaction.amount) spent += transaction.amount; 
       }
     });
     return spent;
@@ -118,7 +118,6 @@ export class SingleBudgetComponent {
    * Calculate the percentage of the progress of the budget
    * and the remaining amount of the budget
    */
-
 
   // Calculate the remaining amount
   public remaining: number = 0;
@@ -176,10 +175,10 @@ export class SingleBudgetComponent {
   }
 
   // open either the edit or delete modal when the user clicks on the edit or delete button in the pop-up menu
-  public openSubModal(subModal: string, subModalObject: Object) {
+  public openSubModal(subModal: string, currentBudget: BudgetsObject) {
     this.mainModalService.chooseSubModal(
       subModal,
-      subModalObject,
+      currentBudget,
       this.budgetIndex
     );
     this.isPopUpOpen = false;
@@ -192,5 +191,4 @@ export class SingleBudgetComponent {
   ngOnDestroy() {
     document.removeEventListener('click', this.closePopUp.bind(this));
   }
-
 }
