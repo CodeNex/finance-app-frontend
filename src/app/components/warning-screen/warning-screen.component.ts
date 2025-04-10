@@ -9,8 +9,8 @@ import { AuthenticationService } from '@services/authentication.service';
   styleUrl: './warning-screen.component.scss',
 })
 export class WarningScreenComponent {
-  private apiService: APIService = inject(APIService);
-  private authService: AuthenticationService = inject(AuthenticationService);
+  private apiService = inject(APIService);
+  private authService = inject(AuthenticationService);
 
   warningMessageApi: string = this.apiService.warningMessage;
   warningMessageAuth: string = this.authService.authWarningMessage;
