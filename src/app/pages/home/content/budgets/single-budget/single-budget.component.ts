@@ -140,7 +140,7 @@ export class SingleBudgetComponent implements OnInit, OnDestroy {
       return 0;
     } else {
       this.isTooMuchSpent = false;
-      return this.budget.maximum - this.budget.amount;
+      return this.budget.maximum - this.calculatedSpent;
     }
   }
 
@@ -170,14 +170,12 @@ export class SingleBudgetComponent implements OnInit, OnDestroy {
       this.isPopUpOpen = true;
       document.addEventListener('click', this.closePopUp.bind(this));
     }, 20);
-    return;
   }
 
   // Close the pop-up if the user clicks outside of the pop-up
   public closePopUp(event: MouseEvent) {
     if (!this.isPopUpOpen) return;
     let target = event.target as HTMLElement;
-    if (!target) return;
     let allowedIDs = ['editPotButton', 'deletePotButton', 'potPopUp'];
     if (allowedIDs.includes(target.id)) return;
     this.isPopUpOpen = false;
