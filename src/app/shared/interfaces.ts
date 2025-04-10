@@ -6,7 +6,6 @@ interface DateRange {
 interface BalanceObject {
   balance: number;
 }
-
 interface BudgetsObject {
   id: number;
   name: string;

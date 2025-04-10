@@ -4,26 +4,14 @@ import { Pipe, PipeTransform } from '@angular/core';
   name: 'formatAmount',
 })
 export class FormatAmountPipe implements PipeTransform {
-  transform(value: number, ...args: [type: string | null]): string {
-    let output = '';
+  transform(value: number, type: 'credit' | 'debit' = 'credit'): string {
+    if (value == null) return '';
 
-    if (value === null || value === undefined) {
-      output = '';
-    }
+    const prefix = type === 'debit' ? '-' : '';
 
-    if (args[0] === 'credit' || args[0] === null) {
-      output = `$${value.toLocaleString('en-US', {
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2,
-      })}`;
-    }
-
-    if (args[0] === 'debit') {
-      output = `-$${value.toLocaleString('en-US', {
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2,
-      })}`;
-    }
-    return output;
+    return `${prefix}$${value.toLocaleString('en-US', {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    })}`;
   }
 }
