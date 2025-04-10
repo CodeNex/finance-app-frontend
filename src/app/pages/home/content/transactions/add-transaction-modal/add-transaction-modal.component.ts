@@ -23,7 +23,7 @@ export class AddTransactionModalComponent {
   );
 
   // blueprint for a new transaction
-  public currentTransaction: any = {
+  public currentTransaction: TransactionsObject = {
     transaction_id: 0,
     user_id: 0,
     amount: 0,
@@ -48,17 +48,17 @@ export class AddTransactionModalComponent {
     this.chosenDateValue = this.getCurrentDate();
   }
 
-  // ########################################
-  // # closes main modal and its children
-  // ########################################
+  /**
+   * closes main modal and its children
+   */
 
   public closeMainModal() {
     this.mainModalService.hideMainModal();
   }
 
-  // ########################################
-  // # DEBIT and CREDIT choose functions
-  // ########################################
+  /**
+   * DEBIT and CREDIT choose functions
+   */
 
   public currentTransactionType: string = 'Debit';
 
@@ -76,9 +76,9 @@ export class AddTransactionModalComponent {
     }
   }
 
-  // ########################################
-  // # AMOUNT Input functions
-  // ########################################
+  /**
+   * AMOUNT Input functions
+   */
 
   public maxAmountInputValue: string = '0.00'; // ngModel binded
   public maxAmountString: string = '0.00';
@@ -151,9 +151,9 @@ export class AddTransactionModalComponent {
     return parseFloat(this.maxAmountInputValue.replace(/,/g, ''));
   }
 
-  // ########################################
-  // # NAME Input functions
-  // ########################################
+  /**
+   * NAME Input functions
+   */
 
   public transactionNameValue: string = ''; // ngModel binded
   public transactionsNameCharactersLeft: number = 30;
@@ -179,9 +179,9 @@ export class AddTransactionModalComponent {
     return this.transactionNameValue;
   }
 
-  // ########################################
-  // # CATEGORY Dropdown functions
-  // ########################################
+  /**
+   * CATEGORY Dropdown functions
+   */
 
   public categories: any = [];
   public chosenCategory: string = 'General'; // interpolation {{chosenCategory}}
@@ -207,9 +207,9 @@ export class AddTransactionModalComponent {
     this.isCategoryDropdownOpen = !this.isCategoryDropdownOpen;
   }
 
-  // ########################################
-  // # RECURRING Dropdown functions
-  // ########################################
+  /**
+   * RECURRING Dropdown functions
+   */
 
   public recurrings: any = [];
   public chosenRecurring: string = 'Single Transaction'; // interpolation {{chosenRecurring}}
@@ -233,9 +233,9 @@ export class AddTransactionModalComponent {
     this.isRecurringDropdownOpen = !this.isRecurringDropdownOpen;
   }
 
-  // ########################################
-  // # DATE Input functions
-  // ########################################
+  /**
+   * DATE Input functions
+   */
 
   public currentDate: string = ''; // html - min attribute
   public chosenDateValue: string = ''; // ngModel binded
@@ -252,18 +252,18 @@ export class AddTransactionModalComponent {
     }
   }
 
-  // ########################################
-  // # Get a random theme color for the transaction
-  // ########################################
+  /**
+   * Get a random theme color for the transaction
+   */
 
   public getRandomTheme() {
     let themeArray: any = Object.values(this.baseData.financeApp.basics.colors);
     return themeArray[Math.floor(Math.random() * themeArray.length)].hex;
   }
 
-  // ########################################
-  // # functions to validate the input values
-  // ########################################
+  /**
+   * functions to validate the input values
+   */
 
   public isAmountValid: boolean = true; // ngStyle binded
   public isNameValid: boolean = true; // ngStyle binded
@@ -279,6 +279,7 @@ export class AddTransactionModalComponent {
   }
 
   public validateAmount() {
+    if (!this.currentTransaction.amount) return;
     if (this.currentTransaction.amount <= 0) {
       this.isAmountValid = false;
       return false;
@@ -303,9 +304,9 @@ export class AddTransactionModalComponent {
     if (input === 'name') this.isNameValid = true;
   }
 
-  // ########################################
-  // # complete and submit new transaction to "api-transaction.service"
-  // ########################################
+  /**
+   * complete and submit new transaction to "api-transaction.service"
+   */
 
   // add ngModel binded values and other defaults to the currentTransaction object
   private completeNewTransaction() {
