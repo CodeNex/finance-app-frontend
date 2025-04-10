@@ -32,7 +32,7 @@ export class SingleBudgetComponent {
   public budgetSignal = this.dataStore.budgets;
   public transActionsSignal = this.dataStore.transactions;
 
-  @Input() public budget!: BudgetsObject; 
+  @Input() public budget!: BudgetsObject;
   @Input() public budgetIndex!: number;
 
   constructor() {
@@ -43,10 +43,10 @@ export class SingleBudgetComponent {
     });
   }
 
-  // ########################################
-  // # logics to update the component view
-  // # when the budget signal or the transactions signal changes
-  // ########################################
+  /**
+   * logics to update the component view
+   * when the budget signal or the transactions signal changes
+   */
 
   private updateComponentView() {
     this.budget.amount = this.calculateCurrentSpent(
@@ -57,10 +57,10 @@ export class SingleBudgetComponent {
     this.percentageProgress = this.calculatePercentageProgress();
   }
 
-  // ########################################
-  // # logics to get the time frame of the budget
-  // and calculate the current spent amount of the budget
-  // ########################################
+  /**
+   * logics to get the time frame of the budget
+   * and calculate the current spent amount of the budget
+   */
 
   private getDateRange(type: string): { start: number; end: number } {
     const now = new Date();
@@ -94,13 +94,12 @@ export class SingleBudgetComponent {
 
   // calculate the current spent amount of the budget and set it to the this.budget.amount
   private calculateCurrentSpent(
-    transactions: any,
+    transactions: TransactionsObject[],
     timeRange: { start: number; end: number }
   ): number {
     let spent = 0;
     transactions.forEach((transaction: any) => {
       let executeDate = new Date(transaction.execute_on).getTime();
-      let today = new Date().getTime();
       if (
         transaction.category ===
           this.budget.name
@@ -115,10 +114,11 @@ export class SingleBudgetComponent {
     return spent;
   }
 
-  // ########################################
-  // # Calculate the percentage of the progress of the budget
-  // # and the remaining amount of the budget
-  // ########################################
+  /**
+   * Calculate the percentage of the progress of the budget
+   * and the remaining amount of the budget
+   */
+
 
   // Calculate the remaining amount
   public remaining: number = 0;
@@ -147,10 +147,10 @@ export class SingleBudgetComponent {
     }
   }
 
-  // ########################################
-  // # logics to control opening and closing of the pop-up menu
-  // # open the submodals when the user clicks on the buttons in the pop-up menu
-  // ########################################
+  /**
+   * logics to control opening and closing of the pop-up menu
+   * open the submodals when the user clicks on the buttons in the pop-up menu
+   */
 
   public isPopUpOpen: boolean = false;
 
@@ -184,4 +184,13 @@ export class SingleBudgetComponent {
     );
     this.isPopUpOpen = false;
   }
+
+  /**
+   * NG OnDestroy
+   */
+
+  ngOnDestroy() {
+    document.removeEventListener('click', this.closePopUp.bind(this));
+  }
+
 }
