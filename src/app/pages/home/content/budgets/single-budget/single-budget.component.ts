@@ -1,5 +1,13 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, Input, effect, runInInjectionContext, OnInit, OnDestroy, Injector } from '@angular/core';
+import {
+  Component,
+  inject,
+  Input,
+  effect,
+  runInInjectionContext,
+  Injector,
+} from '@angular/core';
+import { OnInit, OnDestroy } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { IconsComponent } from '@components/icons/icons.component';
 import { LastSpendingComponent } from '@content/budgets/single-budget/last-spending/last-spending.component';
@@ -37,7 +45,7 @@ export class SingleBudgetComponent implements OnInit, OnDestroy {
   @Input() public budgetIndex!: number;
 
   ngOnInit() {
-    runInInjectionContext(this.injector,() => {
+    runInInjectionContext(this.injector, () => {
       effect(() => {
         this.budgetSignal();
         this.transActionsSignal();
@@ -47,12 +55,11 @@ export class SingleBudgetComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * logics to update the component view
-   * when the budget signal or the transactions signal changes
+   * Updates the view when budget or transactions change.
    */
 
   private updateComponentView() {
-    this.budget.amount = this.calculateCurrentSpent(
+    this.calculatedSpent = this.calculateCurrentSpent(
       this.transActionsSignal(),
       this.getDateRange(this.budget.time_frame)
     );
@@ -94,7 +101,9 @@ export class SingleBudgetComponent implements OnInit, OnDestroy {
     return { start, end };
   }
 
-  // calculate the current spent amount of the budget and set it to the this.budget.amount
+  // Calculates the current spent amount within the given time range.
+  public calculatedSpent: number = 0;
+
   private calculateCurrentSpent(
     transactions: TransactionsObject[],
     timeRange: { start: number; end: number }
@@ -111,15 +120,14 @@ export class SingleBudgetComponent implements OnInit, OnDestroy {
         executeDate >= timeRange.start &&
         executeDate <= timeRange.end
       ) {
-        if (transaction.amount) spent += transaction.amount; 
+        if (transaction.amount) spent += transaction.amount;
       }
     });
     return spent;
   }
 
   /**
-   * Calculate the percentage of the progress of the budget
-   * and the remaining amount of the budget
+   * Calculates budget progress and remaining funds.
    */
 
   // Calculate the remaining amount
@@ -127,7 +135,7 @@ export class SingleBudgetComponent implements OnInit, OnDestroy {
   public isTooMuchSpent: boolean = false;
 
   private calculateRemaining() {
-    if (this.budget.maximum - this.budget.amount <= 0) {
+    if (this.budget.maximum - this.calculatedSpent <= 0) {
       this.isTooMuchSpent = true;
       return 0;
     } else {
@@ -140,18 +148,17 @@ export class SingleBudgetComponent implements OnInit, OnDestroy {
   public percentageProgress: string = '';
 
   private calculatePercentageProgress() {
-    if (this.budget.amount <= 0) {
+    if (this.calculatedSpent <= 0) {
       return '0%';
-    } else if (this.budget.amount >= this.budget.maximum) {
+    } else if (this.calculatedSpent >= this.budget.maximum) {
       return '100%';
     } else {
-      return `${Math.trunc((this.budget.amount / this.budget.maximum) * 100)}%`;
+      return `${Math.trunc((this.calculatedSpent / this.budget.maximum) * 100)}%`;
     }
   }
 
   /**
-   * logics to control opening and closing of the pop-up menu
-   * open the submodals when the user clicks on the buttons in the pop-up menu
+   * Handles pop-up menu visibility and modal interactions.
    */
 
   public isPopUpOpen: boolean = false;
@@ -177,7 +184,7 @@ export class SingleBudgetComponent implements OnInit, OnDestroy {
     document.removeEventListener('click', this.closePopUp.bind(this));
   }
 
-  // open either the edit or delete modal when the user clicks on the edit or delete button in the pop-up menu
+  // Opens edit/delete modal based on user action
   public openSubModal(subModal: string, currentBudget: BudgetsObject) {
     this.mainModalService.chooseSubModal(
       subModal,
