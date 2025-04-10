@@ -1,4 +1,4 @@
-import { Injectable, inject } from '@angular/core';
+import { Injectable, inject, signal } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, Observable, tap, throwError } from 'rxjs';
 import { Router } from '@angular/router';
@@ -24,7 +24,7 @@ export class APIService {
 
   private dummyEndpoint = this.baseUrl === '/dummyData' ? '.json' : '';
 
-  public warningMessage: string = '';
+  public warningMessage = signal<string>('');
 
   constructor() {}
 
@@ -56,13 +56,13 @@ export class APIService {
           this.transactionsRecurringDataLoaded = true;
         this.checkDataLoaded(endpoint);
         this.AuthenticationService.setWarningScreen(false);
-        this.warningMessage = '';
+        this.warningMessage.set('');
         console.log(this.dataStore.getStoredData(endpoint));
       },
       error: (error) => {
         console.error(`Fail to fetch ${endpoint} data`, error);
         this.AuthenticationService.setLoadingScreen(false);
-        this.warningMessage = `Fail to fetch ${endpoint} data`;
+        this.warningMessage.set(`Fail to fetch ${endpoint} data`);
         this.AuthenticationService.setWarningScreen(true);
       },
     });

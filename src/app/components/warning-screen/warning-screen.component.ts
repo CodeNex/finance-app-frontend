@@ -12,6 +12,6 @@ export class WarningScreenComponent {
   private apiService = inject(APIService);
   private authService = inject(AuthenticationService);
 
-  warningMessageApi: string = this.apiService.warningMessage;
-  warningMessageAuth: string = this.authService.authWarningMessage;
+  warningMessageApi: string = this.apiService.warningMessage();
+  warningMessageAuth: string = this.authService.authWarningMessage();
 }

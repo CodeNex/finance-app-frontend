@@ -1,26 +1,24 @@
-import { Injectable, inject, Injector } from '@angular/core';
+import { Injectable, inject, Injector, signal } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BehaviorSubject } from 'rxjs';
 import { Router } from '@angular/router';
 
-import { APIService } from './api.service';
-import { BasedataService } from './basedata.service';
+import { APIService } from '@services/api.service';
+import { BasedataService } from '@services/basedata.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthenticationService {
-  private http: HttpClient = inject(HttpClient);
-  private injector: Injector = inject(Injector);
-  private baseData: BasedataService = inject(BasedataService);
-  private router: Router = inject(Router);
+  private http = inject(HttpClient);
+  private injector = inject(Injector);
+  private baseData = inject(BasedataService);
+  private router = inject(Router);
 
   private baseUrl: string = this.baseData.financeApp.basics.apiData.baseUrl;
 
   private loginPath: string = '/login';
-
   private registerPath: string = '/register';
-
   private logoutPath: string = '/logout';
 
   public isWarningScreenVisible = new BehaviorSubject<boolean>(false);
@@ -35,7 +33,7 @@ export class AuthenticationService {
     this.isLoadingScreenVisible.next(value);
   }
 
-  public authWarningMessage: string = '';
+  public authWarningMessage = signal<string>('');
 
   public authToken: string = '';
 
@@ -65,16 +63,14 @@ export class AuthenticationService {
         next: (response) => {
           if (this.saveTokenInLocalStorage)
             this.setTokenToLocalStorage(response.token);
-          this.authWarningMessage = '';
+          this.authWarningMessage.set('');
           this.authToken = response.token;
           this.startApiFirstDataLoading();
-          console.log('Auth-Token:', this.authToken);
         },
         error: (error) => {
           this.setLoadingScreen(false);
           this.setWarningScreen(true);
-          this.authWarningMessage = error.message;
-          console.log('Error:', this.authWarningMessage);
+          this.authWarningMessage.set(error.message);
         },
       });
   }
