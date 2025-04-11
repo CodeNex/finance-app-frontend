@@ -1,4 +1,10 @@
-import { Component, EventEmitter, Output, inject } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Output,
+  inject,
+  ViewChild,
+} from '@angular/core';
 import {
   FormsModule,
   Validators,
@@ -29,8 +35,7 @@ import { AuthenticationService } from '@services/authentication.service';
 export class SignUpFormComponent {
   @Output() changeWindow = new EventEmitter();
 
-  @Output() public switchToImprintComponent: EventEmitter<string> =
-    new EventEmitter<string>();
+  @Output() public switchToImprintComponent = new EventEmitter<string>();
 
   private AuthenticationService = inject(AuthenticationService);
 
@@ -46,6 +51,9 @@ export class SignUpFormComponent {
 
   isFormValid: boolean = false;
 
+  /**
+   * Signup Form
+   */
   public signUpBody = this.formBuilder.group({
     name: [
       '',
@@ -78,7 +86,7 @@ export class SignUpFormComponent {
     if (this.signUpBody.valid && this.isPrivacyPolicyAccepted) {
       console.log('SignUpBody is valid:', this.signUpBody.valid);
       console.log('SignUp-Body: ', this.signUpBody.value);
-      await this.AuthenticationService.doAuthenticationRequest(
+      this.AuthenticationService.doAuthenticationRequest(
         'register',
         this.signUpBody.value
       );
@@ -90,10 +98,6 @@ export class SignUpFormComponent {
       );
       console.log('SignUpBody is valid:', this.signUpBody.valid);
     }
-  }
-
-  goToImprintComponent() {
-    this.switchToImprintComponent.emit('signUpForm');
   }
 
   validateName(control: AbstractControl): ValidationErrors | null {
