@@ -67,6 +67,7 @@
     <!-- password input field -->
     <div class="input-wrapper">
       <input
+        #password
         formControlName="password"
         type="password"
         id="singupCreatePasswordInput"
@@ -100,6 +101,7 @@
     <!-- confirm password field -->
     <div class="input-wrapper">
       <input
+        #confirmPassword
         formControlName="confirmPassword"
         type="password"
         id="singupConfirmPasswordInput"
@@ -168,7 +170,7 @@
   <div class="flex justify-center items-center gap-2">
     <p class="text4r text-grey-500 select-none">Already have an account?</p>
     <button
-      (click)="emitChangeWindow('loginForm')"
+      (click)="changeWindow.emit('loginForm')"
       class="text4b text-grey-900 underline select-none"
     >
       Login
@@ -176,6 +178,6 @@
   </div>
 
   <div class="flex justify-center">
-    <button (click)="goToImprintComponent()" class="text4r text-grey-500 select-none underline hover:text-grey-900">Imprint & Privacy</button>
+    <button (click)="switchToImprintComponent.emit('signUpForm')" class="text4r text-grey-500 select-none underline hover:text-grey-900">Imprint & Privacy</button>
   </div>
 </section>

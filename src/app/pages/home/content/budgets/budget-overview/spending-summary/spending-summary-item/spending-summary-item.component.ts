@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, inject, Input, effect, Signal } from '@angular/core';
 import { __classPrivateFieldGet } from 'tslib';
 
-import { DataStoreServiceService } from '../../../../../../../services/data-store-service.service';
+import { DataStoreServiceService } from '@services/data-store-service.service';
 
 @Component({
   selector: 'app-spending-summary-item',

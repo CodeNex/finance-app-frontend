@@ -1,11 +1,11 @@
 import { Component, inject } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { IconsComponent } from '../../../../../../components/icons/icons.component';
+import { IconsComponent } from '@components/icons/icons.component';
 
-import { MainModalService } from '../../../../../../services/main-modal.service';
-import { BasedataService } from '../../../../../../services/basedata.service';
-import { DataStoreServiceService } from '../../../../../../services/data-store-service.service';
+import { MainModalService } from '@services/main-modal.service';
+import { BasedataService } from '@services/basedata.service';
+import { DataStoreServiceService } from '@services/data-store-service.service';
 import { ApiBudgetsService } from '../../api-budgets.service';
 import { CommonModule } from '@angular/common';
 
@@ -32,6 +32,7 @@ export class AddBudgetModalComponent {
       amount: 0,
       maximum: -1,
       theme: '',
+      time_frame: '',
       deleted_at: null,
       created_at: null,
       last_spendings: null,
@@ -198,14 +199,14 @@ export class AddBudgetModalComponent {
     }
   
     // add a new pot to the pots array in data-store-service, submit the new pot to the API and close the modal
-    submitAddPot() {
+    submitAddBudget() {
       this.currentBudget.maximum = parseFloat(
         this.maxBudgetInputValue.replace(/,/g, '')
       );
       this.currentBudget.theme = this.chosenTheme.hex;
       this.apiBudgetsService.addNewBudget(this.currentBudget);
       this.mainModalService.hideMainModal();
-      console.log(this.currentBudget);
+      this.currentBudget.time_frame = 'month';
     }
   }
   

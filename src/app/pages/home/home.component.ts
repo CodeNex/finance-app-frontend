@@ -1,17 +1,24 @@
-import { Component, Inject, inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { NavbarComponent } from './navbar/navbar.component';
-import { ContentComponent } from './content/content.component';
+import { ContentComponent } from '@content/content.component';
 import { RouterModule, Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { AsyncPipe } from '@angular/common';
 
 import { MainModalComponent } from './main-modal/main-modal.component';
 
-import { AuthenticationService } from '../../services/authentication.service';
-import { MainModalService } from '../../services/main-modal.service';
+import { AuthenticationService } from '@services/authentication.service';
+import { MainModalService } from '@services/main-modal.service';
 
+/**
+ * * HomeComponent
+ * This component is responsible for the home page of the application.
+ * It contains the navbar and the main content area.
+ * It also handles the logic for checking if the user is authenticated and toggles the visibility * of the main modal.
+ */
 @Component({
   selector: 'app-home',
   imports: [
+    AsyncPipe,
     NavbarComponent,
     RouterModule,
     ContentComponent,
@@ -21,42 +28,22 @@ import { MainModalService } from '../../services/main-modal.service';
   styleUrl: './home.component.scss',
 })
 export class HomeComponent {
-  private authService: AuthenticationService = inject(AuthenticationService);
-  private router: Router = inject(Router);
-  public mainModalService: MainModalService = inject(MainModalService);
+  // #region Component Setup (DI, Outputs, Template Refs, Subscription)
+  private authService = inject(AuthenticationService);
+  private router = inject(Router);
+  public mainModalService = inject(MainModalService);
+  // #endregion
 
-  public isMainModalVisible: boolean =
-    this.mainModalService.isMainModalVisible$.value;
-  public mainModalSubscription!: Subscription;
-
-  // NG ON INIT
   ngOnInit() {
     this.checkIfAuthTokenExists();
-    this.subscribeMainModalVisibility();
   }
 
-  // checks if the authToken exists, if not, redirects to the login page
+  /**
+   * checks if the authToken exists, if not, redirects to the login page
+   */
   checkIfAuthTokenExists() {
     if (!this.authService.authToken) {
       this.router.navigate(['']);
     }
-  }
-
-  // gets the value of isMainModalVisible from the mainModalService
-  subscribeMainModalVisibility() {
-    this.mainModalSubscription =
-      this.mainModalService.isMainModalVisible$.subscribe(
-        (value) => (this.isMainModalVisible = value)
-      );
-  }
-
-  // NG ON DESTROY
-  ngOnDestroy() {
-    this.unsubscribeMainModalVisibility();
-  }
-
-  // unsubscribes from the mainModalService
-  unsubscribeMainModalVisibility() {
-    this.mainModalSubscription.unsubscribe();
   }
 }

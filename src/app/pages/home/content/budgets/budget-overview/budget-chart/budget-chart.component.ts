@@ -1,8 +1,8 @@
 import { Component, effect, inject } from '@angular/core';
 import { BaseChartDirective } from 'ng2-charts';
-import { ChartData, ChartEvent, ChartOptions, ChartType } from 'chart.js';
+import { ChartEvent, ChartOptions, ChartType } from 'chart.js';
 
-import { DataStoreServiceService } from '../../../../../../services/data-store-service.service';
+import { DataStoreServiceService } from '@services/data-store-service.service';
 
 @Component({
   selector: 'app-budget-chart',

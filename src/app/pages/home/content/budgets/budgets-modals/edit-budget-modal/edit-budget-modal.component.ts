@@ -2,17 +2,15 @@ import { Component, inject, Input } from '@angular/core';
 
 import {
   FormsModule,
-  FormBuilder,
-  Validators,
   ReactiveFormsModule,
 } from '@angular/forms';
 
-import { MainModalService } from '../../../../../../services/main-modal.service';
-import { BasedataService } from '../../../../../../services/basedata.service';
-import { DataStoreServiceService } from '../../../../../../services/data-store-service.service';
+import { MainModalService } from '@services/main-modal.service';
+import { BasedataService } from '@services/basedata.service';
+import { DataStoreServiceService } from '@services/data-store-service.service';
 import { ApiBudgetsService } from '../../api-budgets.service';
 import { CommonModule } from '@angular/common';
-import { IconsComponent } from '../../../../../../components/icons/icons.component';
+import { IconsComponent } from '@components/icons/icons.component';
 
 @Component({
   selector: 'app-edit-budget-modal',
@@ -40,6 +38,7 @@ export class EditBudgetModalComponent {
     amount: -1,
     maximum: -1,
     theme: '',
+    time_frame: '',
     deleted_at: null,
     created_at: null,
     last_spendings: [
@@ -237,6 +236,7 @@ export class EditBudgetModalComponent {
     this.currentBudget.theme = this.chosenTheme.hex;
     this.apiBudgetsService.updateBudget('budgets', 'editBudget', this.currentBudgetIndex, this.currentBudget);
     this.mainModalService.hideMainModal();
+    this.currentBudget.time_frame = 'month';
     console.log(this.currentBudget);
   }
 }

@@ -1,12 +1,17 @@
+interface DateRange {
+  start: number;
+  end: number;
+}
+
 interface BalanceObject {
   balance: number;
 }
-
 interface BudgetsObject {
   id: number;
   name: string;
   amount: number;
   maximum: number;
+  time_frame: string;
   theme: string;
   created_at: string | null;
   deleted_at: string | null;

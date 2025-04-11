@@ -2,10 +2,10 @@ import { Component, inject, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
-import { MainModalService } from '../../../../../../services/main-modal.service';
-import { DataStoreServiceService } from '../../../../../../services/data-store-service.service';
+import { MainModalService } from '@services/main-modal.service';
+import { DataStoreServiceService } from '@services/data-store-service.service';
 import { ApiPotsService } from '../../api-pots.service';
-import { ApiTransactionService } from '../../../transactions/api-transaction.service';
+import { ApiTransactionService } from '@content/transactions/api-transaction.service';
 
 @Component({
   selector: 'app-addmoney-pot-modal',

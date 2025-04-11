@@ -1,10 +1,30 @@
 import { Injectable } from '@angular/core';
 
+/**
+ * * BasedataService
+ * This service is responsible for providing the base data for the application.
+ */
 @Injectable({
   providedIn: 'root',
 })
 export class BasedataService {
   constructor() {}
+
+  /**
+   * Returns guest login credentials from the current app config.
+   * Used for quick guest access without a user account.
+   */
+  public get guestLoginData() {
+    return this.financeApp.basics.apiData.guestLogin;
+  }
+
+  /**
+   * Returns the data used to render the navbar
+   * Used in the navbar component to display the links and icons.
+   */
+  public get navdata() {
+    return this.financeApp.navbar.links;
+  }
 
   public financeApp: any = {
     basics: {
@@ -134,44 +154,44 @@ export class BasedataService {
       categories: {
         entertainment: {
           name: 'Entertainment',
-          iconName: 'entertainment'
+          iconName: 'entertainment',
         },
         bills: {
           name: 'Bills',
-          iconName: 'bills'
+          iconName: 'bills',
         },
         groceries: {
           name: 'Groceries',
-          iconName: 'groceries'
+          iconName: 'groceries',
         },
         diningOut: {
           name: 'Dining Out',
-          iconName: 'diningOut'
+          iconName: 'diningOut',
         },
         transportation: {
           name: 'Transportation',
-          iconName: 'transportation'
+          iconName: 'transportation',
         },
         personalCare: {
           name: 'Personal Care',
-          iconName: 'personalCare'
+          iconName: 'personalCare',
         },
         education: {
           name: 'Education',
-          iconName: 'education'
+          iconName: 'education',
         },
         lifestyle: {
           name: 'Lifestyle',
-          iconName: 'lifestyle'
+          iconName: 'lifestyle',
         },
         shopping: {
           name: 'Shopping',
-          iconName: 'shopping'
+          iconName: 'shopping',
         },
         general: {
           name: 'General',
-          iconName: 'general'
-        }
+          iconName: 'general',
+        },
       },
     },
     recurrings: {
@@ -182,32 +202,29 @@ export class BasedataService {
         },
         weekly: {
           name: 'Every Week',
-          value: 'weekly'
+          value: 'weekly',
         },
         twoWeeks: {
           name: 'Every Two Weeks',
-          value: 'twoWeeks'
+          value: 'twoWeeks',
         },
         monthly: {
           name: 'Every Month',
-          value: 'monthly'
+          value: 'monthly',
         },
         quarterly: {
           name: 'Every Three Months',
-          value: 'quarterly'
+          value: 'quarterly',
         },
         halfYearly: {
           name: 'Every Six Months',
-          value: 'halfYearly'
+          value: 'halfYearly',
         },
         yearly: {
           name: 'Every Year',
-          value: 'yearly'
-        }
+          value: 'yearly',
+        },
       },
-    }
+    },
   };
 }
-
-
-

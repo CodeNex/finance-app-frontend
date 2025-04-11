@@ -1,7 +1,7 @@
 import { Component, inject, Input, OnInit } from '@angular/core';
-import { IconsComponent } from '../../../../../../components/icons/icons.component';
+import { IconsComponent } from '@components/icons/icons.component';
 import { CommonModule } from '@angular/common';
-import { BasedataService } from '../../../../../../services/basedata.service';
+import { BasedataService } from '@services/basedata.service';
 
 @Component({
   selector: 'app-single-transaction',

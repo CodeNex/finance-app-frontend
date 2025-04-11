@@ -1,9 +1,9 @@
 import { Component, effect, inject, Input, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { APIService } from '../../../../../services/api.service';
-import { AuthenticationService } from '../../../../../services/authentication.service';
-import { DataStoreServiceService } from '../../../../../services/data-store-service.service';
-import { BillsSummaryComponent } from '../../recurring-bills/bills-summary/bills-summary.component';
+import { APIService } from '@services/api.service';
+import { AuthenticationService } from '@services/authentication.service';
+import { DataStoreServiceService } from '@services/data-store-service.service';
+import { BillsSummaryComponent } from '@content/recurring-bills/bills-summary/bills-summary.component';
 
 @Component({
   selector: 'app-recurring-bills-summary',

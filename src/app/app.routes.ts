@@ -1,25 +1,24 @@
 import { Routes } from '@angular/router';
 
 // Main pages components
-import { LoginComponent } from './pages/login/login.component';
-import { HomeComponent } from './pages/home/home.component';
-import { ImprintComponent } from './pages/imprint/imprint.component';
+import { LoginComponent } from '@login/login.component';
+import { HomeComponent } from '@home/home.component';
+import { ImprintComponent } from '@imprint/imprint.component';
 
 // Home page components
-import { OverviewComponent } from './pages/home/content/overview/overview.component';
-import { TransactionsComponent } from './pages/home/content/transactions/transactions.component';
-import { BudgetsComponent } from './pages/home/content/budgets/budgets.component';
-import { PotsComponent } from './pages/home/content/pots/pots.component';
-import { RecurringBillsComponent } from './pages/home/content/recurring-bills/recurring-bills.component';
-import { SettingsComponent } from './pages/home/content/settings/settings.component';
+import { OverviewComponent } from '@content/overview/overview.component';
+import { TransactionsComponent } from '@content/transactions/transactions.component';
+import { BudgetsComponent } from '@content/budgets/budgets.component';
+import { PotsComponent } from '@content/pots/pots.component';
+import { RecurringBillsComponent } from '@content/recurring-bills/recurring-bills.component';
+import { SettingsComponent } from '@content/settings/settings.component';
 
 export const routes: Routes = [
-  { path: 'login', component: LoginComponent, pathMatch: 'full' },
+  { path: '', component: LoginComponent, pathMatch: 'full' },
   {
-    path: '',
+    path: 'home',
     component: HomeComponent,
     children: [
-
       { path: '', redirectTo: 'overview', pathMatch: 'full' },
       { path: 'overview', component: OverviewComponent },
       { path: 'transactions', component: TransactionsComponent },

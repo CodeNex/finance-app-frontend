@@ -1,7 +1,7 @@
 import { Component, effect, inject } from '@angular/core';
-import { IconsComponent } from '../../../../../components/icons/icons.component';
+import { IconsComponent } from '@components/icons/icons.component';
 import { CommonModule } from '@angular/common';
-import { DataStoreServiceService } from '../../../../../services/data-store-service.service';
+import { DataStoreServiceService } from '@services/data-store-service.service';
 
 @Component({
   selector: 'app-bills-summary',

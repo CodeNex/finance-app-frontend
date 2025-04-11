@@ -1,10 +1,9 @@
-import { Component, inject } from '@angular/core';
+import { Component, ElementRef, inject, ViewChild, ViewChildren, QueryList } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import jsonData from '../../../shared/data/financeapp.basedata.json';
-import { IconsComponent } from '../../../components/icons/icons.component';
+import { IconsComponent } from '@components/icons/icons.component';
 
-import { AuthenticationService } from '../../../services/authentication.service';
-import { BasedataService } from '../../../services/basedata.service';
+import { AuthenticationService } from '@services/authentication.service';
+import { BasedataService } from '@services/basedata.service';
 
 @Component({
   selector: 'app-navbar',
@@ -13,24 +12,27 @@ import { BasedataService } from '../../../services/basedata.service';
   styleUrl: './navbar.component.scss',
 })
 export class NavbarComponent {
+  // #region Component Setup (DI, Outputs, Template Refs, Subscription)
+  public authService = inject(AuthenticationService);
+  public baseData = inject(BasedataService);
 
-  public authService: AuthenticationService = inject(AuthenticationService);
-  public baseData: BasedataService = inject(BasedataService);
+  @ViewChild('navBar', { static: false }) navBarRef!: ElementRef<HTMLElement>;
+  @ViewChild('slideButton', { static: false })
+  slideButtonRef!: ElementRef<HTMLElement>;
+  @ViewChildren('navLinkName') navLinkNames!: QueryList<ElementRef<HTMLElement>>;
+  // #endregion
 
-  public navData: any;
+  // This data is used to render the navbar links and icons.
+  public navData = this.baseData.navdata;
 
-  ngOnInit() {
-    this.navData = this.baseData.financeApp.navbar.links;
-  }
-
+  // #region Navbar View
   isNavbarThin: boolean = false;
 
   toggleMovingNavbar() {
-    let navLinkNames = Array.from(
-      document.querySelectorAll('[data-group="navLinkName"]')
-    );
-    let navBarRef = document.getElementById('navBar');
-    let slideButtonRef = document.getElementById('slideButton');
+    const navLinkNames = this.navLinkNames.toArray();
+    const navBarRef = this.navBarRef.nativeElement;
+    const slideButtonRef = this.slideButtonRef.nativeElement;
+
     if (!this.isNavbarThin) {
       this.makeNavbarThin(navLinkNames, navBarRef, slideButtonRef);
     } else {
@@ -46,15 +48,15 @@ export class NavbarComponent {
   ) {
     this.makeLogoThin();
     if (slideButtonRef) slideButtonRef.classList.add('slideButtonReturn');
-    navLinkNames.forEach((navLinkName) =>
-      navLinkName.classList.add('opacity_zero')
+    navLinkNames.forEach((link) =>
+      link.nativeElement.classList.add('opacity_zero')
     );
     if (navBarRef) {
       navBarRef.classList.add('navbar-thin');
       navBarRef.style.paddingRight = '8px';
     }
     setTimeout(() => {
-      navLinkNames.forEach((link) => link.classList.add('d_none'));
+      navLinkNames.forEach((link) => link.nativeElement.classList.add('d_none'));
     }, 300);
   }
 
@@ -63,65 +65,63 @@ export class NavbarComponent {
     navBarRef: HTMLElement | null,
     slideButtonRef: HTMLElement | null
   ) {
-    navLinkNames.forEach((link) => link.classList.remove('d_none'));
+    navLinkNames.forEach((link) => link.nativeElement.classList.remove('d_none'));
     setTimeout(() => {
       this.makeLogoWide();
       if (slideButtonRef) slideButtonRef.classList.remove('slideButtonReturn');
-      navLinkNames.forEach((link) => link.classList.remove('opacity_zero'));
+      navLinkNames.forEach((link) => link.nativeElement.classList.remove('opacity_zero'));
       if (navBarRef) {
         navBarRef?.classList.remove('navbar-thin');
         navBarRef.style.paddingRight = '24px';
       }
     }, 10);
   }
+  // #endregion
+
+  // #region Logo Animation
+  public visibleLogoPaths: string[] = [
+    'logoPath2',
+    'logoPath3',
+    'logoPath4',
+    'logoPath5',
+    'logoPath6',
+    'logoPath7',
+  ];
+  public isLogoWide: boolean = true;
 
   makeLogoThin() {
-    document.getElementById('financeLogo')!.style.transform = 'translateX(8px)';
-    document.getElementById('logoPath7')!.style.display = 'none';
-    setTimeout(
-      () => (document.getElementById('logoPath6')!.style.display = 'none'),
-      50
-    );
-    setTimeout(
-      () => (document.getElementById('logoPath5')!.style.display = 'none'),
-      100
-    );
-    setTimeout(
-      () => (document.getElementById('logoPath4')!.style.display = 'none'),
-      150
-    );
-    setTimeout(
-      () => (document.getElementById('logoPath3')!.style.display = 'none'),
-      200
-    );
-    setTimeout(
-      () => (document.getElementById('logoPath2')!.style.display = 'none'),
-      250
-    );
+    this.isLogoWide = false;
+    const paths = [
+      'logoPath2',
+      'logoPath3',
+      'logoPath4',
+      'logoPath5',
+      'logoPath6',
+      'logoPath7',
+    ];
+    this.visibleLogoPaths = [...paths];
+    paths.reverse().forEach((path, index) => {
+      setTimeout(() => {
+        this.visibleLogoPaths = this.visibleLogoPaths.filter((p) => p !== path);
+      }, index * 50);
+    });
   }
 
   makeLogoWide() {
-    document.getElementById('financeLogo')!.style.transform = 'translateX(2px)';
-    document.getElementById('logoPath2')!.style.display = 'block';
-    setTimeout(
-      () => (document.getElementById('logoPath3')!.style.display = 'block'),
-      50
-    );
-    setTimeout(
-      () => (document.getElementById('logoPath4')!.style.display = 'block'),
-      100
-    );
-    setTimeout(
-      () => (document.getElementById('logoPath5')!.style.display = 'block'),
-      150
-    );
-    setTimeout(
-      () => (document.getElementById('logoPath6')!.style.display = 'block'),
-      200
-    );
-    setTimeout(
-      () => (document.getElementById('logoPath7')!.style.display = 'block'),
-      250
-    );
+    const paths = [
+      'logoPath2',
+      'logoPath3',
+      'logoPath4',
+      'logoPath5',
+      'logoPath6',
+      'logoPath7',
+    ];
+    paths.forEach((path, index) => {
+      setTimeout(() => {
+        this.visibleLogoPaths = [...this.visibleLogoPaths, path];
+      }, index * 50);
+    });
+    this.isLogoWide = true;
   }
+  // #endregion
 }

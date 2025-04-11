@@ -1,6 +1,3 @@
-// new transactions - possible intervals: "weekly", "twoWeeks", "monthly", "quarterly", "halfYearly", "yearly"
-
-
 import {
   Component,
   effect,
@@ -10,10 +7,9 @@ import {
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { DataStoreServiceService } from '../../../../services/data-store-service.service';
-import { AuthenticationService } from '../../../../services/authentication.service';
-import { MainModalService } from '../../../../services/main-modal.service';
-import { APIService } from '../../../../services/api.service';
+import { DataStoreServiceService } from '@services/data-store-service.service';
+import { AuthenticationService } from '@services/authentication.service';
+import { MainModalService } from '@services/main-modal.service';
 import { CategoryfilterTransactionsComponent } from './categoryfilter-transactions/categoryfilter-transactions.component';
 import { SearchTransactionComponent } from './search-transaction/search-transaction.component';
 import { SortbyTransactionsComponent } from './sortby-transactions/sortby-transactions.component';
@@ -33,7 +29,6 @@ import { PaginationTransactionsComponent } from './pagination-transactions/pagin
   styleUrl: './transactions.component.scss',
 })
 export class TransactionsComponent {
-  private apiService: APIService = inject(APIService);
   private dataStore: DataStoreServiceService = inject(DataStoreServiceService);
   private mainModalService: MainModalService = inject(MainModalService);
   public authService: AuthenticationService = inject(AuthenticationService);

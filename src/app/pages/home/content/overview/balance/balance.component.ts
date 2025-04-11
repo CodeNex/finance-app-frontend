@@ -5,11 +5,11 @@ import {
   computed,
   effect,
 } from '@angular/core';
-import { DataStoreServiceService } from '../../../../../services/data-store-service.service';
-import { AuthenticationService } from '../../../../../services/authentication.service';
-import { APIService } from '../../../../../services/api.service';
+import { DataStoreServiceService } from '@services/data-store-service.service';
+import { AuthenticationService } from '@services/authentication.service';
+import { APIService } from '@services/api.service';
 import { CommonModule } from '@angular/common';
-import { IconsComponent } from '../../../../../components/icons/icons.component';
+import { IconsComponent } from '@components/icons/icons.component';
 
 @Component({
   selector: 'app-balance',

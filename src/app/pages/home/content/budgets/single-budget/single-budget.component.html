@@ -39,7 +39,6 @@
       </button>
     </div>
     }
-    
   </div>
 
   <div
@@ -47,7 +46,7 @@
     class="w-full flex flex-col gap-4"
   >
     <p class="text4r text-grey-500">
-      Maximum of <span>{{ this.maximum }}</span>
+      Maximum of <span>{{ this.budget.maximum | formatAmount }}</span>
     </p>
     <div aria-label="progress bar">
       <div
@@ -74,7 +73,9 @@
         ></div>
         <div class="flex flex-col gap-1">
           <p class="text5r text-grey-500">Spent</p>
-          <p class="text4b text-grey-900">{{ this.spent }}</p>
+          <p class="text4b text-grey-900">
+            {{ this.calculatedSpent | formatAmount }}
+          </p>
         </div>
       </div>
       <div aria-label="Remaining" class="flex items-center gap-4 flex-1">
@@ -95,7 +96,7 @@
             class="text4b"
             [ngStyle]="{ color: this.isTooMuchSpent ? '#c94736' : '#201f24' }"
           >
-            {{ this.remaining }}
+            {{ this.remaining | formatAmount }}
           </p>
         </div>
       </div>
@@ -120,8 +121,8 @@
         ><app-icons [iconName]="'smallArrowRight'"></app-icons
       ></a>
     </div>
-    @if (this.budget.last_spendings && this.budget.last_spendings[0].transaction_id != -1)
-    {
+    @if (this.budget.last_spendings &&
+    this.budget.last_spendings[0].transaction_id != -1) {
 
     <ul aria-label="list of latest spendings">
       @for (item of this.budget.last_spendings; let index = $index; track item)

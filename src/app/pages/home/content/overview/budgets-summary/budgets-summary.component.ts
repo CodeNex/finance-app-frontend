@@ -1,10 +1,10 @@
-import { Component, inject, Input, SimpleChanges } from '@angular/core';
-import { IconsComponent } from '../../../../../components/icons/icons.component';
+import { Component, inject } from '@angular/core';
+import { IconsComponent } from '@components/icons/icons.component';
 import { RouterModule } from '@angular/router';
-import { DataStoreServiceService } from '../../../../../services/data-store-service.service';
-import { AuthenticationService } from '../../../../../services/authentication.service';
-import { APIService } from '../../../../../services/api.service';
-import { BudgetOverviewComponent } from '../../budgets/budget-overview/budget-overview.component';
+import { DataStoreServiceService } from '@services/data-store-service.service';
+import { AuthenticationService } from '@services/authentication.service';
+import { APIService } from '@services/api.service';
+import { BudgetOverviewComponent } from '@content/budgets/budget-overview/budget-overview.component';
 
 @Component({
   selector: 'app-budgets-summary',
