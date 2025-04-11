@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, ElementRef, inject, ViewChild, ViewChildren, QueryList } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { IconsComponent } from '@components/icons/icons.component';
 
@@ -15,13 +15,17 @@ export class NavbarComponent {
   // #region Component Setup (DI, Outputs, Template Refs, Subscription)
   public authService = inject(AuthenticationService);
   public baseData = inject(BasedataService);
+
+  @ViewChild('navBar', { static: false }) navBarRef!: ElementRef<HTMLElement>;
+  @ViewChild('slideButton', { static: false })
+  slideButtonRef!: ElementRef<HTMLElement>;
+  @ViewChildren('navLinkName') navLinkNames!: QueryList<ElementRef<HTMLElement>>;
   // #endregion
 
   // This data is used to render the navbar links and icons.
   public navData = this.baseData.navdata;
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   // #region Navbar View
   isNavbarThin: boolean = false;
@@ -30,8 +34,10 @@ export class NavbarComponent {
     let navLinkNames = Array.from(
       document.querySelectorAll('[data-group="navLinkName"]')
     );
-    let navBarRef = document.getElementById('navBar');
-    let slideButtonRef = document.getElementById('slideButton');
+
+
+    let navBarRef = this.navBarRef.nativeElement;
+    let slideButtonRef = this.slideButtonRef.nativeElement;
     if (!this.isNavbarThin) {
       this.makeNavbarThin(navLinkNames, navBarRef, slideButtonRef);
     } else {
