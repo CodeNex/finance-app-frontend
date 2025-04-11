@@ -1,4 +1,11 @@
-import { Component, EventEmitter, Output, inject } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Output,
+  inject,
+  ViewChild,
+  ElementRef,
+} from '@angular/core';
 import {
   FormsModule,
   FormBuilder,
@@ -41,6 +48,9 @@ export class LoginFormComponent {
   showImprint() {
     this.switchToImprintComponent.emit('loginForm');
   }
+
+  @ViewChild('loginPasswordInput', { static: false })
+  loginPasswordInputRef!: ElementRef<HTMLInputElement>;
 
   /**
    * Login Form
