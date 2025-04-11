@@ -7,7 +7,6 @@ import {
   ElementRef,
 } from '@angular/core';
 import {
-  FormsModule,
   Validators,
   FormBuilder,
   ReactiveFormsModule,
@@ -31,13 +30,7 @@ import { AuthenticationService } from '@services/authentication.service';
  */
 @Component({
   selector: 'app-sign-up-form',
-  imports: [
-    FormsModule,
-    RouterModule,
-    NgClass,
-    ReactiveFormsModule,
-    IconsComponent,
-  ],
+  imports: [RouterModule, NgClass, ReactiveFormsModule, IconsComponent],
   templateUrl: './sign-up-form.component.html',
   styleUrl: './sign-up-form.component.scss',
 })
@@ -105,8 +98,7 @@ export class SignUpFormComponent {
   }
   // #endregion
 
-
- // #region Form Validation
+  // #region Form Validation
   validateName(control: AbstractControl): ValidationErrors | null {
     if (!control.value) return null;
     let words = control.value.split(' ');
