@@ -37,17 +37,9 @@ export class LoginFormComponent {
   private formBuilder = inject(FormBuilder);
   private baseData = inject(BasedataService);
 
-  @Output() public changeWindow = new EventEmitter<string>();
+  @Output() readonly changeWindow = new EventEmitter<string>();
 
-  emitChangeWindow(windowName: string) {
-    this.changeWindow.emit(windowName);
-  }
-
-  @Output() public switchToImprintComponent = new EventEmitter<string>();
-
-  showImprint() {
-    this.switchToImprintComponent.emit('loginForm');
-  }
+  @Output() readonly switchToImprintComponent = new EventEmitter<string>();
 
   @ViewChild('loginPasswordInput', { static: false })
   loginPasswordInputRef!: ElementRef<HTMLInputElement>;
@@ -77,7 +69,6 @@ export class LoginFormComponent {
       );
     }
   }
-
 
   async doGuestLogin() {
     let body = this.baseData.financeApp.basics.apiData.guestLogin;
