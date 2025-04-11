@@ -30,8 +30,12 @@ export class ImprintComponent implements OnInit, OnDestroy {
   @Output() public switchToLogInComponent: EventEmitter<string> =
     new EventEmitter<string>();
 
-  switchToLoginComponent() {
+  public switchToLoginComponent() {
     this.switchToLogInComponent.emit(this.lastShownLoginWindow);
+  }
+
+  public get windowLabel(): string {
+    return this.lastShownLoginWindow === 'loginForm' ? 'Log-In' : 'Sign-Up';
   }
 
   ngOnInit() {
