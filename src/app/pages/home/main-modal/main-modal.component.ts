@@ -16,6 +16,14 @@ import { WithdrawmoneyPotModalComponent } from '@content/pots/pots-modals/withdr
 import { AddTransactionModalComponent } from '@content/transactions/add-transaction-modal/add-transaction-modal.component';
 import { RecurringDeleteModalComponent } from '@content/recurring-bills/recurring-modals/recurring-delete-modal/recurring-delete-modal.component';
 
+/**
+ * * MainModalComponent
+ * This component is responsible for displaying the main modal in the application.
+ * It handles the logic for showing and hiding the modal, as well as subscribing to the main modal service to get the current sub-modal and its object.
+ * It uses the MainModalService to manage the modal state and the sub-modal object.
+ * It handles which sub-modal to show based on the current sub-modal value.
+ * It also handles the logic for hiding the main modal when clicking outside of it.
+ */
 @Component({
   selector: 'app-main-modal',
   imports: [
@@ -34,46 +42,42 @@ import { RecurringDeleteModalComponent } from '@content/recurring-bills/recurrin
   styleUrl: './main-modal.component.scss',
 })
 export class MainModalComponent {
-  private mainModalService: MainModalService = inject(MainModalService);
+  private mainModalService = inject(MainModalService);
+
+  private subscriptions = new Subscription();
+  
+
+  // #region Lifecycle Hooks
+  ngOnInit() {
+    this.subscribeSubModal();
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.unsubscribe();
+  }
+  // #endregion
+
+  // #region Subscriptions
+  public currentShownSubModal: string = '';
+  public subModalObject: Object = {};
+  public index: number = -1;
+
+  private subscribeSubModal() {
+    this.subscriptions.add(this.mainModalService.currentSubModal$.subscribe(
+      (subModal: string) => (this.currentShownSubModal = subModal)
+    ));
+    this.subscriptions.add(this.mainModalService.subModalObject$.subscribe(
+      (subModalObject: Object) => (this.subModalObject = subModalObject)
+    ));
+    this.subscriptions.add(this.mainModalService.index$.subscribe(
+      (potIndex: number) => (this.index = potIndex)
+    ));
+  }
+  // #endregion
 
   public hideMainModal(event: Event) {
     if (event.target === event.currentTarget) {
       this.mainModalService.hideMainModal();
     }
-  }
-
-  ngOnInit() {
-    this.subscribeSubModal();
-  }
-
-  // subscribe to get what sub modal has to be shown, get value from main-modal.service
-  public subModalSubscription!: Subscription;
-  public currentShownSubModal: string = '';
-  public subModalObjectSubscription!: Subscription;
-  public subModalObject: Object = {};
-  public indexSubscription!: Subscription;
-  public index: number = -1;
-
-  private subscribeSubModal() {
-    this.subModalSubscription =
-      this.mainModalService.currentSubModal$.subscribe(
-        (subModal: string) => (this.currentShownSubModal = subModal)
-      );
-    this.subModalObjectSubscription =
-      this.mainModalService.subModalObject$.subscribe(
-        (subModalObject: Object) => (this.subModalObject = subModalObject)
-      );
-    this.indexSubscription = this.mainModalService.index$.subscribe(
-      (potIndex: number) => (this.index = potIndex)
-    );
-  }
-
-  // unsubscribe sub modal to avoid memory leak
-  ngOnDestroy() {
-    this.unsubscribeSubModal();
-  }
-
-  private unsubscribeSubModal() {
-    this.subModalSubscription.unsubscribe();
   }
 }
