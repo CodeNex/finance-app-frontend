@@ -12,6 +12,12 @@ import { Subscription } from 'rxjs';
 
 import { IconsComponent } from '@components/icons/icons.component';
 
+/**
+ * * * ImprintComponent
+ * This component is responsible for displaying the imprint page of the application.
+ * It contains the imprint information and handles the logic for switching between the login and sign-up forms.
+ * It uses the ActivatedRoute to get the location data and the RouterModule for navigation.
+ */
 @Component({
   selector: 'app-imprint',
   imports: [RouterModule, IconsComponent],
@@ -19,25 +25,18 @@ import { IconsComponent } from '@components/icons/icons.component';
   styleUrl: './imprint.component.scss',
 })
 export class ImprintComponent implements OnInit, OnDestroy {
-  private subscription = new Subscription();
-
-  public readonly route = inject(ActivatedRoute);
-
-  public location: string = 'loggedOut';
+  // #region Component Setup (DI, Outputs, Template Refs, Subscription)
+  public route = inject(ActivatedRoute);
 
   @Input() public lastShownLoginWindow: string = 'loginForm';
 
-  @Output() public switchToLogInComponent: EventEmitter<string> =
+  @Output() readonly switchToLogInComponent: EventEmitter<string> =
     new EventEmitter<string>();
 
-  public switchToLoginComponent() {
-    this.switchToLogInComponent.emit(this.lastShownLoginWindow);
-  }
+  private subscription = new Subscription();
+  // #endregion
 
-  public get windowLabel(): string {
-    return this.lastShownLoginWindow === 'loginForm' ? 'Log-In' : 'Sign-Up';
-  }
-
+  // #region Lifecycle Hooks
   ngOnInit() {
     this.subscription.add(
       this.route.data.subscribe((data) => {
@@ -48,5 +47,12 @@ export class ImprintComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.subscription.unsubscribe();
+  }
+  // #endregion
+
+  public location: string = 'loggedOut';
+
+  public get windowLabel(): string {
+    return this.lastShownLoginWindow === 'loginForm' ? 'Log-In' : 'Sign-Up';
   }
 }

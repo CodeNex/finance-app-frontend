@@ -1,7 +1,7 @@
 <section class="w-full min-h-[100dvh] imprint-container">
   @if (location != 'loggedIn') {
   <button
-    (click)="switchToLoginComponent()"
+    (click)="switchToLogInComponent.emit(this.lastShownLoginWindow)"
     class="w-full bg-grey-900 text-white text4b pt-[9px] pb-[9px] rounded-lg select-none"
   >
     <div class="flex items-center justify-center gap-1">
