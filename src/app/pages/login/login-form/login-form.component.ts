@@ -20,6 +20,14 @@ import { IconsComponent } from '@components/icons/icons.component';
 import { AuthenticationService } from '@services/authentication.service';
 import { BasedataService } from '@services/basedata.service';
 
+/**
+ * LoginFormComponent
+ * This component is responsible for the login form of the application.
+ * It contains the login and guest login functionality.
+ * It uses the AuthenticationService to manage the authentication state.
+ * It also handles the logic for switching between the login and guest login.
+ * It uses the BasedataService to get the guest login data.
+ */
 @Component({
   selector: 'app-login-form',
   imports: [
@@ -33,6 +41,7 @@ import { BasedataService } from '@services/basedata.service';
   styleUrl: './login-form.component.scss',
 })
 export class LoginFormComponent {
+  // #region Component Setup (DI, Outputs, Template Refs)
   private authService = inject(AuthenticationService);
   private formBuilder = inject(FormBuilder);
   private baseData = inject(BasedataService);
@@ -43,10 +52,9 @@ export class LoginFormComponent {
 
   @ViewChild('loginPasswordInput', { static: false })
   loginPasswordInputRef!: ElementRef<HTMLInputElement>;
+  // #endregion
 
-  /**
-   * Login Form
-   */
+  // #region Form
   public loginBody = this.formBuilder.group({
     email: [
       '',
@@ -54,10 +62,9 @@ export class LoginFormComponent {
     ],
     password: ['', { validators: [Validators.required], updateOn: 'blur' }],
   });
+  // #endregion
 
-  /**
-   * Login Functions
-   */
+  // #region Login
   async doLogin() {
     if (this.loginBody.valid) {
       this.checkIfKeepLoggedIn();
@@ -71,13 +78,12 @@ export class LoginFormComponent {
   }
 
   async doGuestLogin() {
-    let body = this.baseData.financeApp.basics.apiData.guestLogin;
+    let body = this.baseData.guestLoginData;
     this.authService.doAuthenticationRequest('guest', body);
   }
+  // #endregion
 
-  /**
-   * toggle password visibility
-   */
+  // #region Password Visibility
   public isPasswordVisible: boolean = false;
 
   changePasswordVisibility() {
@@ -87,10 +93,9 @@ export class LoginFormComponent {
         ? 'text'
         : 'password';
   }
+  // #endregion
 
-  /**
-   * check keep logged in state
-   */
+  // #region Keep Logged In
   public isKeepLoggedIn: boolean = false;
 
   toggleKeepLoggedIn() {
@@ -100,4 +105,5 @@ export class LoginFormComponent {
   checkIfKeepLoggedIn() {
     if (this.isKeepLoggedIn) this.authService.tokenToLocalStorage = true;
   }
+  // #endregion
 }
