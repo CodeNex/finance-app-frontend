@@ -12,16 +12,18 @@ import { BasedataService } from '@services/basedata.service';
   styleUrl: './navbar.component.scss',
 })
 export class NavbarComponent {
+  // #region Component Setup (DI, Outputs, Template Refs, Subscription)
+  public authService = inject(AuthenticationService);
+  public baseData = inject(BasedataService);
+  // #endregion
 
-  public authService: AuthenticationService = inject(AuthenticationService);
-  public baseData: BasedataService = inject(BasedataService);
-
-  public navData: any;
+  public navData = this.baseData.navdata;
 
   ngOnInit() {
-    this.navData = this.baseData.financeApp.navbar.links;
+    this.navData = this.baseData.navdata;
   }
 
+  // #region Navbar View
   isNavbarThin: boolean = false;
 
   toggleMovingNavbar() {
@@ -73,7 +75,9 @@ export class NavbarComponent {
       }
     }, 10);
   }
+  // #endregion
 
+  // #region Logo Animation
   makeLogoThin() {
     document.getElementById('financeLogo')!.style.transform = 'translateX(8px)';
     document.getElementById('logoPath7')!.style.display = 'none';
@@ -123,4 +127,5 @@ export class NavbarComponent {
       250
     );
   }
+  // #endregion
 }

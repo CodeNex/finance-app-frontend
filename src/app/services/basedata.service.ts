@@ -18,6 +18,14 @@ export class BasedataService {
     return this.financeApp.basics.apiData.guestLogin;
   }
 
+  /**
+   * Returns the data used to render the navbar
+   * Used in the navbar component to display the links and icons.
+   */
+  public get navdata() {
+    return this.financeApp.navbar.links;
+  }
+
   public financeApp: any = {
     basics: {
       apiData: {
