@@ -33,21 +33,12 @@ import { AuthenticationService } from '@services/authentication.service';
   styleUrl: './sign-up-form.component.scss',
 })
 export class SignUpFormComponent {
-  @Output() changeWindow = new EventEmitter();
+  @Output() changeWindow = new EventEmitter<string>();
 
   @Output() public switchToImprintComponent = new EventEmitter<string>();
 
-  private AuthenticationService = inject(AuthenticationService);
-
+  private authService = inject(AuthenticationService);
   private formBuilder = inject(FormBuilder);
-
-  public isPrivacyPolicyAccepted: boolean = false;
-
-  public isPrivacyPolicyValidationMessageVisible: boolean = false;
-
-  
-
-  isFormValid: boolean = false;
 
   /**
    * Signup Form
@@ -82,7 +73,7 @@ export class SignUpFormComponent {
 
   async doRegistration() {
     if (this.signUpBody.valid && this.isPrivacyPolicyAccepted) {
-      this.AuthenticationService.doAuthenticationRequest(
+      this.authService.doAuthenticationRequest(
         'register',
         this.signUpBody.value
       );
@@ -98,6 +89,8 @@ export class SignUpFormComponent {
   /**
    * Form Validation Functions
    */
+  isFormValid: boolean = false;
+
   validateName(control: AbstractControl): ValidationErrors | null {
     if (!control.value) return null;
     let words = control.value.split(' ');
@@ -119,6 +112,12 @@ export class SignUpFormComponent {
       : { passwordDismatch: true };
   }
 
+  /**
+   * toggle privacy policy acceptance
+   */
+  public isPrivacyPolicyAccepted: boolean = false;
+  public isPrivacyPolicyValidationMessageVisible: boolean = false;
+
   toggleAcceptPrivacyPolicy() {
     if (!this.isPrivacyPolicyAccepted) {
       this.isPrivacyPolicyAccepted = true;
@@ -126,13 +125,6 @@ export class SignUpFormComponent {
     } else {
       this.isPrivacyPolicyAccepted = false;
     }
-  }
-
-  /**
-   * Emits an event to change the window between login and register components
-   */
-  emitChangeWindow(windowName: string) {
-    this.changeWindow.emit(windowName);
   }
 
   /**
