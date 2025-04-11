@@ -25,19 +25,14 @@ export class NavbarComponent {
   // This data is used to render the navbar links and icons.
   public navData = this.baseData.navdata;
 
-  ngOnInit() {}
-
   // #region Navbar View
   isNavbarThin: boolean = false;
 
   toggleMovingNavbar() {
-    let navLinkNames = Array.from(
-      document.querySelectorAll('[data-group="navLinkName"]')
-    );
+    const navLinkNames = this.navLinkNames.toArray();
+    const navBarRef = this.navBarRef.nativeElement;
+    const slideButtonRef = this.slideButtonRef.nativeElement;
 
-
-    let navBarRef = this.navBarRef.nativeElement;
-    let slideButtonRef = this.slideButtonRef.nativeElement;
     if (!this.isNavbarThin) {
       this.makeNavbarThin(navLinkNames, navBarRef, slideButtonRef);
     } else {
@@ -53,15 +48,15 @@ export class NavbarComponent {
   ) {
     this.makeLogoThin();
     if (slideButtonRef) slideButtonRef.classList.add('slideButtonReturn');
-    navLinkNames.forEach((navLinkName) =>
-      navLinkName.classList.add('opacity_zero')
+    navLinkNames.forEach((link) =>
+      link.nativeElement.classList.add('opacity_zero')
     );
     if (navBarRef) {
       navBarRef.classList.add('navbar-thin');
       navBarRef.style.paddingRight = '8px';
     }
     setTimeout(() => {
-      navLinkNames.forEach((link) => link.classList.add('d_none'));
+      navLinkNames.forEach((link) => link.nativeElement.classList.add('d_none'));
     }, 300);
   }
 
@@ -70,11 +65,11 @@ export class NavbarComponent {
     navBarRef: HTMLElement | null,
     slideButtonRef: HTMLElement | null
   ) {
-    navLinkNames.forEach((link) => link.classList.remove('d_none'));
+    navLinkNames.forEach((link) => link.nativeElement.classList.remove('d_none'));
     setTimeout(() => {
       this.makeLogoWide();
       if (slideButtonRef) slideButtonRef.classList.remove('slideButtonReturn');
-      navLinkNames.forEach((link) => link.classList.remove('opacity_zero'));
+      navLinkNames.forEach((link) => link.nativeElement.classList.remove('opacity_zero'));
       if (navBarRef) {
         navBarRef?.classList.remove('navbar-thin');
         navBarRef.style.paddingRight = '24px';
