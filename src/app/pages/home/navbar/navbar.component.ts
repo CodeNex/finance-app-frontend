@@ -17,6 +17,7 @@ export class NavbarComponent {
   public baseData = inject(BasedataService);
   // #endregion
 
+  // This data is used to render the navbar links and icons.
   public navData = this.baseData.navdata;
 
   ngOnInit() {
@@ -78,54 +79,50 @@ export class NavbarComponent {
   // #endregion
 
   // #region Logo Animation
+  public visibleLogoPaths: string[] = [
+    'logoPath2',
+    'logoPath3',
+    'logoPath4',
+    'logoPath5',
+    'logoPath6',
+    'logoPath7',
+  ];
+  public isLogoWide: boolean = true;
+
   makeLogoThin() {
-    document.getElementById('financeLogo')!.style.transform = 'translateX(8px)';
-    document.getElementById('logoPath7')!.style.display = 'none';
-    setTimeout(
-      () => (document.getElementById('logoPath6')!.style.display = 'none'),
-      50
-    );
-    setTimeout(
-      () => (document.getElementById('logoPath5')!.style.display = 'none'),
-      100
-    );
-    setTimeout(
-      () => (document.getElementById('logoPath4')!.style.display = 'none'),
-      150
-    );
-    setTimeout(
-      () => (document.getElementById('logoPath3')!.style.display = 'none'),
-      200
-    );
-    setTimeout(
-      () => (document.getElementById('logoPath2')!.style.display = 'none'),
-      250
-    );
+    this.isLogoWide = false;
+    const paths = [
+      'logoPath2',
+      'logoPath3',
+      'logoPath4',
+      'logoPath5',
+      'logoPath6',
+      'logoPath7',
+    ];
+    this.visibleLogoPaths = [...paths];
+
+    paths.reverse().forEach((path, index) => {
+      setTimeout(() => {
+        this.visibleLogoPaths = this.visibleLogoPaths.filter((p) => p !== path);
+      }, index * 50);
+    });
   }
 
   makeLogoWide() {
-    document.getElementById('financeLogo')!.style.transform = 'translateX(2px)';
-    document.getElementById('logoPath2')!.style.display = 'block';
-    setTimeout(
-      () => (document.getElementById('logoPath3')!.style.display = 'block'),
-      50
-    );
-    setTimeout(
-      () => (document.getElementById('logoPath4')!.style.display = 'block'),
-      100
-    );
-    setTimeout(
-      () => (document.getElementById('logoPath5')!.style.display = 'block'),
-      150
-    );
-    setTimeout(
-      () => (document.getElementById('logoPath6')!.style.display = 'block'),
-      200
-    );
-    setTimeout(
-      () => (document.getElementById('logoPath7')!.style.display = 'block'),
-      250
-    );
+    const paths = [
+      'logoPath2',
+      'logoPath3',
+      'logoPath4',
+      'logoPath5',
+      'logoPath6',
+      'logoPath7',
+    ];
+    paths.forEach((path, index) => {
+      setTimeout(() => {
+        this.visibleLogoPaths = [...this.visibleLogoPaths, path];
+      }, index * 50);
+    });
+    this.isLogoWide = true;
   }
   // #endregion
 }
