@@ -1,5 +1,4 @@
 import { Component, inject, OnInit, OnDestroy } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 import { Subscription } from 'rxjs';
 
 import { LoginFormComponent } from '@login/login-form/login-form.component';
@@ -20,7 +19,6 @@ import { AuthenticationService } from '@services/authentication.service';
 @Component({
   selector: 'app-login',
   imports: [
-    FormsModule,
     LoginFormComponent,
     SignUpFormComponent,
     LoadingScreenComponent,
