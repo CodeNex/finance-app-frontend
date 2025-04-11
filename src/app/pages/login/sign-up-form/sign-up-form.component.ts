@@ -41,6 +41,7 @@ export class SignUpFormComponent {
 
   @Output() public switchToImprintComponent = new EventEmitter<string>();
 
+  // Note: Set `static: true` if this element is inside an @if and needed in ngOnInit
   @ViewChild('password', { static: false })
   passwordInputRef!: ElementRef<HTMLInputElement>;
 
@@ -96,7 +97,6 @@ export class SignUpFormComponent {
   /**
    * Form Validation Functions
    */
-  isFormValid: boolean = false;
 
   validateName(control: AbstractControl): ValidationErrors | null {
     if (!control.value) return null;

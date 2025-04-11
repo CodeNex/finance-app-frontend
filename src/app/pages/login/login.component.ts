@@ -26,18 +26,13 @@ import { AuthenticationService } from '@services/authentication.service';
 export class LoginComponent implements OnInit, OnDestroy {
   public authService = inject(AuthenticationService);
 
-  // possible values: loginForm, signUpForm
-  public activeForm: string = 'loginForm';
-
   private subscriptions = new Subscription();
 
   ngOnInit(): void {
     this.addSubscriptions();
   }
 
-  /**
-   * Subscribes to observables from the AuthService to update the UI of loading and warning screens.
-   */
+  // #region Subscribe & warning screens
   public isLoadingScreenVisible: boolean = false;
   public isWarningScreenVisible: boolean = false;
 
@@ -53,11 +48,11 @@ export class LoginComponent implements OnInit, OnDestroy {
       })
     );
   }
+  // #endregion
 
-  /**
-   * Update UI screens based on auth state
-   */
+  // #region Choose Forms
   public isImprintComponentVisible: boolean = false;
+  public activeForm: string = 'loginForm'; // possible values: loginForm, signUpForm
 
   chooseLoginWindow(windowName: string) {
     this.activeForm = windowName;
@@ -72,6 +67,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.isImprintComponentVisible = true;
     this.activeForm = $event;
   }
+  // #endregion
 
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
