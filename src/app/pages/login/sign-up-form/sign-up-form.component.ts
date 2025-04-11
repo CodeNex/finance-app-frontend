@@ -21,6 +21,14 @@ import { IconsComponent } from '@components/icons/icons.component';
 
 import { AuthenticationService } from '@services/authentication.service';
 
+/**
+ * * SignUpFormComponent
+ * This component is responsible for the sign-up form of the application.
+ * It contains the sign-up functionality.
+ * It uses the AuthenticationService to manage the authentication state.
+ * It also handles the logic for switching between the sign-up and login forms.
+ * It uses the BasedataService to get the guest login data.
+ */
 @Component({
   selector: 'app-sign-up-form',
   imports: [
@@ -34,6 +42,7 @@ import { AuthenticationService } from '@services/authentication.service';
   styleUrl: './sign-up-form.component.scss',
 })
 export class SignUpFormComponent {
+  // #region Component Setup (DI, Outputs, Template Refs)
   private authService = inject(AuthenticationService);
   private formBuilder = inject(FormBuilder);
 
@@ -47,10 +56,9 @@ export class SignUpFormComponent {
 
   @ViewChild('confirmPassword', { static: false })
   confirmPasswordInputRef!: ElementRef<HTMLInputElement>;
+  // #endregion
 
-  /**
-   * Signup Form
-   */
+  // #region Form
   public signUpBody = this.formBuilder.group({
     name: [
       '',
@@ -78,7 +86,9 @@ export class SignUpFormComponent {
       },
     ],
   });
+  // #endregion
 
+  // #region Registration
   async doRegistration() {
     if (this.signUpBody.valid && this.isPrivacyPolicyAccepted) {
       this.authService.doAuthenticationRequest(
@@ -93,11 +103,10 @@ export class SignUpFormComponent {
       );
     }
   }
+  // #endregion
 
-  /**
-   * Form Validation Functions
-   */
 
+ // #region Form Validation
   validateName(control: AbstractControl): ValidationErrors | null {
     if (!control.value) return null;
     let words = control.value.split(' ');
@@ -118,10 +127,9 @@ export class SignUpFormComponent {
       ? null
       : { passwordDismatch: true };
   }
+  // #endregion
 
-  /**
-   * toggle privacy policy acceptance
-   */
+  // #region Privacy Policy
   public isPrivacyPolicyAccepted: boolean = false;
   public isPrivacyPolicyValidationMessageVisible: boolean = false;
 
@@ -133,10 +141,9 @@ export class SignUpFormComponent {
       this.isPrivacyPolicyAccepted = false;
     }
   }
+  // #endregion
 
-  /**
-   * toggle password visibility
-   */
+  // #region Password Visibilities
   // Used in template to toggle input field visibility (e.g. via [ngClass] or [ngStyle])
   public isCreatePasswordVisible: boolean = false;
   public isConfirmPasswordVisible: boolean = false;
@@ -158,4 +165,5 @@ export class SignUpFormComponent {
           : 'password';
     }
   }
+  // #endregion
 }
