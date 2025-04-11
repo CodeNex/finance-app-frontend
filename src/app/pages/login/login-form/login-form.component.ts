@@ -78,6 +78,7 @@ export class LoginFormComponent {
     }
   }
 
+
   async doGuestLogin() {
     let body = this.baseData.financeApp.basics.apiData.guestLogin;
     this.authService.doAuthenticationRequest('guest', body);
@@ -90,11 +91,10 @@ export class LoginFormComponent {
 
   changePasswordVisibility() {
     this.isPasswordVisible = !this.isPasswordVisible;
-    let passwordInputRef = document.getElementById(
-      'loginPasswordInput'
-    ) as HTMLInputElement;
-    passwordInputRef.type =
-      passwordInputRef.type === 'password' ? 'text' : 'password';
+    this.loginPasswordInputRef.nativeElement.type =
+      this.loginPasswordInputRef.nativeElement.type === 'password'
+        ? 'text'
+        : 'password';
   }
 
   /**
