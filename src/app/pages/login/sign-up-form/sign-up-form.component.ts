@@ -45,9 +45,7 @@ export class SignUpFormComponent {
 
   public isPrivacyPolicyValidationMessageVisible: boolean = false;
 
-  isCreatePasswordVisible: boolean = false;
-
-  isConfirmPasswordVisible: boolean = false;
+  
 
   isFormValid: boolean = false;
 
@@ -84,8 +82,6 @@ export class SignUpFormComponent {
 
   async doRegistration() {
     if (this.signUpBody.valid && this.isPrivacyPolicyAccepted) {
-      console.log('SignUpBody is valid:', this.signUpBody.valid);
-      console.log('SignUp-Body: ', this.signUpBody.value);
       this.AuthenticationService.doAuthenticationRequest(
         'register',
         this.signUpBody.value
@@ -96,10 +92,12 @@ export class SignUpFormComponent {
       Object.values(this.signUpBody.controls).forEach((control) =>
         control.updateValueAndValidity()
       );
-      console.log('SignUpBody is valid:', this.signUpBody.valid);
     }
   }
 
+  /**
+   * Form Validation Functions
+   */
   validateName(control: AbstractControl): ValidationErrors | null {
     if (!control.value) return null;
     let words = control.value.split(' ');
@@ -138,8 +136,12 @@ export class SignUpFormComponent {
   }
 
   /**
-   * Toggles the visibility of the password input field
+   * toggle password visibility
    */
+  // Used in template to toggle input field visibility (e.g. via [ngClass] or [ngStyle])
+  public isCreatePasswordVisible: boolean = false;
+  public isConfirmPasswordVisible: boolean = false;
+
   changePasswordVisibility(type: string) {
     type === 'create'
       ? (this.isCreatePasswordVisible = !this.isCreatePasswordVisible)
