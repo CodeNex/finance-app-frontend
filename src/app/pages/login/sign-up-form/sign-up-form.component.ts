@@ -4,6 +4,7 @@ import {
   Output,
   inject,
   ViewChild,
+  ElementRef,
 } from '@angular/core';
 import {
   FormsModule,
@@ -33,12 +34,18 @@ import { AuthenticationService } from '@services/authentication.service';
   styleUrl: './sign-up-form.component.scss',
 })
 export class SignUpFormComponent {
+  private authService = inject(AuthenticationService);
+  private formBuilder = inject(FormBuilder);
+
   @Output() changeWindow = new EventEmitter<string>();
 
   @Output() public switchToImprintComponent = new EventEmitter<string>();
 
-  private authService = inject(AuthenticationService);
-  private formBuilder = inject(FormBuilder);
+  @ViewChild('password', { static: false })
+  passwordInputRef!: ElementRef<HTMLInputElement>;
+
+  @ViewChild('confirmPassword', { static: false })
+  confirmPasswordInputRef!: ElementRef<HTMLInputElement>;
 
   /**
    * Signup Form
@@ -138,12 +145,17 @@ export class SignUpFormComponent {
     type === 'create'
       ? (this.isCreatePasswordVisible = !this.isCreatePasswordVisible)
       : (this.isConfirmPasswordVisible = !this.isConfirmPasswordVisible);
-    let passwordInputRef = document.getElementById(
-      type === 'create'
-        ? 'singupCreatePasswordInput'
-        : 'singupConfirmPasswordInput'
-    ) as HTMLInputElement;
-    passwordInputRef.type =
-      passwordInputRef.type === 'password' ? 'text' : 'password';
+
+    if (type === 'create') {
+      this.passwordInputRef.nativeElement.type =
+        this.passwordInputRef.nativeElement.type === 'password'
+          ? 'text'
+          : 'password';
+    } else {
+      this.confirmPasswordInputRef.nativeElement.type =
+        this.confirmPasswordInputRef.nativeElement.type === 'password'
+          ? 'text'
+          : 'password';
+    }
   }
 }
