@@ -46,7 +46,6 @@ export class MainModalComponent {
 
   private subscriptions = new Subscription();
   
-
   // #region Lifecycle Hooks
   ngOnInit() {
     this.subscribeSubModal();
