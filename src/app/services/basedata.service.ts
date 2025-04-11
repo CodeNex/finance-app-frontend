@@ -1,5 +1,9 @@
 import { Injectable } from '@angular/core';
 
+/**
+ * * BasedataService
+ * This service is responsible for providing the base data for the application.
+ */
 @Injectable({
   providedIn: 'root',
 })
