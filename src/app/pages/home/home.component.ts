@@ -3,6 +3,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { ContentComponent } from '@content/content.component';
 import { RouterModule, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { AsyncPipe } from '@angular/common';
 
 import { MainModalComponent } from './main-modal/main-modal.component';
 
@@ -13,11 +14,12 @@ import { MainModalService } from '@services/main-modal.service';
  * * HomeComponent
  * This component is responsible for the home page of the application.
  * It contains the navbar and the main content area.
- * It also handles the logic for checking if the user is authenticated and managing the visibility * of the main modal.
+ * It also handles the logic for checking if the user is authenticated and toggles the visibility * of the main modal.
  */
 @Component({
   selector: 'app-home',
   imports: [
+    AsyncPipe,
     NavbarComponent,
     RouterModule,
     ContentComponent,
@@ -32,7 +34,7 @@ export class HomeComponent {
   private router = inject(Router);
   public mainModalService = inject(MainModalService);
 
-  public subscription = new Subscription();
+  private subscription = new Subscription();
   // #endregion
 
   // #region Lifecyle Hooks'
@@ -46,16 +48,9 @@ export class HomeComponent {
   }
   // #endregion
 
-  // #region subscription & modal visibility
-  public isMainModalVisible: boolean =
-    this.mainModalService.isMainModalVisible$.value;
-
   subscribeMainModalVisibility() {
-    this.subscription.add(this.mainModalService.isMainModalVisible$.subscribe(
-      (value) => (this.isMainModalVisible = value)
-    ))    
+    this.subscription.add(this.mainModalService.isMainModalVisible$.subscribe())    
   }
-  // #endregion
 
   /**
    * checks if the authToken exists, if not, redirects to the login page
