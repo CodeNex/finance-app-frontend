@@ -21,7 +21,6 @@ export class NavbarComponent {
   public navData = this.baseData.navdata;
 
   ngOnInit() {
-    this.navData = this.baseData.navdata;
   }
 
   // #region Navbar View
@@ -100,7 +99,6 @@ export class NavbarComponent {
       'logoPath7',
     ];
     this.visibleLogoPaths = [...paths];
-
     paths.reverse().forEach((path, index) => {
       setTimeout(() => {
         this.visibleLogoPaths = this.visibleLogoPaths.filter((p) => p !== path);
