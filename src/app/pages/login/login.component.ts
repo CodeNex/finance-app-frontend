@@ -10,6 +10,13 @@ import { ImprintComponent } from '@imprint/imprint.component';
 
 import { AuthenticationService } from '@services/authentication.service';
 
+/**
+ * * Login Component
+ * This component is responsible for the login page of the application.
+ * It contains the login and sign-up forms, as well as the loading and warning screens.
+ * It also handles the logic for switching between the different forms and screens.
+ * It uses the AuthenticationService to manage the authentication state and loading/warning screens.
+ */
 @Component({
   selector: 'app-login',
   imports: [
@@ -24,13 +31,21 @@ import { AuthenticationService } from '@services/authentication.service';
   styleUrl: './login.component.scss',
 })
 export class LoginComponent implements OnInit, OnDestroy {
+  // #region Dependency Injection & Subscriptions
   public authService = inject(AuthenticationService);
 
   private subscriptions = new Subscription();
+  // #endregion
 
+  // #region Lifecycle
   ngOnInit(): void {
     this.addSubscriptions();
   }
+
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
+  }
+  // #endregion
 
   // #region Subscribe & warning screens
   public isLoadingScreenVisible: boolean = false;
@@ -63,13 +78,9 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.activeForm = activeForm;
   }
 
-  switchToImprintComponent($event: string) {
+  switchToImprintComponent(windowName: string) {
     this.isImprintComponentVisible = true;
-    this.activeForm = $event;
+    this.activeForm = windowName;
   }
   // #endregion
-
-  ngOnDestroy(): void {
-    this.subscriptions.unsubscribe();
-  }
 }
