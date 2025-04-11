@@ -59,8 +59,8 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   switchToLogInComponent(activeForm: string) {
-    this.activeForm = activeForm;
     this.isImprintComponentVisible = false;
+    this.activeForm = activeForm;
   }
 
   switchToImprintComponent($event: string) {
