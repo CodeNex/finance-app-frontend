@@ -34,21 +34,30 @@ export class AuthenticationService {
   }
 
   public authWarningMessage = signal<string>('');
-
   public authToken: string = '';
-
   public isFirstRender: boolean = true;
 
+  /**
+   * Sets internal flag to persist auth token in localStorage (used by LoginForm)
+   * */
   public saveTokenInLocalStorage: boolean = false;
 
-  headers = new HttpHeaders({
-    'Content-Type': 'application/json',
-    Accept: 'application/json',
-    withCredentials: 'true',
-  });
+  public set tokenToLocalStorage(value: boolean) {
+    this.saveTokenInLocalStorage = value;
+  }
 
-  //authOption: 'login' | 'register' | 'guest'
+  /**
+   * HTTP API Requests
+   * 
+   * authOptions: 'login' | 'register' | 'guest'
+   */
   doAuthenticationRequest(authOption: string, body: any) {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+      withCredentials: 'true',
+    });
+
     setTimeout(() => {
       if (this.authToken === '') this.setLoadingScreen(true);
     }, 250);
@@ -57,7 +66,7 @@ export class AuthenticationService {
     if (authOption === 'register') path = this.registerPath;
     this.http
       .post<{ token: string }>(this.baseUrl + path, body, {
-        headers: this.headers,
+        headers,
       })
       .subscribe({
         next: (response) => {
@@ -73,19 +82,6 @@ export class AuthenticationService {
           this.authWarningMessage.set(error.message);
         },
       });
-  }
-
-  startApiFirstDataLoading() {
-    const apiService = this.injector.get(APIService);
-    return apiService.initialDataLoading();
-  }
-
-  setTokenToLocalStorage(token: string) {
-    let jsonToken = JSON.stringify(token);
-    localStorage.setItem(
-      this.baseData.financeApp.basics.apiData.localStorage.tokenKey,
-      jsonToken
-    );
   }
 
   doLogOut() {
@@ -110,5 +106,18 @@ export class AuthenticationService {
           console.error('Fail to logout', error);
         },
       });
+  }
+
+  startApiFirstDataLoading() {
+    const apiService = this.injector.get(APIService);
+    return apiService.initialDataLoading();
+  }
+
+  setTokenToLocalStorage(token: string) {
+    let jsonToken = JSON.stringify(token);
+    localStorage.setItem(
+      this.baseData.financeApp.basics.apiData.localStorage.tokenKey,
+      jsonToken
+    );
   }
 }

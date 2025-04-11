@@ -32,11 +32,9 @@ export class SignUpFormComponent {
   @Output() public switchToImprintComponent: EventEmitter<string> =
     new EventEmitter<string>();
 
-  private AuthenticationService: AuthenticationService = inject(
-    AuthenticationService
-  );
+  private AuthenticationService = inject(AuthenticationService);
 
-  private formBuilder: FormBuilder = inject(FormBuilder);
+  private formBuilder = inject(FormBuilder);
 
   public isPrivacyPolicyAccepted: boolean = false;
 

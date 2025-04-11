@@ -10,7 +10,6 @@ import { RouterModule } from '@angular/router';
 
 import { IconsComponent } from '@components/icons/icons.component';
 
-import { AutoLoginService } from '@services/auto-login.service';
 import { AuthenticationService } from '@services/authentication.service';
 import { BasedataService } from '@services/basedata.service';
 
@@ -27,84 +26,58 @@ import { BasedataService } from '@services/basedata.service';
   styleUrl: './login-form.component.scss',
 })
 export class LoginFormComponent {
-  @Output() changeWindow = new EventEmitter();
+  private authService = inject(AuthenticationService);
+  private formBuilder = inject(FormBuilder);
+  private baseData = inject(BasedataService);
 
-  @Output() public switchToImprintComponent: EventEmitter<string> =
-    new EventEmitter<string>();
+  @Output() public changeWindow = new EventEmitter<string>();
 
-  private autoLoginService: AutoLoginService = inject(AutoLoginService);
+  emitChangeWindow(windowName: string) {
+    this.changeWindow.emit(windowName);
+  }
 
-  private AuthenticationService: AuthenticationService = inject(
-    AuthenticationService
-  );
+  @Output() public switchToImprintComponent = new EventEmitter<string>();
 
-  private formBuilder: FormBuilder = inject(FormBuilder);
+  showImprint() {
+    this.switchToImprintComponent.emit('loginForm');
+  }
 
-  private baseData: BasedataService = inject(BasedataService);
-
-  public isPasswordVisible: boolean = false;
-
-  private isFormValid: boolean = false;
-
-  public isKeepLoggedIn: boolean = false;
-
+  /**
+   * Login Form
+   */
   public loginBody = this.formBuilder.group({
     email: [
       '',
       { validators: [Validators.required, Validators.email], updateOn: 'blur' },
     ],
-    password: [
-      '',
-      {
-        validators: [Validators.required],
-        updateOn: 'blur',
-      },
-    ],
+    password: ['', { validators: [Validators.required], updateOn: 'blur' }],
   });
 
-  goToImprintComponent() {
-    this.switchToImprintComponent.emit('loginForm');
-  }
-
   /**
-   * Logs in as a registered user
+   * Login Functions
    */
   async doLogin() {
     if (this.loginBody.valid) {
-      console.log('Login-Body is valid: ', this.loginBody.valid);
-      console.log('Login-Body: ', this.loginBody.value);
       this.checkIfKeepLoggedIn();
-      await this.AuthenticationService.doAuthenticationRequest(
-        'login',
-        this.loginBody.value
-      );
+      this.authService.doAuthenticationRequest('login', this.loginBody.value);
     } else {
       this.loginBody.markAllAsTouched();
       Object.values(this.loginBody.controls).forEach((control) =>
         control.updateValueAndValidity()
       );
-      console.log('Login-Body is valid: ', this.loginBody.valid);
     }
   }
 
-  /**
-   * Logs in as a guest user
-   */
   async doGuestLogin() {
     let body = this.baseData.financeApp.basics.apiData.guestLogin;
-    await this.AuthenticationService.doAuthenticationRequest('guest', body);
+    this.authService.doAuthenticationRequest('guest', body);
   }
 
   /**
-   * Emits an event to change the window between login and register components
+   * toggle password visibility
    */
-  emitChangeWindow(windowName: string) {
-    this.changeWindow.emit(windowName);
-  }
+  public isPasswordVisible: boolean = false;
 
-  /**
-   * Toggles the visibility of the password input field
-   */
   changePasswordVisibility() {
     this.isPasswordVisible = !this.isPasswordVisible;
     let passwordInputRef = document.getElementById(
@@ -114,12 +87,16 @@ export class LoginFormComponent {
       passwordInputRef.type === 'password' ? 'text' : 'password';
   }
 
+  /**
+   * check keep logged in state
+   */
+  public isKeepLoggedIn: boolean = false;
+
   toggleKeepLoggedIn() {
     this.isKeepLoggedIn = !this.isKeepLoggedIn;
   }
 
   checkIfKeepLoggedIn() {
-    if (this.isKeepLoggedIn)
-      this.AuthenticationService.saveTokenInLocalStorage = true;
+    if (this.isKeepLoggedIn) this.authService.tokenToLocalStorage = true;
   }
 }

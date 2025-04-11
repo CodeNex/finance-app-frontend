@@ -82,7 +82,7 @@
   <div class="flex justify-center items-center gap-2">
     <p class="text4r text-grey-500 select-none">Need to create an account?</p>
     <button
-      (click)="emitChangeWindow('signUpForm')"
+      (click)="changeWindow.emit('signUpForm')"
       class="text4b text-grey-900 underline select-none
       "
     >
@@ -91,6 +91,6 @@
   </div>
 
   <div class="flex justify-center">
-    <button (click)="goToImprintComponent()" class="text4r text-grey-500 select-none underline hover:text-grey-900">Imprint & Privacy</button>
+    <button (click)="showImprint()" class="text4r text-grey-500 select-none underline hover:text-grey-900">Imprint & Privacy</button>
   </div>
 </section>
