@@ -2,7 +2,6 @@ import { Component, inject } from '@angular/core';
 import { NavbarComponent } from './navbar/navbar.component';
 import { ContentComponent } from '@content/content.component';
 import { RouterModule, Router } from '@angular/router';
-import { Subscription } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
 
 import { MainModalComponent } from './main-modal/main-modal.component';
@@ -33,23 +32,10 @@ export class HomeComponent {
   private authService = inject(AuthenticationService);
   private router = inject(Router);
   public mainModalService = inject(MainModalService);
-
-  private subscription = new Subscription();
   // #endregion
 
-  // #region Lifecyle Hooks'
   ngOnInit() {
     this.checkIfAuthTokenExists();
-    this.subscribeMainModalVisibility();
-  }
-
-  ngOnDestroy() {
-    this.subscription.unsubscribe();
-  }
-  // #endregion
-
-  subscribeMainModalVisibility() {
-    this.subscription.add(this.mainModalService.isMainModalVisible$.subscribe())    
   }
 
   /**
