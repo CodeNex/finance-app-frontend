@@ -1,9 +1,7 @@
 import { Component, effect, inject } from '@angular/core';
-import { DataStoreServiceService } from '../../../../services/data-store-service.service';
-import { APIService } from '../../../../services/api.service';
+import { DataStoreServiceService } from '@services/data-store-service.service';
 import { CommonModule } from '@angular/common';
-import { IconsComponent } from '../../../../components/icons/icons.component';
-import { AuthenticationService } from '../../../../services/authentication.service';
+import { AuthenticationService } from '@services/authentication.service';
 import { BillsSummaryComponent } from './bills-summary/bills-summary.component';
 import { RecurringBillsListComponent } from './recurring-bills-list/recurring-bills-list.component';
 
@@ -15,7 +13,6 @@ import { RecurringBillsListComponent } from './recurring-bills-list/recurring-bi
 })
 export class RecurringBillsComponent {
 
-  private apiService: APIService = inject(APIService);
   private dataStore: DataStoreServiceService = inject(DataStoreServiceService);
   public authService: AuthenticationService = inject(AuthenticationService);
 

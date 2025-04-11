@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input, inject } from '@angular/core';
-import { IconsComponent } from '../../../../../../components/icons/icons.component';
+import { IconsComponent } from '@components/icons/icons.component';
 
-import { BasedataService } from '../../../../../../services/basedata.service';
+import { BasedataService } from '@services/basedata.service';
 
 @Component({
   selector: 'app-last-spending',

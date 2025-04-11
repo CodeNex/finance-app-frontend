@@ -1,8 +1,8 @@
-import { Component, inject, Input, OnInit } from '@angular/core';
-import { IconsComponent } from '../../../../../../components/icons/icons.component';
+import { Component, inject, Input } from '@angular/core';
+import { IconsComponent } from '@components/icons/icons.component';
 import { CommonModule } from '@angular/common';
-import { BasedataService } from '../../../../../../services/basedata.service';
-import { MainModalService } from '../../../../../../services/main-modal.service';
+import { BasedataService } from '@services/basedata.service';
+import { MainModalService } from '@services/main-modal.service';
 
 @Component({
   selector: 'app-single-bill',

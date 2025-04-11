@@ -14,13 +14,13 @@
     <div
       class="bg-white flex flex-col p-[32px] rounded-[12px] w-full max-w-[560px] relative"
     >
-      @if (currentShownLoginWindow == "loginForm") {
+      @if (activeForm == "loginForm") {
       <app-login-form
         (changeWindow)="chooseLoginWindow($event)"
         (switchToImprintComponent)="switchToImprintComponent($event)"
       ></app-login-form>
 
-      } @if (currentShownLoginWindow == "signUpForm") {
+      } @if (activeForm == "signUpForm") {
       <app-sign-up-form
         (changeWindow)="chooseLoginWindow($event)"
         (switchToImprintComponent)="switchToImprintComponent($event)"
@@ -36,6 +36,10 @@
 
   <!-- imprint component -->
   @if (isImprintComponentVisible) {
-  <app-imprint [lastShownLoginWindow]="this.currentShownLoginWindow" (switchToLogInComponent)="switchToLogInComponent($event)" class="p-5 max-sm:p-4 flex-1 h-[100dvh] overflow-auto"></app-imprint>
+  <app-imprint
+    [lastShownLoginWindow]="this.activeForm"
+    (switchToLogInComponent)="switchToLogInComponent($event)"
+    class="p-5 max-sm:p-4 flex-1 h-[100dvh] overflow-auto"
+  ></app-imprint>
   }
 </main>

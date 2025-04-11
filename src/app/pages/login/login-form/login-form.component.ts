@@ -1,4 +1,11 @@
-import { Component, EventEmitter, Output, inject } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Output,
+  inject,
+  ViewChild,
+  ElementRef,
+} from '@angular/core';
 import {
   FormsModule,
   FormBuilder,
@@ -8,12 +15,19 @@ import {
 import { NgClass } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
-import { IconsComponent } from '../../../components/icons/icons.component';
+import { IconsComponent } from '@components/icons/icons.component';
 
-import { AutoLoginService } from '../../../services/auto-login.service';
-import { AuthenticationService } from '../../../services/authentication.service';
-import { BasedataService } from '../../../services/basedata.service';
+import { AuthenticationService } from '@services/authentication.service';
+import { BasedataService } from '@services/basedata.service';
 
+/**
+ * LoginFormComponent
+ * This component is responsible for the login form of the application.
+ * It contains the login and guest login functionality.
+ * It uses the AuthenticationService to manage the authentication state.
+ * It also handles the logic for switching between the login and guest login.
+ * It uses the BasedataService to get the guest login data.
+ */
 @Component({
   selector: 'app-login-form',
   imports: [
@@ -27,99 +41,69 @@ import { BasedataService } from '../../../services/basedata.service';
   styleUrl: './login-form.component.scss',
 })
 export class LoginFormComponent {
-  @Output() changeWindow = new EventEmitter();
+  // #region Component Setup (DI, Outputs, Template Refs)
+  private authService = inject(AuthenticationService);
+  private formBuilder = inject(FormBuilder);
+  private baseData = inject(BasedataService);
 
-  @Output() public switchToImprintComponent: EventEmitter<string> =
-    new EventEmitter<string>();
+  @Output() readonly changeWindow = new EventEmitter<string>();
 
-  private autoLoginService: AutoLoginService = inject(AutoLoginService);
+  @Output() readonly switchToImprintComponent = new EventEmitter<string>();
 
-  private AuthenticationService: AuthenticationService = inject(
-    AuthenticationService
-  );
+  @ViewChild('loginPasswordInput', { static: false })
+  loginPasswordInputRef!: ElementRef<HTMLInputElement>;
+  // #endregion
 
-  private formBuilder: FormBuilder = inject(FormBuilder);
-
-  private baseData: BasedataService = inject(BasedataService);
-
-  public isPasswordVisible: boolean = false;
-
-  private isFormValid: boolean = false;
-
-  public isKeepLoggedIn: boolean = false;
-
+  // #region Form
   public loginBody = this.formBuilder.group({
     email: [
       '',
       { validators: [Validators.required, Validators.email], updateOn: 'blur' },
     ],
-    password: [
-      '',
-      {
-        validators: [Validators.required],
-        updateOn: 'blur',
-      },
-    ],
+    password: ['', { validators: [Validators.required], updateOn: 'blur' }],
   });
+  // #endregion
 
-  goToImprintComponent() {
-    this.switchToImprintComponent.emit('loginForm');
-  }
-
-  /**
-   * Logs in as a registered user
-   */
+  // #region Login
   async doLogin() {
     if (this.loginBody.valid) {
-      console.log('Login-Body is valid: ', this.loginBody.valid);
-      console.log('Login-Body: ', this.loginBody.value);
       this.checkIfKeepLoggedIn();
-      await this.AuthenticationService.doAuthenticationRequest(
-        'login',
-        this.loginBody.value
-      );
+      this.authService.doAuthenticationRequest('login', this.loginBody.value);
     } else {
       this.loginBody.markAllAsTouched();
       Object.values(this.loginBody.controls).forEach((control) =>
         control.updateValueAndValidity()
       );
-      console.log('Login-Body is valid: ', this.loginBody.valid);
     }
   }
 
-  /**
-   * Logs in as a guest user
-   */
   async doGuestLogin() {
-    let body = this.baseData.financeApp.basics.apiData.guestLogin;
-    await this.AuthenticationService.doAuthenticationRequest('guest', body);
+    let body = this.baseData.guestLoginData;
+    this.authService.doAuthenticationRequest('guest', body);
   }
+  // #endregion
 
-  /**
-   * Emits an event to change the window between login and register components
-   */
-  emitChangeWindow(windowName: string) {
-    this.changeWindow.emit(windowName);
-  }
+  // #region Password Visibility
+  public isPasswordVisible: boolean = false;
 
-  /**
-   * Toggles the visibility of the password input field
-   */
   changePasswordVisibility() {
     this.isPasswordVisible = !this.isPasswordVisible;
-    let passwordInputRef = document.getElementById(
-      'loginPasswordInput'
-    ) as HTMLInputElement;
-    passwordInputRef.type =
-      passwordInputRef.type === 'password' ? 'text' : 'password';
+    this.loginPasswordInputRef.nativeElement.type =
+      this.loginPasswordInputRef.nativeElement.type === 'password'
+        ? 'text'
+        : 'password';
   }
+  // #endregion
+
+  // #region Keep Logged In
+  public isKeepLoggedIn: boolean = false;
 
   toggleKeepLoggedIn() {
     this.isKeepLoggedIn = !this.isKeepLoggedIn;
   }
 
   checkIfKeepLoggedIn() {
-    if (this.isKeepLoggedIn)
-      this.AuthenticationService.saveTokenInLocalStorage = true;
+    if (this.isKeepLoggedIn) this.authService.tokenToLocalStorage = true;
   }
+  // #endregion
 }

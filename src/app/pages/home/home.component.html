@@ -3,7 +3,7 @@
     <app-navbar></app-navbar>
     <app-content class="flex-1 relative flex"></app-content>
   </main>
-  @if (isMainModalVisible) {
+  @if (this.mainModalService.isMainModalVisible$ | async) {
   <app-main-modal></app-main-modal>
   }
 </section>

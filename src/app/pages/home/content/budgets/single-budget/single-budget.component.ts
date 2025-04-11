@@ -1,124 +1,180 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, Input, signal, effect } from '@angular/core';
-import { IconsComponent } from '../../../../../components/icons/icons.component';
-import { Router, RouterModule } from '@angular/router';
+import {
+  Component,
+  inject,
+  Input,
+  effect,
+  runInInjectionContext,
+  Injector,
+} from '@angular/core';
+import { OnInit, OnDestroy } from '@angular/core';
+import { RouterModule } from '@angular/router';
+import { IconsComponent } from '@components/icons/icons.component';
+import { LastSpendingComponent } from '@content/budgets/single-budget/last-spending/last-spending.component';
 
-import { DataStoreServiceService } from '../../../../../services/data-store-service.service';
-import { AuthenticationService } from '../../../../../services/authentication.service';
-import { APIService } from '../../../../../services/api.service';
-import { MainModalService } from '../../../../../services/main-modal.service';
-import { LastSpendingComponent } from './last-spending/last-spending.component';
+import { DataStoreServiceService } from '@services/data-store-service.service';
+import { AuthenticationService } from '@services/authentication.service';
+import { APIService } from '@services/api.service';
+import { MainModalService } from '@services/main-modal.service';
 
+import { FormatAmountPipe } from '@shared/pipes/format-amount.pipe';
+
+/**
+ * * SingleBudgetComponent
+ * This component is responsible for displaying a single budget in the application.
+ * It shows the budget name, amount, and progress.
+ * It also handles the logic for opening and closing the pop-up menu for editing or deleting the budget.
+ * It uses the DataStoreService to manage the budget data and the APIService to interact with the backend.
+ * It uses the MainModalService to open modals for editing or deleting the budget.
+ */
 @Component({
   selector: 'app-single-budget',
-  imports: [CommonModule, RouterModule, IconsComponent, LastSpendingComponent],
+  imports: [
+    CommonModule,
+    RouterModule,
+    IconsComponent,
+    LastSpendingComponent,
+    FormatAmountPipe,
+  ],
   templateUrl: './single-budget.component.html',
   styleUrl: './single-budget.component.scss',
 })
-export class SingleBudgetComponent {
-  public mainModalService: MainModalService = inject(MainModalService);
-  public dataStore: DataStoreServiceService = inject(DataStoreServiceService);
-  public authService: AuthenticationService = inject(AuthenticationService);
-  public apiService: APIService = inject(APIService);
+export class SingleBudgetComponent implements OnInit, OnDestroy {
+  // #region Component Setup (DI, Outputs, Template Refs, Subscription)
+  public mainModalService = inject(MainModalService);
+  public dataStore = inject(DataStoreServiceService);
+  public authService = inject(AuthenticationService);
+  public apiService = inject(APIService);
+  public injector = inject(Injector);
 
-  public budgetSignal$ = this.dataStore.budgets;
+  public budgetSignal = this.dataStore.budgets;
+  public transActionsSignal = this.dataStore.transactions;
 
-  constructor() {
-    effect(() => {
-      let budgetSignal = this.budgetSignal$();
-      this.ngOnInit();
+  @Input() public budget!: BudgetsObject;
+  @Input() public budgetIndex!: number;
+  // #endregion
+
+  // #region Lifecycle Hooks
+  ngOnInit() {
+    runInInjectionContext(this.injector, () => {
+      effect(() => {
+        this.budgetSignal();
+        this.transActionsSignal();
+        this.updateComponentView();
+      });
     });
   }
 
-  @Input() public budget: BudgetsObject = {
-    id: -1,
-    name: '',
-    amount: -1,
-    maximum: -1,
-    theme: '',
-    deleted_at: null,
-    created_at: null,
-    last_spendings: [
-      {
-        transaction_id: -1,
-        user_id: -1,
-        sender: '',
-        receiver: '',
-        name: '',
-        amount: -1,
-        recurring: null,
-        recurring_id: null,
-        theme: '',
-        budget_id: null,
-        deleted_at: null,
-        created_at: null,
-        execute_on: null,
-        category: '',
-        type: '',
-      },
-    ],
-  };
-
-  @Input() public budgetIndex: number = -1;
-
-  public isPopUpOpen: boolean = false;
-
-  public maximum: string = '';
-  public spent: string = '';
-  public isTooMuchSpent: boolean = false;
-  public remaining: string = '';
-  public percentageProgress: string = '';
-
-  ngOnInit() {
-    this.maximum = `$${this.budget.maximum.toLocaleString('en-US', {
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2,
-    })}`;
-    this.spent = `$${this.budget.amount.toLocaleString('en-US', {
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2,
-    })}`;
+  ngOnDestroy() {
+    document.removeEventListener('click', this.closePopUp.bind(this));
+  }
+  // #endregion
+  
+  // #region View Update
+  /**
+   * Updates the view when budget or transactions change.
+   */
+  private updateComponentView() {
+    this.calculatedSpent = this.calculateCurrentSpent(
+      this.transActionsSignal(),
+      this.getDateRange(this.budget.time_frame)
+    );
     this.remaining = this.calculateRemaining();
     this.percentageProgress = this.calculatePercentageProgress();
   }
+  // #endregion
 
-  // Calculate the percentage of the progress of the budget
-  calculatePercentageProgress() {
-    if (this.budget.amount <= 0) {
-      return '0%';
-    } else if (this.budget.amount >= this.budget.maximum) {
-      return '100%';
-    } else {
-      return `${Math.trunc((this.budget.amount / this.budget.maximum) * 100)}%`;
+  // #region Calculations 
+  /**
+   * Returns the time range (start and end timestamp) based on the given budget type
+   */
+  private getDateRange(type: string): { start: number; end: number } {
+    const now = new Date();
+    let start, end;
+
+    switch (type) {
+      case 'month':
+        start = new Date(now.getFullYear(), now.getMonth(), 1).getTime();
+        end = new Date(now.getFullYear(), now.getMonth() + 1, 0).getTime();
+        break;
+      case 'quarter':
+        const quarter = Math.floor(now.getMonth() / 3);
+        start = new Date(now.getFullYear(), quarter * 3, 1).getTime();
+        end = new Date(now.getFullYear(), quarter * 3 + 3, 0).getTime();
+        break;
+      case 'half':
+        const half = now.getMonth() < 6 ? 0 : 1;
+        start = new Date(now.getFullYear(), half * 6, 1).getTime();
+        end = new Date(now.getFullYear(), half * 6 + 6, 0).getTime();
+        break;
+      case 'year':
+        start = new Date(now.getFullYear(), 0, 1).getTime();
+        end = new Date(now.getFullYear(), 12, 0).getTime();
+        break;
+      default:
+        throw new Error('Invalid Timeframe type');
     }
+
+    return { start, end };
   }
 
-  // Calculate the remaining amount
-  calculateRemaining() {
-    if (this.budget.maximum - this.budget.amount <= 0) {
+  /**
+   *  Calculates the current spent amount within the given time range.
+   * */ 
+  public calculatedSpent: number = 0;
+
+  private calculateCurrentSpent(
+    transactions: TransactionsObject[],
+    timeRange: { start: number; end: number }
+  ): number {
+    let spent = 0;
+    transactions.forEach((transaction: TransactionsObject) => {
+      if (!transaction.execute_on) return;
+      let executeDate = new Date(transaction.execute_on).getTime();
+      if (
+        transaction.category ===
+          this.budget.name
+            .replace(/\s+/g, '')
+            .replace(/^./, (c) => c.toLowerCase()) &&
+        executeDate >= timeRange.start &&
+        executeDate <= timeRange.end
+      ) {
+        if (transaction.amount) spent += transaction.amount;
+      }
+    });
+    return spent;
+  }
+
+  // used to display the remaining amount in the template
+  public remaining: number = 0;
+  public isTooMuchSpent: boolean = false;
+
+  private calculateRemaining() {
+    if (this.budget.maximum - this.calculatedSpent <= 0) {
       this.isTooMuchSpent = true;
-      return '$0.00';
+      return 0;
     } else {
       this.isTooMuchSpent = false;
-      return `$${(this.budget.maximum - this.budget.amount).toLocaleString(
-        'en-US',
-        {
-          minimumFractionDigits: 2,
-          maximumFractionDigits: 2,
-        }
-      )}`;
+      return this.budget.maximum - this.calculatedSpent;
     }
   }
 
-  // Open the modal when the user clicks on any button which opens a modal, givs the modal name as a string and the current pot object as "subModalObject" to the function as arguments
-  public openSubModal(subModal: string, subModalObject: Object) {
-    this.mainModalService.chooseSubModal(
-      subModal,
-      subModalObject,
-      this.budgetIndex
-    );
-    this.isPopUpOpen = false;
+  // used to display the percentageProgress in the template
+  public percentageProgress: string = '';
+
+  private calculatePercentageProgress() {
+    if (this.calculatedSpent <= 0) {
+      return '0%';
+    } else if (this.calculatedSpent >= this.budget.maximum) {
+      return '100%';
+    } else {
+      return `${Math.trunc((this.calculatedSpent / this.budget.maximum) * 100)}%`;
+    }
   }
+  // #endregion
+
+  // #region Pop-Up & SubModal
+  public isPopUpOpen: boolean = false;
 
   // Open the pop-up when the user clicks on the three dots
   public openPopUp() {
@@ -127,17 +183,26 @@ export class SingleBudgetComponent {
       this.isPopUpOpen = true;
       document.addEventListener('click', this.closePopUp.bind(this));
     }, 20);
-    return;
   }
 
   // Close the pop-up if the user clicks outside of the pop-up
   public closePopUp(event: MouseEvent) {
     if (!this.isPopUpOpen) return;
     let target = event.target as HTMLElement;
-    if (!target) return;
     let allowedIDs = ['editPotButton', 'deletePotButton', 'potPopUp'];
     if (allowedIDs.includes(target.id)) return;
     this.isPopUpOpen = false;
     document.removeEventListener('click', this.closePopUp.bind(this));
   }
+
+  // Opens edit/delete modal based on user action
+  public openSubModal(subModal: string, currentBudget: BudgetsObject) {
+    this.mainModalService.chooseSubModal(
+      subModal,
+      currentBudget,
+      this.budgetIndex
+    );
+    this.isPopUpOpen = false;
+  }
+  // #endregion
 }

@@ -1,12 +1,11 @@
-import { Component, effect, inject, Input, Signal, signal } from '@angular/core';
+import { Component, effect, inject, Input, Signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { APIService } from '../../../../../services/api.service';
-import { DataStoreServiceService } from '../../../../../services/data-store-service.service';
-import { AuthenticationService } from '../../../../../services/authentication.service';
-import { MainModalService } from '../../../../../services/main-modal.service';
+import { DataStoreServiceService } from '@services/data-store-service.service';
+import { AuthenticationService } from '@services/authentication.service';
+import { MainModalService } from '@services/main-modal.service';
 import { SingleBillComponent } from './single-bill/single-bill.component';
-import { SortbyTransactionsComponent } from '../../transactions/sortby-transactions/sortby-transactions.component';
-import { SearchTransactionComponent } from '../../transactions/search-transaction/search-transaction.component';
+import { SortbyTransactionsComponent } from '@content/transactions/sortby-transactions/sortby-transactions.component';
+import { SearchTransactionComponent } from '@content/transactions/search-transaction/search-transaction.component';
 
 @Component({
   selector: 'app-recurring-bills-list',
@@ -15,7 +14,7 @@ import { SearchTransactionComponent } from '../../transactions/search-transactio
   styleUrl: './recurring-bills-list.component.scss'
 })
 export class RecurringBillsListComponent {
-  private apiService: APIService = inject(APIService);
+
   private dataStore: DataStoreServiceService = inject(DataStoreServiceService);
   public authService: AuthenticationService = inject(AuthenticationService);
   public mainModalService: MainModalService = inject(MainModalService);

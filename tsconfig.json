@@ -17,7 +17,19 @@
     "moduleResolution": "bundler",
     "importHelpers": true,
     "target": "ES2022",
-    "module": "ES2022"
+    "module": "ES2022",
+    "baseUrl": "src",
+    "paths": {
+      "@home/*": ["app/pages/home/*"],
+      "@content/*": ["app/pages/home/content/*"],
+      "@main-modal/*": ["app/pages/home/main-modal/*"],
+      "@navbar/*": ["app/pages/home/navbar/*"],
+      "@imprint/*": ["app/pages/imprint/*"],
+      "@login/*": ["app/pages/login/*"],
+      "@components/*": ["app/components/*"],
+      "@services/*": ["app/services/*"],
+      "@shared/*": ["app/shared/*"],
+    }
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

@@ -1,13 +1,13 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, Input, signal, effect } from '@angular/core';
+import { Component, inject, Input, effect } from '@angular/core';
 
-import { IconsComponent } from '../../../../../components/icons/icons.component';
+import { IconsComponent } from '@components/icons/icons.component';
 
-import { DataStoreServiceService } from '../../../../../services/data-store-service.service';
-import { AuthenticationService } from '../../../../../services/authentication.service';
-import { APIService } from '../../../../../services/api.service';
-import { MainModalService } from '../../../../../services/main-modal.service';
-import '../../../../../shared/interfaces.ts';
+import { DataStoreServiceService } from '@services/data-store-service.service';
+import { AuthenticationService } from '@services/authentication.service';
+import { APIService } from '@services/api.service';
+import { MainModalService } from '@services/main-modal.service';
+import '@shared/interfaces.ts';
 
 @Component({
   selector: 'app-single-pot',
