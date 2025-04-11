@@ -29,7 +29,7 @@ import { AuthenticationService } from '@services/authentication.service';
   styleUrl: './login.component.scss',
 })
 export class LoginComponent implements OnInit, OnDestroy {
-  // #region Dependency Injection & Subscriptions
+  // #region Component Setup (DI, Outputs, Template Refs, Subscription)
   public authService = inject(AuthenticationService);
 
   private subscriptions = new Subscription();

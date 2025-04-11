@@ -19,6 +19,14 @@ import { MainModalService } from '@services/main-modal.service';
 
 import { FormatAmountPipe } from '@shared/pipes/format-amount.pipe';
 
+/**
+ * * SingleBudgetComponent
+ * This component is responsible for displaying a single budget in the application.
+ * It shows the budget name, amount, and progress.
+ * It also handles the logic for opening and closing the pop-up menu for editing or deleting the budget.
+ * It uses the DataStoreService to manage the budget data and the APIService to interact with the backend.
+ * It uses the MainModalService to open modals for editing or deleting the budget.
+ */
 @Component({
   selector: 'app-single-budget',
   imports: [
@@ -32,6 +40,7 @@ import { FormatAmountPipe } from '@shared/pipes/format-amount.pipe';
   styleUrl: './single-budget.component.scss',
 })
 export class SingleBudgetComponent implements OnInit, OnDestroy {
+  // #region Component Setup (DI, Outputs, Template Refs, Subscription)
   public mainModalService = inject(MainModalService);
   public dataStore = inject(DataStoreServiceService);
   public authService = inject(AuthenticationService);
@@ -43,7 +52,9 @@ export class SingleBudgetComponent implements OnInit, OnDestroy {
 
   @Input() public budget!: BudgetsObject;
   @Input() public budgetIndex!: number;
+  // #endregion
 
+  // #region Lifecycle Hooks
   ngOnInit() {
     runInInjectionContext(this.injector, () => {
       effect(() => {
@@ -54,10 +65,15 @@ export class SingleBudgetComponent implements OnInit, OnDestroy {
     });
   }
 
+  ngOnDestroy() {
+    document.removeEventListener('click', this.closePopUp.bind(this));
+  }
+  // #endregion
+  
+  // #region View Update
   /**
    * Updates the view when budget or transactions change.
    */
-
   private updateComponentView() {
     this.calculatedSpent = this.calculateCurrentSpent(
       this.transActionsSignal(),
@@ -66,11 +82,12 @@ export class SingleBudgetComponent implements OnInit, OnDestroy {
     this.remaining = this.calculateRemaining();
     this.percentageProgress = this.calculatePercentageProgress();
   }
+  // #endregion
 
+  // #region Calculations 
   /**
    * Returns the time range (start and end timestamp) based on the given budget type
    */
-
   private getDateRange(type: string): { start: number; end: number } {
     const now = new Date();
     let start, end;
@@ -101,7 +118,9 @@ export class SingleBudgetComponent implements OnInit, OnDestroy {
     return { start, end };
   }
 
-  // Calculates the current spent amount within the given time range.
+  /**
+   *  Calculates the current spent amount within the given time range.
+   * */ 
   public calculatedSpent: number = 0;
 
   private calculateCurrentSpent(
@@ -126,11 +145,7 @@ export class SingleBudgetComponent implements OnInit, OnDestroy {
     return spent;
   }
 
-  /**
-   * Calculates budget progress and remaining funds.
-   */
-
-  // Calculate the remaining amount
+  // used to display the remaining amount in the template
   public remaining: number = 0;
   public isTooMuchSpent: boolean = false;
 
@@ -144,7 +159,7 @@ export class SingleBudgetComponent implements OnInit, OnDestroy {
     }
   }
 
-  // Calculate the percentage of the progress of the budget
+  // used to display the percentageProgress in the template
   public percentageProgress: string = '';
 
   private calculatePercentageProgress() {
@@ -156,11 +171,9 @@ export class SingleBudgetComponent implements OnInit, OnDestroy {
       return `${Math.trunc((this.calculatedSpent / this.budget.maximum) * 100)}%`;
     }
   }
+  // #endregion
 
-  /**
-   * Handles pop-up menu visibility and modal interactions.
-   */
-
+  // #region Pop-Up & SubModal
   public isPopUpOpen: boolean = false;
 
   // Open the pop-up when the user clicks on the three dots
@@ -191,12 +204,5 @@ export class SingleBudgetComponent implements OnInit, OnDestroy {
     );
     this.isPopUpOpen = false;
   }
-
-  /**
-   * NG OnDestroy
-   */
-
-  ngOnDestroy() {
-    document.removeEventListener('click', this.closePopUp.bind(this));
-  }
+  // #endregion
 }
