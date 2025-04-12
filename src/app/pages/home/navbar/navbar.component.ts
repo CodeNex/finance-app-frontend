@@ -1,10 +1,23 @@
-import { Component, ElementRef, inject, ViewChild, ViewChildren, QueryList } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  inject,
+  ViewChild,
+  ViewChildren,
+  QueryList,
+} from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { IconsComponent } from '@components/icons/icons.component';
 
 import { AuthenticationService } from '@services/authentication.service';
 import { BasedataService } from '@services/basedata.service';
 
+/**
+ * * * NavbarComponent
+ * This component is responsible for rendering the navigation bar of the application.
+ * It contains the links and icons for navigating to different sections of the app.
+ * It also handles the logic for collapsing and expanding the navbar, as well as animating the logo.
+ */
 @Component({
   selector: 'app-navbar',
   imports: [RouterModule, IconsComponent],
@@ -19,7 +32,9 @@ export class NavbarComponent {
   @ViewChild('navBar', { static: false }) navBarRef!: ElementRef<HTMLElement>;
   @ViewChild('slideButton', { static: false })
   slideButtonRef!: ElementRef<HTMLElement>;
-  @ViewChildren('navLinkName') navLinkNames!: QueryList<ElementRef<HTMLElement>>;
+  @ViewChildren('navLinkName') navLinkNames!: QueryList<
+    ElementRef<HTMLElement>
+  >;
   // #endregion
 
   // This data is used to render the navbar links and icons.
@@ -56,7 +71,9 @@ export class NavbarComponent {
       navBarRef.style.paddingRight = '8px';
     }
     setTimeout(() => {
-      navLinkNames.forEach((link) => link.nativeElement.classList.add('d_none'));
+      navLinkNames.forEach((link) =>
+        link.nativeElement.classList.add('d_none')
+      );
     }, 300);
   }
 
@@ -65,11 +82,15 @@ export class NavbarComponent {
     navBarRef: HTMLElement | null,
     slideButtonRef: HTMLElement | null
   ) {
-    navLinkNames.forEach((link) => link.nativeElement.classList.remove('d_none'));
+    navLinkNames.forEach((link) =>
+      link.nativeElement.classList.remove('d_none')
+    );
     setTimeout(() => {
       this.makeLogoWide();
       if (slideButtonRef) slideButtonRef.classList.remove('slideButtonReturn');
-      navLinkNames.forEach((link) => link.nativeElement.classList.remove('opacity_zero'));
+      navLinkNames.forEach((link) =>
+        link.nativeElement.classList.remove('opacity_zero')
+      );
       if (navBarRef) {
         navBarRef?.classList.remove('navbar-thin');
         navBarRef.style.paddingRight = '24px';
