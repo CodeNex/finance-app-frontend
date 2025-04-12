@@ -40,14 +40,13 @@ export class NavbarComponent {
   // This data is used to render the navbar links and icons.
   public navData = this.baseData.navdata;
 
-  // #region Navbar View
+  // #region Navbar View and Animation
   isNavbarThin: boolean = false;
 
   toggleMovingNavbar() {
     const navLinkNames = this.navLinkNames.toArray();
     const navBarRef = this.navBarRef.nativeElement;
     const slideButtonRef = this.slideButtonRef.nativeElement;
-
     if (!this.isNavbarThin) {
       this.makeNavbarThin(navLinkNames, navBarRef, slideButtonRef);
     } else {
