@@ -9,17 +9,26 @@ import {
   inject,
 } from '@angular/core';
 
+/**
+ * ClickOutsideCloseDirective
+ * This directive is responsible for closing the dropdown menu when clicking outside of it.
+ * It listens for click events on the document and emits an event when a click occurs outside of the element it is applied to.
+ */
 @Directive({
   selector: '[appClickOutsideClose]',
 })
 export class ClickOutsideCloseDirective implements AfterViewInit, OnDestroy {
 
+  // #region Component Setup (DI, Outputs, Template Refs, Subscription)
   @Output() clickOutside = new EventEmitter<boolean>();
 
   private renderer = inject(Renderer2);
   private elementRef = inject(ElementRef);
-  private unsubscribeClickOutside: () => void = () => null;
 
+  private unsubscribeClickOutside: () => void = () => null;
+  // #endregion
+
+  // #region Lifecycle Hooks
   ngAfterViewInit(): void {
     this.unsubscribeClickOutside = this.renderer.listen('document', 'click', (event) => {
       const clickedInside = this.elementRef.nativeElement.contains(event.target);
@@ -32,4 +41,5 @@ export class ClickOutsideCloseDirective implements AfterViewInit, OnDestroy {
   ngOnDestroy(): void {
     this.unsubscribeClickOutside?.();
   }
+  // #endregion
 }

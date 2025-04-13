@@ -18,9 +18,9 @@ import { IconsComponent } from '@components/icons/icons.component';
   styleUrl: './balance.component.scss',
 })
 export class BalanceComponent {
-  public dataStore: DataStoreServiceService = inject(DataStoreServiceService);
-  public authService: AuthenticationService = inject(AuthenticationService);
-  public apiService: APIService = inject(APIService);
+  public dataStore = inject(DataStoreServiceService);
+  public authService = inject(AuthenticationService);
+  public apiService = inject(APIService);
 
   public balanceSignal$: WritableSignal<BalanceObject> = this.dataStore.balance;
   public transactionsSignal$: WritableSignal<any[]> =
