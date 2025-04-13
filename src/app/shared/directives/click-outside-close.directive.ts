@@ -25,12 +25,12 @@ export class ClickOutsideCloseDirective implements AfterViewInit, OnDestroy {
   private renderer = inject(Renderer2);
   private elementRef = inject(ElementRef);
 
-  private unsubscribeClickOutside: () => void = () => null;
+  private unsubscribeClickOutside: () => void = () => {};
   // #endregion
 
   // #region Lifecycle Hooks
   ngAfterViewInit(): void {
-    this.unsubscribeClickOutside = this.renderer.listen('document', 'click', (event) => {
+    this.unsubscribeClickOutside = this.renderer.listen('document', 'click', (event: MouseEvent) => {
       const clickedInside = this.elementRef.nativeElement.contains(event.target);
       if (!clickedInside) {
         this.clickOutside.emit(true);
