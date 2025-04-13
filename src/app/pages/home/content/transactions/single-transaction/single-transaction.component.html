@@ -15,6 +15,6 @@
         {{ this.transaction.execute_on | formatDate}}
       </span>
     </div>
-    <p class="text4b" [ngStyle]="{'color': this.type === 'debit' ? '#201f24' : '#277c78'}">{{ this.type === 'debit' ? '-$' + this.amount: '+$' + this.amount }}</p>
+    <p class="text4b" [ngStyle]="{'color': this.type === 'debit' ? '#201f24' : '#277c78'}">{{ this.type === 'debit' ? '-' : '+' }}{{ this.transaction.amount! | formatAmount }}</p>
   </div>
 </div>
