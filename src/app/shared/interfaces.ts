@@ -31,7 +31,7 @@ interface PotsObject {
 interface TransactionsObject {
   transaction_id: number;
   user_id: number | null;
-  amount: number | null;
+  amount: number;
   budget_id: number | null;
   created_at: string | null;
   deleted_at: string | null;
