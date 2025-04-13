@@ -1,12 +1,13 @@
 import { Component, inject, Input } from '@angular/core';
 
 import { BasedataService } from '@services/basedata.service';
-import { CommonModule } from '@angular/common';
+import { CommonModule, formatDate } from '@angular/common';
 import { IconsComponent } from '@components/icons/icons.component';
+import { FormatDatePipe } from '@shared/pipes/format-date.pipe';
 
 @Component({
   selector: 'app-single-transaction',
-  imports: [CommonModule, IconsComponent],
+  imports: [CommonModule, IconsComponent, FormatDatePipe],
   templateUrl: './single-transaction.component.html',
   styleUrl: './single-transaction.component.scss',
 })
@@ -50,18 +51,17 @@ export class SingleTransactionComponent {
       this.baseData.financeApp.budgets.categories[
         this.transaction.category
       ].name;
-    this.date = new Date(this.transaction.execute_on)
-      .toLocaleDateString('en-US', {
-        month: 'short',
-        day: '2-digit',
-        year: 'numeric',
-      })
-      .replace(',', '');
+    // this.date = new Date(this.transaction.execute_on)
+    //   .toLocaleDateString('en-US', {
+    //     month: 'short',
+    //     day: '2-digit',
+    //     year: 'numeric',
+    //   })
+    //   .replace(',', '');
     this.amount = this.transaction.amount.toLocaleString('en-US', {
       minimumFractionDigits: 2,
       maximumFractionDigits: 2,
     });
     this.type = this.transaction.type;
-
   }
 }

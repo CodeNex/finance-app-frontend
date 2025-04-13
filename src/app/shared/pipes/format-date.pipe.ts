@@ -15,7 +15,7 @@ export class FormatDatePipe implements PipeTransform {
       month: 'short',
       day: '2-digit',
       year: 'numeric',
-    })
+    }).replace(',', '');
   }
 
 }
