@@ -11,6 +11,7 @@ import { APIService } from '@services/api.service';
 import { CommonModule } from '@angular/common';
 import { IconsComponent } from '@components/icons/icons.component';
 
+
 @Component({
   selector: 'app-balance',
   imports: [CommonModule, IconsComponent],
