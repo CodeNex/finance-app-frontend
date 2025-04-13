@@ -75,6 +75,8 @@ export class AuthenticationService {
           this.authWarningMessage.set('');
           this.authToken = response.token;
           this.startApiFirstDataLoading();
+          console.log(this.authToken);
+          
         },
         error: (error) => {
           this.setLoadingScreen(false);
