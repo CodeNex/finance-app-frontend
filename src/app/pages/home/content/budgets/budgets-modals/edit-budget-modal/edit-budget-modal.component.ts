@@ -29,7 +29,7 @@ export class EditBudgetModalComponent {
   public dataStore = inject(DataStoreServiceService);
 
   @Input() public budgetIndex: number = 1;
-  @Input() public modalObject: any = {
+  @Input() public modalObject: BudgetsObject = {
     id: -1,
     name: '',
     amount: -1,
