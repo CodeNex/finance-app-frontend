@@ -72,4 +72,13 @@ export class FormatAmountInputService {
     );
     this.maxBudgetInputValue = this.maxBudgetString;
   }
+
+
+private formatToEnUS(value: number): string {
+  if (value == null) return '';
+  return `${value.toLocaleString('en-US', {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  })}`;
+}
 }
