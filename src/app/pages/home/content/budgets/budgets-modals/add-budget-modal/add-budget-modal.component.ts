@@ -9,6 +9,12 @@ import { DataStoreServiceService } from '@services/data-store-service.service';
 import { ApiBudgetsService } from '@content/budgets/api-budgets.service';
 import { CommonModule } from '@angular/common';
 
+/**
+ * * * AddBudgetModalComponent
+ * This component is responsible for displaying the add budget modal.
+ * It allows the user to add a new budget with a name, amount, and theme.
+ * It uses the MainModalService to manage the modal state and the ApiBudgetsService to interact with the backend.
+ */
 @Component({
   selector: 'app-add-budget-modal',
   imports: [FormsModule, ReactiveFormsModule, CommonModule, IconsComponent],
@@ -39,15 +45,9 @@ export class AddBudgetModalComponent {
   ngOnInit() {
     this.getThemeArrays();
     this.getCategoryArrays();
-    this.chosenTheme =
-      this.unusedBudgetThemes[
-        Math.floor(Math.random() * this.unusedBudgetThemes.length)
-      ];
+    this.chosenTheme = this.getInitialTheme();
     this.currentBudget.theme = this.chosenTheme.hex;
-    this.chosenCategory =
-      this.unusedBudgetCategories[
-        Math.floor(Math.random() * this.unusedBudgetCategories.length)
-      ];
+    this.chosenCategory = this.getInitialCategory();
     this.currentBudget.name = this.chosenCategory;
   }
   // #endregion
@@ -75,7 +75,7 @@ export class AddBudgetModalComponent {
   public unusedBudgetCategories: string[] = [];
   public chosenCategory: string = '';
 
-  getCategoryArrays() {
+  public getCategoryArrays():void {
     (
       Object.values(this.baseData.financeApp.budgets.categories) as {
         name: string;
@@ -95,6 +95,12 @@ export class AddBudgetModalComponent {
     this.unusedBudgetCategories = this.categories.filter(
       (category: string) => !this.usedBudgetCategories.includes(category)
     );
+  }
+
+  private getInitialCategory(): string {
+    return this.unusedBudgetCategories[
+      Math.floor(Math.random() * this.unusedBudgetCategories.length)
+    ];
   }
 
   public chooseCategory(category: string): void {
@@ -175,23 +181,31 @@ export class AddBudgetModalComponent {
   // #endregion
 
   // #region Themes
-  public themes: any;
-  public usedBudgetThemes: any;
-  public unusedBudgetThemes: any;
-  public chosenTheme: any;
+  public themes: { name: string; hex: string }[] = [];
+  public usedBudgetThemes: string[] = [];
+  public unusedBudgetThemes: { name: string; hex: string }[] = [];
+  public chosenTheme: { name: string; hex: string } = { name: '', hex: '' };
   public potThemeValue: string = '';
 
-  getThemeArrays() {
+  private getThemeArrays(): void {
     this.themes = Object.values(this.baseData.financeApp.basics.colors);
     this.usedBudgetThemes = this.dataStore.budgets().map((budget: any) => {
       if (!budget.deleted_at) return budget.theme;
     });
-    this.unusedBudgetThemes = this.themes.filter(
-      (theme: any) => !this.usedBudgetThemes.includes(theme.hex)
-    );
+    this.unusedBudgetThemes = this.themes.map((theme: any) => {
+      if (!this.usedBudgetThemes.includes(theme.hex)) {
+        return theme;
+      }
+    });
   }
 
-  chooseTheme(theme: any) {
+  private getInitialTheme(): { name: string; hex: string } {
+    return this.unusedBudgetThemes[
+      Math.floor(Math.random() * this.unusedBudgetThemes.length)
+    ];
+  }
+
+  public chooseTheme(theme: any): void {
     if (this.unusedBudgetThemes.includes(theme)) {
       this.chosenTheme = theme;
       this.toggleThemeDropdown();
