@@ -35,22 +35,7 @@ export class AddBudgetModalComponent {
   };
   // #endregion
 
-  
-  
-
-  
-  
-  // array of all themes in the application
-  public themes: any;
-  // array of used themes in budgets
-  public usedBudgetThemes: any;
-  // array of unused themes
-  public unusedBudgetThemes: any;
-  // the current chosen theme
-  public chosenTheme: any;
-  // the value of the pot theme input
-  public potThemeValue: string = '';
-
+  // #region Lifecycle
   ngOnInit() {
     this.getThemeArrays();
     this.getCategoryArrays();
@@ -65,6 +50,7 @@ export class AddBudgetModalComponent {
       ];
     this.currentBudget.name = this.chosenCategory;
   }
+  // #endregion
 
   // #region Dropdowns & Modal
   public isBudgetDropdownOpen: boolean = false;
@@ -119,8 +105,6 @@ export class AddBudgetModalComponent {
     }
   }
   // #endregion
-
- 
 
   // #region Target Input
   public maxBudgetInputValue: string = '0.00';
@@ -190,7 +174,13 @@ export class AddBudgetModalComponent {
   }
   // #endregion
 
-  // get all the themes from the data-store-service and split them into used and unused theme arrays
+  // #region Themes
+  public themes: any;
+  public usedBudgetThemes: any;
+  public unusedBudgetThemes: any;
+  public chosenTheme: any;
+  public potThemeValue: string = '';
+
   getThemeArrays() {
     this.themes = Object.values(this.baseData.financeApp.basics.colors);
     this.usedBudgetThemes = this.dataStore.budgets().map((budget: any) => {
@@ -201,13 +191,13 @@ export class AddBudgetModalComponent {
     );
   }
 
-  // choose a theme by click from the dropdown
   chooseTheme(theme: any) {
     if (this.unusedBudgetThemes.includes(theme)) {
       this.chosenTheme = theme;
       this.toggleThemeDropdown();
     }
   }
+  // #endregion
 
   /**
    * * submitEditedBudget

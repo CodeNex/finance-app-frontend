@@ -217,10 +217,9 @@ export class EditBudgetModalComponent {
         return theme.hex === this.modalObject.theme;
       }
     ) || { name: '', hex: '' };
-    console.log(this.chosenTheme);
   }
 
-  chooseTheme(theme: { name: string; hex: string }) {
+  public chooseTheme(theme: { name: string; hex: string }): void {
     if (this.unusedBudgetThemes.includes(theme.hex)) {
       this.chosenTheme = theme;
       this.toggleThemeDropdown();
