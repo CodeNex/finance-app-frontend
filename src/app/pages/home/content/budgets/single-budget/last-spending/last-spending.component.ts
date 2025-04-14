@@ -45,6 +45,6 @@ export class LastSpendingComponent {
   }
 
   private getCategoryIcon(category: string): string {
-    return this.baseData.financeApp.budgets.categories[category].iconName;
+    return this.baseData.getCategoryIcon(category);
   }
 }

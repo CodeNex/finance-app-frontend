@@ -26,6 +26,14 @@ export class BasedataService {
     return this.financeApp.navbar.links;
   }
 
+  /**
+   * Returns the name of the category icon based on the category name.
+   * Used in the budget component to display the icon for each category.
+   */
+  public getCategoryIcon(category: string): string {
+    return this.financeApp.budgets.categories[category].iconName;
+  }
+
   public financeApp: any = {
     basics: {
       apiData: {
