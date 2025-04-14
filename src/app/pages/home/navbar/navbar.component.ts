@@ -118,14 +118,7 @@ export class NavbarComponent {
 
   private makeLogoThin(): void {
     this.isLogoWide = false;
-    const paths = [
-      'logoPath2',
-      'logoPath3',
-      'logoPath4',
-      'logoPath5',
-      'logoPath6',
-      'logoPath7',
-    ];
+    const paths = this.visibleLogoPaths;
     this.visibleLogoPaths = [...paths];
     paths.reverse().forEach((path, index) => {
       setTimeout(() => {
