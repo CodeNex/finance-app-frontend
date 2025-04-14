@@ -20,7 +20,7 @@ export class LastSpendingComponent {
   // #region Component Setup (DI, Outputs, Template Refs, Subscription)
   public baseData = inject(BasedataService);
 
-  @Input() public spending: TransactionsObject = {
+  @Input() readonly spending: TransactionsObject = {
     transaction_id: -1,
     user_id: -1,
     name: '',
@@ -37,19 +37,5 @@ export class LastSpendingComponent {
     sender: null,
     receiver: null,
   };
-
-  public iconBackground: string = '';
-  public iconName: string = '';
   // #endregion
-
-  ngOnInit(): void {
-    if (this.spending.transaction_id > -1) {
-      if (this.spending.category) this.iconName = this.getCategoryIcon(this.spending.category);
-      this.iconBackground = this.spending.theme;
-    }
-  }
-
-  private getCategoryIcon(category: string): string {
-    return this.baseData.getCategoryIcon(category);
-  }
 }

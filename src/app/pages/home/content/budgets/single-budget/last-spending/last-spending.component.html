@@ -1,11 +1,11 @@
 <div class="w-full flex items-center justify-between">
   <div class="flex items-center gap-4">
     <div
-      aria-labelledby="logo"
+      aria-label="logo"
       class="w-8 h-8 rounded-full flex items-center justify-center"
-      [ngStyle]="{ 'background-color': iconBackground }"
+      [ngStyle]="{ 'background-color': this.spending.theme}"
     >
-      <app-icons [iconName]="iconName"></app-icons>
+      <app-icons [iconName]="this.spending.category!"></app-icons>
     </div>
     <p class="text5b text-grey-900">{{ this.spending.name }}</p>
   </div>
