@@ -6,6 +6,7 @@ import {
   effect,
   runInInjectionContext,
   Injector,
+  Renderer2
 } from '@angular/core';
 import { OnInit, OnDestroy } from '@angular/core';
 import { RouterModule } from '@angular/router';
@@ -46,6 +47,7 @@ export class SingleBudgetComponent implements OnInit, OnDestroy {
   public authService = inject(AuthenticationService);
   public apiService = inject(APIService);
   public injector = inject(Injector);
+  public renderer = inject(Renderer2);
 
   public budgetSignal = this.dataStore.budgets;
   public transActionsSignal = this.dataStore.transactions;
@@ -59,8 +61,8 @@ export class SingleBudgetComponent implements OnInit, OnDestroy {
     runInInjectionContext(this.injector, () => {
       effect(() => {
         this.budgetSignal();
-        this.transActionsSignal();
-        this.updateComponentView();
+        const transactions: TransactionsObject[] = this.transActionsSignal();
+        this.updateComponentView(transactions);
       });
     });
   }
@@ -74,9 +76,9 @@ export class SingleBudgetComponent implements OnInit, OnDestroy {
   /**
    * Updates the view when budget or transactions change.
    */
-  private updateComponentView(): void {
+  private updateComponentView(transactions: TransactionsObject[]): void {
     this.calculatedSpent = this.calculateCurrentSpent(
-      this.transActionsSignal(),
+      transactions,
       this.getDateRange(this.budget.time_frame)
     );
     this.remaining = this.calculateRemaining();
