@@ -152,6 +152,7 @@
 }
 
 .slideButtonBox {
+
   .slideButton {
     ::ng-deep {
       svg {
@@ -181,14 +182,10 @@
       }
     }
   }
+}
 
-  .slideButtonReturn {
-    ::ng-deep {
-      svg {
-        transform: translate(-50%, -50%) rotate(180deg);
-      }
-    }
-  }
+.slideButtonReturn {
+  transform: translate(-50%, -50%) rotate(180deg);
 }
 
 .opacity_zero {
