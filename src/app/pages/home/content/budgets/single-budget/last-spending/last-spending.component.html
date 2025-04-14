@@ -10,7 +10,7 @@
     <p class="text5b text-grey-900">{{ this.spending.name }}</p>
   </div>
   <div>
-    <p class="text-right text5b text-grey-900">{{ this.amount }}</p>
-    <p class="text-right text5r text-grey-500">{{ this.date }}</p>
+    <p class="text-right text5b text-grey-900">{{ this.spending.amount | formatAmount }}</p>
+    <p class="text-right text5r text-grey-500">{{ this.spending.execute_on | formatDate }}</p>
   </div>
 </div>
