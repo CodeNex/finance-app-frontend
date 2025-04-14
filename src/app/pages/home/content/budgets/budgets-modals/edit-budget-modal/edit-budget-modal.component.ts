@@ -6,9 +6,9 @@ import { MainModalService } from '@services/main-modal.service';
 import { BasedataService } from '@services/basedata.service';
 import { DataStoreServiceService } from '@services/data-store-service.service';
 import { ApiBudgetsService } from '@content/budgets/api-budgets.service';
+import { FormatAmountInputService } from '@services/format-amount-input.service';
 
 import { IconsComponent } from '@components/icons/icons.component';
-import { FormatAmountPipe } from '@shared/pipes/format-amount.pipe';
 
 /**
  * * * EditBudgetModalComponent
@@ -18,7 +18,7 @@ import { FormatAmountPipe } from '@shared/pipes/format-amount.pipe';
  */
 @Component({
   selector: 'app-edit-budget-modal',
-  imports: [FormsModule, ReactiveFormsModule, CommonModule, IconsComponent, FormatAmountPipe],
+  imports: [FormsModule, ReactiveFormsModule, CommonModule, IconsComponent],
   templateUrl: './edit-budget-modal.component.html',
   styleUrl: './edit-budget-modal.component.scss',
 })
@@ -64,7 +64,7 @@ export class EditBudgetModalComponent {
   // #endregion
 
   // #region Lifecycle Hooks
-  ngOnInit() {
+  ngOnInit(): void {
     this.currentBudgetIndex = this.budgetIndex;
     this.getCategoryArrays();
     this.getThemeArrays();
@@ -131,7 +131,7 @@ export class EditBudgetModalComponent {
   public maxBudgetInputValue: string = '0.00';
   public maxBudgetString: string = '0.00';
 
-  controlMaxTarget(event: any) {
+  public controlMaxTarget(event: KeyboardEvent) {
     const deleteKeys = ['Backspace', 'Delete'];
     const otherKeys = ['ArrowLeft', 'ArrowRight', 'Tab'];
     const isNumberKey = /^[0-9]$/.test(event.key);
@@ -150,7 +150,7 @@ export class EditBudgetModalComponent {
     }
   }
 
-  addNumberToTargetInput(event: any) {
+  private addNumberToTargetInput(event: KeyboardEvent): void {
     let currentTarget = this.maxBudgetString;
     let numbersArray = currentTarget.replace(/[.,]/g, '').split('');
     if (numbersArray.length === 3 && numbersArray[0] === '0') {
@@ -181,7 +181,7 @@ export class EditBudgetModalComponent {
     }
   }
 
-  deleteNumberFromTargetInput() {
+  private deleteNumberFromTargetInput(): void {
     let currentTarget = this.maxBudgetString;
     let numbersArray = currentTarget.replace(/[.,]/g, '').split('');
     numbersArray.pop();
