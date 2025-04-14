@@ -67,16 +67,9 @@ export class EditBudgetModalComponent {
     this.currentBudgetIndex = this.budgetIndex;
     this.getCategoryArrays();
     this.getThemeArrays();
-    this.maxBudgetInputValue = this.modalObject.maximum.toLocaleString(
-      'en-US',
-      {
-        minimumFractionDigits: 2,
-      }
-    );
+    this.maxBudgetInputValue = this.formatToEnUS(this.modalObject.maximum);
     this.maxBudgetString = this.maxBudgetInputValue;
     this.chosenCategory = this.modalObject.name;
-
-    console.log(this.modalObject, this.currentBudgetIndex);
   }
   // #endregion
 
@@ -84,11 +77,11 @@ export class EditBudgetModalComponent {
   public isBudgetDropdownOpen: boolean = false;
   public isThemeDropdownOpen: boolean = false;
 
-  closeHideBudgetDropdown() {
+  public toggleBudgetDropdown(): void {
     this.isBudgetDropdownOpen = !this.isBudgetDropdownOpen;
   }
 
-  closeHideThemeDropdown() {
+  public toggleThemeDropdown(): void {
     this.isThemeDropdownOpen = !this.isThemeDropdownOpen;
   }
 
@@ -121,7 +114,7 @@ export class EditBudgetModalComponent {
     if (this.unusedBudgetCategories.includes(category)) {
       this.chosenCategory = category;
       this.modalObject.name = this.chosenCategory;
-      this.closeHideBudgetDropdown();
+      this.toggleBudgetDropdown();
     }
   }
   // #endregion
@@ -130,7 +123,7 @@ export class EditBudgetModalComponent {
   public maxBudgetInputValue: string = '0.00';
   public maxBudgetString: string = '0.00';
 
-  public controlMaxTarget(event: KeyboardEvent) {
+  public controlMaxTarget(event: KeyboardEvent): void {
     const deleteKeys = ['Backspace', 'Delete'];
     const otherKeys = ['ArrowLeft', 'ArrowRight', 'Tab'];
     const isNumberKey = /^[0-9]$/.test(event.key);
@@ -218,7 +211,7 @@ export class EditBudgetModalComponent {
   chooseTheme(theme: any) {
     if (this.unusedBudgetThemes.includes(theme)) {
       this.chosenTheme = theme;
-      this.closeHideThemeDropdown();
+      this.toggleThemeDropdown();
     }
   }
   // #endregion

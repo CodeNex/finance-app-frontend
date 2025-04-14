@@ -29,12 +29,11 @@
 
   <!-- Modal Form -->
   <form action="">
-
     <!-- Category Input -->
     <div class="relative">
       <p class="text5b text-grey-500">Budget Category</p>
       <div
-        (click)="closeHideBudgetDropdown()"
+        (click)="toggleBudgetDropdown()"
         class="w-full flex justify-between border-[1px] border-beige-500 hover:border-grey-900 focus:border-grey-900 transition-all duration-300 ease-in-out rounded-lg pl-5 pr-5 pt-3 pb-3 mb-5 mt-1 cursor-pointer"
       >
         <div class="leftBox flex items-center gap-3">
@@ -57,14 +56,18 @@
         <div
           (click)="chooseCategory(item)"
           class="w-full flex items-center justify-between pt-3 transition-all duration-300 ease-in-out rounded-lg"
-          [ngClass]="usedBudgetCategories.includes(item) ? '' : 'cursor-pointer'"
+          [ngClass]="
+            usedBudgetCategories.includes(item) ? '' : 'cursor-pointer'
+          "
         >
           <!-- Category Box Left Part -->
           <div class="w-full flex gap-3 items-center mb-3">
             <p
               class="text4r text-grey-900"
               [ngStyle]="{
-                color: !usedBudgetCategories.includes(item) ? '#201f24' : '#696868'
+                color: !usedBudgetCategories.includes(item)
+                  ? '#201f24'
+                  : '#696868'
               }"
             >
               {{ item }}
@@ -112,7 +115,7 @@
     <div class="relative">
       <p class="text5b text-grey-500">Theme</p>
       <div
-        (click)="closeHideThemeDropdown()"
+        (click)="toggleThemeDropdown()"
         class="w-full flex justify-between border-[1px] border-beige-500 hover:border-grey-900 focus:border-grey-900 transition-all duration-300 ease-in-out rounded-lg pl-5 pr-5 pt-3 pb-3 mb-5 mt-1 cursor-pointer"
       >
         <div class="leftBox flex items-center gap-3">
@@ -139,7 +142,9 @@
         <div
           (click)="chooseTheme(item)"
           class="w-full flex items-center justify-between pt-3 transition-all duration-300 ease-in-out rounded-lg"
-          [ngClass]="usedBudgetThemes.includes(item.hex) ? '' : 'cursor-pointer'"
+          [ngClass]="
+            usedBudgetThemes.includes(item.hex) ? '' : 'cursor-pointer'
+          "
         >
           <!-- Theme Box Left Part -->
           <div class="w-full flex gap-3 items-center mb-3">
@@ -153,7 +158,9 @@
             <p
               class="text4r text-grey-900"
               [ngStyle]="{
-                color: !usedBudgetThemes.includes(item.hex) ? '#201f24' : '#696868'
+                color: !usedBudgetThemes.includes(item.hex)
+                  ? '#201f24'
+                  : '#696868'
               }"
             >
               {{ item.name }}
@@ -179,7 +186,8 @@
     </div>
 
     <!-- Add Budget Button -->
-    <button (click)="submitEditedBudget()"
+    <button
+      (click)="submitEditedBudget()"
       class="bg-grey-900 w-full pt-4 pb-4 rounded-lg text4b transition-all duration-300 ease-in-out hover:bg-grey-500 text-white text-center"
     >
       Save Changes
