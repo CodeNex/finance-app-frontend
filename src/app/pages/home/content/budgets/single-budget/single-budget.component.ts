@@ -54,6 +54,8 @@ export class SingleBudgetComponent implements OnInit, OnDestroy {
 
   @Input() public budget!: BudgetsObject;
   @Input() public budgetIndex!: number;
+
+  private removeClickListener: (() => void) | null = null;
   // #endregion
 
   // #region Lifecycle Hooks
@@ -68,7 +70,10 @@ export class SingleBudgetComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    document.removeEventListener('click', this.closePopUp.bind(this));
+    if (this.removeClickListener) {
+      this.removeClickListener();
+      this.removeClickListener = null;
+    }
   }
   // #endregion
   
@@ -178,26 +183,30 @@ export class SingleBudgetComponent implements OnInit, OnDestroy {
   public isPopUpOpen: boolean = false;
 
   // Open the pop-up when the user clicks on the three dots
-  public openPopUp() {
+  public openPopUp(): void {
     if (this.isPopUpOpen) return;
     setTimeout(() => {
       this.isPopUpOpen = true;
-      document.addEventListener('click', this.closePopUp.bind(this));
-    }, 20);
+      this.removeClickListener = this.renderer.listen('document', 'click', (event: MouseEvent) => {this.closePopUp(event)});
+    }, 0);
   }
 
   // Close the pop-up if the user clicks outside of the pop-up
-  public closePopUp(event: MouseEvent) {
+  public closePopUp(event: MouseEvent): void {
     if (!this.isPopUpOpen) return;
     let target = event.target as HTMLElement;
     let allowedIDs = ['editPotButton', 'deletePotButton', 'potPopUp'];
     if (allowedIDs.includes(target.id)) return;
     this.isPopUpOpen = false;
-    document.removeEventListener('click', this.closePopUp.bind(this));
+
+    if (this.removeClickListener) {
+      this.removeClickListener();
+      this.removeClickListener = null;
+    }
   }
 
   // Opens edit/delete modal based on user action
-  public openSubModal(subModal: string, currentBudget: BudgetsObject) {
+  public openSubModal(subModal: string, currentBudget: BudgetsObject): void {
     this.mainModalService.chooseSubModal(
       subModal,
       currentBudget,
