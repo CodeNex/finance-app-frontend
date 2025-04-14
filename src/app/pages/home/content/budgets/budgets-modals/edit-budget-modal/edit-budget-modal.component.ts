@@ -1,17 +1,18 @@
+import { CommonModule } from '@angular/common';
 import { Component, inject, Input } from '@angular/core';
-
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { MainModalService } from '@services/main-modal.service';
 import { BasedataService } from '@services/basedata.service';
 import { DataStoreServiceService } from '@services/data-store-service.service';
 import { ApiBudgetsService } from '@content/budgets/api-budgets.service';
-import { CommonModule } from '@angular/common';
+
 import { IconsComponent } from '@components/icons/icons.component';
+import { FormatAmountPipe } from '@shared/pipes/format-amount.pipe';
 
 @Component({
   selector: 'app-edit-budget-modal',
-  imports: [FormsModule, ReactiveFormsModule, CommonModule, IconsComponent],
+  imports: [FormsModule, ReactiveFormsModule, CommonModule, IconsComponent, FormatAmountPipe],
   templateUrl: './edit-budget-modal.component.html',
   styleUrl: './edit-budget-modal.component.scss',
 })
@@ -22,8 +23,6 @@ export class EditBudgetModalComponent {
   public dataStore = inject(DataStoreServiceService);
 
   @Input() public budgetIndex: number = 1;
-  // @Input() public modalObject: BudgetsObject = {};
-
   @Input() public modalObject: any = {
     id: -1,
     name: '',
@@ -85,7 +84,6 @@ export class EditBudgetModalComponent {
   public potThemeValue: string = '';
 
   ngOnInit() {
-    // this.currentBudget = this.modalObject;
     this.currentBudgetIndex = this.budgetIndex;
     this.getCategoryArrays();
     this.getThemeArrays();
