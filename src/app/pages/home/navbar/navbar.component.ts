@@ -116,7 +116,7 @@ export class NavbarComponent {
   ];
   public isLogoWide: boolean = true;
 
-  makeLogoThin() {
+  private makeLogoThin(): void {
     this.isLogoWide = false;
     const paths = [
       'logoPath2',
@@ -134,7 +134,7 @@ export class NavbarComponent {
     });
   }
 
-  makeLogoWide() {
+  private makeLogoWide(): void {
     const paths = [
       'logoPath2',
       'logoPath3',
