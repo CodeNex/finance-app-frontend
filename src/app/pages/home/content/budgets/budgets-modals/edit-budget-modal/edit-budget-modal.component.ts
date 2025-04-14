@@ -10,7 +10,7 @@ import { ApiBudgetsService } from '@content/budgets/api-budgets.service';
 import { IconsComponent } from '@components/icons/icons.component';
 
 /**
- * * * EditBudgetModalComponent
+ * * EditBudgetModalComponent
  * This component is responsible for displaying the edit budget modal.
  * It allows the user to edit the budget name, amount, and theme.
  * It uses the MainModalService to manage the modal state and the ApiBudgetsService to interact with the backend.
