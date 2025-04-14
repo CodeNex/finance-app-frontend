@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, AfterViewInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { IconsComponent } from '@components/icons/icons.component';
@@ -21,7 +21,7 @@ import { CommonModule } from '@angular/common';
   templateUrl: './add-budget-modal.component.html',
   styleUrl: './add-budget-modal.component.scss',
 })
-export class AddBudgetModalComponent implements OnInit, AfterViewInit {
+export class AddBudgetModalComponent implements OnInit {
   // #region Component Setup (DI, Outputs, Template Refs, Subscription)
   public mainModalService = inject(MainModalService);
   public baseData = inject(BasedataService);
@@ -47,9 +47,6 @@ export class AddBudgetModalComponent implements OnInit, AfterViewInit {
     this.getCategoryArrays();
     this.chosenTheme = this.getInitialTheme();
     this.chosenCategory = this.getInitialCategory();
-  }
-
-  ngAfterViewInit(): void {
     this.currentBudget.theme = this.chosenTheme.hex;
     this.currentBudget.name = this.chosenCategory;
   }
@@ -195,8 +192,8 @@ export class AddBudgetModalComponent implements OnInit, AfterViewInit {
     this.usedBudgetThemes = this.dataStore.budgets().map((budget: any) => {
       if (!budget.deleted_at) return budget.theme;
     });
-    this.unusedBudgetThemes = this.themes.map((theme: any) => {
-      if (!this.usedBudgetThemes.includes(theme.hex)) {
+    this.unusedBudgetThemes = this.themes.filter((theme: any) => {
+      if (theme && !this.usedBudgetThemes.includes(theme.hex)) {
         return theme;
       }
     });
