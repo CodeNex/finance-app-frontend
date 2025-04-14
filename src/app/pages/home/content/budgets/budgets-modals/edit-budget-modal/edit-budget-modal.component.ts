@@ -230,7 +230,8 @@ export class EditBudgetModalComponent {
   // #endregion
 
   /**
-   * add a new pot to the pots array in data-store-service, submit the new pot to the API and close the modal
+   * * submitEditedBudget
+   * This function is called when the user clicks the save button in the modal.
    */
   submitEditedBudget() {
     this.modalObject.maximum = parseFloat(
