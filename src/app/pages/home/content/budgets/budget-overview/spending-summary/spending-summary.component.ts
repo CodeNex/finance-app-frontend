@@ -1,8 +1,9 @@
 import { Component, effect, inject, Input, Signal } from '@angular/core';
+import { CommonModule } from '@angular/common';
+
+import { SpendingSummaryItemComponent } from '@content/budgets/budget-overview/spending-summary/spending-summary-item/spending-summary-item.component';
 
 import { DataStoreServiceService } from '@services/data-store-service.service';
-import { CommonModule } from '@angular/common';
-import { SpendingSummaryItemComponent } from './spending-summary-item/spending-summary-item.component';
 
 @Component({
   selector: 'app-spending-summary',
@@ -11,23 +12,25 @@ import { SpendingSummaryItemComponent } from './spending-summary-item/spending-s
   styleUrl: './spending-summary.component.scss',
 })
 export class SpendingSummaryComponent {
-  public dataStore: DataStoreServiceService = inject(DataStoreServiceService);
+  // #region Component Setup (DI, Outputs, Template Refs, Subscription)
+  public dataStore = inject(DataStoreServiceService);
 
-  public budgetsArraySignal$: Signal<any[]> = this.dataStore.budgets;
+  public budgetsArraySignal$: Signal<BudgetsObject[]> = this.dataStore.budgets;
  
-  public budgetsArray: any[] = [];
+  public budgetsArray: BudgetsObject[] = [];
 
   @Input() public inWhichSection: string = '';
+  // #endregion
    
   constructor() {
     effect(() => {
       let signal = this.budgetsArraySignal$();
-      this.budgetsArray = this.budgetsArraySignal$().filter((element: any) => !element.deleted_at);
+      this.budgetsArray = this.budgetsArraySignal$().filter((element: BudgetsObject) => !element.deleted_at);
     })
   }
 
   ngOnInit() {
-    this.budgetsArray = this.budgetsArraySignal$().filter((element: any) => !element.deleted_at);
+    this.budgetsArray = this.budgetsArraySignal$().filter((element: BudgetsObject) => !element.deleted_at);
   }
 
 }
