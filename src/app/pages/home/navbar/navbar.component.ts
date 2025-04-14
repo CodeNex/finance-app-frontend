@@ -59,9 +59,9 @@ export class NavbarComponent {
   }
 
   private makeNavbarThin(
-    navLinkNames: Array<any>,
-    navBarRef: HTMLElement | null,
-    slideButtonRef: any
+    navLinkNames: Array<ElementRef<HTMLElement>>,
+    navBarRef: HTMLElement,
+    slideButtonRef: HTMLElement
   ): void {
     this.makeLogoThin();
     if (slideButtonRef) {
@@ -83,8 +83,8 @@ export class NavbarComponent {
 
   private makeNavbarWide(
     navLinkNames: Array<any>,
-    navBarRef: HTMLElement | null,
-    slideButtonRef: any
+    navBarRef: HTMLElement,
+    slideButtonRef: HTMLElement
   ): void {
     navLinkNames.forEach((link) =>
       this.renderer.removeClass(link.nativeElement, 'd_none')
