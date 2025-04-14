@@ -55,7 +55,7 @@ export class SingleBudgetComponent implements OnInit, OnDestroy {
   // #endregion
 
   // #region Lifecycle Hooks
-  ngOnInit() {
+  ngOnInit(): void {
     runInInjectionContext(this.injector, () => {
       effect(() => {
         this.budgetSignal();
@@ -65,7 +65,7 @@ export class SingleBudgetComponent implements OnInit, OnDestroy {
     });
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     document.removeEventListener('click', this.closePopUp.bind(this));
   }
   // #endregion
@@ -74,7 +74,7 @@ export class SingleBudgetComponent implements OnInit, OnDestroy {
   /**
    * Updates the view when budget or transactions change.
    */
-  private updateComponentView() {
+  private updateComponentView(): void {
     this.calculatedSpent = this.calculateCurrentSpent(
       this.transActionsSignal(),
       this.getDateRange(this.budget.time_frame)
@@ -114,7 +114,6 @@ export class SingleBudgetComponent implements OnInit, OnDestroy {
       default:
         throw new Error('Invalid Timeframe type');
     }
-
     return { start, end };
   }
 
@@ -149,7 +148,7 @@ export class SingleBudgetComponent implements OnInit, OnDestroy {
   public remaining: number = 0;
   public isTooMuchSpent: boolean = false;
 
-  private calculateRemaining() {
+  private calculateRemaining(): number {
     if (this.budget.maximum - this.calculatedSpent <= 0) {
       this.isTooMuchSpent = true;
       return 0;
@@ -162,7 +161,7 @@ export class SingleBudgetComponent implements OnInit, OnDestroy {
   // used to display the percentageProgress in the template
   public percentageProgress: string = '';
 
-  private calculatePercentageProgress() {
+  private calculatePercentageProgress(): string {
     if (this.calculatedSpent <= 0) {
       return '0%';
     } else if (this.calculatedSpent >= this.budget.maximum) {
