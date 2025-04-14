@@ -11,6 +11,12 @@ import { DataStoreServiceService } from '@services/data-store-service.service';
 
 import { SpendingSummaryItemComponent } from '@content/budgets/budget-overview/spending-summary/spending-summary-item/spending-summary-item.component';
 
+/**
+ * * * SpendingSummaryComponent
+ * This component is responsible for displaying the spending summary of all budgets.
+ * It uses the DataStoreService to manage the budget data.
+ * It uses the SpendingSummaryItemComponent to display each budget in the summary.
+ */
 @Component({
   selector: 'app-spending-summary',
   imports: [CommonModule, SpendingSummaryItemComponent],
