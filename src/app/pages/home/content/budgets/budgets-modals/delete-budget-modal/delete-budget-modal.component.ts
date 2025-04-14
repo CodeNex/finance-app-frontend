@@ -22,7 +22,7 @@ export class DeleteBudgetModalComponent {
   public mainModalService = inject(MainModalService);
   public apiBudgetsService = inject(ApiBudgetsService);
 
-  @Input() public modalObject: any = {};
+  @Input() public modalObject: BudgetsObjectLike = {};
   @Input() public budgetIndex: number = 1;
   // #endregion
 
@@ -30,6 +30,9 @@ export class DeleteBudgetModalComponent {
     this.apiBudgetsService.deleteBudget(this.modalObject, this.budgetIndex);
   }
 
+  /**
+   * * Closes the main and current modal by calling the hideMainModal method from the MainModalService.
+   */
   public closeMainModal() {
     this.mainModalService.hideMainModal();
   }

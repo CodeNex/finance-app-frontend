@@ -18,6 +18,18 @@ interface BudgetsObject {
   last_spendings: TransactionsObject[] | null;
 }
 
+interface BudgetsObjectLike {
+  id?: number;
+  name?: string;
+  amount?: number;
+  maximum?: number;
+  time_frame?: string;
+  theme?: string;
+  created_at?: string | null;
+  deleted_at?: string | null;
+  last_spendings?: TransactionsObject[] | null;
+}
+
 interface PotsObject {
   id: number;
   name: string;
