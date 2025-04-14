@@ -91,23 +91,32 @@ export class EditBudgetModalComponent {
   // #endregion
 
   // #region Categories
-  public categories: any = [];
-  public usedBudgetCategories: any;
-  public unusedBudgetCategories: any;
+  public categories: string[] = [];
+  public usedBudgetCategories: string[] = [];
+  public unusedBudgetCategories: string[] = [];
   public chosenCategory: string = '';
 
   getCategoryArrays() {
-    Object.values(this.baseData.financeApp.budgets.categories).forEach(
-      (category: any) => {
-        this.categories.push(category.name);
-      }
-    );
-    this.usedBudgetCategories = this.dataStore.budgets().map((budget: any) => {
-      if (!budget.deleted_at) return budget.name;
+    (
+      Object.values(this.baseData.financeApp.budgets.categories) as {
+        name: string;
+        iconName: string;
+      }[]
+    ).forEach((category) => {
+      this.categories.push(category.name);
     });
+    if (Array.isArray(this.dataStore.budgets())) {
+      this.usedBudgetCategories = (
+        this.dataStore.budgets() as BudgetsObjectLike[]
+      ).map((budget) => {
+        if (!budget.deleted_at) return budget.name;
+        return;
+      }) as string[];
+    }
     this.unusedBudgetCategories = this.categories.filter(
       (category: any) => !this.usedBudgetCategories.includes(category)
     );
+    console.log(Object.values(this.baseData.financeApp.budgets.categories));
   }
 
   chooseCategory(category: string) {
@@ -188,10 +197,10 @@ export class EditBudgetModalComponent {
   // #endregion
 
   // #region Themes
-  public themes: {name: string, hex: string}[] = [];
+  public themes: { name: string; hex: string }[] = [];
   public usedBudgetThemes: string[] = [];
   public unusedBudgetThemes: string[] = [];
-  public chosenTheme: {name: string; hex: string} = {name: '', hex: ''};
+  public chosenTheme: { name: string; hex: string } = { name: '', hex: '' };
   public potThemeValue: string = '';
 
   getThemeArrays() {
@@ -199,20 +208,20 @@ export class EditBudgetModalComponent {
     this.usedBudgetThemes = this.dataStore.budgets().map((budget: any) => {
       if (!budget.deleted_at) return budget.theme;
     });
-    this.unusedBudgetThemes = this.themes.map(
-      (theme: any) => {
-        if (!this.usedBudgetThemes.includes(theme.hex)) {
-          return theme.hex;
-        }
-      } 
-    );
-    this.chosenTheme = this.themes.find((theme: {name: string; hex: string}) => {
-      return theme.hex === this.modalObject.theme;
-    }) || { name: '', hex: '' };
+    this.unusedBudgetThemes = this.themes.map((theme: any) => {
+      if (!this.usedBudgetThemes.includes(theme.hex)) {
+        return theme.hex;
+      }
+    });
+    this.chosenTheme = this.themes.find(
+      (theme: { name: string; hex: string }) => {
+        return theme.hex === this.modalObject.theme;
+      }
+    ) || { name: '', hex: '' };
     console.log(this.chosenTheme);
   }
 
-  chooseTheme(theme: {name: string; hex: string}) {
+  chooseTheme(theme: { name: string; hex: string }) {
     if (this.unusedBudgetThemes.includes(theme.hex)) {
       this.chosenTheme = theme;
       this.toggleThemeDropdown();
