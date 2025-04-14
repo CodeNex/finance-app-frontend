@@ -6,7 +6,6 @@ import { MainModalService } from '@services/main-modal.service';
 import { BasedataService } from '@services/basedata.service';
 import { DataStoreServiceService } from '@services/data-store-service.service';
 import { ApiBudgetsService } from '@content/budgets/api-budgets.service';
-import { FormatAmountInputService } from '@services/format-amount-input.service';
 
 import { IconsComponent } from '@components/icons/icons.component';
 
@@ -84,7 +83,7 @@ export class EditBudgetModalComponent {
   // #region Dropdowns & Modal
   public isBudgetDropdownOpen: boolean = false;
   public isThemeDropdownOpen: boolean = false;
- 
+
   closeHideBudgetDropdown() {
     this.isBudgetDropdownOpen = !this.isBudgetDropdownOpen;
   }
@@ -150,6 +149,14 @@ export class EditBudgetModalComponent {
     }
   }
 
+  private formatToEnUS(value: number): string {
+    if (value == null) return '';
+    return `${value.toLocaleString('en-US', {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    })}`;
+  }
+
   private addNumberToTargetInput(event: KeyboardEvent): void {
     let currentTarget = this.maxBudgetString;
     let numbersArray = currentTarget.replace(/[.,]/g, '').split('');
@@ -157,11 +164,8 @@ export class EditBudgetModalComponent {
       numbersArray.shift();
       numbersArray.push(event.key);
       numbersArray.splice(numbersArray.length - 2, 0, '.');
-      this.maxBudgetString = parseFloat(numbersArray.join('')).toLocaleString(
-        'en-US',
-        {
-          minimumFractionDigits: 2,
-        }
+      this.maxBudgetString = this.formatToEnUS(
+        parseFloat(numbersArray.join('')) || 0
       );
       this.maxBudgetInputValue = this.maxBudgetString;
     } else if (
@@ -171,11 +175,8 @@ export class EditBudgetModalComponent {
     ) {
       numbersArray.push(event.key);
       numbersArray.splice(numbersArray.length - 2, 0, '.');
-      this.maxBudgetString = parseFloat(numbersArray.join('')).toLocaleString(
-        'en-US',
-        {
-          minimumFractionDigits: 2,
-        }
+      this.maxBudgetString = this.formatToEnUS(
+        parseFloat(numbersArray.join('')) || 0
       );
       this.maxBudgetInputValue = this.maxBudgetString;
     }
@@ -186,11 +187,8 @@ export class EditBudgetModalComponent {
     let numbersArray = currentTarget.replace(/[.,]/g, '').split('');
     numbersArray.pop();
     numbersArray.splice(numbersArray.length - 2, 0, '.');
-    this.maxBudgetString = parseFloat(numbersArray.join('')).toLocaleString(
-      'en-US',
-      {
-        minimumFractionDigits: 2,
-      }
+    this.maxBudgetString = this.formatToEnUS(
+      parseFloat(numbersArray.join('')) || 0
     );
     this.maxBudgetInputValue = this.maxBudgetString;
   }

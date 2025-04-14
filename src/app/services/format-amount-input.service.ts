@@ -5,6 +5,9 @@ import { Injectable } from '@angular/core';
 })
 export class FormatAmountInputService {
 
+  public maxBudgetInputValue: string = '0.00';
+  public maxBudgetString: string = '0.00';
+
   public formatAmountInput(event: KeyboardEvent, maxBudgetInputValue: string, maxBudgetString: string): void {
 
   }
@@ -71,6 +74,8 @@ export class FormatAmountInputService {
       }
     );
     this.maxBudgetInputValue = this.maxBudgetString;
+
+    this.maxBudgetString = this.formatToEnUS(parseFloat(numbersArray.join('')))
   }
 
 
