@@ -1,14 +1,11 @@
 import { Component, inject, Input } from '@angular/core';
 
-import {
-  FormsModule,
-  ReactiveFormsModule,
-} from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { MainModalService } from '@services/main-modal.service';
 import { BasedataService } from '@services/basedata.service';
 import { DataStoreServiceService } from '@services/data-store-service.service';
-import { ApiBudgetsService } from '../../api-budgets.service';
+import { ApiBudgetsService } from '@content/budgets/api-budgets.service';
 import { CommonModule } from '@angular/common';
 import { IconsComponent } from '@components/icons/icons.component';
 
@@ -19,20 +16,15 @@ import { IconsComponent } from '@components/icons/icons.component';
   styleUrl: './edit-budget-modal.component.scss',
 })
 export class EditBudgetModalComponent {
-  public mainModalService: MainModalService = inject(MainModalService);
-  public apiBudgetsService: ApiBudgetsService = inject(ApiBudgetsService);
-  public baseData: BasedataService = inject(BasedataService);
-  public dataStore: DataStoreServiceService = inject(DataStoreServiceService);
-
-  // closes main modal and its children
-  public closeMainModal() {
-    this.mainModalService.hideMainModal();
-  }
+  public mainModalService = inject(MainModalService);
+  public apiBudgetsService = inject(ApiBudgetsService);
+  public baseData = inject(BasedataService);
+  public dataStore = inject(DataStoreServiceService);
 
   @Input() public budgetIndex: number = 1;
-  @Input() public modalObject: Object = {};
+  // @Input() public modalObject: BudgetsObject = {};
 
-  public currentBudget: any = {
+  @Input() public modalObject: any = {
     id: -1,
     name: '',
     amount: -1,
@@ -43,19 +35,21 @@ export class EditBudgetModalComponent {
     created_at: null,
     last_spendings: [
       {
-        id: -1,
-        user: -1,
+        transaction_id: -1,
+        user_id: -1,
         name: '',
         amount: -1,
         recurring: null,
+        recurring_id: null,
         theme: '',
         budget_id: null,
         deleted_at: null,
         created_at: null,
         category: '',
-        budget: {
-          category: '',
-        },
+        execute_on: null,
+        sender: null,
+        receiver: null,
+        type: 'credit',
       },
     ],
   };
@@ -91,17 +85,25 @@ export class EditBudgetModalComponent {
   public potThemeValue: string = '';
 
   ngOnInit() {
-    this.currentBudget = this.modalObject;
+    // this.currentBudget = this.modalObject;
     this.currentBudgetIndex = this.budgetIndex;
     this.getCategoryArrays();
     this.getThemeArrays();
-    this.maxBudgetInputValue = this.currentBudget.maximum.toLocaleString('en-US', {
-      minimumFractionDigits: 2,
-    });
+    this.maxBudgetInputValue = this.modalObject.maximum.toLocaleString(
+      'en-US',
+      {
+        minimumFractionDigits: 2,
+      }
+    );
     this.maxBudgetString = this.maxBudgetInputValue;
-    this.chosenCategory = this.currentBudget.name;
+    this.chosenCategory = this.modalObject.name;
 
-    console.log(this.currentBudget, this.currentBudgetIndex);
+    console.log(this.modalObject, this.currentBudgetIndex);
+  }
+
+  // closes main modal and its children
+  public closeMainModal() {
+    this.mainModalService.hideMainModal();
   }
 
   getCategoryArrays() {
@@ -122,7 +124,7 @@ export class EditBudgetModalComponent {
   chooseCategory(category: string) {
     if (this.unusedBudgetCategories.includes(category)) {
       this.chosenCategory = category;
-      this.currentBudget.name = this.chosenCategory;
+      this.modalObject.name = this.chosenCategory;
       this.closeHideBudgetDropdown();
     }
   }
@@ -214,10 +216,9 @@ export class EditBudgetModalComponent {
       (theme: any) => !this.usedBudgetThemes.includes(theme.hex)
     );
     this.chosenTheme = this.themes.find((theme: any) => {
-      return theme.hex === this.currentBudget.theme;
-    })
+      return theme.hex === this.modalObject.theme;
+    });
     console.log(this.chosenTheme);
-    
   }
 
   // choose a theme by click from the dropdown
@@ -230,13 +231,18 @@ export class EditBudgetModalComponent {
 
   // add a new pot to the pots array in data-store-service, submit the new pot to the API and close the modal
   submitEditedBudget() {
-    this.currentBudget.maximum = parseFloat(
+    this.modalObject.maximum = parseFloat(
       this.maxBudgetInputValue.replace(/,/g, '')
     );
-    this.currentBudget.theme = this.chosenTheme.hex;
-    this.apiBudgetsService.updateBudget('budgets', 'editBudget', this.currentBudgetIndex, this.currentBudget);
+    this.modalObject.theme = this.chosenTheme.hex;
+    this.modalObject.time_frame = 'year';
+    this.apiBudgetsService.updateBudget(
+      'budgets',
+      'editBudget',
+      this.currentBudgetIndex,
+      this.modalObject
+    );
     this.mainModalService.hideMainModal();
-    this.currentBudget.time_frame = 'month';
-    console.log(this.currentBudget);
+    console.log(this.modalObject);
   }
 }

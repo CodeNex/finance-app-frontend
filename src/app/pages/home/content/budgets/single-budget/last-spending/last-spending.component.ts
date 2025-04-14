@@ -20,7 +20,7 @@ export class LastSpendingComponent {
   // #region Component Setup (DI, Outputs, Template Refs, Subscription)
   public baseData = inject(BasedataService);
 
-  @Input() readonly spending: TransactionsObject = {
+  @Input() public spending: TransactionsObject = {
     transaction_id: -1,
     user_id: -1,
     name: '',
