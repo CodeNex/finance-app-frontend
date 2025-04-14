@@ -10,6 +10,12 @@ import { ApiBudgetsService } from '@content/budgets/api-budgets.service';
 import { IconsComponent } from '@components/icons/icons.component';
 import { FormatAmountPipe } from '@shared/pipes/format-amount.pipe';
 
+/**
+ * * * EditBudgetModalComponent
+ * This component is responsible for displaying the edit budget modal.
+ * It allows the user to edit the budget name, amount, and theme.
+ * It uses the MainModalService to manage the modal state and the ApiBudgetsService to interact with the backend.
+ */
 @Component({
   selector: 'app-edit-budget-modal',
   imports: [FormsModule, ReactiveFormsModule, CommonModule, IconsComponent, FormatAmountPipe],
@@ -17,6 +23,7 @@ import { FormatAmountPipe } from '@shared/pipes/format-amount.pipe';
   styleUrl: './edit-budget-modal.component.scss',
 })
 export class EditBudgetModalComponent {
+  // #region Component Setup (DI, Outputs, Template Refs, Subscription)
   public mainModalService = inject(MainModalService);
   public apiBudgetsService = inject(ApiBudgetsService);
   public baseData = inject(BasedataService);
@@ -54,35 +61,9 @@ export class EditBudgetModalComponent {
   };
 
   public currentBudgetIndex: number = -1;
+  // #endregion
 
-  // boolean to control the budget dropdown
-  public isBudgetDropdownOpen: boolean = false;
-  // array of all categories in the application
-  public categories: any = [];
-  // array of used categories in budgets
-  public usedBudgetCategories: any;
-  // array of unused categories
-  public unusedBudgetCategories: any;
-  // current chosen category
-  public chosenCategory: string = '';
-
-  // the value of the pot target input binded by ngModel
-  public maxBudgetInputValue: string = '0.00';
-  // a cached string of the pot target input value
-  public maxBudgetString: string = '0.00';
-  // boolean to control the theme dropdown
-  public isThemeDropdownOpen: boolean = false;
-  // array of all themes in the application
-  public themes: any;
-  // array of used themes in budgets
-  public usedBudgetThemes: any;
-  // array of unused themes
-  public unusedBudgetThemes: any;
-  // the current chosen theme
-  public chosenTheme: any;
-  // the value of the pot theme input
-  public potThemeValue: string = '';
-
+  // #region Lifecycle Hooks
   ngOnInit() {
     this.currentBudgetIndex = this.budgetIndex;
     this.getCategoryArrays();
@@ -98,11 +79,30 @@ export class EditBudgetModalComponent {
 
     console.log(this.modalObject, this.currentBudgetIndex);
   }
+  // #endregion
 
-  // closes main modal and its children
+  // #region Dropdowns & Modal
+  public isBudgetDropdownOpen: boolean = false;
+  public isThemeDropdownOpen: boolean = false;
+ 
+  closeHideBudgetDropdown() {
+    this.isBudgetDropdownOpen = !this.isBudgetDropdownOpen;
+  }
+
+  closeHideThemeDropdown() {
+    this.isThemeDropdownOpen = !this.isThemeDropdownOpen;
+  }
+
   public closeMainModal() {
     this.mainModalService.hideMainModal();
   }
+  // #endregion
+
+  // #region Categories
+  public categories: any = [];
+  public usedBudgetCategories: any;
+  public unusedBudgetCategories: any;
+  public chosenCategory: string = '';
 
   getCategoryArrays() {
     Object.values(this.baseData.financeApp.budgets.categories).forEach(
@@ -118,7 +118,6 @@ export class EditBudgetModalComponent {
     );
   }
 
-  // choose a category by click from the dropdown
   chooseCategory(category: string) {
     if (this.unusedBudgetCategories.includes(category)) {
       this.chosenCategory = category;
@@ -126,18 +125,12 @@ export class EditBudgetModalComponent {
       this.closeHideBudgetDropdown();
     }
   }
+  // #endregion
 
-  // closes or opens budget dropdown
-  closeHideBudgetDropdown() {
-    this.isBudgetDropdownOpen = !this.isBudgetDropdownOpen;
-  }
+  // #region Target Input
+  public maxBudgetInputValue: string = '0.00';
+  public maxBudgetString: string = '0.00';
 
-  // closes or opens theme dropdown
-  closeHideThemeDropdown() {
-    this.isThemeDropdownOpen = !this.isThemeDropdownOpen;
-  }
-
-  // controls the maximum amount of the pot target
   controlMaxTarget(event: any) {
     const deleteKeys = ['Backspace', 'Delete'];
     const otherKeys = ['ArrowLeft', 'ArrowRight', 'Tab'];
@@ -157,7 +150,6 @@ export class EditBudgetModalComponent {
     }
   }
 
-  // add a number to the target input
   addNumberToTargetInput(event: any) {
     let currentTarget = this.maxBudgetString;
     let numbersArray = currentTarget.replace(/[.,]/g, '').split('');
@@ -189,7 +181,6 @@ export class EditBudgetModalComponent {
     }
   }
 
-  // delete a number from the target input
   deleteNumberFromTargetInput() {
     let currentTarget = this.maxBudgetString;
     let numbersArray = currentTarget.replace(/[.,]/g, '').split('');
@@ -203,8 +194,15 @@ export class EditBudgetModalComponent {
     );
     this.maxBudgetInputValue = this.maxBudgetString;
   }
+  // #endregion
 
-  // get all the themes from the data-store-service and split them into used and unused theme arrays
+  // #region Themes
+  public themes: any;
+  public usedBudgetThemes: any;
+  public unusedBudgetThemes: any;
+  public chosenTheme: any;
+  public potThemeValue: string = '';
+
   getThemeArrays() {
     this.themes = Object.values(this.baseData.financeApp.basics.colors);
     this.usedBudgetThemes = this.dataStore.budgets().map((budget: any) => {
@@ -219,15 +217,17 @@ export class EditBudgetModalComponent {
     console.log(this.chosenTheme);
   }
 
-  // choose a theme by click from the dropdown
   chooseTheme(theme: any) {
     if (this.unusedBudgetThemes.includes(theme)) {
       this.chosenTheme = theme;
       this.closeHideThemeDropdown();
     }
   }
+  // #endregion
 
-  // add a new pot to the pots array in data-store-service, submit the new pot to the API and close the modal
+  /**
+   * add a new pot to the pots array in data-store-service, submit the new pot to the API and close the modal
+   */
   submitEditedBudget() {
     this.modalObject.maximum = parseFloat(
       this.maxBudgetInputValue.replace(/,/g, '')
