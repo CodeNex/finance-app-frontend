@@ -188,10 +188,10 @@ export class EditBudgetModalComponent {
   // #endregion
 
   // #region Themes
-  public themes: any;
-  public usedBudgetThemes: any;
-  public unusedBudgetThemes: any;
-  public chosenTheme: any;
+  public themes: {name: string, hex: string}[] = [];
+  public usedBudgetThemes: string[] = [];
+  public unusedBudgetThemes: string[] = [];
+  public chosenTheme: {name: string; hex: string} = {name: '', hex: ''};
   public potThemeValue: string = '';
 
   getThemeArrays() {
@@ -199,17 +199,21 @@ export class EditBudgetModalComponent {
     this.usedBudgetThemes = this.dataStore.budgets().map((budget: any) => {
       if (!budget.deleted_at) return budget.theme;
     });
-    this.unusedBudgetThemes = this.themes.filter(
-      (theme: any) => !this.usedBudgetThemes.includes(theme.hex)
+    this.unusedBudgetThemes = this.themes.map(
+      (theme: any) => {
+        if (!this.usedBudgetThemes.includes(theme.hex)) {
+          return theme.hex;
+        }
+      } 
     );
-    this.chosenTheme = this.themes.find((theme: any) => {
+    this.chosenTheme = this.themes.find((theme: {name: string; hex: string}) => {
       return theme.hex === this.modalObject.theme;
-    });
+    }) || { name: '', hex: '' };
     console.log(this.chosenTheme);
   }
 
-  chooseTheme(theme: any) {
-    if (this.unusedBudgetThemes.includes(theme)) {
+  chooseTheme(theme: {name: string; hex: string}) {
+    if (this.unusedBudgetThemes.includes(theme.hex)) {
       this.chosenTheme = theme;
       this.toggleThemeDropdown();
     }
