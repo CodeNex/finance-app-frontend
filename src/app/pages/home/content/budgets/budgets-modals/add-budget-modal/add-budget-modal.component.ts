@@ -90,16 +90,24 @@ export class AddBudgetModalComponent {
   public chosenCategory: string = '';
 
   getCategoryArrays() {
-    Object.values(this.baseData.financeApp.budgets.categories).forEach(
-      (category: any) => {
-        this.categories.push(category.name);
-      }
-    );
-    this.usedBudgetCategories = this.dataStore.budgets().map((budget: any) => {
-      if (!budget.deleted_at) return budget.name;
+    (
+      Object.values(this.baseData.financeApp.budgets.categories) as {
+        name: string;
+        iconName: string;
+      }[]
+    ).forEach((category) => {
+      this.categories.push(category.name);
     });
+    if (Array.isArray(this.dataStore.budgets())) {
+      this.usedBudgetCategories = (
+        this.dataStore.budgets() as BudgetsObjectLike[]
+      ).map((budget) => {
+        if (!budget.deleted_at) return budget.name;
+        return;
+      }) as string[];
+    }
     this.unusedBudgetCategories = this.categories.filter(
-      (category: any) => !this.usedBudgetCategories.includes(category)
+      (category: string) => !this.usedBudgetCategories.includes(category)
     );
   }
 

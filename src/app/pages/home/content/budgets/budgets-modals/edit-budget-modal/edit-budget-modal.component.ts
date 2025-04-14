@@ -114,12 +114,11 @@ export class EditBudgetModalComponent {
       }) as string[];
     }
     this.unusedBudgetCategories = this.categories.filter(
-      (category: any) => !this.usedBudgetCategories.includes(category)
+      (category: string) => !this.usedBudgetCategories.includes(category)
     );
-    console.log(Object.values(this.baseData.financeApp.budgets.categories));
   }
 
-  chooseCategory(category: string) {
+  chooseCategory(category: string): void {
     if (this.unusedBudgetCategories.includes(category)) {
       this.chosenCategory = category;
       this.modalObject.name = this.chosenCategory;
