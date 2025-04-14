@@ -152,40 +152,44 @@
 }
 
 .slideButtonBox {
-
-  .slideButton {
-    ::ng-deep {
-      svg {
-        width: 28px;
-        height: 28px;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-40%, -50%);
-        transition: all 0.3s ease-in-out;
-        path {
-          fill: var(--color-grey-300);
-        }
-      }
-    }
-  }
-
-  &:hover {
+  div {
     .slideButton {
       ::ng-deep {
         svg {
+          width: 28px;
+          height: 28px;
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-40%, -50%);
+          transition: all 0.3s ease-in-out;
           path {
-            transition: fill 0.15s ease-in-out;
-            fill: white;
+            fill: var(--color-grey-300);
           }
         }
       }
     }
-  }
-}
 
-.slideButtonReturn {
-  transform: translate(-50%, -50%) rotate(180deg);
+    &:hover {
+      .slideButton {
+        ::ng-deep {
+          svg {
+            path {
+              transition: fill 0.15s ease-in-out;
+              fill: white;
+            }
+          }
+        }
+      }
+    }
+
+    &.slideButtonReturn {
+      position: absolute;
+      top: 50%;
+      left: 70%;
+      transform: translate(-50%, -50%) rotate(180deg);
+    }
+  }
 }
 
 .opacity_zero {

@@ -65,11 +65,8 @@ export class NavbarComponent {
   ): void {
     this.makeLogoThin();
     if (slideButtonRef) {
-      this.renderer.addClass(slideButtonRef, 'slideButtonReturn');
-      console.log(slideButtonRef);
-      
+      this.renderer.addClass(slideButtonRef, 'slideButtonReturn'); 
     }
-      
     navLinkNames.forEach((link) =>
       this.renderer.addClass(link.nativeElement, 'opacity_zero')
     );

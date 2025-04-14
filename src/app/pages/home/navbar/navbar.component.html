@@ -86,15 +86,17 @@
   </div>
   <!-- minimize button -->
   <div
-    #slideButton
     (click)="toggleMovingNavbar()"
     class="slideButtonBox absolute -right-[12px] top-[50%] -translate-y-2/4 z-10 h-[56px] w-[18px] bg-grey-900 rounded-tr-xl rounded-br-xl transition-all cursor-pointer"
   >
-    <app-icons
-      id="slideButton"
-      class="slideButton"
-      [iconName]="'slideButton'"
-    ></app-icons>
+    <div #slideButton
+    class="">
+      <app-icons
+        id="slideButton"
+        class="slideButton"
+        [iconName]="'slideButton'"
+      ></app-icons>
+    </div>
   </div>
 
   <!-- lower sub navigation -->
