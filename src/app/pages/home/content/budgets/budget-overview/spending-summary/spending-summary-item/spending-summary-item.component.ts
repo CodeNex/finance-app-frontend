@@ -21,7 +21,7 @@ export class SpendingSummaryItemComponent {
 
   public budgetsArraySignal: Signal<BudgetsObject[]> = this.dataStore.budgets;
 
-  @Input() public summaryItem!: BudgetsObjectLike;
+  @Input() public summaryItem!: BudgetsObject;
 
   @Input() public inWhichSection: string = '';
   // #endregion
