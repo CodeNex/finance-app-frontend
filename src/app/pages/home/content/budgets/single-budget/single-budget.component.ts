@@ -6,7 +6,6 @@ import {
   inject,
   Input,
   effect,
-  Injector,
   Renderer2,
 } from '@angular/core';
 import { OnDestroy } from '@angular/core';
@@ -15,8 +14,6 @@ import { IconsComponent } from '@components/icons/icons.component';
 import { LastSpendingComponent } from '@content/budgets/single-budget/last-spending/last-spending.component';
 
 import { DataStoreServiceService } from '@services/data-store-service.service';
-import { AuthenticationService } from '@services/authentication.service';
-import { APIService } from '@services/api.service';
 import { MainModalService } from '@services/main-modal.service';
 import { BudgetCalculationsService } from '@services/budget-calculations.service';
 
@@ -27,7 +24,7 @@ import { FormatAmountPipe } from '@shared/pipes/format-amount.pipe';
  * This component is responsible for displaying a single budget in the application.
  * It shows the budget name, amount, and progress.
  * It also handles the logic for opening and closing the pop-up menu for editing or deleting the budget.
- * It uses the DataStoreService to manage the budget data and the APIService to interact with the backend.
+ * It uses the DataStoreService to manage the budget data
  * It uses the MainModalService to open modals for editing or deleting the budget.
  */
 @Component({
@@ -46,9 +43,6 @@ export class SingleBudgetComponent implements OnDestroy {
   // #region Component Setup (DI, Outputs, Template Refs, Subscription)
   public mainModalService = inject(MainModalService);
   public dataStore = inject(DataStoreServiceService);
-  public authService = inject(AuthenticationService);
-  public apiService = inject(APIService);
-  public injector = inject(Injector);
   public renderer = inject(Renderer2);
   public budgetCalculationsService = inject(BudgetCalculationsService);
 
@@ -65,7 +59,7 @@ export class SingleBudgetComponent implements OnDestroy {
     theme: '',
     created_at: null,
     deleted_at: null,
-    last_spendings: null,
+    last_spendings: [],
   });
 
   @Input() set budget(value: BudgetsObject) {
@@ -84,6 +78,10 @@ export class SingleBudgetComponent implements OnDestroy {
     isTooMuchSpent: false,
   };
 
+  /**
+   * * Effect to calculate the budget progress and update the UI accordingly.
+   * This effect will run whenever the budget or transactions change.
+   */
   private budgetEffect = effect(() => {
     this.budgetSignal();
     const budget = this._budget();
