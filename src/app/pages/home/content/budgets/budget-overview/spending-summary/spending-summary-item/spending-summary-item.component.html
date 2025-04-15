@@ -8,14 +8,14 @@
       class="h-full min-h-[21px] w-1 rounded-full"
       [ngStyle]="{ 'background-color': summaryItem.theme }"
     ></div>
-    <p class="text4r text-grey-500">{{ summaryItem.name }}</p>
+    <p class="text4r text-grey-500">{{ budgetCalculations.budgetName }}</p>
   </div>
   <div>
     <p
       class="text3b text-grey-900 text-right"
       [ngStyle]="{
         color:
-          this.summaryItem.amount! > this.summaryItem.maximum!
+          this.budgetCalculations.isTooMuchSpent
             ? '#c94736'
             : '#201f24'
       }"

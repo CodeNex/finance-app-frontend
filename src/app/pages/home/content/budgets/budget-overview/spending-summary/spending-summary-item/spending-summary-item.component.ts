@@ -29,6 +29,8 @@ export class SpendingSummaryItemComponent implements OnInit {
   @Input() public inWhichSection: string = '';
 
   public budgetCalculations: BudgetCalculations = {
+    budgetName: '',
+    maximum: 0,
     calculatedSpent: 0,
     remaining: 0,
     isTooMuchSpent: false,
@@ -37,7 +39,12 @@ export class SpendingSummaryItemComponent implements OnInit {
 
   // #region Lifecycle Hooks
   ngOnInit(): void {
-    this.budgetCalculations = this.budgetCalculationsService.calculateBudget(this.summaryItem, 'year');
+    setTimeout(() => {
+      this.budgetCalculations = this.budgetCalculationsService.calculateBudget(this.summaryItem, 'year');
+      console.log(this.budgetCalculations);
+    }, 10);
+    
+    
   }
   // #endregion
 

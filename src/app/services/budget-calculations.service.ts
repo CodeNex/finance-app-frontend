@@ -13,24 +13,33 @@ export class BudgetCalculationsService {
   
   public transactions: TransactionsObject[] = computed(() => this.transactionsSignal())();
 
-  public budgetCalculations: BudgetCalculations = {
-    calculatedSpent: 0,
-    remaining: 0,
-    isTooMuchSpent: false,
-  };
-
   public calculateBudget(
     budget: BudgetsObject,
     timeRange: string
   ): BudgetCalculations {
-    this.budgetCalculations.calculatedSpent = this.calculateCurrentSpent(
+    let budgetName = '';
+    let maximum = 0;
+    let calculatedSpent = 0;
+    let remaining = 0;
+    let isTooMuchSpent = false;
+
+    budgetName = budget.name;
+    maximum = budget.maximum;
+    calculatedSpent = this.calculateCurrentSpent(
       this.transactions,
       this.getDateRange(timeRange),
       budget
     );
-    this.budgetCalculations.remaining = this.calculateRemaining(budget);
+    remaining = this.calculateRemaining(budget, calculatedSpent);
+    isTooMuchSpent = this.checkIfTooMuchSpent(remaining);
 
-    return this.budgetCalculations;
+    return {
+      budgetName: budget.name,
+      maximum,
+      calculatedSpent,
+      remaining,
+      isTooMuchSpent
+    };
   }
 
   private getDateRange(type: string): { start: number; end: number } {
@@ -84,13 +93,19 @@ export class BudgetCalculationsService {
     return spent;
   }
 
-  private calculateRemaining(budget: BudgetsObject): number {
-    if (budget.maximum - this.budgetCalculations.calculatedSpent <= 0) {
-      this.budgetCalculations.isTooMuchSpent = true;
+  private calculateRemaining(budget: BudgetsObject, calculatedSpent: number): number {
+    if (budget.maximum - calculatedSpent <= 0) {
       return 0;
     } else {
-      this.budgetCalculations.isTooMuchSpent = false;
-      return budget.maximum - this.budgetCalculations.calculatedSpent;
+      return budget.maximum - calculatedSpent;
+    }
+  }
+
+  private checkIfTooMuchSpent(remaining: number): boolean {
+    if (remaining <= 0) {
+      return true;
+    } else {
+      return false;
     }
   }
 }

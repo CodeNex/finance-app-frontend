@@ -4,6 +4,8 @@ interface DateRange {
 }
 
 interface BudgetCalculations {
+  budgetName: string;
+  maximum: number;
   calculatedSpent: number;
   remaining: number;
   isTooMuchSpent: boolean;
