@@ -50,7 +50,10 @@ export class SingleBudgetComponent implements OnDestroy {
   public transactionsSignal: Signal<TransactionsObject[]> =
     this.dataStore.transactions;
 
-  public _budget = signal<BudgetsObject>({
+  @Input() set budgetInput(value: BudgetsObject) {
+    this._budget.set(value);
+  }
+  private _budget = signal<BudgetsObject>({
     id: 0,
     name: '',
     amount: 0,
@@ -61,10 +64,7 @@ export class SingleBudgetComponent implements OnDestroy {
     deleted_at: null,
     last_spendings: [],
   });
-
-  @Input() set budget(value: BudgetsObject) {
-    this._budget.set(value);
-  }
+  public budget = this._budget.asReadonly();
 
   @Input() public budgetIndex!: number;
 

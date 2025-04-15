@@ -33,7 +33,7 @@
       @for (item of this.budgetsArray$(); let index = $index; track item) { @if
       (!item.deleted_at) {
       <app-single-budget
-        [budget]="item"
+        [budgetInput]="item"
         [budgetIndex]="index"
         class="min-w-[500px] w-full max-w-[700px] flex-1"
       ></app-single-budget>
