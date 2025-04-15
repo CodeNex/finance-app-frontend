@@ -18,6 +18,7 @@ import { DataStoreServiceService } from '@services/data-store-service.service';
 import { AuthenticationService } from '@services/authentication.service';
 import { APIService } from '@services/api.service';
 import { MainModalService } from '@services/main-modal.service';
+import { BudgetCalculationsService } from '@services/budget-calculations.service';
 
 import { FormatAmountPipe } from '@shared/pipes/format-amount.pipe';
 
@@ -49,9 +50,10 @@ export class SingleBudgetComponent implements OnInit, OnDestroy {
   public apiService = inject(APIService);
   public injector = inject(Injector);
   public renderer = inject(Renderer2);
+  public budgetCalculationsService = inject(BudgetCalculationsService);
 
   public budgetSignal: Signal<BudgetsObject[]> = this.dataStore.budgets;
-  public transActionsSignal: Signal<TransactionsObject[]> = this.dataStore.transactions;
+  public transactionsSignal: Signal<TransactionsObject[]> = this.dataStore.transactions;
 
   @Input() public budget!: BudgetsObject;
   @Input() public budgetIndex!: number;
@@ -72,8 +74,15 @@ export class SingleBudgetComponent implements OnInit, OnDestroy {
     runInInjectionContext(this.injector, () => {
       effect(() => {
         this.budgetSignal();
-        const transactions: TransactionsObject[] = this.transActionsSignal();
-        this.updateComponentView(transactions);
+        const budget = this.budget;
+        if (!budget) return;
+        const transactions: TransactionsObject[] = this.transactionsSignal();
+        this.budgetCalculations = this.budgetCalculationsService.calculateBudget(
+          budget,
+          'year',
+          this.transactionsSignal()
+        );
+        this.percentageProgress = this.calculatePercentageProgress();
       });
     });
   }
@@ -86,104 +95,16 @@ export class SingleBudgetComponent implements OnInit, OnDestroy {
   }
   // #endregion
   
-  // #region View Update
-  /**
-   * Updates the view when budget or transactions change.
-   */
-  private updateComponentView(transactions: TransactionsObject[]): void {
-    this.calculatedSpent = this.calculateCurrentSpent(
-      transactions,
-      this.getDateRange(this.budget.time_frame)
-    );
-    this.remaining = this.calculateRemaining();
-    this.percentageProgress = this.calculatePercentageProgress();
-  }
-  // #endregion
-
-  // #region Calculations 
-  /**
-   * Returns the time range (start and end timestamp) based on the given budget type
-   */
-  private getDateRange(type: string): { start: number; end: number } {
-    const now = new Date();
-    let start, end;
-
-    switch (type) {
-      case 'month':
-        start = new Date(now.getFullYear(), now.getMonth(), 1).getTime();
-        end = new Date(now.getFullYear(), now.getMonth() + 1, 0).getTime();
-        break;
-      case 'quarter':
-        const quarter = Math.floor(now.getMonth() / 3);
-        start = new Date(now.getFullYear(), quarter * 3, 1).getTime();
-        end = new Date(now.getFullYear(), quarter * 3 + 3, 0).getTime();
-        break;
-      case 'half':
-        const half = now.getMonth() < 6 ? 0 : 1;
-        start = new Date(now.getFullYear(), half * 6, 1).getTime();
-        end = new Date(now.getFullYear(), half * 6 + 6, 0).getTime();
-        break;
-      case 'year':
-        start = new Date(now.getFullYear(), 0, 1).getTime();
-        end = new Date(now.getFullYear(), 12, 0).getTime();
-        break;
-      default:
-        throw new Error('Invalid Timeframe type');
-    }
-    return { start, end };
-  }
-
-  /**
-   *  Calculates the current spent amount within the given time range.
-   * */ 
-  public calculatedSpent: number = 0;
-
-  private calculateCurrentSpent(
-    transactions: TransactionsObject[],
-    timeRange: { start: number; end: number }
-  ): number {
-    let spent = 0;
-    transactions.forEach((transaction: TransactionsObject) => {
-      if (!transaction.execute_on) return;
-      let executeDate = new Date(transaction.execute_on).getTime();
-      if (
-        transaction.category ===
-          this.budget.name
-            .replace(/\s+/g, '')
-            .replace(/^./, (c) => c.toLowerCase()) &&
-        executeDate >= timeRange.start &&
-        executeDate <= timeRange.end
-      ) {
-        if (transaction.amount) spent += transaction.amount;
-      }
-    });
-    return spent;
-  }
-
-  // used to display the remaining amount in the template
-  public remaining: number = 0;
-  public isTooMuchSpent: boolean = false;
-
-  private calculateRemaining(): number {
-    if (this.budget.maximum - this.calculatedSpent <= 0) {
-      this.isTooMuchSpent = true;
-      return 0;
-    } else {
-      this.isTooMuchSpent = false;
-      return this.budget.maximum - this.calculatedSpent;
-    }
-  }
-
-  // used to display the percentageProgress in the template
+  // #region Budget Progress Bar
   public percentageProgress: string = '';
 
   private calculatePercentageProgress(): string {
-    if (this.calculatedSpent <= 0) {
+    if (this.budgetCalculations.calculatedSpent <= 0) {
       return '0%';
-    } else if (this.calculatedSpent >= this.budget.maximum) {
+    } else if (this.budgetCalculations.calculatedSpent >= this.budgetCalculations.maximum) {
       return '100%';
     } else {
-      return `${Math.trunc((this.calculatedSpent / this.budget.maximum) * 100)}%`;
+      return `${Math.trunc((this.budgetCalculations.calculatedSpent / this.budgetCalculations.maximum) * 100)}%`;
     }
   }
   // #endregion
