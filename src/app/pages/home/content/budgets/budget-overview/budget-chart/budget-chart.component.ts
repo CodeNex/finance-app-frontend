@@ -28,38 +28,22 @@ export class BudgetChartComponent {
   private transactionsSignal: Signal<TransactionsObject[]> =
     this.dataStoreService.transactions;
 
-  private isComponentInitialized: boolean = false;
-
   // #region Lifecycle Hooks
-  constructor() {
-    effect(() => {
-      let signal = this.budgetsSignal();
-      if (this.isComponentInitialized) this.ngOnInit();
-    });
-  }
-
-  ngOnInit(): void {
-    this.initializeData();
-  }
-
-  private initializeData(): void {
+  private chartEffect = effect(() => {
     this.budgetsArray = this.getBudgetsArray();
     this.budgetsLimit = this.getBudgetsLimit();
     this.getBudgetsSpendAmount();
     this.budgetPercentages = this.getBudgetsPercentages();
     this.budgetsColors = this.getBudgetsColors();
     this.doughnutChartData = this.getDoughnutChartData();
-    setTimeout(() => {
-      this.isComponentInitialized = true;
-    }, 100);
-  }
+  });
   // #endregion
 
   // #region Budgets Array
   // get the budgets array from the signal and filter out deleted budgets
   public budgetsArray: BudgetsObject[] = [];
 
-  private getBudgetsArray() {
+  private getBudgetsArray(): BudgetsObject[] {
     let array: BudgetsObject[] = [];
     this.budgetsSignal().forEach((element: BudgetsObject) => {
       if (!element.deleted_at) array.push(element);
@@ -72,7 +56,7 @@ export class BudgetChartComponent {
   // get the maximum limit over all budgets
   public budgetsLimit: string = '';
 
-  private getBudgetsLimit() {
+  private getBudgetsLimit(): string {
     let limit = 0;
     this.budgetsArray.forEach((element: BudgetsObject) => {
       limit += element.maximum;
@@ -88,7 +72,7 @@ export class BudgetChartComponent {
   public budgetsSpendAmount: string = '';
   public budgetsSpendAmountAsNumber: number = 0;
 
-  private getBudgetsSpendAmount() {
+  private getBudgetsSpendAmount(): void {
     let amount = 0;
     this.budgetsArray.forEach((element: BudgetsObject) => {
       const budgetCalculations: BudgetCalculations =
@@ -109,7 +93,7 @@ export class BudgetChartComponent {
 
   public budgetPercentages: number[] = [0];
 
-  private getBudgetsPercentages() {
+  private getBudgetsPercentages(): number[] {
     let arrayCache: number[] = [];
     this.budgetsArray.forEach((element: BudgetsObject) => {
       const budgetCalculations: BudgetCalculations =
@@ -133,7 +117,7 @@ export class BudgetChartComponent {
   // #region Colors
   public budgetsColors: string[] = [''];
 
-  private getBudgetsColors() {
+  private getBudgetsColors(): string[] {
     let arrayCache: string[] = [];
     this.budgetsArray.forEach((element: BudgetsObject) => {
       arrayCache.push(element.theme);
