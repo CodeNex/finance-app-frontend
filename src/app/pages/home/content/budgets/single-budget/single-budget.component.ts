@@ -2,12 +2,13 @@ import { CommonModule } from '@angular/common';
 import {
   Component,
   Signal,
+  signal,
   inject,
   Input,
   effect,
   runInInjectionContext,
   Injector,
-  Renderer2
+  Renderer2,
 } from '@angular/core';
 import { OnInit, OnDestroy } from '@angular/core';
 import { RouterModule } from '@angular/router';
@@ -53,9 +54,25 @@ export class SingleBudgetComponent implements OnInit, OnDestroy {
   public budgetCalculationsService = inject(BudgetCalculationsService);
 
   public budgetSignal: Signal<BudgetsObject[]> = this.dataStore.budgets;
-  public transactionsSignal: Signal<TransactionsObject[]> = this.dataStore.transactions;
+  public transactionsSignal: Signal<TransactionsObject[]> =
+    this.dataStore.transactions;
 
-  @Input() public budget!: BudgetsObject;
+  public _budget = signal<BudgetsObject | null>({
+    id: 0,
+    name: '',
+    amount: 0,
+    maximum: 0,
+    time_frame: '',
+    theme: '',
+    created_at: null,
+    deleted_at: null,
+    last_spendings: null,
+  });
+
+  @Input() set budget(value: BudgetsObject) {
+    this._budget.set(value);
+  }
+
   @Input() public budgetIndex!: number;
 
   private removeClickListener: (() => void) | null = null;
@@ -77,11 +94,12 @@ export class SingleBudgetComponent implements OnInit, OnDestroy {
         const budget = this.budget;
         if (!budget) return;
         const transactions: TransactionsObject[] = this.transactionsSignal();
-        this.budgetCalculations = this.budgetCalculationsService.calculateBudget(
-          budget,
-          'year',
-          transactions
-        );
+        this.budgetCalculations =
+          this.budgetCalculationsService.calculateBudget(
+            budget,
+            'year',
+            transactions
+          );
         this.percentageProgress = this.calculatePercentageProgress();
       });
     });
@@ -94,17 +112,23 @@ export class SingleBudgetComponent implements OnInit, OnDestroy {
     }
   }
   // #endregion
-  
+
   // #region Budget Progress Bar
   public percentageProgress: string = '';
 
   private calculatePercentageProgress(): string {
     if (this.budgetCalculations.calculatedSpent <= 0) {
       return '0%';
-    } else if (this.budgetCalculations.calculatedSpent >= this.budgetCalculations.maximum) {
+    } else if (
+      this.budgetCalculations.calculatedSpent >= this.budgetCalculations.maximum
+    ) {
       return '100%';
     } else {
-      return `${Math.trunc((this.budgetCalculations.calculatedSpent / this.budgetCalculations.maximum) * 100)}%`;
+      return `${Math.trunc(
+        (this.budgetCalculations.calculatedSpent /
+          this.budgetCalculations.maximum) *
+          100
+      )}%`;
     }
   }
   // #endregion
@@ -116,7 +140,13 @@ export class SingleBudgetComponent implements OnInit, OnDestroy {
     if (this.isPopUpOpen) return;
     setTimeout(() => {
       this.isPopUpOpen = true;
-      this.removeClickListener = this.renderer.listen('document', 'click', (event: MouseEvent) => {this.closePopUp(event)});
+      this.removeClickListener = this.renderer.listen(
+        'document',
+        'click',
+        (event: MouseEvent) => {
+          this.closePopUp(event);
+        }
+      );
     }, 0);
   }
 
