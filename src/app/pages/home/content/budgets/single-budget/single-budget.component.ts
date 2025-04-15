@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import {
   Component,
+  Signal,
   inject,
   Input,
   effect,
@@ -49,8 +50,8 @@ export class SingleBudgetComponent implements OnInit, OnDestroy {
   public injector = inject(Injector);
   public renderer = inject(Renderer2);
 
-  public budgetSignal = this.dataStore.budgets;
-  public transActionsSignal = this.dataStore.transactions;
+  public budgetSignal: Signal<BudgetsObject[]> = this.dataStore.budgets;
+  public transActionsSignal: Signal<TransactionsObject[]> = this.dataStore.transactions;
 
   @Input() public budget!: BudgetsObject;
   @Input() public budgetIndex!: number;
@@ -182,7 +183,6 @@ export class SingleBudgetComponent implements OnInit, OnDestroy {
   // #region Pop-Up & SubModal
   public isPopUpOpen: boolean = false;
 
-  // Open the pop-up when the user clicks on the three dots
   public openPopUp(): void {
     if (this.isPopUpOpen) return;
     setTimeout(() => {
@@ -191,7 +191,6 @@ export class SingleBudgetComponent implements OnInit, OnDestroy {
     }, 0);
   }
 
-  // Close the pop-up if the user clicks outside of the pop-up
   public closePopUp(event: MouseEvent): void {
     if (!this.isPopUpOpen) return;
     let target = event.target as HTMLElement;
