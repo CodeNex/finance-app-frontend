@@ -1,31 +1,34 @@
-import { Injectable, Signal, inject, computed } from '@angular/core';
+import { Injectable } from '@angular/core';
 
-import { DataStoreServiceService } from './data-store-service.service';
-
+/**
+ * * * BudgetCalculationsService
+ * This service is responsible for calculating the budget data in the application.
+ * It uses the DataStoreService to manage the budget data
+ * It returns the budget data in a format that can be used by the components
+ * It uses the TransactionsObject and BudgetsObject interfaces to define the data structure
+ */
 @Injectable({
   providedIn: 'root',
 })
 export class BudgetCalculationsService {
-  private dataStore = inject(DataStoreServiceService);
-
-  public transactionsSignal: Signal<TransactionsObject[]> =
-    this.dataStore.transactions;
-  
-  public transactions: TransactionsObject[] = computed(() => this.transactionsSignal())();
-
+  /**
+   * @description - This function calculates the budget data for the given budget and timeframe
+   * @param budget - The budget to be calculated
+   * @param timeRange - The timeframe to be calculated (month, quarter, half, year)
+   * @param transactions - The transactions to be calculated
+   * @returns - The budget data in a format that can be used by the components
+   */
   public calculateBudget(
     budget: BudgetsObject,
     timeRange: string,
     transactions: TransactionsObject[]
   ): BudgetCalculations {
-    let budgetName = '';
-    let maximum = 0;
-    let calculatedSpent = 0;
-    let remaining = 0;
-    let isTooMuchSpent = false;
+    let budgetName: string = budget.name;
+    let maximum: number = budget.maximum;
+    let calculatedSpent: number;
+    let remaining: number;
+    let isTooMuchSpent: boolean;
 
-    budgetName = budget.name;
-    maximum = budget.maximum;
     calculatedSpent = this.calculateCurrentSpent(
       transactions,
       this.getDateRange(timeRange),
@@ -35,14 +38,19 @@ export class BudgetCalculationsService {
     isTooMuchSpent = this.checkIfTooMuchSpent(remaining);
 
     return {
-      budgetName: budget.name,
+      budgetName,
       maximum,
       calculatedSpent,
       remaining,
-      isTooMuchSpent
+      isTooMuchSpent,
     };
   }
 
+  /**
+   * * * getDateRange
+   * * @param type - The timeframe type (month, quarter, half, year)
+   * * @returns - The start and end date of the given timeframe
+   */
   private getDateRange(type: string): { start: number; end: number } {
     const now = new Date();
     let start, end;
@@ -71,6 +79,13 @@ export class BudgetCalculationsService {
     return { start, end };
   }
 
+  /**
+   * @description - This function calculates the total amount spent in the given timeframe
+   * @param transactions - The transactions to be calculated
+   * @param timeRange - The timeframe to be calculated
+   * @param budget - The budget to be calculated
+   * @returns - The total amount spent in the given timeframe
+   */
   private calculateCurrentSpent(
     transactions: TransactionsObject[],
     timeRange: { start: number; end: number },
@@ -94,7 +109,16 @@ export class BudgetCalculationsService {
     return spent;
   }
 
-  private calculateRemaining(budget: BudgetsObject, calculatedSpent: number): number {
+  /**
+   * @description - This function calculates the remaining amount of the budget
+   * @param budget - The budget to be calculated
+   * @param calculatedSpent - The total amount spent in the given timeframe
+   * @returns - The remaining amount of the budget
+   */
+  private calculateRemaining(
+    budget: BudgetsObject,
+    calculatedSpent: number
+  ): number {
     if (budget.maximum - calculatedSpent <= 0) {
       return 0;
     } else {
@@ -102,11 +126,12 @@ export class BudgetCalculationsService {
     }
   }
 
+  /**
+   * @description - This function checks if the budget has been exceeded
+   * @param remaining - The remaining amount of the budget
+   * @returns - True if the budget has been exceeded, false otherwise
+   */
   private checkIfTooMuchSpent(remaining: number): boolean {
-    if (remaining <= 0) {
-      return true;
-    } else {
-      return false;
-    }
+    return remaining <= 0;
   }
 }
