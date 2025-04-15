@@ -57,6 +57,14 @@ export class SingleBudgetComponent implements OnInit, OnDestroy {
   @Input() public budgetIndex!: number;
 
   private removeClickListener: (() => void) | null = null;
+
+  public budgetCalculations: BudgetCalculations = {
+    budgetName: '',
+    maximum: 0,
+    calculatedSpent: 0,
+    remaining: 0,
+    isTooMuchSpent: false,
+  };
   // #endregion
 
   // #region Lifecycle Hooks

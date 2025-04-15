@@ -29,7 +29,6 @@ export class SpendingSummaryItemComponent {
 
   @Input() public inWhichSection: string = '';
 
-  // @Input() public summaryItem!: BudgetsObject;
   public _summaryItem = signal<BudgetsObject | null>(null);
 
   @Input() set summaryItem(value: BudgetsObject) {
