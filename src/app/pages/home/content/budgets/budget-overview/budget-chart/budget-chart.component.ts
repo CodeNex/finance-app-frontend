@@ -32,7 +32,7 @@ export class BudgetChartComponent {
   private chartEffect = effect(() => {
     this.budgetsArray = this.getBudgetsArray();
     this.budgetsLimit = this.getBudgetsLimit();
-    this.getBudgetsSpendAmount();
+    this.updateBudgetsSpendAmount();
     this.budgetPercentages = this.getBudgetsPercentages();
     this.budgetsColors = this.getBudgetsColors();
     this.doughnutChartData = this.getDoughnutChartData();
@@ -72,7 +72,7 @@ export class BudgetChartComponent {
   public budgetsSpendAmount: string = '';
   public budgetsSpendAmountAsNumber: number = 0;
 
-  private getBudgetsSpendAmount(): void {
+  private updateBudgetsSpendAmount() {
     let amount = 0;
     this.budgetsArray.forEach((element: BudgetsObject) => {
       const budgetCalculations: BudgetCalculations =
