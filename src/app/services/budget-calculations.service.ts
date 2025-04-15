@@ -15,7 +15,8 @@ export class BudgetCalculationsService {
 
   public calculateBudget(
     budget: BudgetsObject,
-    timeRange: string
+    timeRange: string,
+    transactions: TransactionsObject[]
   ): BudgetCalculations {
     let budgetName = '';
     let maximum = 0;
@@ -26,7 +27,7 @@ export class BudgetCalculationsService {
     budgetName = budget.name;
     maximum = budget.maximum;
     calculatedSpent = this.calculateCurrentSpent(
-      this.transactions,
+      transactions,
       this.getDateRange(timeRange),
       budget
     );
