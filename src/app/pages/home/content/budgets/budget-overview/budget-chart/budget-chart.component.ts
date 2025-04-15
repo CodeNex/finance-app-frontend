@@ -1,8 +1,9 @@
-import { Component, effect, inject } from '@angular/core';
+import { Component, effect, inject, Signal } from '@angular/core';
 import { BaseChartDirective } from 'ng2-charts';
 import { ChartEvent, ChartOptions, ChartType } from 'chart.js';
 
 import { DataStoreServiceService } from '@services/data-store-service.service';
+import { BudgetCalculationsService } from '@services/budget-calculations.service';
 
 import { FormatAmountPipe } from '@shared/pipes/format-amount.pipe';
 
@@ -13,20 +14,27 @@ import { FormatAmountPipe } from '@shared/pipes/format-amount.pipe';
   styleUrl: './budget-chart.component.scss',
 })
 export class BudgetChartComponent {
-  public dataStoreService = inject(DataStoreServiceService);
+  private dataStoreService = inject(DataStoreServiceService);
+  private budgetCalculationsService = inject(BudgetCalculationsService);
 
-  public budgetbudgetsSignal = this.dataStoreService.budgets;
+  private budgetsSignal: Signal<BudgetsObject[]> = this.dataStoreService.budgets;
+  private transactionsSignal: Signal<TransactionsObject[]> = this.dataStoreService.transactions;
 
   private isComponentInitialized: boolean = false;
 
+  // #region Lifecycle Hooks
   constructor() {
     effect(() => {
-      let signal = this.budgetbudgetsSignal();
+      let signal = this.budgetsSignal();
       if (this.isComponentInitialized) this.ngOnInit();
     });
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
+    this.initializeData();
+  }
+
+  private initializeData(): void {
     this.budgetsArray = this.getBudgetsArray();
     this.budgetsLimit = this.getBudgetsLimit();
     this.budgetsSpendAmount = this.getBudgetsSpendAmount();
@@ -37,29 +45,47 @@ export class BudgetChartComponent {
       this.isComponentInitialized = true;
     }, 100);
   }
+  // #endregion
 
-  
-  
-  
-
-  // get the budgets array from the signal
-  public budgetsArray: any[] = [];
+  // #region Budgets Array
+  // get the budgets array from the signal and filter out deleted budgets
+  public budgetsArray: BudgetsObject[] = [];
 
   private getBudgetsArray() {
-    let array: any[] = [];
-    this.budgetbudgetsSignal().forEach((element) => {
+    let array: BudgetsObject[] = [];
+    this.budgetsSignal().forEach((element: BudgetsObject) => {
       if (!element.deleted_at) array.push(element);
     });
     return array;
   }
+  // #endregion
 
-  // get the total amount of all budgets
+  // #region Budgets Limit
+  // get the maximum limit over all budgets
+  public budgetsLimit: string = '';
+
+  private getBudgetsLimit() {
+    let limit = 0;
+    this.budgetsArray.forEach((element: BudgetsObject) => {
+      limit += element.maximum;
+    });
+    return limit.toLocaleString('en-US', {
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0,
+    });
+  }
+  // #endregion
+
+  // get the total amount & percentages of all budgets
   public budgetsSpendAmount: string = '';
   public budgetsSpendAmountAsNumber: number = 0;
+  public budgetPercentages: number[] = [0];
 
   private getBudgetsSpendAmount() {
     let amount = 0;
     this.budgetsArray.forEach((element: any) => {
+
+      
       amount += element.amount;
     });
     this.budgetsSpendAmountAsNumber = Math.trunc(amount);
@@ -69,47 +95,32 @@ export class BudgetChartComponent {
     });
   }
 
-  // get the maximum limit over all budgets
-  public budgetsLimit: string = '';
-  public budgetsLimitAsNumber: number = 0;
-
-  private getBudgetsLimit() {
-    let limit = 0;
-    this.budgetsArray.forEach((element: any) => {
-      limit += element.maximum;
-    });
-    this.budgetsLimitAsNumber = Math.trunc(limit);
-    return limit.toLocaleString('en-US', {
-      minimumFractionDigits: 0,
-      maximumFractionDigits: 0,
-    });
-  }
-
-  // get the percentage of each budget and save them in an array to use them in the chart
-  public budgetPercentages: number[] = [0];
+  
 
   private getBudgetsPercentages() {
     let arrayCache: number[] = [];
-    this.budgetsArray.forEach((element: any) => {
+    this.budgetsArray.forEach((element: BudgetsObject) => {
       arrayCache.push(
         Math.trunc((element.amount / this.budgetsSpendAmountAsNumber) * 100)
       );
     });
     return arrayCache;
   }
+  // #endregion
 
   // #region Colors
   public budgetsColors: string[] = [''];
 
   private getBudgetsColors() {
     let arrayCache: string[] = [];
-    this.budgetsArray.forEach((element: any) => {
+    this.budgetsArray.forEach((element: BudgetsObject) => {
       arrayCache.push(element.theme);
     });
     return arrayCache;
   }
   // #endregion
 
+  // #region Chart Options & Data
   public doughnutChartOptions: ChartOptions<'doughnut'> = {
     responsive: true,
     maintainAspectRatio: false,
@@ -160,4 +171,5 @@ export class BudgetChartComponent {
     event: ChartEvent;
     active: object[];
   }): void {}
+  // #endregion
 }
