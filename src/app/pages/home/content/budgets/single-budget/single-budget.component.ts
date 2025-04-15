@@ -57,7 +57,7 @@ export class SingleBudgetComponent implements OnInit, OnDestroy {
   public transactionsSignal: Signal<TransactionsObject[]> =
     this.dataStore.transactions;
 
-  public _budget = signal<BudgetsObject | null>({
+  public _budget = signal<BudgetsObject>({
     id: 0,
     name: '',
     amount: 0,

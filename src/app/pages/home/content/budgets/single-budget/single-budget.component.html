@@ -9,7 +9,7 @@
     <div class="flex items-center gap-4">
       <div
         class="themeDot w-4 h-4 rounded-full"
-        [ngStyle]="{ 'background-color': this.budget.theme }"
+        [ngStyle]="{ 'background-color': this._budget().theme }"
       ></div>
       <p class="text2b text-grey-900">
         {{ this.budgetCalculations.budgetName }}
@@ -25,7 +25,7 @@
       class="absolute right-0 top-6 z-10 flex flex-col gap-2 bg-white shadow-[0px_4px_24px_0px_rgba(0,0,0,0.25)] rounded-lg pr-5 pl-5 pb-3 pt-3"
     >
       <button
-        (click)="openSubModal('editBudget', this.budget)"
+        (click)="openSubModal('editBudget', this._budget())"
         id="editBudgetButton"
         class="text4r text-grey-900 text-left"
       >
@@ -33,7 +33,7 @@
       </button>
       <hr class="bg-grey-100 h-[1px] w-full" />
       <button
-        (click)="openSubModal('deleteBudget', this.budget)"
+        (click)="openSubModal('deleteBudget', this._budget())"
         id="deleteBudgetButton"
         class="text4r text-secondary-red text-nowrap"
       >
@@ -58,7 +58,7 @@
         <div
           class="h-full rounded-[4px]"
           [ngStyle]="{
-            'background-color': this.budget.theme,
+            'background-color': this._budget().theme,
             width: this.percentageProgress
           }"
         ></div>
@@ -71,7 +71,7 @@
           [ngStyle]="{
             'background-color': this.budgetCalculations.isTooMuchSpent
               ? '#f8f4f0'
-              : this.budget.theme
+              : this._budget().theme
           }"
         ></div>
         <div class="flex flex-col gap-1">
@@ -134,30 +134,30 @@
         ><app-icons [iconName]="'smallArrowRight'"></app-icons
       ></a>
     </div>
-    @if (this.budget.last_spendings &&
-    this.budget.last_spendings[0].transaction_id != -1) {
+    @if (this._budget().last_spendings) { @if
+    (this._budget().last_spendings[0].transaction_id != -1) {
 
     <ul aria-label="list of latest spendings">
-      @for (item of this.budget.last_spendings; let index = $index; track item)
-      {
+      @for (item of this._budget().last_spendings; let index = $index; track
+      item) {
       <li
         aria-label="spending item"
         class="pt-3 pb-3"
         [ngStyle]="{
           'padding-bottom':
-            this.budget.last_spendings &&
-            index < this.budget.last_spendings.length - 1
+            this._budget().last_spendings &&
+            index < this._budget().last_spendings.length - 1
               ? '12px'
               : '0px'
         }"
       >
         <app-last-spending [spending]="item"></app-last-spending>
       </li>
-      @if (this.budget.last_spendings && index <
-      this.budget.last_spendings.length - 1) {
+      @if (this._budget().last_spendings && index <
+      this._budget().last_spendings.length - 1) {
       <div class="w-full h-[1.5px] rounded-full bg-[#e3e0dc]"></div>
       } }
     </ul>
-    }
+    } }
   </div>
 </div>
