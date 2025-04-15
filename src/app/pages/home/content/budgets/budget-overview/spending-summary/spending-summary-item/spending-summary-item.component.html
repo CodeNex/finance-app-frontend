@@ -1,4 +1,4 @@
- @if (inWhichSection === 'budgets') {
+@if (inWhichSection === 'budgets') {
 <div
   aria-label="spending summary item"
   class="w-full flex items-center justify-between"
@@ -20,9 +20,9 @@
             : '#201f24'
       }"
     >
-      ${{ spendedAmount }}
+      {{ this.summaryItem.amount! | formatAmount }}
     </p>
-    <p class="text4r text-grey-500 text-right">${{ maximumAmount }}</p>
+    <p class="text4r text-grey-500 text-right">{{ this.summaryItem.maximum! | formatAmount }}</p>
   </div>
 </div>
 } @else if ( inWhichSection === 'overview' ) {
@@ -46,9 +46,9 @@
               : '#201f24'
         }"
       >
-        ${{ spendedAmount }}
+        {{ this.summaryItem.amount! | formatAmount }}
       </p>
     </div>
   </div>
 </div>
-} 
+}

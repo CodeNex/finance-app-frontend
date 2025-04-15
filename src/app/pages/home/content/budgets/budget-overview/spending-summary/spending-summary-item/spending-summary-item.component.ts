@@ -3,21 +3,19 @@ import {
   Component,
   inject,
   Input,
-  effect,
   Signal,
-  OnInit,
 } from '@angular/core';
-// import { __classPrivateFieldGet } from 'tslib';
+import { FormatAmountPipe } from '@shared/pipes/format-amount.pipe';
 
 import { DataStoreServiceService } from '@services/data-store-service.service';
 
 @Component({
   selector: 'app-spending-summary-item',
-  imports: [CommonModule],
+  imports: [CommonModule, FormatAmountPipe],
   templateUrl: './spending-summary-item.component.html',
   styleUrl: './spending-summary-item.component.scss',
 })
-export class SpendingSummaryItemComponent implements OnInit {
+export class SpendingSummaryItemComponent {
   // #region Component Setup (DI, Outputs, Template Refs, Subscription)
   private dataStore = inject(DataStoreServiceService);
 
@@ -26,33 +24,5 @@ export class SpendingSummaryItemComponent implements OnInit {
   @Input() public summaryItem!: BudgetsObjectLike;
 
   @Input() public inWhichSection: string = '';
-
-  public spendedAmount: string | undefined = '';
-  public maximumAmount: string | undefined = '';
-
-  constructor() {
-    effect(() => {
-      let signal = this.budgetsArraySignal();
-      this.ngOnInit();
-    });
-  }
-
-  ngOnInit() {
-    this.spendedAmount = this.getSpendedAmount();
-    this.maximumAmount = this.getMaximumAmount();
-  }
-
-  private getSpendedAmount() {
-    return this.summaryItem.amount?.toLocaleString('en-US', {
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2,
-    });
-  }
-
-  private getMaximumAmount() {
-    return this.summaryItem.maximum?.toLocaleString('en-US', {
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2,
-    });
-  }
+  // #endregion
 }
