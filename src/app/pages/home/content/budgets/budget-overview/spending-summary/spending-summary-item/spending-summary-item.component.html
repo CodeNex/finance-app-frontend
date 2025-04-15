@@ -6,7 +6,7 @@
   <div class="flex items-center gap-4">
     <div
       class="h-full min-h-[21px] w-1 rounded-full"
-      [ngStyle]="{ 'background-color': this.summaryItem.theme }"
+      [ngStyle]="{ 'background-color': this._summaryItem()!.theme }"
     ></div>
     <p class="text4r text-grey-500">{{ this.budgetCalculations.budgetName }}</p>
   </div>
@@ -32,7 +32,7 @@
   <div class="flex gap-4">
     <div
       class="theme-element min-h-[21px] w-1 rounded-full"
-      [ngStyle]="{ 'background-color': this.summaryItem.theme }"
+      [ngStyle]="{ 'background-color': this._summaryItem()!.theme }"
     ></div>
     <div class="flex flex-col gap-1 text-left">
       <p class="text5r text-grey-500">

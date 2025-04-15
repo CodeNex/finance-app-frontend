@@ -4,7 +4,7 @@ import {
   inject,
   Input,
   Signal,
-  OnInit,
+  signal,
   effect,
 } from '@angular/core';
 import { FormatAmountPipe } from '@shared/pipes/format-amount.pipe';
@@ -27,9 +27,14 @@ export class SpendingSummaryItemComponent {
   public transactionsSignal: Signal<TransactionsObject[]> =
     this.dataStore.transactions;
 
-  @Input() public summaryItem!: BudgetsObject;
-
   @Input() public inWhichSection: string = '';
+
+  // @Input() public summaryItem!: BudgetsObject;
+  public _summaryItem = signal<BudgetsObject | null>(null);
+
+  @Input() set summaryItem(value: BudgetsObject) {
+    this._summaryItem.set(value);
+  }
 
   public budgetCalculations: BudgetCalculations = {
     budgetName: '',
@@ -40,12 +45,14 @@ export class SpendingSummaryItemComponent {
   };
 
   private budgetEffect = effect(() => {
+    const budget = this._summaryItem();
+    if (!budget) return;
     this.budgetsArraySignal();
-      this.budgetCalculations = this.budgetCalculationsService.calculateBudget(
-        this.summaryItem,
-        'year',
-        this.transactionsSignal()
-      );
+    this.budgetCalculations = this.budgetCalculationsService.calculateBudget(
+      budget,
+      'year',
+      this.transactionsSignal()
+    );
   });
   // #endregion
 }
