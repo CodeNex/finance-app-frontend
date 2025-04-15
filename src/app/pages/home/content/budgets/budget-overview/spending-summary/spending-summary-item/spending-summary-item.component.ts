@@ -1,5 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, Input, Signal, OnInit, effect } from '@angular/core';
+import {
+  Component,
+  inject,
+  Input,
+  Signal,
+  OnInit,
+  effect,
+} from '@angular/core';
 import { FormatAmountPipe } from '@shared/pipes/format-amount.pipe';
 
 import { DataStoreServiceService } from '@services/data-store-service.service';
@@ -17,7 +24,8 @@ export class SpendingSummaryItemComponent {
   private budgetCalculationsService = inject(BudgetCalculationsService);
 
   public budgetsArraySignal: Signal<BudgetsObject[]> = this.dataStore.budgets;
-  public transactionsSignal: Signal<TransactionsObject[]> = this.dataStore.transactions;
+  public transactionsSignal: Signal<TransactionsObject[]> =
+    this.dataStore.transactions;
 
   @Input() public summaryItem!: BudgetsObject;
 
@@ -35,24 +43,14 @@ export class SpendingSummaryItemComponent {
   // #region Lifecycle Hooks
   constructor() {
     effect(() => {
-      let budgetSignal = this.budgetsArraySignal();
+      this.budgetsArraySignal();
       this.budgetCalculations = this.budgetCalculationsService.calculateBudget(
-        this.summaryItem, 'year', this.transactionsSignal());
-
-      console.log(this.budgetCalculations);
-      
+        this.summaryItem,
+        'year',
+        this.transactionsSignal()
+      );
     });
   }
 
-
-  // ngOnInit(): void {
-  //   setTimeout(() => {
-  //     this.budgetCalculations = this.budgetCalculationsService.calculateBudget(
-  //       this.summaryItem,
-  //       'year'
-  //     );
-  //     console.log(this.budgetCalculations);
-  //   }, 10);
-  // }
   // #endregion
 }
