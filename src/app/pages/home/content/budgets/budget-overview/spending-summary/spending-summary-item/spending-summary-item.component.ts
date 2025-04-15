@@ -38,19 +38,14 @@ export class SpendingSummaryItemComponent {
     remaining: 0,
     isTooMuchSpent: false,
   };
-  // #endregion
 
-  // #region Lifecycle Hooks
-  constructor() {
-    effect(() => {
-      this.budgetsArraySignal();
+  private budgetEffect = effect(() => {
+    this.budgetsArraySignal();
       this.budgetCalculations = this.budgetCalculationsService.calculateBudget(
         this.summaryItem,
         'year',
         this.transactionsSignal()
       );
-    });
-  }
-
+  });
   // #endregion
 }
