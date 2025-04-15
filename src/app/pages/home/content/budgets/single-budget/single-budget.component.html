@@ -59,7 +59,7 @@
           class="h-full rounded-[4px]"
           [ngStyle]="{
             'background-color': this._budget().theme,
-            width: this.percentageProgress
+            'width': this.percentageProgress
           }"
         ></div>
       </div>
@@ -119,7 +119,7 @@
   <div
     aria-label="single Budget Card latest spendings"
     class="w-full bg-beige-100 rounded-xl p-5 flex flex-col"
-    [ngStyle]="{ gap: this.budget.last_spendings ? '8px' : '0px' }"
+    [ngStyle]="{ gap: this._budget().last_spendings ? '8px' : '0px' }"
   >
     <div
       aria-label="Latest Spending head"
@@ -134,8 +134,7 @@
         ><app-icons [iconName]="'smallArrowRight'"></app-icons
       ></a>
     </div>
-    @if (this._budget().last_spendings) { @if
-    (this._budget().last_spendings[0].transaction_id != -1) {
+    @if (this._budget().last_spendings) {
 
     <ul aria-label="list of latest spendings">
       @for (item of this._budget().last_spendings; let index = $index; track
@@ -146,7 +145,7 @@
         [ngStyle]="{
           'padding-bottom':
             this._budget().last_spendings &&
-            index < this._budget().last_spendings.length - 1
+            index < this._budget().last_spendings!.length - 1
               ? '12px'
               : '0px'
         }"
@@ -154,10 +153,10 @@
         <app-last-spending [spending]="item"></app-last-spending>
       </li>
       @if (this._budget().last_spendings && index <
-      this._budget().last_spendings.length - 1) {
+      this._budget().last_spendings!.length - 1) {
       <div class="w-full h-[1.5px] rounded-full bg-[#e3e0dc]"></div>
       } }
     </ul>
-    } }
+    }
   </div>
 </div>

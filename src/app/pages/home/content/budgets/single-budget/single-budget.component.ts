@@ -91,7 +91,7 @@ export class SingleBudgetComponent implements OnInit, OnDestroy {
     runInInjectionContext(this.injector, () => {
       effect(() => {
         this.budgetSignal();
-        const budget = this.budget;
+        const budget = this._budget();
         if (!budget) return;
         const transactions: TransactionsObject[] = this.transactionsSignal();
         this.budgetCalculations =
