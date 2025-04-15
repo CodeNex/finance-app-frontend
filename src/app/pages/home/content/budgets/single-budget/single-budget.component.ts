@@ -6,11 +6,10 @@ import {
   inject,
   Input,
   effect,
-  runInInjectionContext,
   Injector,
   Renderer2,
 } from '@angular/core';
-import { OnInit, OnDestroy } from '@angular/core';
+import { OnDestroy } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { IconsComponent } from '@components/icons/icons.component';
 import { LastSpendingComponent } from '@content/budgets/single-budget/last-spending/last-spending.component';
@@ -43,7 +42,7 @@ import { FormatAmountPipe } from '@shared/pipes/format-amount.pipe';
   templateUrl: './single-budget.component.html',
   styleUrl: './single-budget.component.scss',
 })
-export class SingleBudgetComponent implements OnInit, OnDestroy {
+export class SingleBudgetComponent implements OnDestroy {
   // #region Component Setup (DI, Outputs, Template Refs, Subscription)
   public mainModalService = inject(MainModalService);
   public dataStore = inject(DataStoreServiceService);
@@ -84,27 +83,22 @@ export class SingleBudgetComponent implements OnInit, OnDestroy {
     remaining: 0,
     isTooMuchSpent: false,
   };
+
+  private budgetEffect = effect(() => {
+    this.budgetSignal();
+    const budget = this._budget();
+    const transactions: TransactionsObject[] = this.transactionsSignal();
+    if (!budget || !transactions) return;
+    this.budgetCalculations = this.budgetCalculationsService.calculateBudget(
+      budget,
+      'year',
+      transactions
+    );
+    this.percentageProgress = this.calculatePercentageProgress();
+  });
   // #endregion
 
   // #region Lifecycle Hooks
-  ngOnInit(): void {
-    runInInjectionContext(this.injector, () => {
-      effect(() => {
-        this.budgetSignal();
-        const budget = this._budget();
-        if (!budget) return;
-        const transactions: TransactionsObject[] = this.transactionsSignal();
-        this.budgetCalculations =
-          this.budgetCalculationsService.calculateBudget(
-            budget,
-            'year',
-            transactions
-          );
-        this.percentageProgress = this.calculatePercentageProgress();
-      });
-    });
-  }
-
   ngOnDestroy(): void {
     if (this.removeClickListener) {
       this.removeClickListener();
