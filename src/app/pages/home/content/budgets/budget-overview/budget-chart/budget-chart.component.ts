@@ -4,6 +4,7 @@ import { ChartEvent, ChartOptions, ChartType } from 'chart.js';
 
 import { DataStoreServiceService } from '@services/data-store-service.service';
 import { BudgetCalculationsService } from '@services/budget-calculations.service';
+import { CommonModule } from '@angular/common';
 
 /**
  * * BudgetChartComponent
@@ -15,7 +16,7 @@ import { BudgetCalculationsService } from '@services/budget-calculations.service
  */
 @Component({
   selector: 'app-budget-chart',
-  imports: [BaseChartDirective],
+  imports: [BaseChartDirective, CommonModule],
   templateUrl: './budget-chart.component.html',
   styleUrl: './budget-chart.component.scss',
 })
