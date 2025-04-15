@@ -4,24 +4,24 @@ import { ChartEvent, ChartOptions, ChartType } from 'chart.js';
 
 import { DataStoreServiceService } from '@services/data-store-service.service';
 
+import { FormatAmountPipe } from '@shared/pipes/format-amount.pipe';
+
 @Component({
   selector: 'app-budget-chart',
-  imports: [BaseChartDirective],
+  imports: [BaseChartDirective, FormatAmountPipe],
   templateUrl: './budget-chart.component.html',
   styleUrl: './budget-chart.component.scss',
 })
 export class BudgetChartComponent {
-  public dataStoreService: DataStoreServiceService = inject(
-    DataStoreServiceService
-  );
+  public dataStoreService = inject(DataStoreServiceService);
 
-  public budgetsSignal$ = this.dataStoreService.budgets;
+  public budgetbudgetsSignal = this.dataStoreService.budgets;
 
   private isComponentInitialized: boolean = false;
 
   constructor() {
     effect(() => {
-      let signal = this.budgetsSignal$();
+      let signal = this.budgetbudgetsSignal();
       if (this.isComponentInitialized) this.ngOnInit();
     });
   }
@@ -38,25 +38,25 @@ export class BudgetChartComponent {
     }, 100);
   }
 
-  public budgetsArray: any[] = [];
-  public budgetsSpendAmount: string = '';
-  public budgetsSpendAmountAsNumber: number = 0;
-  public budgetsLimit: string = '';
-  public budgetsLimitAsNumber: number = 0;
-  public budgetPercentages: number[] = [0];
-  public budgetsColors: string[] = [''];
-  public doughnutChartData: any = {};
+  
+  
+  
 
   // get the budgets array from the signal
+  public budgetsArray: any[] = [];
+
   private getBudgetsArray() {
     let array: any[] = [];
-    this.budgetsSignal$().forEach((element) => {
+    this.budgetbudgetsSignal().forEach((element) => {
       if (!element.deleted_at) array.push(element);
-    })
+    });
     return array;
   }
 
   // get the total amount of all budgets
+  public budgetsSpendAmount: string = '';
+  public budgetsSpendAmountAsNumber: number = 0;
+
   private getBudgetsSpendAmount() {
     let amount = 0;
     this.budgetsArray.forEach((element: any) => {
@@ -70,6 +70,9 @@ export class BudgetChartComponent {
   }
 
   // get the maximum limit over all budgets
+  public budgetsLimit: string = '';
+  public budgetsLimitAsNumber: number = 0;
+
   private getBudgetsLimit() {
     let limit = 0;
     this.budgetsArray.forEach((element: any) => {
@@ -83,6 +86,8 @@ export class BudgetChartComponent {
   }
 
   // get the percentage of each budget and save them in an array to use them in the chart
+  public budgetPercentages: number[] = [0];
+
   private getBudgetsPercentages() {
     let arrayCache: number[] = [];
     this.budgetsArray.forEach((element: any) => {
@@ -93,7 +98,9 @@ export class BudgetChartComponent {
     return arrayCache;
   }
 
-  // get the colors of the budgets and save them in an array to use them in the chart
+  // #region Colors
+  public budgetsColors: string[] = [''];
+
   private getBudgetsColors() {
     let arrayCache: string[] = [];
     this.budgetsArray.forEach((element: any) => {
@@ -101,6 +108,7 @@ export class BudgetChartComponent {
     });
     return arrayCache;
   }
+  // #endregion
 
   public doughnutChartOptions: ChartOptions<'doughnut'> = {
     responsive: true,
@@ -121,6 +129,8 @@ export class BudgetChartComponent {
   };
 
   // get the data for the chart
+  public doughnutChartData: any = {};
+
   public getDoughnutChartData() {
     return {
       datasets: [
@@ -141,8 +151,7 @@ export class BudgetChartComponent {
   }: {
     event: ChartEvent;
     active: object[];
-  }): void {
-  }
+  }): void {}
 
   public chartHovered({
     event,
@@ -150,6 +159,5 @@ export class BudgetChartComponent {
   }: {
     event: ChartEvent;
     active: object[];
-  }): void {
-  }
+  }): void {}
 }
