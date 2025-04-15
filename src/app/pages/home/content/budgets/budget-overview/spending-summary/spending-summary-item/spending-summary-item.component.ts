@@ -7,7 +7,7 @@ import {
   Signal,
   OnInit,
 } from '@angular/core';
-import { __classPrivateFieldGet } from 'tslib';
+// import { __classPrivateFieldGet } from 'tslib';
 
 import { DataStoreServiceService } from '@services/data-store-service.service';
 
@@ -23,36 +23,14 @@ export class SpendingSummaryItemComponent implements OnInit {
 
   public budgetsArraySignal: Signal<BudgetsObject[]> = this.dataStore.budgets;
 
-  @Input() public summaryItem: BudgetsObjectLike = {
-    amount: 0,
-    created_at: null,
-    deleted_at: null,
-    id: -1,
-    last_spendings: [],
-    time_frame: '',
-    maximum: 0,
-    name: 'Example',
-    theme: '#93674F',
-  };
+  @Input() public summaryItem!: BudgetsObjectLike;
 
   @Input() public inWhichSection: string = '';
 
-  public spendedAmount: string = '';
-  public maximumAmount: string = '';
+  public spendedAmount: string | undefined = '';
+  public maximumAmount: string | undefined = '';
 
   constructor() {
-    this.summaryItem = {
-      amount: 0,
-      created_at: null,
-      deleted_at: null,
-      id: -1,
-      last_spendings: [],
-      time_frame: '',
-      maximum: 0,
-      name: 'Example',
-      theme: '#93674F',
-    };
-
     effect(() => {
       let signal = this.budgetsArraySignal();
       this.ngOnInit();
@@ -65,16 +43,16 @@ export class SpendingSummaryItemComponent implements OnInit {
   }
 
   private getSpendedAmount() {
-    return this.summaryItem.amount.toLocaleString('en-US', {
+    return this.summaryItem.amount?.toLocaleString('en-US', {
       minimumFractionDigits: 2,
-      macimumFractionDigits: 2,
+      maximumFractionDigits: 2,
     });
   }
 
   private getMaximumAmount() {
-    return this.summaryItem.maximum.toLocaleString('en-US', {
+    return this.summaryItem.maximum?.toLocaleString('en-US', {
       minimumFractionDigits: 2,
-      macimumFractionDigits: 2,
+      maximumFractionDigits: 2,
     });
   }
 }

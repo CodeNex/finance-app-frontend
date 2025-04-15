@@ -15,7 +15,7 @@
       class="text3b text-grey-900 text-right"
       [ngStyle]="{
         color:
-          this.summaryItem.amount > this.summaryItem.maximum
+          this.summaryItem.amount! > this.summaryItem.maximum!
             ? '#c94736'
             : '#201f24'
       }"
@@ -41,7 +41,7 @@
         class="text3b text-grey-900"
         [ngStyle]="{
           color:
-            this.summaryItem.amount > this.summaryItem.maximum
+            this.summaryItem.amount! > this.summaryItem.maximum!
               ? '#c94736'
               : '#201f24'
         }"
