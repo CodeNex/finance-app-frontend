@@ -163,16 +163,12 @@ export class BudgetChartComponent {
   public doughnutChartType: ChartType = 'doughnut';
 
   public chartClicked({
-    event,
-    active,
   }: {
     event: ChartEvent;
     active: object[];
   }): void {}
 
   public chartHovered({
-    event,
-    active,
   }: {
     event: ChartEvent;
     active: object[];
