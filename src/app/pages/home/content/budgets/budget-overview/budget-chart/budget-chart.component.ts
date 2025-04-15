@@ -5,11 +5,17 @@ import { ChartEvent, ChartOptions, ChartType } from 'chart.js';
 import { DataStoreServiceService } from '@services/data-store-service.service';
 import { BudgetCalculationsService } from '@services/budget-calculations.service';
 
-import { FormatAmountPipe } from '@shared/pipes/format-amount.pipe';
-
+/**
+ * * BudgetChartComponent
+ * This component is responsible for displaying a doughnut chart of the budgets in the application.
+ * it uses the DataStoreService to manage the budget data
+ * it uses the BudgetCalculationsService to calculate the budget data
+ * it uses the ng2-charts library to display the chart
+ * it uses the Chart.js library to display the chart
+ */
 @Component({
   selector: 'app-budget-chart',
-  imports: [BaseChartDirective, FormatAmountPipe],
+  imports: [BaseChartDirective],
   templateUrl: './budget-chart.component.html',
   styleUrl: './budget-chart.component.scss',
 })
@@ -17,8 +23,10 @@ export class BudgetChartComponent {
   private dataStoreService = inject(DataStoreServiceService);
   private budgetCalculationsService = inject(BudgetCalculationsService);
 
-  private budgetsSignal: Signal<BudgetsObject[]> = this.dataStoreService.budgets;
-  private transactionsSignal: Signal<TransactionsObject[]> = this.dataStoreService.transactions;
+  private budgetsSignal: Signal<BudgetsObject[]> =
+    this.dataStoreService.budgets;
+  private transactionsSignal: Signal<TransactionsObject[]> =
+    this.dataStoreService.transactions;
 
   private isComponentInitialized: boolean = false;
 
@@ -37,7 +45,7 @@ export class BudgetChartComponent {
   private initializeData(): void {
     this.budgetsArray = this.getBudgetsArray();
     this.budgetsLimit = this.getBudgetsLimit();
-    this.budgetsSpendAmount = this.getBudgetsSpendAmount();
+    this.getBudgetsSpendAmount();
     this.budgetPercentages = this.getBudgetsPercentages();
     this.budgetsColors = this.getBudgetsColors();
     this.doughnutChartData = this.getDoughnutChartData();
@@ -76,32 +84,46 @@ export class BudgetChartComponent {
   }
   // #endregion
 
-  // get the total amount & percentages of all budgets
+  // #region Spends and Percentages
   public budgetsSpendAmount: string = '';
   public budgetsSpendAmountAsNumber: number = 0;
-  public budgetPercentages: number[] = [0];
 
   private getBudgetsSpendAmount() {
     let amount = 0;
-    this.budgetsArray.forEach((element: any) => {
+    this.budgetsArray.forEach((element: BudgetsObject) => {
+      const budgetCalculations: BudgetCalculations =
+        this.budgetCalculationsService.calculateBudget(
+          element,
+          'year',
+          this.transactionsSignal()
+        );
 
-      
-      amount += element.amount;
+      amount += budgetCalculations.calculatedSpent;
     });
-    this.budgetsSpendAmountAsNumber = Math.trunc(amount);
-    return amount.toLocaleString('en-US', {
+    this.budgetsSpendAmountAsNumber = amount;
+    this.budgetsSpendAmount = amount.toLocaleString('en-US', {
       minimumFractionDigits: 0,
       maximumFractionDigits: 0,
     });
   }
 
-  
+  public budgetPercentages: number[] = [0];
 
   private getBudgetsPercentages() {
     let arrayCache: number[] = [];
     this.budgetsArray.forEach((element: BudgetsObject) => {
+      const budgetCalculations: BudgetCalculations =
+        this.budgetCalculationsService.calculateBudget(
+          element,
+          'year',
+          this.transactionsSignal()
+        );
       arrayCache.push(
-        Math.trunc((element.amount / this.budgetsSpendAmountAsNumber) * 100)
+        Math.trunc(
+          (budgetCalculations.calculatedSpent /
+            this.budgetsSpendAmountAsNumber) *
+            100
+        )
       );
     });
     return arrayCache;
