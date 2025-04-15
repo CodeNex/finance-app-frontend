@@ -11,7 +11,9 @@
         class="themeDot w-4 h-4 rounded-full"
         [ngStyle]="{ 'background-color': this.budget.theme }"
       ></div>
-      <p class="text2b text-grey-900">{{ this.budgetCalculations.budgetName }}</p>
+      <p class="text2b text-grey-900">
+        {{ this.budgetCalculations.budgetName }}
+      </p>
     </div>
     <button (click)="openPopUp()">
       <app-icons [iconName]="'dotsThree'"></app-icons>
@@ -46,7 +48,8 @@
     class="w-full flex flex-col gap-4"
   >
     <p class="text4r text-grey-500">
-      Maximum of <span>{{ this.budgetCalculations.maximum | formatAmount }}</span>
+      Maximum of
+      <span>{{ this.budgetCalculations.maximum | formatAmount }}</span>
     </p>
     <div aria-label="progress bar">
       <div
@@ -82,19 +85,29 @@
         <div
           class="bar w-1 h-[43px] rounded-lg"
           [ngStyle]="{
-            'background-color': this.budgetCalculations.isTooMuchSpent ? '#c94736' : '#f8f4f0'
+            'background-color': this.budgetCalculations.isTooMuchSpent
+              ? '#c94736'
+              : '#f8f4f0'
           }"
         ></div>
         <div class="flex flex-col gap-1">
           <p
             class="text5r"
-            [ngStyle]="{ color: this.budgetCalculations.isTooMuchSpent ? '#c94736' : '#696868' }"
+            [ngStyle]="{
+              color: this.budgetCalculations.isTooMuchSpent
+                ? '#c94736'
+                : '#696868'
+            }"
           >
             Remaining
           </p>
           <p
             class="text4b"
-            [ngStyle]="{ color: this.budgetCalculations.isTooMuchSpent ? '#c94736' : '#201f24' }"
+            [ngStyle]="{
+              color: this.budgetCalculations.isTooMuchSpent
+                ? '#c94736'
+                : '#201f24'
+            }"
           >
             {{ this.budgetCalculations.remaining | formatAmount }}
           </p>

@@ -80,7 +80,7 @@ export class SingleBudgetComponent implements OnInit, OnDestroy {
         this.budgetCalculations = this.budgetCalculationsService.calculateBudget(
           budget,
           'year',
-          this.transactionsSignal()
+          transactions
         );
         this.percentageProgress = this.calculatePercentageProgress();
       });
