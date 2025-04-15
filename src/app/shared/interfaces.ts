@@ -3,6 +3,17 @@ interface DateRange {
   end: number;
 }
 
+interface SummaryItem {
+  amount: number;
+  created_at: null;
+  deleted_at: null;
+  id: number;
+  last_spendings: [];
+  maximum: number;
+  name: string;
+  theme: string;
+}
+
 interface BalanceObject {
   balance: number;
 }

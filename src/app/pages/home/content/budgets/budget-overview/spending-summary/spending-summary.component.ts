@@ -29,8 +29,8 @@ export class SpendingSummaryComponent {
 
   public budgetsArraySignal: Signal<BudgetsObject[]> = this.dataStore.budgets;
 
+  public budgetsArray = computed(() => this.budgetsArraySignal().filter(b => !b.deleted_at));
+
   @Input() public inWhichSection: string = '';
   // #endregion
-
-  public budgetsArray = computed(() => this.budgetsArraySignal().filter(b => !b.deleted_at));
 }

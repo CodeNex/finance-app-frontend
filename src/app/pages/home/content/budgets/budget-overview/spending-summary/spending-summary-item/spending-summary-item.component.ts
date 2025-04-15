@@ -1,5 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, Input, effect, Signal } from '@angular/core';
+import {
+  Component,
+  inject,
+  Input,
+  effect,
+  Signal,
+  OnInit,
+} from '@angular/core';
 import { __classPrivateFieldGet } from 'tslib';
 
 import { DataStoreServiceService } from '@services/data-store-service.service';
@@ -10,19 +17,20 @@ import { DataStoreServiceService } from '@services/data-store-service.service';
   templateUrl: './spending-summary-item.component.html',
   styleUrl: './spending-summary-item.component.scss',
 })
-export class SpendingSummaryItemComponent {
+export class SpendingSummaryItemComponent implements OnInit {
+  // #region Component Setup (DI, Outputs, Template Refs, Subscription)
+  private dataStore = inject(DataStoreServiceService);
 
-  private dataStore: DataStoreServiceService = inject(DataStoreServiceService);
+  public budgetsArraySignal: Signal<BudgetsObject[]> = this.dataStore.budgets;
 
-  public budgetsArraySignal$: Signal<any> = this.dataStore.budgets;
-
-  @Input() public summaryItem: any = {
+  @Input() public summaryItem: BudgetsObjectLike = {
     amount: 0,
     created_at: null,
     deleted_at: null,
     id: -1,
     last_spendings: [],
-    maximum: -1,
+    time_frame: '',
+    maximum: 0,
     name: 'Example',
     theme: '#93674F',
   };
@@ -33,11 +41,23 @@ export class SpendingSummaryItemComponent {
   public maximumAmount: string = '';
 
   constructor() {
-      effect(() => {
-        let signal = this.budgetsArraySignal$();
-        this.ngOnInit();
-      })
-    }
+    this.summaryItem = {
+      amount: 0,
+      created_at: null,
+      deleted_at: null,
+      id: -1,
+      last_spendings: [],
+      time_frame: '',
+      maximum: 0,
+      name: 'Example',
+      theme: '#93674F',
+    };
+
+    effect(() => {
+      let signal = this.budgetsArraySignal();
+      this.ngOnInit();
+    });
+  }
 
   ngOnInit() {
     this.spendedAmount = this.getSpendedAmount();
