@@ -3,6 +3,12 @@ interface DateRange {
   end: number;
 }
 
+interface BudgetCalculations {
+  calculatedSpent: number;
+  remaining: number;
+  isTooMuchSpent: boolean;
+}
+
 interface SummaryItem {
   amount: number;
   created_at: null;

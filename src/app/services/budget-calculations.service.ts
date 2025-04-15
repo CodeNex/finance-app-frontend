@@ -1,12 +1,6 @@
-import { Injectable, Signal, inject } from '@angular/core';
+import { Injectable, Signal, inject, computed } from '@angular/core';
 
 import { DataStoreServiceService } from './data-store-service.service';
-
-interface BudgetCalculations {
-  calculatedSpent: number;
-  remaining: number;
-  isTooMuchSpent: boolean;
-}
 
 @Injectable({
   providedIn: 'root',
@@ -16,6 +10,8 @@ export class BudgetCalculationsService {
 
   public transactionsSignal: Signal<TransactionsObject[]> =
     this.dataStore.transactions;
+  
+  public transactions: TransactionsObject[] = computed(() => this.transactionsSignal())();
 
   public budgetCalculations: BudgetCalculations = {
     calculatedSpent: 0,
@@ -28,7 +24,7 @@ export class BudgetCalculationsService {
     timeRange: string
   ): BudgetCalculations {
     this.budgetCalculations.calculatedSpent = this.calculateCurrentSpent(
-      this.transactionsSignal(),
+      this.transactions,
       this.getDateRange(timeRange),
       budget
     );
