@@ -12,10 +12,9 @@ import { Injectable } from '@angular/core';
 export class FormatAmountInputService {
 
   public formatAmountInput() {
-    
+
   }
-  public maxBudgetInputValue: string = '0.00';
-  public maxBudgetString: string = '0.00';
+  public amountInputValue: string = '0.00';
 
   /**
    * @description - This function is responsible for controlling the input value and starts either adding or deleting numbers from the input.
@@ -45,16 +44,15 @@ export class FormatAmountInputService {
    * @returns - The formatted input value in the en-US format.
    */
   private addNumberToTargetInput(event: KeyboardEvent): void {
-    let currentTarget = this.maxBudgetString;
+    let currentTarget = this.amountInputValue;
     let numbersArray = currentTarget.replace(/[.,]/g, '').split('');
     if (numbersArray.length === 3 && numbersArray[0] === '0') {
       numbersArray.shift();
       numbersArray.push(event.key);
       numbersArray.splice(numbersArray.length - 2, 0, '.');
-      this.maxBudgetString = this.formatToEnUS(
+      this.amountInputValue = this.formatToEnUS(
         parseFloat(numbersArray.join(''))
       );
-      this.maxBudgetInputValue = this.maxBudgetString;
     } else if (
       numbersArray.length >= 3 &&
       numbersArray.length < 11 &&
@@ -62,10 +60,9 @@ export class FormatAmountInputService {
     ) {
       numbersArray.push(event.key);
       numbersArray.splice(numbersArray.length - 2, 0, '.');
-      this.maxBudgetString = this.formatToEnUS(
+      this.amountInputValue = this.formatToEnUS(
         parseFloat(numbersArray.join(''))
       );
-      this.maxBudgetInputValue = this.maxBudgetString;
     }
   }
 
@@ -73,12 +70,11 @@ export class FormatAmountInputService {
    * @description - This function is responsible for deleting numbers from the input value.
    */
   private deleteNumberFromTargetInput(): void {
-    let currentTarget = this.maxBudgetString;
+    let currentTarget = this.amountInputValue;
     let numbersArray = currentTarget.replace(/[.,]/g, '').split('');
     numbersArray.pop();
     numbersArray.splice(numbersArray.length - 2, 0, '.');
-    this.maxBudgetString = this.formatToEnUS(parseFloat(numbersArray.join('')));
-    this.maxBudgetInputValue = this.maxBudgetString;
+    this.amountInputValue = this.formatToEnUS(parseFloat(numbersArray.join('')));
   }
 
   /**
