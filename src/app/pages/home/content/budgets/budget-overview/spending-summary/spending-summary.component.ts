@@ -29,7 +29,7 @@ export class SpendingSummaryComponent {
 
   public budgetsArraySignal: Signal<BudgetsObject[]> = this.dataStore.budgets;
 
-  public readonly budgetsArray = computed(() => this.budgetsArraySignal().filter(b => !b.deleted_at))();
+  public readonly budgetsArray: Signal<BudgetsObject[]> = computed(() => this.budgetsArraySignal().filter(b => !b.deleted_at));
 
   @Input() public inWhichSection: string = '';
   // #endregion
