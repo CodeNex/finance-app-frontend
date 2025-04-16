@@ -1,36 +1,39 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
-import { BasedataService } from './basedata.service';
-import { AuthenticationService } from './authentication.service';
-import { APIService } from './api.service';
+import { BasedataService } from '@services/basedata.service';
+import { AuthenticationService } from '@services/authentication.service';
+import { APIService } from '@services/api.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AutoLoginService {
-  private baseData: BasedataService = inject(BasedataService);
-  public authService: AuthenticationService = inject(AuthenticationService);
-  public apiService: APIService = inject(APIService);
-  private http: HttpClient = inject(HttpClient);
+  private baseData = inject(BasedataService);
+  public authService= inject(AuthenticationService);
+  public apiService = inject(APIService);
+  private http = inject(HttpClient);
 
-  private baseUrl: string = this.baseData.financeApp.basics.apiData.baseUrl;
+  private baseUrl: string = this.baseData.baseUrl;
 
   private path: string = '/check-auth';
 
   private token: string = '';
 
-  private isTokenValid: boolean = false;
-
   constructor() {
     this.checkForToken();
+  }
+
+  doAutoLogin() {
+    this.authService.authToken = this.token;
+    this.authService.setLoadingScreen(true);
+    this.apiService.initialDataLoading();
   }
 
   async checkForToken() {
     let storageJsonToken = await localStorage.getItem(
       this.baseData.financeApp.basics.apiData.localStorage.tokenKey
     );
-
     if (
       typeof storageJsonToken === 'string' &&
       storageJsonToken !== null &&
@@ -67,11 +70,5 @@ export class AutoLoginService {
           console.log('Token is invalid: ', error);
         },
       });
-  }
-
-  doAutoLogin() {
-    this.authService.authToken = this.token;
-    this.authService.setLoadingScreen(true);
-    this.apiService.initialDataLoading();
   }
 }

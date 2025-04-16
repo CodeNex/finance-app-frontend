@@ -43,8 +43,9 @@ export class AuthenticationService {
   }
 
   public authWarningMessage = signal<string>('');
-  public authToken: string = '';
   public isFirstRender: boolean = true;
+
+  public authToken: string = '';
 
   /**
    * Sets internal flag to persist auth token in localStorage (used by LoginForm)
