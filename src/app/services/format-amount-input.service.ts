@@ -64,8 +64,10 @@ export class FormatAmountInputService {
       return this.formatToEnUS(
         parseFloat(numbersArray.join(''))
       );
+    } else {
+      return currentTarget;
     }
-    return 'Invalid Amount';
+    
   }
 
   /**
