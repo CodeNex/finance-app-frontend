@@ -58,11 +58,6 @@ export class SinglePotComponent implements OnInit, OnDestroy {
   });
 
   public pot = computed(() => this.potSignal());
-
-  public totalAmount: string = '';
-  public targetAmount: string = '';
-  public percentageNumber: number = 0;
-  public progressBarPercentage: string = '';
   // #endregion
 
   // #region Lifecycle Hooks
@@ -82,6 +77,12 @@ export class SinglePotComponent implements OnInit, OnDestroy {
   }
   // #endregion
 
+  // #region Initialize Pot
+  public totalAmount: string = '';
+  public targetAmount: string = '';
+  public percentageNumber: number = 0;
+  public progressBarPercentage: string = '';
+
   private initializePot(pot: PotsObject) {
     this.totalAmount = pot.total.toFixed(2);
     this.targetAmount = pot.target.toLocaleString('en-US', {
@@ -93,6 +94,7 @@ export class SinglePotComponent implements OnInit, OnDestroy {
       (Math.trunc((pot.total / pot.target) * 1000) / 10).toFixed(1) +
       '%';
   }
+  // #endregion
 
   // #region Pop-Up & SubModal
   public isPopUpOpen: boolean = false;
@@ -100,7 +102,7 @@ export class SinglePotComponent implements OnInit, OnDestroy {
   /**
    * @description - This function is responsible for opening the pop-up when the user clicks on the three dots.
    */
-  public openPopUp() {
+  public openPopUp(): void {
     if (this.isPopUpOpen) return;
     setTimeout(() => {
       this.isPopUpOpen = true;
@@ -116,7 +118,7 @@ export class SinglePotComponent implements OnInit, OnDestroy {
    * @description - This function is responsible for closing the pop-up when the user clicks outside of it.
    * @param event - The mouse event that is triggered when the user clicks outside of the pop-up. 
    */
-  public closePopUp(event: MouseEvent) {
+  public closePopUp(event: MouseEvent): void {
     if (!this.isPopUpOpen) return;
     let target = event.target as HTMLElement;
     if (!target) return;
@@ -134,7 +136,7 @@ export class SinglePotComponent implements OnInit, OnDestroy {
    * @param subModal - The name of the sub modal to be opened. 
    * @param subModalObject - The object that contains the data for the sub modal.  
    */
-  public openSubModal(subModal: string, subModalObject: PotsObject) {
+  public openSubModal(subModal: string, subModalObject: PotsObject): void {
     this.mainModalService.chooseSubModal(
       subModal,
       subModalObject,
