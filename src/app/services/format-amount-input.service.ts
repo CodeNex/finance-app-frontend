@@ -10,6 +10,10 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class FormatAmountInputService {
+
+  public formatAmountInput() {
+    
+  }
   public maxBudgetInputValue: string = '0.00';
   public maxBudgetString: string = '0.00';
 

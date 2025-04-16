@@ -6,7 +6,7 @@ import { IconsComponent } from '@components/icons/icons.component';
 import { MainModalService } from '@services/main-modal.service';
 import { BasedataService } from '@services/basedata.service';
 import { DataStoreServiceService } from '@services/data-store-service.service';
-import { ApiPotsService } from '../../api-pots.service';
+import { ApiPotsService } from '@content/pots/api-pots.service';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -16,10 +16,12 @@ import { CommonModule } from '@angular/common';
   styleUrl: './add-pot-modal.component.scss',
 })
 export class AddPotModalComponent {
-  public mainModalService: MainModalService = inject(MainModalService);
-  public baseData: BasedataService = inject(BasedataService);
-  public dataStore: DataStoreServiceService = inject(DataStoreServiceService);
-  public apiPotsService: ApiPotsService = inject(ApiPotsService);
+  // #region Component Setup (DI, Outputs, Template Refs, Subscription)
+  public mainModalService = inject(MainModalService);
+  public baseData = inject(BasedataService);
+  public dataStore = inject(DataStoreServiceService);
+  public apiPotsService = inject(ApiPotsService);
+  // #endregion
 
   // closes main modal and its children
   public closeMainModal() {
