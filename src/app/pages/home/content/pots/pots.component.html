@@ -10,7 +10,7 @@
   </div>
 
   <div class="potsContent flex flex-wrap gap-6">
-    @for (item of this.potsArray(); let index = $index; track item) { @if
+    @for (item of this.potsArray; let index = $index; track item) { @if
     (!item.deleted_at) {
     <app-single-pot
       [pot]="item"
