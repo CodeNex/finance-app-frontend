@@ -24,7 +24,7 @@ export class PotsComponent {
 
   public potsSignal: Signal<PotsObject[]> = this.dataStore.pots;
 
-  public readonly potsArray = computed(() => this.potsSignal())();
+  // public readonly potsArray = computed(() => this.potsSignal())();
   // #endregion
 
   /**

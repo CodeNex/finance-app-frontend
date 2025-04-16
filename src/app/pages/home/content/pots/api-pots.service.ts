@@ -81,7 +81,7 @@ export class ApiPotsService {
       error: (error) => {
         this.dataStore.editStoredData(endpoint, index, potObject);
         this.mainModalService.hideMainModal();
-        console.error(error);
+        // console.error(error);
         return;
       },
     });

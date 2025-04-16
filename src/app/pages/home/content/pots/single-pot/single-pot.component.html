@@ -5,9 +5,9 @@
     <div class="flex items-center gap-4">
       <div
         class="themeDot w-4 h-4 rounded-full"
-        [ngStyle]="{ 'background-color': pot.theme }"
+        [ngStyle]="{ 'background-color': pot().theme }"
       ></div>
-      <p class="text2b">{{ pot.name }}</p>
+      <p class="text2b">{{ pot().name }}</p>
     </div>
     <button (click)="openPopUp()">
       <app-icons [iconName]="'dotsThree'"></app-icons>
@@ -38,7 +38,7 @@
       <div
         class="potContentProgressBar absolute top-0 left-0 z-10 h-full rounded-[4px]"
         [ngStyle]="{
-          'background-color': pot.theme,
+          'background-color': pot().theme,
           width: percentageNumber >= 100 ? '100%' : progressBarPercentage
         }"
       ></div>
