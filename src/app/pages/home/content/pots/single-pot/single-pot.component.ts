@@ -16,7 +16,6 @@ import {
 import { IconsComponent } from '@components/icons/icons.component';
 
 import { DataStoreServiceService } from '@services/data-store-service.service';
-import { AuthenticationService } from '@services/authentication.service';
 import { APIService } from '@services/api.service';
 import { MainModalService } from '@services/main-modal.service';
 import '@shared/interfaces.ts';
@@ -37,7 +36,6 @@ export class SinglePotComponent implements OnInit, OnDestroy {
   // #region Component Setup (DI, Outputs, Template Refs, Subscription)
   public mainModalService = inject(MainModalService);
   public dataStore = inject(DataStoreServiceService);
-  public authService = inject(AuthenticationService);
   public apiService = inject(APIService);
   public injector = inject(Injector);
 
