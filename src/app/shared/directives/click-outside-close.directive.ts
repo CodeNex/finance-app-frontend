@@ -18,7 +18,6 @@ import {
   selector: '[appClickOutsideClose]',
 })
 export class ClickOutsideCloseDirective implements AfterViewInit, OnDestroy {
-
   // #region Component Setup (DI, Outputs, Template Refs, Subscription)
   @Output() clickOutside = new EventEmitter<boolean>();
 

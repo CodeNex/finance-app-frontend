@@ -22,7 +22,7 @@ export class DeleteBudgetModalComponent {
   public mainModalService = inject(MainModalService);
   public apiBudgetsService = inject(ApiBudgetsService);
 
-  @Input() public modalObject: BudgetsObjectLike = {};
+  @Input() public modalObject!: BudgetsObject;
   @Input() public budgetIndex: number = 1;
   // #endregion
 
