@@ -6,6 +6,8 @@ import {
   EffectRef,
   OnInit,
   OnDestroy,
+  runInInjectionContext,
+  Injector,
 } from '@angular/core';
 import { BaseChartDirective } from 'ng2-charts';
 import { ChartEvent, ChartOptions, ChartType } from 'chart.js';
@@ -31,6 +33,7 @@ import { CommonModule } from '@angular/common';
 export class BudgetChartComponent implements OnInit, OnDestroy {
   private dataStoreService = inject(DataStoreServiceService);
   private budgetCalculationsService = inject(BudgetCalculationsService);
+  private injector = inject(Injector);
 
   private budgetsSignal: Signal<BudgetsObject[]> =
     this.dataStoreService.budgets;
@@ -41,14 +44,16 @@ export class BudgetChartComponent implements OnInit, OnDestroy {
   private chartEffectRef: EffectRef | null = null;
 
   ngOnInit(): void {
-    if (this.chartEffectRef) return;
-    this.chartEffectRef = effect(() => {
-      this.budgetsArray = this.getBudgetsArray();
-      this.budgetsLimit = this.getBudgetsLimit();
-      this.updateBudgetsSpendAmount();
-      this.budgetPercentages = this.getBudgetsPercentages();
-      this.budgetsColors = this.getBudgetsColors();
-      this.doughnutChartData = this.getDoughnutChartData();
+    runInInjectionContext(this.injector, () => {
+      if (this.chartEffectRef) return;
+      this.chartEffectRef = effect(() => {
+        this.budgetsArray = this.getBudgetsArray();
+        this.budgetsLimit = this.getBudgetsLimit();
+        this.updateBudgetsSpendAmount();
+        this.budgetPercentages = this.getBudgetsPercentages();
+        this.budgetsColors = this.getBudgetsColors();
+        this.doughnutChartData = this.getDoughnutChartData();
+      });
     });
   }
 

@@ -41,8 +41,12 @@ export class AddBudgetModalComponent implements OnInit {
   };
   // #endregion
 
-  // #region Lifecycle
+  // #region Lifecycle Hooks
   ngOnInit(): void {
+    this.initialzeAddBudgetModal();
+  }
+
+  private initialzeAddBudgetModal(): void {
     this.getThemeArrays();
     this.getCategoryArrays();
     this.chosenTheme = this.getInitialTheme();
