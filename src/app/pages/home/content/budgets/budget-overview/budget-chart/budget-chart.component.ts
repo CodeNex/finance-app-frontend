@@ -1,4 +1,12 @@
-import { Component, effect, inject, Signal } from '@angular/core';
+import {
+  Component,
+  effect,
+  inject,
+  Signal,
+  EffectRef,
+  OnInit,
+  OnDestroy,
+} from '@angular/core';
 import { BaseChartDirective } from 'ng2-charts';
 import { ChartEvent, ChartOptions, ChartType } from 'chart.js';
 
@@ -20,7 +28,7 @@ import { CommonModule } from '@angular/common';
   templateUrl: './budget-chart.component.html',
   styleUrl: './budget-chart.component.scss',
 })
-export class BudgetChartComponent {
+export class BudgetChartComponent implements OnInit, OnDestroy {
   private dataStoreService = inject(DataStoreServiceService);
   private budgetCalculationsService = inject(BudgetCalculationsService);
 
@@ -30,14 +38,24 @@ export class BudgetChartComponent {
     this.dataStoreService.transactions;
 
   // #region Lifecycle Hooks
-  private chartEffect = effect(() => {
-    this.budgetsArray = this.getBudgetsArray();
-    this.budgetsLimit = this.getBudgetsLimit();
-    this.updateBudgetsSpendAmount();
-    this.budgetPercentages = this.getBudgetsPercentages();
-    this.budgetsColors = this.getBudgetsColors();
-    this.doughnutChartData = this.getDoughnutChartData();
-  });
+  private chartEffectRef: EffectRef | null = null;
+
+  ngOnInit(): void {
+    if (this.chartEffectRef) return;
+    this.chartEffectRef = effect(() => {
+      this.budgetsArray = this.getBudgetsArray();
+      this.budgetsLimit = this.getBudgetsLimit();
+      this.updateBudgetsSpendAmount();
+      this.budgetPercentages = this.getBudgetsPercentages();
+      this.budgetsColors = this.getBudgetsColors();
+      this.doughnutChartData = this.getDoughnutChartData();
+    });
+  }
+
+  ngOnDestroy(): void {
+    if (!this.chartEffectRef) return;
+    this.chartEffectRef.destroy();
+  }
   // #endregion
 
   // #region Budgets Array
@@ -163,16 +181,8 @@ export class BudgetChartComponent {
 
   public doughnutChartType: ChartType = 'doughnut';
 
-  public chartClicked({
-  }: {
-    event: ChartEvent;
-    active: object[];
-  }): void {}
+  public chartClicked({}: { event: ChartEvent; active: object[] }): void {}
 
-  public chartHovered({
-  }: {
-    event: ChartEvent;
-    active: object[];
-  }): void {}
+  public chartHovered({}: { event: ChartEvent; active: object[] }): void {}
   // #endregion
 }
