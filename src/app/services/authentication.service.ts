@@ -15,7 +15,7 @@ export class AuthenticationService {
   private baseData = inject(BasedataService);
   private router = inject(Router);
 
-  private baseUrl: string = this.baseData.financeApp.basics.apiData.baseUrl;
+  private baseUrl: string = this.baseData.baseUrl;
 
   private loginPath: string = '/login';
   private registerPath: string = '/register';
@@ -23,13 +23,15 @@ export class AuthenticationService {
 
   public isWarningScreenVisible = new BehaviorSubject<boolean>(false);
   isWarningScreenVisible$ = this.isWarningScreenVisible.asObservable();
-  setWarningScreen(value: boolean) {
+
+  public setWarningScreen(value: boolean): void {
     this.isWarningScreenVisible.next(value);
   }
 
   public isLoadingScreenVisible = new BehaviorSubject<boolean>(false);
   isloadingScreenVisible$ = this.isLoadingScreenVisible.asObservable();
-  setLoadingScreen(value: boolean) {
+
+  public setLoadingScreen(value: boolean): void {
     this.isLoadingScreenVisible.next(value);
   }
 
