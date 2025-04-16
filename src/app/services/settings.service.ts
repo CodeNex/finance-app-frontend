@@ -5,7 +5,7 @@ import { DataStoreServiceService } from './data-store-service.service';
   providedIn: 'root',
 })
 export class SettingsService {
-  public dataStore: DataStoreServiceService = inject(DataStoreServiceService);
+  public dataStore = inject(DataStoreServiceService);
 
   constructor() {}
 
