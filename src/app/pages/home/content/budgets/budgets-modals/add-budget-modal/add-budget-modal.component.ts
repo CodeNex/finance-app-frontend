@@ -1,5 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 import { IconsComponent } from '@components/icons/icons.component';
 
@@ -7,7 +8,8 @@ import { MainModalService } from '@services/main-modal.service';
 import { BasedataService } from '@services/basedata.service';
 import { DataStoreServiceService } from '@services/data-store-service.service';
 import { ApiBudgetsService } from '@content/budgets/api-budgets.service';
-import { CommonModule } from '@angular/common';
+import { FormatAmountInputService } from '@src/services/format-amount-input.service';
+
 
 /**
  * * * AddBudgetModalComponent
@@ -27,6 +29,7 @@ export class AddBudgetModalComponent implements OnInit {
   public baseData = inject(BasedataService);
   public dataStore = inject(DataStoreServiceService);
   public apiBudgetsService = inject(ApiBudgetsService);
+  public formatAmountInputService = inject(FormatAmountInputService);
 
   public currentBudget: BudgetsObject = {
     id: -1,
@@ -129,70 +132,11 @@ export class AddBudgetModalComponent implements OnInit {
   // #endregion
 
   // #region Target Input
-  public maxBudgetInputValue: string = '0.00';
-  public maxBudgetString: string = '0.00';
+  public amountInputValue: string = '0.00';
 
-  public controlMaxTarget(event: KeyboardEvent): void {
-    const deleteKeys = ['Backspace', 'Delete'];
-    const otherKeys = ['ArrowLeft', 'ArrowRight', 'Tab'];
-    const isNumberKey = /^[0-9]$/.test(event.key);
-
-    if (isNumberKey) {
-      event.preventDefault();
-      this.addNumberToTargetInput(event);
-    } else if (deleteKeys.includes(event.key)) {
-      event.preventDefault();
-      this.deleteNumberFromTargetInput();
-    } else if (otherKeys.includes(event.key)) {
-      return;
-    } else {
-      event.preventDefault();
-      return;
-    }
-  }
-
-  addNumberToTargetInput(event: KeyboardEvent) {
-    let currentTarget = this.maxBudgetString;
-    let numbersArray = currentTarget.replace(/[.,]/g, '').split('');
-    if (numbersArray.length === 3 && numbersArray[0] === '0') {
-      numbersArray.shift();
-      numbersArray.push(event.key);
-      numbersArray.splice(numbersArray.length - 2, 0, '.');
-      this.maxBudgetString = this.formatToEnUS(
-        parseFloat(numbersArray.join('')) || 0
-      );
-      this.maxBudgetInputValue = this.maxBudgetString;
-    } else if (
-      numbersArray.length >= 3 &&
-      numbersArray.length < 11 &&
-      numbersArray[0] !== '0'
-    ) {
-      numbersArray.push(event.key);
-      numbersArray.splice(numbersArray.length - 2, 0, '.');
-      this.maxBudgetString = this.formatToEnUS(
-        parseFloat(numbersArray.join('')) || 0
-      );
-      this.maxBudgetInputValue = this.maxBudgetString;
-    }
-  }
-
-  deleteNumberFromTargetInput() {
-    let currentTarget = this.maxBudgetString;
-    let numbersArray = currentTarget.replace(/[.,]/g, '').split('');
-    numbersArray.pop();
-    numbersArray.splice(numbersArray.length - 2, 0, '.');
-    this.maxBudgetString = this.formatToEnUS(
-      parseFloat(numbersArray.join('')) || 0
-    );
-    this.maxBudgetInputValue = this.maxBudgetString;
-  }
-
-  private formatToEnUS(value: number): string {
-    if (value == null) return '';
-    return `${value.toLocaleString('en-US', {
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2,
-    })}`;
+  public controlMaxTarget(event: KeyboardEvent) {
+    const inputValue = this.amountInputValue;
+    this.amountInputValue = this.formatAmountInputService.formatAmountInput(event, inputValue);
   }
   // #endregion
 
@@ -247,7 +191,7 @@ export class AddBudgetModalComponent implements OnInit {
    */
   submitAddBudget() {
     this.currentBudget.maximum = parseFloat(
-      this.maxBudgetInputValue.replace(/,/g, '')
+      this.amountInputValue.replace(/,/g, '')
     );
     this.currentBudget.theme = this.chosenTheme.hex;
     this.currentBudget.time_frame = 'year';
