@@ -7,35 +7,28 @@ import { AuthenticationService } from '@services/authentication.service';
 import { BasedataService } from '@services/basedata.service';
 import { DataStoreServiceService } from '@services/data-store-service.service';
 
+/**
+ * * APIService
+ * This service is responsible for handling API requests and data loading in the application.
+ * It uses the HttpClient to make requests to the server and manages the data using the DataStoreService.
+ * It provides methods to load data from the server and store it in the DataStoreService.
+ */
 @Injectable({
   providedIn: 'root',
 })
 export class APIService {
+  // #region Service Setup
   private http = inject(HttpClient);
-  private AuthenticationService = inject(AuthenticationService);
+  private authService = inject(AuthenticationService);
   private dataStore = inject(DataStoreServiceService);
   private baseData = inject(BasedataService);
   private router = inject(Router);
 
-  // private baseUrl: string = this.baseData.financeApp.basics.apiData.baseUrl;
-  // private baseUrl = '/dummyData';
-
-  private baseUrl: string = this.baseData.financeApp.basics.apiData.baseUrl;
+  private baseUrl: string = this.baseData.baseUrl;
 
   private dummyEndpoint = this.baseUrl === '/dummyData' ? '.json' : '';
 
   public warningMessage = signal<string>('');
-
-  constructor() {}
-
-  // Load Data First Time after login
-  initialDataLoading() {
-    this.loadData('balance');
-    this.loadData('transactions');
-    this.loadData('budgets');
-    this.loadData('pots');
-    this.loadData('recurrings');
-  }
 
   balanceDataLoaded: boolean = false;
   budgetsDataLoaded: boolean = false;
@@ -43,8 +36,24 @@ export class APIService {
   transactionsDataLoaded: boolean = false;
   transactionsRecurringDataLoaded: boolean = false;
   isDataLoaded: boolean = false;
+  // #endregion
 
-  loadData(endpoint: string) {
+  /**
+   * @description - This function is responsible for initial loading the data from the server.
+   */
+  public initialDataLoading(): void {
+    this.loadData('balance');
+    this.loadData('transactions');
+    this.loadData('budgets');
+    this.loadData('pots');
+    this.loadData('recurrings');
+  }
+
+  /**
+   * @description - This function is responsible for loading the data from the server.
+   * @param endpoint - The endpoint to load data from the server.
+   */
+  private loadData(endpoint: string) {
     this.loadingScreenTimer();
     this.getData(endpoint).subscribe({
       next: (response) => {
@@ -55,27 +64,31 @@ export class APIService {
         if (endpoint === 'recurrings')
           this.transactionsRecurringDataLoaded = true;
         this.checkDataLoaded(endpoint);
-        this.AuthenticationService.setWarningScreen(false);
+        this.authService.setWarningScreen(false);
         this.warningMessage.set('');
         console.log(this.dataStore.getStoredData(endpoint));
       },
       error: (error) => {
         console.error(`Fail to fetch ${endpoint} data`, error);
-        this.AuthenticationService.setLoadingScreen(false);
+        this.authService.setLoadingScreen(false);
         this.warningMessage.set(`Fail to fetch ${endpoint} data`);
-        this.AuthenticationService.setWarningScreen(true);
+        this.authService.setWarningScreen(true);
       },
     });
   }
 
-  // GET data from the server
+  /**
+   * @description - This function is responsible for loading the data from the server.
+   * It uses the HttpClient to make a GET request to the server and returns an observable.
+   * @param endpoint - The endpoint to load data from the server.
+   * @returns - An observable that emits the response from the server.
+   */
   // endpoints: balance, budgets, pots, transactions, recurrings
-  getData(endpoint: string): Observable<any> {
+  private getData(endpoint: string): Observable<any> {
     const headers = new HttpHeaders({
-      Authorization: `Bearer ${this.AuthenticationService.authToken}`,
+      Authorization: `Bearer ${this.authService.authToken}`,
       Accept: 'application/json',
     });
-
     return this.http
       .get(`${this.baseUrl}/${endpoint}${this.dummyEndpoint}`, { headers })
       .pipe(
@@ -89,7 +102,11 @@ export class APIService {
       );
   }
 
-  checkDataLoaded(endpoint: string) {
+  /**
+   * @description - This function is responsible for checking if all the data is loaded.
+   * @param endpoint - The endpoint to check if the data is loaded.
+   */
+  private checkDataLoaded(endpoint: string): void {
     if (
       this.balanceDataLoaded &&
       this.budgetsDataLoaded &&
@@ -97,44 +114,20 @@ export class APIService {
       this.transactionsDataLoaded &&
       this.transactionsRecurringDataLoaded
     ) {
-      this.AuthenticationService.setLoadingScreen(false);
+      this.authService.setLoadingScreen(false);
       if (endpoint === 'login' || 'guest') this.router.navigate(['/home']);
     }
   }
 
-  loadingScreenTimer() {
+  /**
+   * @description - This function is responsible for setting the loading screen timer.
+   * It checks if the data is loaded and sets the loading screen within the AuthenticationService.
+   */
+  private loadingScreenTimer(): void {
     if (!this.isDataLoaded) {
-      this.AuthenticationService.setLoadingScreen(true);
+      this.authService.setLoadingScreen(true);
     } else {
-      this.AuthenticationService.setLoadingScreen(false);
+      this.authService.setLoadingScreen(false);
     }
   }
-
-  // PUT data to server
-  // endpoints: balance, budgets, pots, transactions
-  // updateData(endpoint: string, id: number, body: any): Observable<any> {
-  //   let path = '';
-  //   id >= 0 ? (path = `/{${id}}`) : (path = '');
-
-  //   const headers = new HttpHeaders({
-  //     Authorization: `Bearer ${this.AuthenticationService.authToken}`,
-  //     'Content-Type': 'application/json',
-  //     Accept: 'application/json',
-  //   });
-  //   return this.http
-  //     .put(`${this.baseUrl}/${endpoint}${path}`, body, {
-  //       headers,
-  //     })
-  //     .pipe(
-  //       tap((response) => {
-  //         console.log('Data updated', response);
-  //         this.warningMessage = '';
-  //         return response;
-  //       }),
-  //       catchError((error) => {
-  //         console.error('Fail to update data', error);
-  //         return throwError(() => new Error('Fail to update data'));
-  //       })
-  //     );
-  // }
 }
