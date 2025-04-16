@@ -39,6 +39,10 @@ export class BasedataService {
     return this.financeApp.basics.apiData.baseUrl;
   }
 
+  public get tokenKey(): string {
+    return this.financeApp.basics.apiData.localStorage.tokenKey;
+  }
+
   public financeApp: any = {
     basics: {
       apiData: {

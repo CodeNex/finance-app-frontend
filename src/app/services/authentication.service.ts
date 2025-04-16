@@ -14,6 +14,7 @@ export class AuthenticationService {
   private injector = inject(Injector);
   private baseData = inject(BasedataService);
   private router = inject(Router);
+  private apiService = inject(APIService);
 
   private baseUrl: string = this.baseData.baseUrl;
 
@@ -88,13 +89,16 @@ export class AuthenticationService {
       });
   }
 
-  doLogOut() {
+  /**
+   * * @description - This function is responsible for logging out the user.
+   * It uses the HttpClient to make a POST request to the server and removes the token from local storage.
+   */
+  public doLogOut() {
     const headers = new HttpHeaders({
       Authorization: `Bearer ${this.authToken}`,
       'Content-Type': 'application/json',
       Accept: 'application/json',
     });
-
     this.http
       .post<{ token: string }>(this.baseUrl + this.logoutPath, {}, { headers })
       .subscribe({
@@ -102,7 +106,7 @@ export class AuthenticationService {
           console.log('Logout successful', response);
           this.authToken = '';
           localStorage.removeItem(
-            `${this.baseData.financeApp.basics.apiData.localStorage.tokenKey}`
+            `${this.baseData.tokenKey}`
           );
           this.router.navigate(['']);
         },
@@ -112,7 +116,7 @@ export class AuthenticationService {
       });
   }
 
-  startApiFirstDataLoading() {
+  private startApiFirstDataLoading() {
     const apiService = this.injector.get(APIService);
     return apiService.initialDataLoading();
   }
