@@ -35,14 +35,26 @@ export class BasedataService {
     return this.financeApp.budgets.categories[category].iconName;
   }
 
+  /**
+   * Returns the name of the category based on the category name.
+   * Used in the budget component to display the name for each category.
+   */
   public get baseUrl(): string {
     return this.financeApp.basics.apiData.baseUrl;
   }
 
+  /**
+   * Returns the token key used for local storage.
+   * Used for storing the token in local storage for authentication.
+   */
   public get tokenKey(): string {
     return this.financeApp.basics.apiData.localStorage.tokenKey;
   }
 
+  /**
+   * Saves the base data for the application.
+   * This includes the API data, colors, login data, navbar links, and budget categories etc.
+   */
   public financeApp: any = {
     basics: {
       apiData: {
