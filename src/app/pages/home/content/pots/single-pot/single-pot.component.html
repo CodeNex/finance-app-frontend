@@ -5,9 +5,9 @@
     <div class="flex items-center gap-4">
       <div
         class="themeDot w-4 h-4 rounded-full"
-        [ngStyle]="{ 'background-color': pot.theme }"
+        [ngStyle]="{ 'background-color': pot().theme }"
       ></div>
-      <p class="text2b">{{ pot.name }}</p>
+      <p class="text2b">{{ pot().name }}</p>
     </div>
     <button (click)="openPopUp()">
       <app-icons [iconName]="'dotsThree'"></app-icons>
@@ -15,9 +15,9 @@
 
     @if (isPopUpOpen) {
       <div id="potPopUp" class="absolute right-0 top-6 z-10 flex flex-col gap-2 bg-white shadow-[0px_4px_24px_0px_rgba(0,0,0,0.25)] rounded-lg pr-5 pl-5 pb-3 pt-3">
-        <button (click)="openSubModal('editPot', pot)" id="editPotButton" class="text4r text-grey-900 text-left">Edit Pot</button>
+        <button (click)="openSubModal('editPot', pot())" id="editPotButton" class="text4r text-grey-900 text-left">Edit Pot</button>
         <hr class="bg-grey-100 h-[1px] w-full">
-        <button (click)="openSubModal('deletePot', pot)" id="deletePotButton" class="text4r text-secondary-red text-left">Delete Pot</button>
+        <button (click)="openSubModal('deletePot', pot())" id="deletePotButton" class="text4r text-secondary-red text-left">Delete Pot</button>
       </div>
     }
 
@@ -38,7 +38,7 @@
       <div
         class="potContentProgressBar absolute top-0 left-0 z-10 h-full rounded-[4px]"
         [ngStyle]="{
-          'background-color': pot.theme,
+          'background-color': pot().theme,
           width: percentageNumber >= 100 ? '100%' : progressBarPercentage
         }"
       ></div>
@@ -57,13 +57,13 @@
 
   <div class="potButtons flex items-center gap-4">
     <button
-      (click)="openSubModal('addMoneyPot', pot)"
+      (click)="openSubModal('addMoneyPot', pot())"
       class="bg-beige-100 flex-1 rounded-lg pt-4 pb-4 text4b transition-all duration-300 ease-in-out hover:bg-white border-solid border-[1px] border-beige-100 hover:border-beige-500"
     >
       + Add Money
     </button>
     <button
-      (click)="openSubModal('withdrawMoneyPot', pot)"
+      (click)="openSubModal('withdrawMoneyPot', pot())"
       class="bg-beige-100 flex-1 rounded-lg pt-4 pb-4 text4b transition-all duration-300 ease-in-out hover:bg-white border-solid border-[1px] border-beige-100 hover:border-beige-500"
     >
       Withdraw

@@ -1,18 +1,31 @@
 import { Injectable, signal } from '@angular/core';
 import '@shared/interfaces.ts';
 
+/**
+ * * * DataStoreServiceService
+ * * This service is responsible for managing the data in the application while running client side.
+ * * * It uses the signal library to manage the data in a reactive way.
+ */
 @Injectable({
   providedIn: 'root',
 })
 export class DataStoreServiceService {
 
+  /**
+   * @description - This Signal is used to store the settings data in the application.
+   */
   public settings = signal<any>({});
 
+  /**
+   * @description - This Signal is used to store the balance data in the application.
+   */
   public balance = signal<BalanceObject>({
     balance: 10060.98,
   });
 
-  // public budgets = signal<BudgetsObject[]>([]);
+  /**
+   * * @description - This Signal is used to store the budgets data in the application.
+   */
   public budgets = signal<BudgetsObject[]>([
     {
       id: 1,
@@ -257,7 +270,9 @@ export class DataStoreServiceService {
     },
   ]);
 
-  // public pots = signal<PotsObject[]>([]);
+  /**
+   * @description - This Signal is used to store the pots data in the application.
+   */
   public pots = signal<PotsObject[]>([
     {
       id: 0,
@@ -306,7 +321,10 @@ export class DataStoreServiceService {
     },
   ]);
 
-  // public transactions = signal<TransactionsObject[]>([]);
+
+  /**
+   * * @description - This Signal is used to store the transactions data in the application.
+   */
   public transactions = signal<TransactionsObject[]>([
     {
       transaction_id: 0,
@@ -1245,7 +1263,9 @@ export class DataStoreServiceService {
     },
   ]);
 
-  // public transactionsRecurring = signal<TransactionsObject[]>([]);
+  /**
+   * @description - This Signal is used to store the transactions that are recurring.
+   */
   public transactionsRecurring = signal<TransactionsObject[]>([
     {
       transaction_id: 0,
@@ -1402,10 +1422,13 @@ export class DataStoreServiceService {
     },
   ]);
 
-  constructor() {}
-
+  /**
+   * @description - Set the hole data package within signal and UI update
+   * @param endpoint - endpoint name to set the data 
+   * @param data - data to set 
+   */
   // set the hole data package within signal and UI update
-  setStoredData(endpoint: string, data: any) {
+  public setStoredData(endpoint: string, data: any): void {
     if (endpoint === 'settings') this.settings.set(data);
     if (endpoint === 'balance') this.balance.set(data);
     if (endpoint === 'budgets') this.budgets.set(data);
@@ -1414,17 +1437,25 @@ export class DataStoreServiceService {
     if (endpoint === 'recurrings') this.transactionsRecurring.set(data);
   }
 
-  // get the hole data package without signal and UI update
+  /**
+   * @description - Get the hole data package within signal and UI update
+   * @param endpoint - endpoint name to get the data
+   * @returns - a Signal of the data
+   */
   public getStoredData(endpoint: string) {
     if (endpoint === 'balance') return this.balance;
     if (endpoint === 'budgets') return this.budgets;
     if (endpoint === 'pots') return this.pots;
     if (endpoint === 'transactions') return this.transactions;
     if (endpoint === 'recurrings') return this.transactionsRecurring;
-    return null;
+    return undefined;
   }
 
-  // add new data to the existing dataArray and update the signal and UI
+  /**
+   * @description - Add new data to the existing dataArrays and update the signal and UI
+   * @param endpoint - endpoint name to add the data
+   * @param data - data to add 
+   */
   public addToStoredData(endpoint: string, data: any) {
     if (endpoint === 'budgets') this.budgets.update((prev) => [data, ...prev]);
     if (endpoint === 'pots') this.pots.update((prev) => [data, ...prev]);
@@ -1434,7 +1465,10 @@ export class DataStoreServiceService {
       this.transactionsRecurring.update((prev) => [...prev, data]);
   }
 
-  // chose what kind of data to soft delete and update the signal and UI
+  /**
+   * @description - Soft delete data by setting the deleted_at property to the current date and time
+   * @param endpoint - endpoint name to soft delete the data
+   */
   public choseDataAndSoftDelete(endpoint: string, index: number) {
     if (endpoint === 'budgets' && index >= 0)
       this.budgets.update((prev) => {
@@ -1450,14 +1484,23 @@ export class DataStoreServiceService {
       });
   }
 
-  // soft delete data
+  /**
+   * @description - Soft delete data by setting the deleted_at property to the current date and time
+   * @param prev - previous data array  
+   * @param index - index of the data to soft delete 
+   * @returns - updated data array with soft deleted data 
+   */
   public softDeleteData(prev: any, index: number) {
     let array = [...prev];
     array[index].deleted_at = new Date().toISOString();
     return array;
   }
 
-  // update the balance and update the signal and UI
+  /**
+   * @description - Update the balance of a specific key and update the signal and UI
+   * @param key - key to update the balance
+   * @param amount - amount to update the balance 
+   */
   public updateStoredBalance(key: string, amount: number) {
     this.balance.update((prev) => {
       let prevBalance = { ...prev };
@@ -1468,6 +1511,13 @@ export class DataStoreServiceService {
     });
   }
 
+  /**
+   * @description - Update the existing data and update the signal and UI
+   * @param endpoint - endpoint name to update the data 
+   * @param index - index of the data to update 
+   * @param data - data to update
+   * @returns - updated data array with updated data 
+   */
   // update the existing data and update the signal and UI
   public editStoredData(endpoint: string, index: number, data: any) {
     if (endpoint === 'budgets' && data && index >= 0) {
@@ -1475,7 +1525,6 @@ export class DataStoreServiceService {
         return prev.map((item, i) => (i === index ? { ...data } : item));
       });
     }
-
     if (endpoint === 'pots' && data && index >= 0) {
       this.pots.update((prev) => {
         return prev.map((item, i) => (i === index ? { ...data } : item));

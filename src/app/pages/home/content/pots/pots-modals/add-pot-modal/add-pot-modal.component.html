@@ -30,7 +30,6 @@
 
   <!-- Modal Form -->
   <form action="">
-
     <!-- Name Input -->
     <div class="pb-4">
       <p class="text5b text-grey-500">Pot Name</p>
@@ -70,7 +69,7 @@
     <div class="relative">
       <p class="text5b text-grey-500">Theme</p>
       <div
-        (click)="closeHideThemeDropdown()"
+        (click)="toggleThemeDropdown()"
         class="w-full flex justify-between border-[1px] border-beige-500 hover:border-grey-900 focus:border-grey-900 transition-all duration-300 ease-in-out rounded-lg pl-5 pr-5 pt-3 pb-3 mb-5 mt-1 cursor-pointer"
       >
         <div class="leftBox flex items-center gap-3">
@@ -137,7 +136,8 @@
     </div>
 
     <!-- Add Pot Button -->
-    <button (click)="submitAddPot()"
+    <button
+      (click)="submitAddPot()"
       class="bg-grey-900 w-full pt-4 pb-4 rounded-lg text4b transition-all duration-300 ease-in-out hover:bg-grey-500 text-white text-center"
     >
       Add Pot

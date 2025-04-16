@@ -1,17 +1,26 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input, inject } from '@angular/core';
 import { IconsComponent } from '@components/icons/icons.component';
-
+import { FormatAmountPipe } from '@shared/pipes/format-amount.pipe';
+import { FormatDatePipe } from '@shared/pipes/format-date.pipe';
 import { BasedataService } from '@services/basedata.service';
 
+/**
+ * * LastSpendingComponent
+ * * This component is responsible for displaying the last spending of a budget.
+ * * It shows the name, amount, date, and icon of the last spending.	
+ */
 @Component({
   selector: 'app-last-spending',
-  imports: [CommonModule, IconsComponent],
+  imports: [CommonModule, IconsComponent, FormatAmountPipe, FormatDatePipe],
   templateUrl: './last-spending.component.html',
   styleUrl: './last-spending.component.scss',
 })
 export class LastSpendingComponent {
-  @Input() public spending: any = {
+  // #region Component Setup (DI, Outputs, Template Refs, Subscription)
+  public baseData = inject(BasedataService);
+
+  @Input() public spending: TransactionsObject = {
     transaction_id: -1,
     user_id: -1,
     name: '',
@@ -24,44 +33,9 @@ export class LastSpendingComponent {
     execute_on: null,
     type: '',
     category: '',
+    recurring_id: null,
+    sender: null,
+    receiver: null,
   };
-
-  public baseData: BasedataService = inject(BasedataService);
-
-  public amount: string = '';
-  public date: string = '';
-  public iconBackground: string = '';
-  public iconName: string = '';
-
-  ngOnInit() {
-    if (this.spending.transaction_id > -1) {
-      this.amount = this.formatAmount(this.spending.amount);
-      this.date = this.formatDate(this.spending.execute_on);
-      // this.iconName = this.getCategoryIcon(this.spending.budget.category);
-      this.iconName = this.getCategoryIcon(this.spending.category);
-      this.iconBackground = this.spending.theme;
-    }
-  }
-
-  // private function to format amount
-  private formatAmount(amount: number): string {
-    return `-$${amount.toLocaleString('en-US', {
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2,
-    })}`;
-  }
-
-  // private function to format date
-  private formatDate(date: string): string {
-    return new Date(date).toLocaleDateString('en-US', {
-      month: 'short',
-      day: 'numeric',
-      year: 'numeric',
-    });
-  }
-
-  // public function to get category icon
-  private getCategoryIcon(category: string): string {
-    return this.baseData.financeApp.budgets.categories[category].iconName;
-  }
+  // #endregion
 }
