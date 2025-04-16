@@ -67,8 +67,7 @@ export class EditBudgetModalComponent {
     this.currentBudgetIndex = this.budgetIndex;
     this.getCategoryArrays();
     this.getThemeArrays();
-    this.maxBudgetInputValue = this.formatToEnUS(this.modalObject.maximum);
-    this.maxBudgetString = this.maxBudgetInputValue;
+    this.amountInputValue = this.formatToEnUS(this.modalObject.maximum);
     this.chosenCategory = this.modalObject.name;
   }
   // #endregion
@@ -128,8 +127,7 @@ export class EditBudgetModalComponent {
   // #endregion
 
   // #region Target Input
-  public maxBudgetInputValue: string = '0.00';
-  public maxBudgetString: string = '0.00';
+  public amountInputValue: string = '0.00';
 
   public controlMaxTarget(event: KeyboardEvent): void {
     const deleteKeys = ['Backspace', 'Delete'];
@@ -159,16 +157,15 @@ export class EditBudgetModalComponent {
   }
 
   private addNumberToTargetInput(event: KeyboardEvent): void {
-    let currentTarget = this.maxBudgetString;
+    let currentTarget = this.amountInputValue;
     let numbersArray = currentTarget.replace(/[.,]/g, '').split('');
     if (numbersArray.length === 3 && numbersArray[0] === '0') {
       numbersArray.shift();
       numbersArray.push(event.key);
       numbersArray.splice(numbersArray.length - 2, 0, '.');
-      this.maxBudgetString = this.formatToEnUS(
+      this.amountInputValue = this.formatToEnUS(
         parseFloat(numbersArray.join('')) || 0
       );
-      this.maxBudgetInputValue = this.maxBudgetString;
     } else if (
       numbersArray.length >= 3 &&
       numbersArray.length < 11 &&
@@ -176,22 +173,20 @@ export class EditBudgetModalComponent {
     ) {
       numbersArray.push(event.key);
       numbersArray.splice(numbersArray.length - 2, 0, '.');
-      this.maxBudgetString = this.formatToEnUS(
+      this.amountInputValue = this.formatToEnUS(
         parseFloat(numbersArray.join('')) || 0
       );
-      this.maxBudgetInputValue = this.maxBudgetString;
     }
   }
 
   private deleteNumberFromTargetInput(): void {
-    let currentTarget = this.maxBudgetString;
+    let currentTarget = this.amountInputValue;
     let numbersArray = currentTarget.replace(/[.,]/g, '').split('');
     numbersArray.pop();
     numbersArray.splice(numbersArray.length - 2, 0, '.');
-    this.maxBudgetString = this.formatToEnUS(
+    this.amountInputValue = this.formatToEnUS(
       parseFloat(numbersArray.join('')) || 0
     );
-    this.maxBudgetInputValue = this.maxBudgetString;
   }
   // #endregion
 
@@ -233,7 +228,7 @@ export class EditBudgetModalComponent {
    */
   submitEditedBudget() {
     this.modalObject.maximum = parseFloat(
-      this.maxBudgetInputValue.replace(/,/g, '')
+      this.amountInputValue.replace(/,/g, '')
     );
     this.modalObject.theme = this.chosenTheme.hex;
     this.modalObject.time_frame = 'year';
