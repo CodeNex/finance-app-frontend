@@ -68,7 +68,7 @@ export class SinglePotComponent implements OnInit, OnDestroy {
   // #region Lifecycle Hooks
   public potEffectRef: EffectRef | null = null;
 
-  ngOnInit() {
+  ngOnInit(): void {
     runInInjectionContext(this.injector, () => {
       this.potEffectRef = effect(() => {
         const pot: PotsObject = this.pot();
@@ -134,7 +134,7 @@ export class SinglePotComponent implements OnInit, OnDestroy {
    * @param subModal - The name of the sub modal to be opened. 
    * @param subModalObject - The object that contains the data for the sub modal.  
    */
-  public openSubModal(subModal: string, subModalObject: Object) {
+  public openSubModal(subModal: string, subModalObject: PotsObject) {
     this.mainModalService.chooseSubModal(
       subModal,
       subModalObject,
