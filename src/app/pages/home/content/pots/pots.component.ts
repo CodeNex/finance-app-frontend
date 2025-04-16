@@ -1,8 +1,7 @@
-import { Component, inject, Signal, computed } from '@angular/core';
+import { Component, inject, Signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { DataStoreServiceService } from '@services/data-store-service.service';
-import { AuthenticationService } from '@services/authentication.service';
 import { MainModalService } from '@services/main-modal.service';
 import { SinglePotComponent } from '@content/pots/single-pot/single-pot.component';
 
@@ -19,12 +18,9 @@ import { SinglePotComponent } from '@content/pots/single-pot/single-pot.componen
 export class PotsComponent {
   // #region Component Setup (DI, Outputs, Template Refs, Subscription)
   private dataStore = inject(DataStoreServiceService);
-  public authService = inject(AuthenticationService);
   public mainModalService = inject(MainModalService);
 
   public potsSignal: Signal<PotsObject[]> = this.dataStore.pots;
-
-  // public readonly potsArray = computed(() => this.potsSignal())();
   // #endregion
 
   /**
