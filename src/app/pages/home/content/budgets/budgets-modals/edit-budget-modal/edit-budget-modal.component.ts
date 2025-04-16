@@ -6,6 +6,7 @@ import { MainModalService } from '@services/main-modal.service';
 import { BasedataService } from '@services/basedata.service';
 import { DataStoreServiceService } from '@services/data-store-service.service';
 import { ApiBudgetsService } from '@content/budgets/api-budgets.service';
+import { FormatAmountInputService } from '@src/services/format-amount-input.service';
 
 import { IconsComponent } from '@components/icons/icons.component';
 
@@ -27,6 +28,7 @@ export class EditBudgetModalComponent {
   public apiBudgetsService = inject(ApiBudgetsService);
   public baseData = inject(BasedataService);
   public dataStore = inject(DataStoreServiceService);
+  public formatAmountInputService = inject(FormatAmountInputService);
 
   @Input() public budgetIndex: number = 1;
   @Input() public modalObject: BudgetsObject = {
@@ -129,24 +131,30 @@ export class EditBudgetModalComponent {
   // #region Target Input
   public amountInputValue: string = '0.00';
 
-  public controlMaxTarget(event: KeyboardEvent): void {
-    const deleteKeys = ['Backspace', 'Delete'];
-    const otherKeys = ['ArrowLeft', 'ArrowRight', 'Tab'];
-    const isNumberKey = /^[0-9]$/.test(event.key);
-
-    if (isNumberKey) {
-      event.preventDefault();
-      this.addNumberToTargetInput(event);
-    } else if (deleteKeys.includes(event.key)) {
-      event.preventDefault();
-      this.deleteNumberFromTargetInput();
-    } else if (otherKeys.includes(event.key)) {
-      return;
-    } else {
-      event.preventDefault();
-      return;
-    }
+  public controlMaxTarget(event: KeyboardEvent) {
+    const inputValue = this.amountInputValue;
+    this.amountInputValue = this.formatAmountInputService.formatAmountInput(event, inputValue);
   }
+
+
+  // public controlMaxTarget(event: KeyboardEvent): void {
+  //   const deleteKeys = ['Backspace', 'Delete'];
+  //   const otherKeys = ['ArrowLeft', 'ArrowRight', 'Tab'];
+  //   const isNumberKey = /^[0-9]$/.test(event.key);
+
+  //   if (isNumberKey) {
+  //     event.preventDefault();
+  //     this.addNumberToTargetInput(event);
+  //   } else if (deleteKeys.includes(event.key)) {
+  //     event.preventDefault();
+  //     this.deleteNumberFromTargetInput();
+  //   } else if (otherKeys.includes(event.key)) {
+  //     return;
+  //   } else {
+  //     event.preventDefault();
+  //     return;
+  //   }
+  // }
 
   private formatToEnUS(value: number): string {
     if (value == null) return '';
@@ -156,38 +164,38 @@ export class EditBudgetModalComponent {
     })}`;
   }
 
-  private addNumberToTargetInput(event: KeyboardEvent): void {
-    let currentTarget = this.amountInputValue;
-    let numbersArray = currentTarget.replace(/[.,]/g, '').split('');
-    if (numbersArray.length === 3 && numbersArray[0] === '0') {
-      numbersArray.shift();
-      numbersArray.push(event.key);
-      numbersArray.splice(numbersArray.length - 2, 0, '.');
-      this.amountInputValue = this.formatToEnUS(
-        parseFloat(numbersArray.join('')) || 0
-      );
-    } else if (
-      numbersArray.length >= 3 &&
-      numbersArray.length < 11 &&
-      numbersArray[0] !== '0'
-    ) {
-      numbersArray.push(event.key);
-      numbersArray.splice(numbersArray.length - 2, 0, '.');
-      this.amountInputValue = this.formatToEnUS(
-        parseFloat(numbersArray.join('')) || 0
-      );
-    }
-  }
+  // private addNumberToTargetInput(event: KeyboardEvent): void {
+  //   let currentTarget = this.amountInputValue;
+  //   let numbersArray = currentTarget.replace(/[.,]/g, '').split('');
+  //   if (numbersArray.length === 3 && numbersArray[0] === '0') {
+  //     numbersArray.shift();
+  //     numbersArray.push(event.key);
+  //     numbersArray.splice(numbersArray.length - 2, 0, '.');
+  //     this.amountInputValue = this.formatToEnUS(
+  //       parseFloat(numbersArray.join('')) || 0
+  //     );
+  //   } else if (
+  //     numbersArray.length >= 3 &&
+  //     numbersArray.length < 11 &&
+  //     numbersArray[0] !== '0'
+  //   ) {
+  //     numbersArray.push(event.key);
+  //     numbersArray.splice(numbersArray.length - 2, 0, '.');
+  //     this.amountInputValue = this.formatToEnUS(
+  //       parseFloat(numbersArray.join('')) || 0
+  //     );
+  //   }
+  // }
 
-  private deleteNumberFromTargetInput(): void {
-    let currentTarget = this.amountInputValue;
-    let numbersArray = currentTarget.replace(/[.,]/g, '').split('');
-    numbersArray.pop();
-    numbersArray.splice(numbersArray.length - 2, 0, '.');
-    this.amountInputValue = this.formatToEnUS(
-      parseFloat(numbersArray.join('')) || 0
-    );
-  }
+  // private deleteNumberFromTargetInput(): void {
+  //   let currentTarget = this.amountInputValue;
+  //   let numbersArray = currentTarget.replace(/[.,]/g, '').split('');
+  //   numbersArray.pop();
+  //   numbersArray.splice(numbersArray.length - 2, 0, '.');
+  //   this.amountInputValue = this.formatToEnUS(
+  //     parseFloat(numbersArray.join('')) || 0
+  //   );
+  // }
   // #endregion
 
   // #region Themes

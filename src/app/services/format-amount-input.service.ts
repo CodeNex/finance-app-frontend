@@ -11,30 +11,31 @@ import { Injectable } from '@angular/core';
 })
 export class FormatAmountInputService {
 
-  public formatAmountInput() {
-
+  public formatAmountInput(event: KeyboardEvent, inputValue: string): string {
+    const amountInputValue: string = inputValue;
+    return this.controlMaxTarget(event, amountInputValue);
   }
-  public amountInputValue: string = '0.00';
+  
 
   /**
    * @description - This function is responsible for controlling the input value and starts either adding or deleting numbers from the input.
    * @param event - The keyboard event that is triggered when the user presses a key.
    */
-  public controlMaxTarget(event: KeyboardEvent) {
+  public controlMaxTarget(event: KeyboardEvent, amountInputValue: string): string {
     const deleteKeys = ['Backspace', 'Delete'];
     const otherKeys = ['ArrowLeft', 'ArrowRight', 'Tab'];
     const isNumberKey = /^[0-9]$/.test(event.key);
     if (isNumberKey) {
       event.preventDefault();
-      this.addNumberToTargetInput(event);
+      return this.addNumberToTargetInput(event, amountInputValue);
     } else if (deleteKeys.includes(event.key)) {
       event.preventDefault();
-      this.deleteNumberFromTargetInput();
+      return this.deleteNumberFromTargetInput(amountInputValue);
     } else if (otherKeys.includes(event.key)) {
-      return;
+      return 'Invalid Amount';
     } else {
       event.preventDefault();
-      return;
+      return 'Invalid Amount';
     }
   }
 
@@ -43,14 +44,14 @@ export class FormatAmountInputService {
    * @param event - The keyboard event that is triggered when the user presses a key.
    * @returns - The formatted input value in the en-US format.
    */
-  private addNumberToTargetInput(event: KeyboardEvent): void {
-    let currentTarget = this.amountInputValue;
+  private addNumberToTargetInput(event: KeyboardEvent, amountInputValue: string): string {
+    let currentTarget = amountInputValue;
     let numbersArray = currentTarget.replace(/[.,]/g, '').split('');
     if (numbersArray.length === 3 && numbersArray[0] === '0') {
       numbersArray.shift();
       numbersArray.push(event.key);
       numbersArray.splice(numbersArray.length - 2, 0, '.');
-      this.amountInputValue = this.formatToEnUS(
+      return this.formatToEnUS(
         parseFloat(numbersArray.join(''))
       );
     } else if (
@@ -60,21 +61,22 @@ export class FormatAmountInputService {
     ) {
       numbersArray.push(event.key);
       numbersArray.splice(numbersArray.length - 2, 0, '.');
-      this.amountInputValue = this.formatToEnUS(
+      return this.formatToEnUS(
         parseFloat(numbersArray.join(''))
       );
     }
+    return 'Invalid Amount';
   }
 
   /**
    * @description - This function is responsible for deleting numbers from the input value.
    */
-  private deleteNumberFromTargetInput(): void {
-    let currentTarget = this.amountInputValue;
+  private deleteNumberFromTargetInput(amountInputValue: string): string {
+    let currentTarget = amountInputValue;
     let numbersArray = currentTarget.replace(/[.,]/g, '').split('');
     numbersArray.pop();
     numbersArray.splice(numbersArray.length - 2, 0, '.');
-    this.amountInputValue = this.formatToEnUS(parseFloat(numbersArray.join('')));
+    return this.formatToEnUS(parseFloat(numbersArray.join('')));
   }
 
   /**
