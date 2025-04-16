@@ -12,47 +12,42 @@ import { Injectable } from '@angular/core';
 export class BasedataService {
 
   /**
-   * Returns guest login credentials from the current app config.
-   * Used for quick guest access without a user account.
+   * @description - This function returns the guest Login Data.
    */
   public get guestLoginData() {
     return this.financeApp.basics.apiData.guestLogin;
   }
 
   /**
-   * Returns the data used to render the navbar
-   * Used in the navbar component to display the links and icons.
+   * @description - This function returns the data für the navbar.
    */
   public get navdata() {
     return this.financeApp.navbar.links;
   }
 
   /**
-   * Returns the name of the category icon based on the category name.
-   * Used in the budget component to display the icon for each category.
+   * @description - This function returns the icon names for the categories. 
    */
   public getCategoryIcon(category: string): string {
     return this.financeApp.budgets.categories[category].iconName;
   }
 
   /**
-   * Returns the name of the category based on the category name.
-   * Used in the budget component to display the name for each category.
+   * @description - This function returns the base URL for the API.
    */
   public get baseUrl(): string {
     return this.financeApp.basics.apiData.baseUrl;
   }
 
   /**
-   * Returns the token key used for local storage.
-   * Used for storing the token in local storage for authentication.
+   * @description - This function returns the local storage key for the API.
    */
   public get tokenKey(): string {
     return this.financeApp.basics.apiData.localStorage.tokenKey;
   }
 
   /**
-   * Saves the base data for the application.
+   * @description - Saves the base data for the application.
    * This includes the API data, colors, login data, navbar links, and budget categories etc.
    */
   public financeApp: any = {
