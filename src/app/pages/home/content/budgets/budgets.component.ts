@@ -1,4 +1,4 @@
-import { Component, inject, computed } from '@angular/core';
+import { Component, inject, computed, Signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { DataStoreServiceService } from '@services/data-store-service.service';
@@ -24,9 +24,9 @@ export class BudgetsComponent {
   private dataStore = inject(DataStoreServiceService);
   public mainModalService = inject(MainModalService);
 
-  readonly filteredBudgets: BudgetsObject[] = computed(() =>
+  readonly filteredBudgets: Signal<BudgetsObject[]> = computed(() =>
     this.dataStore.budgets().filter((budget: BudgetsObject) => !budget.deleted_at)
-  )();
+  );
   // #endregion
 
   /**
