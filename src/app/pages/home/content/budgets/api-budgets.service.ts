@@ -6,10 +6,17 @@ import { BasedataService } from '@services/basedata.service';
 import { DataStoreServiceService } from '@services/data-store-service.service';
 import { MainModalService } from '@services/main-modal.service';
 
+/**
+ * * * ApiBudgetsService
+ * * This service is responsible for managing the budgets in the application.
+ * * It uses the HttpClient to make API calls to the server.
+ * * It uses the BasedataService to get the base URL for the API calls.
+ */
 @Injectable({
   providedIn: 'root',
 })
 export class ApiBudgetsService {
+  // #region Service Setup
   private baseData = inject(BasedataService);
   private http = inject(HttpClient);
   private authService = inject(AuthenticationService);
@@ -17,6 +24,7 @@ export class ApiBudgetsService {
   private mainModalService = inject(MainModalService);
 
   private baseUrl: string = this.baseData.baseUrl;
+  // #endregion
 
   /**
    * @description - This function creates a new budget in the database

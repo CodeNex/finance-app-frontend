@@ -10,25 +10,27 @@ import { MainModalService } from '@services/main-modal.service';
   providedIn: 'root',
 })
 export class ApiPotsService {
-  private baseData: BasedataService = inject(BasedataService);
-  private http: HttpClient = inject(HttpClient);
-  private AuthenticationService: AuthenticationService = inject(
-    AuthenticationService
-  );
-  private dataStore: DataStoreServiceService = inject(DataStoreServiceService);
-  private mainModalService: MainModalService = inject(MainModalService);
+  // #region Service Setup
+  private baseData = inject(BasedataService);
+  private http = inject(HttpClient);
+  private authService = inject(AuthenticationService);
+  private dataStore = inject(DataStoreServiceService);
+  private mainModalService = inject(MainModalService);
 
-  private baseUrl: string = this.baseData.financeApp.basics.apiData.baseUrl;
+  private baseUrl: string = this.baseData.baseUrl;
+  // #endregion
 
-  constructor() {}
-
-  // function to add new pots
+  /**
+   * @description - This function creates a new pot in the database
+   * @returns - The response from the server
+   * @param potObject - The pot object to be created 
+   */
   // response: {message: "Pot created"}
-  addNewPot(potObject: any) {
+  addNewPot(potObject: PotsObject) {
     const path = 'pots';
     const body = potObject;
     const headers = new HttpHeaders({
-      Authorization: `Bearer ${this.AuthenticationService.authToken}`,
+      Authorization: `Bearer ${this.authService.authToken}`,
       Accept: 'application/json',
     });
 
@@ -46,13 +48,20 @@ export class ApiPotsService {
     });
   }
 
-  // function to update existing specific pot
+  /**
+   * @description - This function updates a pot in the database
+   * @returns - The response from the server
+   * @param endpoint - The endpoint to be updated     
+   * @param type - The type of update (editPot, addMoneyPot, withdrawMoneyPot)  
+   * @param index - The index of the pot to be updated 
+   * @param potObject - The pot object to be updated 
+   */
   // response: {message: "Pot updated"}
-  updatePot(endpoint: string, type: string, index: number, potObject: any) {
+  updatePot(endpoint: string, type: string, index: number, potObject: PotsObject) {
     const path = `pots/${potObject.id}`;
     const body = potObject;
     const headers = new HttpHeaders({
-      Authorization: `Bearer ${this.AuthenticationService.authToken}`,
+      Authorization: `Bearer ${this.authService.authToken}`,
       Accept: 'application/json',
       typeOfUpdate: `${type}`, // typeOfUpdate: 'editPot' or 'addMoneyPot' or 'withdrawMoneyPot'
     });
@@ -72,12 +81,17 @@ export class ApiPotsService {
     });
   }
 
-  // function to delete specific pot
+  /**
+   * @description - This function deletes a pot in the database
+   * @returns - The response from the server
+   * @param potObject - The pot object to be deleted
+   * @param index - The index of the pot to be deleted 
+   */
   // response: {message: "Pot deleted"}
   deletePot(potObject: any, index: number) {
     const path = `pots/${potObject.id}`;
     const headers = new HttpHeaders({
-      Authorization: `Bearer ${this.AuthenticationService.authToken}`,
+      Authorization: `Bearer ${this.authService.authToken}`,
       Accept: 'application/json',
     });
 
