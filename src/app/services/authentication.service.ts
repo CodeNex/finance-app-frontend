@@ -6,6 +6,13 @@ import { Router } from '@angular/router';
 import { APIService } from '@services/api.service';
 import { BasedataService } from '@services/basedata.service';
 
+/**
+ * * * AuthenticationService
+ * This service is responsible for handling authentication in the application.
+ * It uses the HttpClient to make requests to the server and manages the authentication state.
+ * It provides methods to log in, register, and log out the user.
+ * It also provides methods to show and hide the loading and warning screens.
+ */
 @Injectable({
   providedIn: 'root',
 })
@@ -14,7 +21,6 @@ export class AuthenticationService {
   private injector = inject(Injector);
   private baseData = inject(BasedataService);
   private router = inject(Router);
-  private apiService = inject(APIService);
 
   private baseUrl: string = this.baseData.baseUrl;
 
@@ -50,17 +56,17 @@ export class AuthenticationService {
   }
 
   /**
-   * HTTP API Requests
-   * 
-   * authOptions: 'login' | 'register' | 'guest'
+   * @description - This function is responsible for loading the data from the server.
+   * @param authOption - The authentication option to be used (login, register, guest)
+   * @param body - The body of the request to be sent to the server 
    */
+  // authOptions: 'login' | 'register' | 'guest'
   doAuthenticationRequest(authOption: string, body: any) {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       Accept: 'application/json',
       withCredentials: 'true',
     });
-
     setTimeout(() => {
       if (this.authToken === '') this.setLoadingScreen(true);
     }, 250);
@@ -116,15 +122,22 @@ export class AuthenticationService {
       });
   }
 
+  /**
+   * @description - This function is responsible for loading the initial data from the server.
+   */
   private startApiFirstDataLoading() {
     const apiService = this.injector.get(APIService);
     return apiService.initialDataLoading();
   }
 
-  setTokenToLocalStorage(token: string) {
+  /**
+   * @description - This function is responsible for setting the warning message.
+   * @param token - The token to be set in local storage
+   */
+  private setTokenToLocalStorage(token: string): void {
     let jsonToken = JSON.stringify(token);
     localStorage.setItem(
-      this.baseData.financeApp.basics.apiData.localStorage.tokenKey,
+      this.baseData.tokenKey,
       jsonToken
     );
   }
