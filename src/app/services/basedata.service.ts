@@ -3,12 +3,13 @@ import { Injectable } from '@angular/core';
 /**
  * * BasedataService
  * This service is responsible for providing the base data for the application.
+ * It contains the base URL, local storage key, guest login data, and the navbar data.
+ * It is used in the application to get the base data for the application.
  */
 @Injectable({
   providedIn: 'root',
 })
 export class BasedataService {
-  constructor() {}
 
   /**
    * Returns guest login credentials from the current app config.
@@ -32,6 +33,10 @@ export class BasedataService {
    */
   public getCategoryIcon(category: string): string {
     return this.financeApp.budgets.categories[category].iconName;
+  }
+
+  public get baseUrl(): string {
+    return this.financeApp.basics.apiData.baseUrl;
   }
 
   public financeApp: any = {

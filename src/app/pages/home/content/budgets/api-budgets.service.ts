@@ -7,28 +7,28 @@ import { DataStoreServiceService } from '@services/data-store-service.service';
 import { MainModalService } from '@services/main-modal.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ApiBudgetsService {
-  private baseData: BasedataService = inject(BasedataService);
-  private http: HttpClient = inject(HttpClient);
-  private AuthenticationService: AuthenticationService = inject(
-    AuthenticationService
-  );
-  private dataStore: DataStoreServiceService = inject(DataStoreServiceService);
-  private mainModalService: MainModalService = inject(MainModalService);
+  private baseData = inject(BasedataService);
+  private http = inject(HttpClient);
+  private authService = inject(AuthenticationService);
+  private dataStore = inject(DataStoreServiceService);
+  private mainModalService = inject(MainModalService);
 
-  private baseUrl: string = this.baseData.financeApp.basics.apiData.baseUrl;
+  private baseUrl: string = this.baseData.baseUrl;
 
-  constructor() { }
-
-  // function to add new budgets
+  /**
+   * @description - This function creates a new budget in the database
+   * @returns - The response from the server
+   * @param budgetObject - The budget object to be created
+   */
   // response: {message: "Budget created"}
-  addNewBudget(budgetObject: any) {
+  addNewBudget(budgetObject: BudgetsObject) {
     const path = 'budgets';
     const body = budgetObject;
     const headers = new HttpHeaders({
-      Authorization: `Bearer ${this.AuthenticationService.authToken}`,
+      Authorization: `Bearer ${this.authService.authToken}`,
       Accept: 'application/json',
     });
 
@@ -46,13 +46,25 @@ export class ApiBudgetsService {
     });
   }
 
-  // function to update existing specific budget
+  /**
+   * * @description - This function updates a budget in the database
+   * * @param endpoint - The endpoint to be updated
+   * * @param type - The type of update (editBudget, deleteBudget)
+   * * @param index - The index of the budget to be updated
+   * * @param budgetObject - The budget object to be updated
+   * * @returns - The response from the server
+   */
   // response: {message: "Budget updated"}
-  updateBudget(endpoint: string, type: string, index: number, budgetObject: any) {
+  updateBudget(
+    endpoint: string,
+    type: string,
+    index: number,
+    budgetObject: BudgetsObject
+  ) {
     const path = `budgets/${budgetObject.id}`;
     const body = budgetObject;
     const headers = new HttpHeaders({
-      Authorization: `Bearer ${this.AuthenticationService.authToken}`,
+      Authorization: `Bearer ${this.authService.authToken}`,
       Accept: 'application/json',
       typeOfUpdate: `${type}`, // typeOfUpdate: 'editBudget'
     });
@@ -72,12 +84,17 @@ export class ApiBudgetsService {
     });
   }
 
-  // function to delete specific budget
+  /**
+   * @description - This function deletes a budget in the database
+   * @returns - The response from the server
+   * @param budgetObject - The budget object to be deleted
+   * @param index - The index of the budget to be deleted 
+   */
   // response: {message: "Budget deleted"}
-  deleteBudget(budgetObject: any, index: number) {
+  deleteBudget(budgetObject: BudgetsObject, index: number) {
     const path = `budgets/${budgetObject.id}`;
     const headers = new HttpHeaders({
-      Authorization: `Bearer ${this.AuthenticationService.authToken}`,
+      Authorization: `Bearer ${this.authService.authToken}`,
       Accept: 'application/json',
     });
 
@@ -89,13 +106,11 @@ export class ApiBudgetsService {
       },
       error: (error) => {
         console.error(error);
-        console.log("BUDGET INDEX: ", index);
-        
+        console.log('BUDGET INDEX: ', index);
         this.dataStore.choseDataAndSoftDelete('budgets', index);
         this.mainModalService.hideMainModal();
         return;
       },
     });
   }
-
 }
