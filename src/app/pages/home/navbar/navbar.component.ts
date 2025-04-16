@@ -1,10 +1,24 @@
-import { Component, ElementRef, inject, ViewChild, ViewChildren, QueryList } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  inject,
+  ViewChild,
+  ViewChildren,
+  QueryList,
+  Renderer2,
+} from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { IconsComponent } from '@components/icons/icons.component';
 
 import { AuthenticationService } from '@services/authentication.service';
 import { BasedataService } from '@services/basedata.service';
 
+/**
+ * * * NavbarComponent
+ * This component is responsible for rendering the navigation bar of the application.
+ * It contains the links and icons for navigating to different sections of the app.
+ * It also handles the logic for collapsing and expanding the navbar, as well as animating the logo.
+ */
 @Component({
   selector: 'app-navbar',
   imports: [RouterModule, IconsComponent],
@@ -15,20 +29,23 @@ export class NavbarComponent {
   // #region Component Setup (DI, Outputs, Template Refs, Subscription)
   public authService = inject(AuthenticationService);
   public baseData = inject(BasedataService);
+  private renderer = inject(Renderer2);
 
   @ViewChild('navBar', { static: false }) navBarRef!: ElementRef<HTMLElement>;
   @ViewChild('slideButton', { static: false })
   slideButtonRef!: ElementRef<HTMLElement>;
-  @ViewChildren('navLinkName') navLinkNames!: QueryList<ElementRef<HTMLElement>>;
+  @ViewChildren('navLinkName') navLinkNames!: QueryList<
+    ElementRef<HTMLElement>
+  >;
   // #endregion
 
   // This data is used to render the navbar links and icons.
   public navData = this.baseData.navdata;
 
-  // #region Navbar View
+  // #region Navbar View and Animation
   isNavbarThin: boolean = false;
 
-  toggleMovingNavbar() {
+  public toggleMovingNavbar(): void {
     const navLinkNames = this.navLinkNames.toArray();
     const navBarRef = this.navBarRef.nativeElement;
     const slideButtonRef = this.slideButtonRef.nativeElement;
@@ -41,38 +58,48 @@ export class NavbarComponent {
     this.isNavbarThin = !this.isNavbarThin;
   }
 
-  makeNavbarThin(
-    navLinkNames: Array<any>,
-    navBarRef: HTMLElement | null,
-    slideButtonRef: HTMLElement | null
-  ) {
+  private makeNavbarThin(
+    navLinkNames: Array<ElementRef<HTMLElement>>,
+    navBarRef: HTMLElement,
+    slideButtonRef: HTMLElement
+  ): void {
     this.makeLogoThin();
-    if (slideButtonRef) slideButtonRef.classList.add('slideButtonReturn');
+    if (slideButtonRef) {
+      this.renderer.addClass(slideButtonRef, 'slideButtonReturn'); 
+    }
     navLinkNames.forEach((link) =>
-      link.nativeElement.classList.add('opacity_zero')
+      this.renderer.addClass(link.nativeElement, 'opacity_zero')
     );
     if (navBarRef) {
-      navBarRef.classList.add('navbar-thin');
-      navBarRef.style.paddingRight = '8px';
+      this.renderer.addClass(navBarRef, 'navbar-thin');
+      this.renderer.setStyle(navBarRef, 'paddingRight', '8px');
     }
     setTimeout(() => {
-      navLinkNames.forEach((link) => link.nativeElement.classList.add('d_none'));
+      navLinkNames.forEach((link) =>
+        this.renderer.addClass(link.nativeElement, 'd_none')
+      );
     }, 300);
   }
 
-  makeNavbarWide(
+  private makeNavbarWide(
     navLinkNames: Array<any>,
-    navBarRef: HTMLElement | null,
-    slideButtonRef: HTMLElement | null
-  ) {
-    navLinkNames.forEach((link) => link.nativeElement.classList.remove('d_none'));
+    navBarRef: HTMLElement,
+    slideButtonRef: HTMLElement
+  ): void {
+    navLinkNames.forEach((link) =>
+      this.renderer.removeClass(link.nativeElement, 'd_none')
+    );
     setTimeout(() => {
       this.makeLogoWide();
-      if (slideButtonRef) slideButtonRef.classList.remove('slideButtonReturn');
-      navLinkNames.forEach((link) => link.nativeElement.classList.remove('opacity_zero'));
+      if (slideButtonRef)
+        this.renderer.removeClass(slideButtonRef, 'slideButtonReturn');
+      navLinkNames.forEach((link) =>
+        this.renderer.removeClass(link.nativeElement, 'opacity_zero')
+      );
+
       if (navBarRef) {
-        navBarRef?.classList.remove('navbar-thin');
-        navBarRef.style.paddingRight = '24px';
+        this.renderer.removeClass(navBarRef, 'navbar-thin');
+        this.renderer.setStyle(navBarRef, 'paddingRight', '24px');
       }
     }, 10);
   }
@@ -89,16 +116,9 @@ export class NavbarComponent {
   ];
   public isLogoWide: boolean = true;
 
-  makeLogoThin() {
+  private makeLogoThin(): void {
     this.isLogoWide = false;
-    const paths = [
-      'logoPath2',
-      'logoPath3',
-      'logoPath4',
-      'logoPath5',
-      'logoPath6',
-      'logoPath7',
-    ];
+    const paths = this.visibleLogoPaths;
     this.visibleLogoPaths = [...paths];
     paths.reverse().forEach((path, index) => {
       setTimeout(() => {
@@ -107,7 +127,7 @@ export class NavbarComponent {
     });
   }
 
-  makeLogoWide() {
+  private makeLogoWide(): void {
     const paths = [
       'logoPath2',
       'logoPath3',

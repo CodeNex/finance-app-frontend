@@ -1,60 +1,72 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, Input, effect, Signal } from '@angular/core';
-import { __classPrivateFieldGet } from 'tslib';
+import {
+  Component,
+  inject,
+  Input,
+  Signal,
+  signal,
+  effect,
+  OnDestroy
+} from '@angular/core';
+import { FormatAmountPipe } from '@shared/pipes/format-amount.pipe';
 
 import { DataStoreServiceService } from '@services/data-store-service.service';
+import { BudgetCalculationsService } from '@services/budget-calculations.service';
 
+/**
+ * * SpendingSummaryItemComponent
+ * This component is responsible for displaying a single budget in the spending summary.
+ * It uses the DataStoreService to manage the budget data.
+ * It uses the BudgetCalculationsService to calculate the budget data.
+ * It uses the FormatAmountPipe to format the budget amount.
+ */
 @Component({
   selector: 'app-spending-summary-item',
-  imports: [CommonModule],
+  imports: [CommonModule, FormatAmountPipe],
   templateUrl: './spending-summary-item.component.html',
   styleUrl: './spending-summary-item.component.scss',
 })
-export class SpendingSummaryItemComponent {
+export class SpendingSummaryItemComponent implements OnDestroy {
+  // #region Component Setup (DI, Outputs, Template Refs, Subscription)
+  private dataStore = inject(DataStoreServiceService);
+  private budgetCalculationsService = inject(BudgetCalculationsService);
 
-  private dataStore: DataStoreServiceService = inject(DataStoreServiceService);
-
-  public budgetsArraySignal$: Signal<any> = this.dataStore.budgets;
-
-  @Input() public summaryItem: any = {
-    amount: 0,
-    created_at: null,
-    deleted_at: null,
-    id: -1,
-    last_spendings: [],
-    maximum: -1,
-    name: 'Example',
-    theme: '#93674F',
-  };
+  public budgetsArraySignal: Signal<BudgetsObject[]> = this.dataStore.budgets;
+  public transactionsSignal: Signal<TransactionsObject[]> =
+    this.dataStore.transactions;
 
   @Input() public inWhichSection: string = '';
 
-  public spendedAmount: string = '';
-  public maximumAmount: string = '';
-
-  constructor() {
-      effect(() => {
-        let signal = this.budgetsArraySignal$();
-        this.ngOnInit();
-      })
-    }
-
-  ngOnInit() {
-    this.spendedAmount = this.getSpendedAmount();
-    this.maximumAmount = this.getMaximumAmount();
+  @Input() set summaryItem(value: BudgetsObject) {
+    this._summaryItem.set(value);
   }
+  public readonly _summaryItem = signal<BudgetsObject | null>(null);
 
-  private getSpendedAmount() {
-    return this.summaryItem.amount.toLocaleString('en-US', {
-      minimumFractionDigits: 2,
-      macimumFractionDigits: 2,
-    });
-  }
+  public budgetCalculations: BudgetCalculations = {
+    budgetName: '',
+    maximum: 0,
+    calculatedSpent: 0,
+    remaining: 0,
+    isTooMuchSpent: false,
+  };
+   // #endregion
 
-  private getMaximumAmount() {
-    return this.summaryItem.maximum.toLocaleString('en-US', {
-      minimumFractionDigits: 2,
-      macimumFractionDigits: 2,
-    });
+  // #region Lifecycle Hooks
+  private budgetEffect = effect(() => {
+    const budget = this._summaryItem();
+    if (!budget) return;
+    this.budgetsArraySignal();
+    this.budgetCalculations = this.budgetCalculationsService.calculateBudget(
+      budget,
+      'year',
+      this.transactionsSignal()
+    );
+  });
+
+  ngOnDestroy(): void {
+    if (!this.budgetEffect) return;
+    this.budgetEffect.destroy();
   }
+  // #endregion
+ 
 }

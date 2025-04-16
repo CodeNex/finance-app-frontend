@@ -1,36 +1,51 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, Input, effect } from '@angular/core';
+import {
+  Component,
+  computed,
+  inject,
+  Input,
+  effect,
+  signal,
+  runInInjectionContext,
+  Injector,
+  EffectRef,
+  OnInit,
+  OnDestroy,
+} from '@angular/core';
 
 import { IconsComponent } from '@components/icons/icons.component';
 
 import { DataStoreServiceService } from '@services/data-store-service.service';
-import { AuthenticationService } from '@services/authentication.service';
 import { APIService } from '@services/api.service';
 import { MainModalService } from '@services/main-modal.service';
 import '@shared/interfaces.ts';
 
+/**
+ * * * SinglePotComponent
+ * * This component is responsible for displaying a single pot in the application.
+ * * It shows the pot name, amount, and progress.
+ * * It also handles the logic for opening and closing the pop-up menu for editing or deleting the pot.
+ */
 @Component({
   selector: 'app-single-pot',
   imports: [CommonModule, IconsComponent],
   templateUrl: './single-pot.component.html',
   styleUrl: './single-pot.component.scss',
 })
-export class SinglePotComponent {
-  public mainModalService: MainModalService = inject(MainModalService);
-  public dataStore: DataStoreServiceService = inject(DataStoreServiceService);
-  public authService: AuthenticationService = inject(AuthenticationService);
-  public apiService: APIService = inject(APIService);
+export class SinglePotComponent implements OnInit, OnDestroy {
+  // #region Component Setup (DI, Outputs, Template Refs, Subscription)
+  public mainModalService = inject(MainModalService);
+  public dataStore = inject(DataStoreServiceService);
+  public apiService = inject(APIService);
+  public injector = inject(Injector);
 
-  public potSignal = this.dataStore.pots;
+  @Input() public potIndex: number = -1;
 
-  constructor() {
-    effect(() => {
-      let signal = this.potSignal();
-      this.ngOnInit();
-    });
+  @Input() set potInput(value: PotsObject) {
+    this.potSignal.set(value);
   }
 
-  @Input() public pot: PotsObject = {
+  private potSignal = signal<PotsObject>({
     id: -1,
     name: '',
     target: -1,
@@ -38,41 +53,54 @@ export class SinglePotComponent {
     theme: '',
     created_at: null,
     deleted_at: null,
-  };
+  });
 
-  @Input() public potIndex: number = -1;
+  public pot = computed(() => this.potSignal());
+  // #endregion
 
-  public isPopUpOpen: boolean = false;
+  // #region Lifecycle Hooks
+  public potEffectRef: EffectRef | null = null;
 
+  ngOnInit(): void {
+    runInInjectionContext(this.injector, () => {
+      this.potEffectRef = effect(() => {
+        const pot: PotsObject = this.pot();
+        this.initializePot(pot);
+      });
+    });
+  }
+
+  ngOnDestroy(): void {
+    if (this.potEffectRef) this.potEffectRef.destroy();
+  }
+  // #endregion
+
+  // #region Initialize Pot
   public totalAmount: string = '';
   public targetAmount: string = '';
   public percentageNumber: number = 0;
   public progressBarPercentage: string = '';
 
-  ngOnInit() {
-    this.totalAmount = this.pot.total.toFixed(2);
-    this.targetAmount = this.pot.target.toLocaleString('en-US', {
+  private initializePot(pot: PotsObject) {
+    this.totalAmount = pot.total.toFixed(2);
+    this.targetAmount = pot.target.toLocaleString('en-US', {
       maximumFractionDigits: 0,
     });
     this.percentageNumber =
-      Math.trunc((this.pot.total / this.pot.target) * 1000) / 10;
+      Math.trunc((pot.total / pot.target) * 1000) / 10;
     this.progressBarPercentage =
-      (Math.trunc((this.pot.total / this.pot.target) * 1000) / 10).toFixed(1) +
+      (Math.trunc((pot.total / pot.target) * 1000) / 10).toFixed(1) +
       '%';
   }
+  // #endregion
 
-  // Open the modal when the user clicks on any button which opens a modal, givs the modal name as a string and the current pot object as "subModalObject" to the function as arguments
-  public openSubModal(subModal: string, subModalObject: Object) {
-    this.mainModalService.chooseSubModal(
-      subModal,
-      subModalObject,
-      this.potIndex
-    );
-    this.isPopUpOpen = false;
-  }
+  // #region Pop-Up & SubModal
+  public isPopUpOpen: boolean = false;
 
-  // Open the pop-up when the user clicks on the three dots
-  public openPopUp() {
+  /**
+   * @description - This function is responsible for opening the pop-up when the user clicks on the three dots.
+   */
+  public openPopUp(): void {
     if (this.isPopUpOpen) return;
     setTimeout(() => {
       this.isPopUpOpen = true;
@@ -84,8 +112,11 @@ export class SinglePotComponent {
     return;
   }
 
-  // Close the pop-up if the user clicks outside of the pop-up
-  public closePopUp(event: MouseEvent) {
+  /**
+   * @description - This function is responsible for closing the pop-up when the user clicks outside of it.
+   * @param event - The mouse event that is triggered when the user clicks outside of the pop-up. 
+   */
+  public closePopUp(event: MouseEvent): void {
     if (!this.isPopUpOpen) return;
     let target = event.target as HTMLElement;
     if (!target) return;
@@ -97,4 +128,19 @@ export class SinglePotComponent {
       'Pot with index ' + this.potIndex + ' is open: ' + this.isPopUpOpen
     );
   }
+
+  /**
+   * @description - This function is responsible for opening the main modal in the application.
+   * @param subModal - The name of the sub modal to be opened. 
+   * @param subModalObject - The object that contains the data for the sub modal.  
+   */
+  public openSubModal(subModal: string, subModalObject: PotsObject): void {
+    this.mainModalService.chooseSubModal(
+      subModal,
+      subModalObject,
+      this.potIndex
+    );
+    this.isPopUpOpen = false;
+  }
+  // #endregion
 }

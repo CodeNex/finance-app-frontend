@@ -65,7 +65,7 @@ export class EditPotModalComponent {
   }
 
   // closes or opens theme dropdown
-  closeHideThemeDropdown() {
+  toggleThemeDropdown() {
     this.isThemeDropdownOpen = !this.isThemeDropdownOpen;
   }
 
@@ -169,7 +169,7 @@ export class EditPotModalComponent {
   chooseTheme(theme: any) {
     if (this.unusedPotThemes.includes(theme)) {
       this.chosenTheme = theme;
-      this.closeHideThemeDropdown();
+      this.toggleThemeDropdown();
     }
   }
 

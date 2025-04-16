@@ -1,9 +1,22 @@
-import { Component, effect, inject, Input, Signal } from '@angular/core';
+import {
+  Component,
+  inject,
+  Input,
+  Signal,
+  computed
+} from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 import { DataStoreServiceService } from '@services/data-store-service.service';
-import { CommonModule } from '@angular/common';
-import { SpendingSummaryItemComponent } from './spending-summary-item/spending-summary-item.component';
 
+import { SpendingSummaryItemComponent } from '@content/budgets/budget-overview/spending-summary/spending-summary-item/spending-summary-item.component';
+
+/**
+ * * * SpendingSummaryComponent
+ * This component is responsible for displaying the spending summary of all budgets.
+ * It uses the DataStoreService to manage the budget data.
+ * It uses the SpendingSummaryItemComponent to display each budget in the summary.
+ */
 @Component({
   selector: 'app-spending-summary',
   imports: [CommonModule, SpendingSummaryItemComponent],
@@ -11,23 +24,13 @@ import { SpendingSummaryItemComponent } from './spending-summary-item/spending-s
   styleUrl: './spending-summary.component.scss',
 })
 export class SpendingSummaryComponent {
-  public dataStore: DataStoreServiceService = inject(DataStoreServiceService);
+  // #region Component Setup (DI, Outputs, Template Refs, Subscription)
+  public dataStore = inject(DataStoreServiceService);
 
-  public budgetsArraySignal$: Signal<any[]> = this.dataStore.budgets;
- 
-  public budgetsArray: any[] = [];
+  public budgetsArraySignal: Signal<BudgetsObject[]> = this.dataStore.budgets;
+
+  public readonly budgetsArray: Signal<BudgetsObject[]> = computed(() => this.budgetsArraySignal().filter(b => !b.deleted_at));
 
   @Input() public inWhichSection: string = '';
-   
-  constructor() {
-    effect(() => {
-      let signal = this.budgetsArraySignal$();
-      this.budgetsArray = this.budgetsArraySignal$().filter((element: any) => !element.deleted_at);
-    })
-  }
-
-  ngOnInit() {
-    this.budgetsArray = this.budgetsArraySignal$().filter((element: any) => !element.deleted_at);
-  }
-
+  // #endregion
 }

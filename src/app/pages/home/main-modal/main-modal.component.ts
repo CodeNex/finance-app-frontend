@@ -58,18 +58,18 @@ export class MainModalComponent {
 
   // #region Subscriptions
   public currentShownSubModal: string = '';
-  public subModalObject: Object = {};
+  public subModalObject!: any;
   public index: number = -1;
 
-  private subscribeSubModal() {
+  private subscribeSubModal(): void {
     this.subscriptions.add(this.mainModalService.currentSubModal$.subscribe(
-      (subModal: string) => (this.currentShownSubModal = subModal)
+      (subModal) => (this.currentShownSubModal = subModal as string)
     ));
     this.subscriptions.add(this.mainModalService.subModalObject$.subscribe(
-      (subModalObject: Object) => (this.subModalObject = subModalObject)
+      (subModalObject: any) => (this.subModalObject = subModalObject)
     ));
     this.subscriptions.add(this.mainModalService.index$.subscribe(
-      (potIndex: number) => (this.index = potIndex)
+      (potIndex) => (this.index = potIndex as number)
     ));
   }
   // #endregion

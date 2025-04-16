@@ -3,6 +3,25 @@ interface DateRange {
   end: number;
 }
 
+interface BudgetCalculations {
+  budgetName: string;
+  maximum: number;
+  calculatedSpent: number;
+  remaining: number;
+  isTooMuchSpent: boolean;
+}
+
+interface SummaryItem {
+  amount: number;
+  created_at: null;
+  deleted_at: null;
+  id: number;
+  last_spendings: [];
+  maximum: number;
+  name: string;
+  theme: string;
+}
+
 interface BalanceObject {
   balance: number;
 }
@@ -18,6 +37,18 @@ interface BudgetsObject {
   last_spendings: TransactionsObject[] | null;
 }
 
+interface BudgetsObjectLike {
+  id?: number;
+  name?: string;
+  amount?: number;
+  maximum?: number;
+  time_frame?: string;
+  theme?: string;
+  created_at?: string | null;
+  deleted_at?: string | null;
+  last_spendings?: TransactionsObject[] | null;
+}
+
 interface PotsObject {
   id: number;
   name: string;
@@ -31,7 +62,7 @@ interface PotsObject {
 interface TransactionsObject {
   transaction_id: number;
   user_id: number | null;
-  amount: number | null;
+  amount: number;
   budget_id: number | null;
   created_at: string | null;
   deleted_at: string | null;

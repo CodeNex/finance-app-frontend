@@ -1,36 +1,47 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
-import { BasedataService } from './basedata.service';
-import { AuthenticationService } from './authentication.service';
-import { APIService } from './api.service';
+import { BasedataService } from '@services/basedata.service';
+import { AuthenticationService } from '@services/authentication.service';
+import { APIService } from '@services/api.service';
 
+/**
+ * * * AutoLoginService
+ * This service is responsible for handling the auto-login functionality in the application.
+ * It checks if the user has a valid token in local storage and automatically logs them in if the token is valid.
+ * It uses the HttpClient to make requests to the server and manages the authentication state.
+ */
 @Injectable({
   providedIn: 'root',
 })
 export class AutoLoginService {
-  private baseData: BasedataService = inject(BasedataService);
-  public authService: AuthenticationService = inject(AuthenticationService);
-  public apiService: APIService = inject(APIService);
-  private http: HttpClient = inject(HttpClient);
+  // #region Service Setup
+  private baseData = inject(BasedataService);
+  public authService= inject(AuthenticationService);
+  public apiService = inject(APIService);
+  private http = inject(HttpClient);
 
-  private baseUrl: string = this.baseData.financeApp.basics.apiData.baseUrl;
+  private baseUrl: string = this.baseData.baseUrl;
 
   private path: string = '/check-auth';
 
   private token: string = '';
+  // #endregion
 
-  private isTokenValid: boolean = false;
-
+  // #region LifeCycle Hooks
   constructor() {
     this.checkForToken();
   }
+  // #endregion
 
+  /**
+   * * @description - This function is responsible for checking if the token is available in local storage.
+   * If the token is available, it sends a request to the server to validate the token.
+   */
   async checkForToken() {
     let storageJsonToken = await localStorage.getItem(
-      this.baseData.financeApp.basics.apiData.localStorage.tokenKey
+      this.baseData.tokenKey
     );
-
     if (
       typeof storageJsonToken === 'string' &&
       storageJsonToken !== null &&
@@ -45,12 +56,15 @@ export class AutoLoginService {
     console.log('Token from LocalStorage: ', this.token);
   }
 
+  /**
+   * * @description - This function is responsible for validating the token.
+   * It sends a request to the server to check if the token is valid or not.
+   */
   doTokenValidationRequest() {
     const headers = new HttpHeaders({
       Authorization: `Bearer ${this.token}`,
       Accept: 'application/json',
     });
-
     this.http
       .post<{ token: string }>(
         this.baseUrl + this.path,
@@ -69,6 +83,10 @@ export class AutoLoginService {
       });
   }
 
+  /**
+   * * @description - This function is responsible for logging in the user automatically.
+   * It uses the token from local storage to authenticate the user and load the initial data.
+   */
   doAutoLogin() {
     this.authService.authToken = this.token;
     this.authService.setLoadingScreen(true);
