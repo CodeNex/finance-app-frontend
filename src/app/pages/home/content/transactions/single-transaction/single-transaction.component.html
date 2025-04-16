@@ -12,7 +12,7 @@
     <div class="flex items-center gap-8">
       <span class="w-[120px]">{{ this.category }}</span>
       <span class="w-[120px]">
-        {{ this.transaction.execute_on | formatDate}}
+        {{ this.transaction.execute_on! | formatDate}}
       </span>
     </div>
     <p class="text4b" [ngStyle]="{'color': this.type === 'debit' ? '#201f24' : '#277c78'}">{{ this.type === 'debit' ? '-' : '+' }}{{ this.transaction.amount | formatAmount }}</p>

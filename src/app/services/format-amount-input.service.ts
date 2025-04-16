@@ -1,22 +1,26 @@
 import { Injectable } from '@angular/core';
 
+/**
+ * * * FormatAmountInputService
+ * * This service is responsible for formatting the input amount in the application.
+ * * * It provides methods to control the input value, add and delete numbers from the input,
+ * * and format the input value to a specific format (en-US).
+ */
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class FormatAmountInputService {
-
   public maxBudgetInputValue: string = '0.00';
   public maxBudgetString: string = '0.00';
 
-  public formatAmountInput(event: KeyboardEvent, maxBudgetInputValue: string, maxBudgetString: string): void {
-
-  }
-
+  /**
+   * @description - This function is responsible for controlling the input value and starts either adding or deleting numbers from the input.
+   * @param event - The keyboard event that is triggered when the user presses a key.
+   */
   public controlMaxTarget(event: KeyboardEvent) {
     const deleteKeys = ['Backspace', 'Delete'];
     const otherKeys = ['ArrowLeft', 'ArrowRight', 'Tab'];
     const isNumberKey = /^[0-9]$/.test(event.key);
-
     if (isNumberKey) {
       event.preventDefault();
       this.addNumberToTargetInput(event);
@@ -31,6 +35,11 @@ export class FormatAmountInputService {
     }
   }
 
+  /**
+   * @description - This function is responsible for adding numbers to the input value.
+   * @param event - The keyboard event that is triggered when the user presses a key.
+   * @returns - The formatted input value in the en-US format.
+   */
   private addNumberToTargetInput(event: KeyboardEvent): void {
     let currentTarget = this.maxBudgetString;
     let numbersArray = currentTarget.replace(/[.,]/g, '').split('');
@@ -38,11 +47,8 @@ export class FormatAmountInputService {
       numbersArray.shift();
       numbersArray.push(event.key);
       numbersArray.splice(numbersArray.length - 2, 0, '.');
-      this.maxBudgetString = parseFloat(numbersArray.join('')).toLocaleString(
-        'en-US',
-        {
-          minimumFractionDigits: 2,
-        }
+      this.maxBudgetString = this.formatToEnUS(
+        parseFloat(numbersArray.join(''))
       );
       this.maxBudgetInputValue = this.maxBudgetString;
     } else if (
@@ -52,38 +58,36 @@ export class FormatAmountInputService {
     ) {
       numbersArray.push(event.key);
       numbersArray.splice(numbersArray.length - 2, 0, '.');
-      this.maxBudgetString = parseFloat(numbersArray.join('')).toLocaleString(
-        'en-US',
-        {
-          minimumFractionDigits: 2,
-        }
+      this.maxBudgetString = this.formatToEnUS(
+        parseFloat(numbersArray.join(''))
       );
       this.maxBudgetInputValue = this.maxBudgetString;
     }
   }
 
+  /**
+   * @description - This function is responsible for deleting numbers from the input value.
+   */
   private deleteNumberFromTargetInput(): void {
     let currentTarget = this.maxBudgetString;
     let numbersArray = currentTarget.replace(/[.,]/g, '').split('');
     numbersArray.pop();
     numbersArray.splice(numbersArray.length - 2, 0, '.');
-    this.maxBudgetString = parseFloat(numbersArray.join('')).toLocaleString(
-      'en-US',
-      {
-        minimumFractionDigits: 2,
-      }
-    );
+    this.maxBudgetString = this.formatToEnUS(parseFloat(numbersArray.join('')));
     this.maxBudgetInputValue = this.maxBudgetString;
-
-    this.maxBudgetString = this.formatToEnUS(parseFloat(numbersArray.join('')))
   }
 
-
-private formatToEnUS(value: number): string {
-  if (value == null) return '';
-  return `${value.toLocaleString('en-US', {
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2,
-  })}`;
-}
+  /**
+   * @description - This function is responsible for formatting the input value to the en-US format.
+   * @param value - The value to be formatted.
+   * @returns - The formatted value in the en-US format.
+   * @example - 1234567.89 => '1,234,567.89' 
+   */
+  private formatToEnUS(value: number): string {
+    if (value == null) return '';
+    return `${value.toLocaleString('en-US', {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    })}`;
+  }
 }
