@@ -6,6 +6,12 @@ import { BasedataService } from '@services/basedata.service';
 import { DataStoreServiceService } from '@services/data-store-service.service';
 import { MainModalService } from '@services/main-modal.service';
 
+/**
+ * * * ApiPotsService
+ * This service is responsible for managing the pots in the application.
+ * It uses the HttpClient to make API calls to the server.
+ * It provides methods to add, update, and delete pots.
+ */
 @Injectable({
   providedIn: 'root',
 })
