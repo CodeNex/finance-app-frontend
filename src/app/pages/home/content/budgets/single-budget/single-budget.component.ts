@@ -98,6 +98,7 @@ export class SingleBudgetComponent implements OnDestroy {
 
   // #region Lifecycle Hooks
   ngOnDestroy(): void {
+    this.budgetEffect.destroy();
     if (this.removeClickListener) {
       this.removeClickListener();
       this.removeClickListener = null;
