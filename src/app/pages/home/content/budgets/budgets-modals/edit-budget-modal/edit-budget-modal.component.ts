@@ -97,6 +97,9 @@ export class EditBudgetModalComponent {
   public unusedBudgetCategories: string[] = [];
   public chosenCategory: string = '';
 
+  /**
+   * @description - This function is used to get the categories from the base data and filter out the used categories.
+   */
   getCategoryArrays() {
     (
       Object.values(this.baseData.financeApp.budgets.categories) as {
@@ -119,6 +122,10 @@ export class EditBudgetModalComponent {
     );
   }
 
+  /**
+   * @description - This function is used to get the initial category for the budget.
+   * @param category - The category to be chosen.
+   */
   chooseCategory(category: string): void {
     if (this.unusedBudgetCategories.includes(category)) {
       this.chosenCategory = category;
@@ -136,26 +143,11 @@ export class EditBudgetModalComponent {
     this.amountInputValue = this.formatAmountInputService.formatAmountInput(event, inputValue);
   }
 
-
-  // public controlMaxTarget(event: KeyboardEvent): void {
-  //   const deleteKeys = ['Backspace', 'Delete'];
-  //   const otherKeys = ['ArrowLeft', 'ArrowRight', 'Tab'];
-  //   const isNumberKey = /^[0-9]$/.test(event.key);
-
-  //   if (isNumberKey) {
-  //     event.preventDefault();
-  //     this.addNumberToTargetInput(event);
-  //   } else if (deleteKeys.includes(event.key)) {
-  //     event.preventDefault();
-  //     this.deleteNumberFromTargetInput();
-  //   } else if (otherKeys.includes(event.key)) {
-  //     return;
-  //   } else {
-  //     event.preventDefault();
-  //     return;
-  //   }
-  // }
-
+  /**
+   * @description - This function is used to format the input value to the en-US format.
+   * @param value - The value to be formatted.
+   * @returns - The formatted value in the en-US format. 
+   */
   private formatToEnUS(value: number): string {
     if (value == null) return '';
     return `${value.toLocaleString('en-US', {
@@ -163,39 +155,6 @@ export class EditBudgetModalComponent {
       maximumFractionDigits: 2,
     })}`;
   }
-
-  // private addNumberToTargetInput(event: KeyboardEvent): void {
-  //   let currentTarget = this.amountInputValue;
-  //   let numbersArray = currentTarget.replace(/[.,]/g, '').split('');
-  //   if (numbersArray.length === 3 && numbersArray[0] === '0') {
-  //     numbersArray.shift();
-  //     numbersArray.push(event.key);
-  //     numbersArray.splice(numbersArray.length - 2, 0, '.');
-  //     this.amountInputValue = this.formatToEnUS(
-  //       parseFloat(numbersArray.join('')) || 0
-  //     );
-  //   } else if (
-  //     numbersArray.length >= 3 &&
-  //     numbersArray.length < 11 &&
-  //     numbersArray[0] !== '0'
-  //   ) {
-  //     numbersArray.push(event.key);
-  //     numbersArray.splice(numbersArray.length - 2, 0, '.');
-  //     this.amountInputValue = this.formatToEnUS(
-  //       parseFloat(numbersArray.join('')) || 0
-  //     );
-  //   }
-  // }
-
-  // private deleteNumberFromTargetInput(): void {
-  //   let currentTarget = this.amountInputValue;
-  //   let numbersArray = currentTarget.replace(/[.,]/g, '').split('');
-  //   numbersArray.pop();
-  //   numbersArray.splice(numbersArray.length - 2, 0, '.');
-  //   this.amountInputValue = this.formatToEnUS(
-  //     parseFloat(numbersArray.join('')) || 0
-  //   );
-  // }
   // #endregion
 
   // #region Themes
@@ -205,6 +164,10 @@ export class EditBudgetModalComponent {
   public chosenTheme: { name: string; hex: string } = { name: '', hex: '' };
   public potThemeValue: string = '';
 
+  /**
+   * * @description - This function is used to get the themes from the base data and filter out the used themes.
+   * * @returns - The themes in the format of { name: string, hex: string }[]
+   */
   getThemeArrays() {
     this.themes = Object.values(this.baseData.financeApp.basics.colors);
     this.usedBudgetThemes = this.dataStore.budgets().map((budget: any) => {
@@ -222,6 +185,10 @@ export class EditBudgetModalComponent {
     ) || { name: '', hex: '' };
   }
 
+  /**
+   * @description - This function is used to choose a theme from the dropdown.
+   * @param theme - The theme to be chosen.
+   */
   public chooseTheme(theme: { name: string; hex: string }): void {
     if (this.unusedBudgetThemes.includes(theme.hex)) {
       this.chosenTheme = theme;

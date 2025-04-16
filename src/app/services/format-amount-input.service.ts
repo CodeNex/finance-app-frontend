@@ -10,18 +10,19 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class FormatAmountInputService {
-
   public formatAmountInput(event: KeyboardEvent, inputValue: string): string {
     const amountInputValue: string = inputValue;
     return this.controlMaxTarget(event, amountInputValue);
   }
-  
 
   /**
    * @description - This function is responsible for controlling the input value and starts either adding or deleting numbers from the input.
    * @param event - The keyboard event that is triggered when the user presses a key.
    */
-  public controlMaxTarget(event: KeyboardEvent, amountInputValue: string): string {
+  public controlMaxTarget(
+    event: KeyboardEvent,
+    amountInputValue: string
+  ): string {
     const deleteKeys = ['Backspace', 'Delete'];
     const otherKeys = ['ArrowLeft', 'ArrowRight', 'Tab'];
     const isNumberKey = /^[0-9]$/.test(event.key);
@@ -44,16 +45,17 @@ export class FormatAmountInputService {
    * @param event - The keyboard event that is triggered when the user presses a key.
    * @returns - The formatted input value in the en-US format.
    */
-  private addNumberToTargetInput(event: KeyboardEvent, amountInputValue: string): string {
+  private addNumberToTargetInput(
+    event: KeyboardEvent,
+    amountInputValue: string
+  ): string {
     let currentTarget = amountInputValue;
     let numbersArray = currentTarget.replace(/[.,]/g, '').split('');
     if (numbersArray.length === 3 && numbersArray[0] === '0') {
       numbersArray.shift();
       numbersArray.push(event.key);
       numbersArray.splice(numbersArray.length - 2, 0, '.');
-      return this.formatToEnUS(
-        parseFloat(numbersArray.join(''))
-      );
+      return this.formatToEnUS(parseFloat(numbersArray.join('')));
     } else if (
       numbersArray.length >= 3 &&
       numbersArray.length < 11 &&
@@ -61,13 +63,10 @@ export class FormatAmountInputService {
     ) {
       numbersArray.push(event.key);
       numbersArray.splice(numbersArray.length - 2, 0, '.');
-      return this.formatToEnUS(
-        parseFloat(numbersArray.join(''))
-      );
+      return this.formatToEnUS(parseFloat(numbersArray.join('')));
     } else {
       return currentTarget;
     }
-    
   }
 
   /**
@@ -85,7 +84,7 @@ export class FormatAmountInputService {
    * @description - This function is responsible for formatting the input value to the en-US format.
    * @param value - The value to be formatted.
    * @returns - The formatted value in the en-US format.
-   * @example - 1234567.89 => '1,234,567.89' 
+   * @example - 1234567.89 => '1,234,567.89'
    */
   private formatToEnUS(value: number): string {
     if (value == null) return '';
