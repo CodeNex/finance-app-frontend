@@ -79,6 +79,10 @@ export class AddBudgetModalComponent implements OnInit {
   public unusedBudgetCategories: string[] = [];
   public chosenCategory: string = '';
 
+  /**
+   * * @description - This function is used to get the categories from the base data.
+   * * @returns - The categories in the format of { name: string, iconName: string }[]
+   */
   public getCategoryArrays(): void {
     (
       Object.values(this.baseData.financeApp.budgets.categories) as {
@@ -101,12 +105,20 @@ export class AddBudgetModalComponent implements OnInit {
     );
   }
 
+  /**
+   * @description - This function is used to get the initial category for the budget.
+   * @returns - A random category from the unusedBudgetCategories array.
+   */
   private getInitialCategory(): string {
     return this.unusedBudgetCategories[
       Math.floor(Math.random() * this.unusedBudgetCategories.length)
     ];
   }
 
+  /**
+   * @description - This function is used to choose a category from the dropdown.
+   * @param category - The category to be chosen.
+   */
   public chooseCategory(category: string): void {
     if (this.unusedBudgetCategories.includes(category)) {
       this.chosenCategory = category;
@@ -137,14 +149,6 @@ export class AddBudgetModalComponent implements OnInit {
       event.preventDefault();
       return;
     }
-  }
-
-  private formatToEnUS(value: number): string {
-    if (value == null) return '';
-    return `${value.toLocaleString('en-US', {
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2,
-    })}`;
   }
 
   addNumberToTargetInput(event: KeyboardEvent) {
@@ -182,6 +186,14 @@ export class AddBudgetModalComponent implements OnInit {
     );
     this.maxBudgetInputValue = this.maxBudgetString;
   }
+
+  private formatToEnUS(value: number): string {
+    if (value == null) return '';
+    return `${value.toLocaleString('en-US', {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    })}`;
+  }
   // #endregion
 
   // #region Themes
@@ -191,6 +203,10 @@ export class AddBudgetModalComponent implements OnInit {
   public chosenTheme: { name: string; hex: string } = { name: '', hex: '' };
   public potThemeValue: string = '';
 
+  /**
+   * * @description - This function is used to get the themes from the base data.
+   * * @returns - The themes in the format of { name: string, hex: string }[]
+   */
   private getThemeArrays(): void {
     this.themes = Object.values(this.baseData.financeApp.basics.colors);
     this.usedBudgetThemes = this.dataStore.budgets().map((budget: any) => {
@@ -203,12 +219,20 @@ export class AddBudgetModalComponent implements OnInit {
     });
   }
 
+  /**
+   * @description - This function is used to choose a theme from the dropdown.
+   * @returns - A random theme from the unusedBudgetThemes array.
+   */
   private getInitialTheme(): { name: string; hex: string } {
     return this.unusedBudgetThemes[
       Math.floor(Math.random() * this.unusedBudgetThemes.length)
     ];
   }
 
+  /**
+   * @description - This function is used to choose a theme from the dropdown.
+   * @param theme - The theme to be chosen.
+   */
   public chooseTheme(theme: any): void {
     if (this.unusedBudgetThemes.includes(theme)) {
       this.chosenTheme = theme;
