@@ -10,6 +10,12 @@ import { DataStoreServiceService } from '@services/data-store-service.service';
 import { ApiPotsService } from '@content/pots/api-pots.service';
 import { FormatAmountInputService } from '@src/services/format-amount-input.service';
 
+/**
+ * * * AddPotModalComponent
+ * * This component is responsible for displaying the add pot modal.
+ * * It allows the user to add a new pot with a name, target, and theme.
+ * * It uses the MainModalService to manage the modal state and the ApiPotsService to interact with the backend.
+ */
 @Component({
   selector: 'app-add-pot-modal',
   imports: [CommonModule, FormsModule, ReactiveFormsModule, IconsComponent],
@@ -22,7 +28,7 @@ export class AddPotModalComponent {
   public baseData = inject(BasedataService);
   public dataStore = inject(DataStoreServiceService);
   public apiPotsService = inject(ApiPotsService);
-  private formatAmountInputService = inject(FormatAmountInputService);
+  public formatAmountInputService = inject(FormatAmountInputService);
 
   public currentPot: PotsObject = {
     id: -1,
@@ -36,12 +42,9 @@ export class AddPotModalComponent {
   // #endregion
 
   // #region Lifecycle Hooks
-  ngOnInit() {
+  ngOnInit(): void {
     this.getThemeArrays();
-    this.chosenTheme =
-      this.unusedPotThemes[
-        Math.floor(Math.random() * this.unusedPotThemes.length)
-      ];
+    this.chosenTheme = this.getInitialTheme();
     this.currentPot.theme = this.chosenTheme.hex;
   }
   // #endregion
@@ -49,11 +52,11 @@ export class AddPotModalComponent {
   // #region Dropdowns & Modal
   public isThemeDropdownOpen: boolean = false;
 
-  toggleThemeDropdown() {
+  public toggleThemeDropdown(): void {
     this.isThemeDropdownOpen = !this.isThemeDropdownOpen;
   }
 
-  public closeMainModal() {
+  public closeMainModal(): void {
     this.mainModalService.hideMainModal();
   }
   // #endregion
@@ -62,7 +65,7 @@ export class AddPotModalComponent {
   public potNameValue: string = '';
   public potNameCharactersLeft: number = 30;
 
-  controlNameLength(event: any) {
+  public controlNameLength(event: any): void {
     const deleteKeys = ['Backspace', 'Delete'];
     if (deleteKeys.includes(event.key)) {
       if (this.potNameCharactersLeft < 30)
@@ -80,7 +83,7 @@ export class AddPotModalComponent {
   // the value of the pot target input binded by ngModel
   public potTargetInputValue: string = '0.00';
 
-  public controlMaxTarget(event: KeyboardEvent) {
+  public controlMaxTarget(event: KeyboardEvent): void {
     const inputValue = this.potTargetInputValue;
     this.potTargetInputValue = this.formatAmountInputService.formatAmountInput(
       event,
@@ -96,7 +99,13 @@ export class AddPotModalComponent {
   public chosenTheme: Theme = { name: '', hex: '' };
   public potThemeValue: string = '';
 
-  getThemeArrays() {
+  private getInitialTheme(): Theme {
+    return this.unusedPotThemes[
+      Math.floor(Math.random() * this.unusedPotThemes.length)
+    ];
+  }
+
+  private getThemeArrays(): void {
     this.themes = Object.values(this.baseData.financeApp.basics.colors);
     this.usedPotThemes = this.dataStore
       .pots()
@@ -108,7 +117,7 @@ export class AddPotModalComponent {
   }
 
   // choose a theme from the dropdown
-  chooseTheme(theme: Theme) {
+  public chooseTheme(theme: Theme): void {
     if (this.unusedPotThemes.includes(theme)) {
       this.chosenTheme = theme;
       this.toggleThemeDropdown();
@@ -123,14 +132,14 @@ export class AddPotModalComponent {
    * It also sets the pot name and target to the values from the input fields.
    * It also closes the modal.
    */
-  submitAddPot() {
+  public submitAddPot(): void {
     this.currentPot.name = this.potNameValue;
     this.currentPot.target = parseFloat(
       this.potTargetInputValue.replace(/,/g, '')
     );
     this.currentPot.theme = this.chosenTheme.hex;
     this.apiPotsService.addNewPot(this.currentPot);
-    this.mainModalService.hideMainModal();
+    this.closeMainModal();
     console.log(this.currentPot);
   }
 }
