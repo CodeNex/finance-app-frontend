@@ -20,9 +20,9 @@ export class DeletePotModalComponent {
   }
 
   public currentPotToDelete: string = 'CurrentPot';
-
-  @Input() public potIndex: number = -1;
+  
   @Input() public modalObject: Object = {};
+  @Input() public potIndex: number = -1;
 
   public currentPot: any = {
     id: -1,
