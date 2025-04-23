@@ -174,27 +174,30 @@ export class EditPotModalComponent {
   }
 
   // #region Submit
-
+  /**
+   * @description - This function is used to complete the pot object with the values from the input fields.
+   * It sets the name, target and theme of the pot object.
+   */
   private completePotObject(): void {
-    
+    this.currentPot.name = this.potNameValue;
+    this.currentPot.target = parseFloat(
+      this.potTargetInputValue.replace(/,/g, '')
+    );
+    this.currentPot.theme = this.chosenTheme.hex;
   }
 
   /**
    * @description - Submit the changed pot to the pots array in data-store-service, submit the changed pot to the API and close the modal
    */
   public submitEditPot(): void {
-    let potObject = this.currentPot;
-    potObject.name = this.potNameValue;
-    potObject.target = parseFloat(this.potTargetInputValue.replace(/,/g, ''));
-    potObject.theme = this.chosenTheme.hex;
+    this.completePotObject();
     this.apiPotsService.updatePot(
       'pots',
       'editPot',
       this.currentPotIndex,
-      potObject
+      this.currentPot
     );
     this.mainModalService.hideMainModal();
-    console.log(potObject);
   }
   // #endregion
 }
