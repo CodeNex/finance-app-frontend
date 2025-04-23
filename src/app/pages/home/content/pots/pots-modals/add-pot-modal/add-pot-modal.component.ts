@@ -10,7 +10,6 @@ import { DataStoreServiceService } from '@services/data-store-service.service';
 import { ApiPotsService } from '@content/pots/api-pots.service';
 import { FormatAmountInputService } from '@src/services/format-amount-input.service';
 
-
 @Component({
   selector: 'app-add-pot-modal',
   imports: [CommonModule, FormsModule, ReactiveFormsModule, IconsComponent],
@@ -35,9 +34,6 @@ export class AddPotModalComponent {
     deleted_at: null,
   };
   // #endregion
-
-  
-  
 
   // #region Lifecycle Hooks
   ngOnInit() {
@@ -86,30 +82,33 @@ export class AddPotModalComponent {
 
   public controlMaxTarget(event: KeyboardEvent) {
     const inputValue = this.potTargetInputValue;
-    this.potTargetInputValue = this.formatAmountInputService.formatAmountInput(event, inputValue);
+    this.potTargetInputValue = this.formatAmountInputService.formatAmountInput(
+      event,
+      inputValue
+    );
   }
   // #endregion
 
   // #region Themes
-  public themes: any;
-  public usedPotThemes: any;
-  public unusedPotThemes: any;
-  public chosenTheme: any;
+  public themes!: Theme[];
+  public usedPotThemes!: string[];
+  public unusedPotThemes!: Theme[];
+  public chosenTheme: Theme = { name: '', hex: '' };
   public potThemeValue: string = '';
 
   getThemeArrays() {
     this.themes = Object.values(this.baseData.financeApp.basics.colors);
-    this.usedPotThemes = this.dataStore.pots().map((pot: PotsObject) => {
-      if (!pot.deleted_at) return pot.theme;
-      return;
-    });
+    this.usedPotThemes = this.dataStore
+      .pots()
+      .filter((pot: PotsObject) => !pot.deleted_at)
+      .map((pot: PotsObject) => pot.theme);
     this.unusedPotThemes = this.themes.filter(
-      (theme: any) => !this.usedPotThemes.includes(theme.hex)
+      (theme: Theme) => !this.usedPotThemes.includes(theme.hex)
     );
   }
 
   // choose a theme from the dropdown
-  chooseTheme(theme: any) {
+  chooseTheme(theme: Theme) {
     if (this.unusedPotThemes.includes(theme)) {
       this.chosenTheme = theme;
       this.toggleThemeDropdown();

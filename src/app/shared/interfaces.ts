@@ -1,3 +1,12 @@
+interface Theme {
+  name: string;
+  hex: string;
+}
+
+interface Themes {
+  [key: string]: Theme;
+}
+
 interface DateRange {
   start: number;
   end: number;

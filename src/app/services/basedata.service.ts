@@ -46,6 +46,10 @@ export class BasedataService {
     return this.financeApp.basics.apiData.localStorage.tokenKey;
   }
 
+  public getColors(): any {
+    return this.financeApp.basics.colors
+  }
+
   /**
    * @description - Saves the base data for the application.
    * This includes the API data, colors, login data, navbar links, and budget categories etc.
