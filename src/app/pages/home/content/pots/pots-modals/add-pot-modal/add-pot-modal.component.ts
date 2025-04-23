@@ -105,9 +105,9 @@ export class AddPotModalComponent {
   // #endregion
 
   // #region Themes
-  public themes!: Theme[];
-  public usedPotThemes!: string[];
-  public unusedPotThemes!: Theme[];
+  public themes: Theme[] = [];
+  public usedPotThemes: string[] = [];
+  public unusedPotThemes: Theme[] = [];
   public chosenTheme: Theme = { name: '', hex: '' };
   public potThemeValue: string = '';
 

@@ -41,16 +41,13 @@ export class EditPotModalComponent {
 
   public currentPotIndex: number = -1;
 
-  public themes: any;
-  public usedPotThemes: any;
-  public unusedPotThemes: any;
-  public chosenTheme: any;
+  
   public isThemeDropdownOpen: boolean = false;
   public potNameValue: string = '';
   public potNameCharactersLeft: number = 30;
   public potTargetInputValue: string = '0.00';
   public potTargetString: string = '0.00';
-  public potThemeValue: string = '';
+ 
 
   ngOnInit() {
     this.currentPot = this.modalObject;
@@ -152,26 +149,38 @@ export class EditPotModalComponent {
     this.potTargetInputValue = this.potTargetString;
   }
 
-  // get all the themes from the data-store-service and split them into used and unused theme arrays
+  // #region Themes
+  public themes: Theme[] = [];
+  public usedPotThemes: string[] = [];
+  public unusedPotThemes: Theme[] = [];
+  public chosenTheme: Theme = { name: '', hex: '' };
+  public potThemeValue: string = '';
+
+  /**
+   * @description - This function is used to get the themes from the base data. It sets the themes, usedPotThemes and unusedPotThemes arrays.
+   */
   getThemeArrays() {
     this.themes = Object.values(this.baseData.colors);
-
-    this.usedPotThemes = this.dataStore.pots().map((pot: any) => pot.theme);
+    this.usedPotThemes = this.dataStore.pots().map((pot: PotsObject) => pot.theme);
     this.unusedPotThemes = this.themes.filter(
-      (theme: any) => !this.usedPotThemes.includes(theme.hex)
+      (theme: Theme) => !this.usedPotThemes.includes(theme.hex)
     );
-    this.themes.forEach((theme: any) => {
+    this.themes.forEach((theme: Theme) => {
       if (this.currentPot.theme === theme.hex) this.chosenTheme = theme;
     });
   }
 
-  // choose a theme from the dropdown
-  chooseTheme(theme: any) {
+  /**
+   * @description - This function is used to choose a theme from the dropdown. It sets the chosenTheme to the selected theme and closes the dropdown.
+   * @param theme - The theme to be chosen.
+   */
+  public chooseTheme(theme: Theme): void {
     if (this.unusedPotThemes.includes(theme)) {
       this.chosenTheme = theme;
       this.toggleThemeDropdown();
     }
   }
+  // #endregion
 
   // #region Submit
   /**
