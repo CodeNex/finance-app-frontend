@@ -21,10 +21,7 @@ export class EditPotModalComponent {
   public dataStore: DataStoreServiceService = inject(DataStoreServiceService);
   public apiPotsService: ApiPotsService = inject(ApiPotsService);
 
-  // closes main modal and its children
-  public closeMainModal() {
-    this.mainModalService.hideMainModal();
-  }
+ 
 
   @Input() public modalObject: Object = {};
   @Input() public potIndex: number = -1;
@@ -42,7 +39,6 @@ export class EditPotModalComponent {
   public currentPotIndex: number = -1;
 
   
-  public isThemeDropdownOpen: boolean = false;
   public potNameValue: string = '';
   public potNameCharactersLeft: number = 30;
   public potTargetInputValue: string = '0.00';
@@ -61,10 +57,20 @@ export class EditPotModalComponent {
     this.getThemeArrays();
   }
 
-  // closes or opens theme dropdown
-  toggleThemeDropdown() {
+  // #region Dropdowns & Modal
+  public isThemeDropdownOpen: boolean = false;
+
+  public toggleThemeDropdown(): void {
     this.isThemeDropdownOpen = !this.isThemeDropdownOpen;
   }
+
+   /**
+   * @description - This function closes the main modal and add pot modal within it. Its called when the user clicks on the close button in the modal, outside the modal or submit the new pot.
+   */
+   public closeMainModal(): void {
+    this.mainModalService.hideMainModal();
+  }
+  // #endregion
 
   // controls the maximum length of the pot name
   controlNameLength(event: any) {
