@@ -52,9 +52,6 @@ export class AddPotModalComponent {
   // #region Dropdowns & Modal
   public isThemeDropdownOpen: boolean = false;
 
-  /**
-   * @description - This fuinctions toggles the visibility of the theme dropdown. It is called when the user clicks on the theme dropdown button.
-   */
   public toggleThemeDropdown(): void {
     this.isThemeDropdownOpen = !this.isThemeDropdownOpen;
   }
@@ -76,7 +73,7 @@ export class AddPotModalComponent {
    * It also updates the potNameCharactersLeft variable to show the remaining characters left.
    * @param event - The event that is triggered when the user types in the input field.
    */
-  public controlNameLength(event: any): void {
+  public controlNameLength(event: KeyboardEvent): void {
     const deleteKeys = ['Backspace', 'Delete'];
     if (deleteKeys.includes(event.key)) {
       if (this.potNameCharactersLeft < 30)
