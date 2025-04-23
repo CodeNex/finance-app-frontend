@@ -52,10 +52,16 @@ export class AddPotModalComponent {
   // #region Dropdowns & Modal
   public isThemeDropdownOpen: boolean = false;
 
+  /**
+   * @description - This fuinctions toggles the visibility of the theme dropdown. It is called when the user clicks on the theme dropdown button.
+   */
   public toggleThemeDropdown(): void {
     this.isThemeDropdownOpen = !this.isThemeDropdownOpen;
   }
 
+  /**
+   * @description - This function closes the main modal and add pot modal within it. Its called when the user clicks on the close button in the modal, outside the modal or submit the new pot.
+   */
   public closeMainModal(): void {
     this.mainModalService.hideMainModal();
   }
@@ -65,6 +71,11 @@ export class AddPotModalComponent {
   public potNameValue: string = '';
   public potNameCharactersLeft: number = 30;
 
+  /**
+   * @description - This function is used to control the length of the pot name input. It prevents the user from typing more than 30 characters in the input field.
+   * It also updates the potNameCharactersLeft variable to show the remaining characters left.
+   * @param event - The event that is triggered when the user types in the input field.
+   */
   public controlNameLength(event: any): void {
     const deleteKeys = ['Backspace', 'Delete'];
     if (deleteKeys.includes(event.key)) {
@@ -83,6 +94,10 @@ export class AddPotModalComponent {
   // the value of the pot target input binded by ngModel
   public potTargetInputValue: string = '0.00';
 
+  /**
+   * @description - This function is used to format the amount input value.
+   * @param event - The event that is triggered when the user types in the input field.
+   */
   public controlMaxTarget(event: KeyboardEvent): void {
     const inputValue = this.potTargetInputValue;
     this.potTargetInputValue = this.formatAmountInputService.formatAmountInput(
@@ -99,12 +114,19 @@ export class AddPotModalComponent {
   public chosenTheme: Theme = { name: '', hex: '' };
   public potThemeValue: string = '';
 
+  /**
+   * @description - This function is used to get an inital theme from the unusedPotThemes array.
+   * @returns - A random theme in the format of { name: string, hex: string }
+   */
   private getInitialTheme(): Theme {
     return this.unusedPotThemes[
       Math.floor(Math.random() * this.unusedPotThemes.length)
     ];
   }
 
+  /**
+   * @description - This function is used to get the themes from the base data. It sets the themes, usedPotThemes and unusedPotThemes arrays.
+   */
   private getThemeArrays(): void {
     this.themes = Object.values(this.baseData.financeApp.basics.colors);
     this.usedPotThemes = this.dataStore
@@ -116,7 +138,10 @@ export class AddPotModalComponent {
     );
   }
 
-  // choose a theme from the dropdown
+  /**
+   * @description - This function is used to choose a theme from the dropdown. It sets the chosenTheme to the selected theme and closes the dropdown.
+   * @param theme - The theme to be chosen.
+   */
   public chooseTheme(theme: Theme): void {
     if (this.unusedPotThemes.includes(theme)) {
       this.chosenTheme = theme;
