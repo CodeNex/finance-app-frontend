@@ -1,4 +1,5 @@
 import { Component, inject, Input } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { IconsComponent } from '@components/icons/icons.component';
@@ -6,8 +7,8 @@ import { IconsComponent } from '@components/icons/icons.component';
 import { MainModalService } from '@services/main-modal.service';
 import { BasedataService } from '@services/basedata.service';
 import { DataStoreServiceService } from '@services/data-store-service.service';
-import { ApiPotsService } from '../../api-pots.service';
-import { CommonModule } from '@angular/common';
+import { ApiPotsService } from '@content/pots/api-pots.service';
+import { FormatAmountInputService } from '@src/services/format-amount-input.service';
 
 @Component({
   selector: 'app-edit-pot-modal',
@@ -16,17 +17,17 @@ import { CommonModule } from '@angular/common';
   styleUrl: './edit-pot-modal.component.scss',
 })
 export class EditPotModalComponent {
-  public mainModalService: MainModalService = inject(MainModalService);
-  public baseData: BasedataService = inject(BasedataService);
-  public dataStore: DataStoreServiceService = inject(DataStoreServiceService);
-  public apiPotsService: ApiPotsService = inject(ApiPotsService);
+  // #region Component Setup (DI, Outputs, Template Refs, Subscription)
+  public mainModalService = inject(MainModalService);
+  public baseData = inject(BasedataService);
+  public dataStore = inject(DataStoreServiceService);
+  public apiPotsService = inject(ApiPotsService);
+  public formatAmountInputService = inject(FormatAmountInputService);
 
- 
-
-  @Input() public modalObject: Object = {};
+  @Input() public modalObject!: PotsObject;
   @Input() public potIndex: number = -1;
 
-  public currentPot: any = {
+  public currentPot: PotsObject = {
     id: -1,
     name: '',
     target: -1,
@@ -37,15 +38,19 @@ export class EditPotModalComponent {
   };
 
   public currentPotIndex: number = -1;
+  // #endregion
 
   
-  public potNameValue: string = '';
-  public potNameCharactersLeft: number = 30;
   public potTargetInputValue: string = '0.00';
   public potTargetString: string = '0.00';
- 
 
-  ngOnInit() {
+  // #region Lifecycle Hooks
+  ngOnInit(): void {
+    this.initializePotAndModal();
+    this.getThemeArrays();
+  }
+
+  private initializePotAndModal(): void {
     this.currentPot = this.modalObject;
     this.currentPotIndex = this.potIndex;
     this.potNameValue = this.currentPot.name;
@@ -54,8 +59,8 @@ export class EditPotModalComponent {
       minimumFractionDigits: 2,
     });
     this.potTargetString = this.potTargetInputValue;
-    this.getThemeArrays();
   }
+  // #endregion
 
   // #region Dropdowns & Modal
   public isThemeDropdownOpen: boolean = false;
@@ -64,15 +69,23 @@ export class EditPotModalComponent {
     this.isThemeDropdownOpen = !this.isThemeDropdownOpen;
   }
 
-   /**
+  /**
    * @description - This function closes the main modal and add pot modal within it. Its called when the user clicks on the close button in the modal, outside the modal or submit the new pot.
    */
-   public closeMainModal(): void {
+  public closeMainModal(): void {
     this.mainModalService.hideMainModal();
   }
   // #endregion
 
-  // controls the maximum length of the pot name
+  // #region Name & Target Input
+  public potNameValue: string = '';
+  public potNameCharactersLeft: number = 30;
+
+  /**
+   * @description - This function is used to control the length of the pot name input. It prevents the user from typing more than 30 characters in the input field.
+   * It also updates the potNameCharactersLeft variable to show the remaining characters left.
+   * @param event - The event that is triggered when the user types in the input field.
+   */
   controlNameLength(event: any) {
     const deleteKeys = ['Backspace', 'Delete'];
     if (deleteKeys.includes(event.key)) {
@@ -154,6 +167,7 @@ export class EditPotModalComponent {
     );
     this.potTargetInputValue = this.potTargetString;
   }
+  // #endregion
 
   // #region Themes
   public themes: Theme[] = [];
@@ -167,7 +181,9 @@ export class EditPotModalComponent {
    */
   getThemeArrays() {
     this.themes = Object.values(this.baseData.colors);
-    this.usedPotThemes = this.dataStore.pots().map((pot: PotsObject) => pot.theme);
+    this.usedPotThemes = this.dataStore
+      .pots()
+      .map((pot: PotsObject) => pot.theme);
     this.unusedPotThemes = this.themes.filter(
       (theme: Theme) => !this.usedPotThemes.includes(theme.hex)
     );
