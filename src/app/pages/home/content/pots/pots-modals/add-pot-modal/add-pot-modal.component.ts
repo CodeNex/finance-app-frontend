@@ -125,7 +125,7 @@ export class AddPotModalComponent {
    * @description - This function is used to get the themes from the base data. It sets the themes, usedPotThemes and unusedPotThemes arrays.
    */
   private getThemeArrays(): void {
-    this.themes = Object.values(this.baseData.financeApp.basics.colors);
+    this.themes = Object.values(this.baseData.colors);
     this.usedPotThemes = this.dataStore
       .pots()
       .filter((pot: PotsObject) => !pot.deleted_at)
@@ -147,21 +147,26 @@ export class AddPotModalComponent {
   }
   // #endregion
 
+  // #region Submit
   /**
-   * @description - This function is called when the user clicks the save button in the modal.
-   * It sets the current pot to the new pot and submits the new pot to the API server sides and
-   * adds the new pot to the pots array in the data-store-service.
-   * It also sets the pot name and target to the values from the input fields.
-   * It also closes the modal.
+   * @description - This function is used to complete the pot object with the values from the input fields.
+   * It sets the name, target and theme of the pot object.
    */
-  public submitAddPot(): void {
+  private completePotObject(): void {
     this.currentPot.name = this.potNameValue;
     this.currentPot.target = parseFloat(
       this.potTargetInputValue.replace(/,/g, '')
     );
     this.currentPot.theme = this.chosenTheme.hex;
+  }
+
+  /**
+   * @description - This function is called when the user clicks the save button in the modal.
+   */
+  public submitAddPot(): void {
+    this.completePotObject();
     this.apiPotsService.addNewPot(this.currentPot);
     this.closeMainModal();
-    console.log(this.currentPot);
   }
+  // #endregion
 }

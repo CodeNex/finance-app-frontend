@@ -46,7 +46,7 @@ export class BasedataService {
     return this.financeApp.basics.apiData.localStorage.tokenKey;
   }
 
-  public getColors(): any {
+  public get colors(): any {
     return this.financeApp.basics.colors
   }
 

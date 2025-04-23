@@ -154,7 +154,7 @@ export class EditPotModalComponent {
 
   // get all the themes from the data-store-service and split them into used and unused theme arrays
   getThemeArrays() {
-    this.themes = Object.values(this.baseData.financeApp.basics.colors);
+    this.themes = Object.values(this.baseData.colors);
 
     this.usedPotThemes = this.dataStore.pots().map((pot: any) => pot.theme);
     this.unusedPotThemes = this.themes.filter(
@@ -173,8 +173,16 @@ export class EditPotModalComponent {
     }
   }
 
-  // submit the changed pot to the pots array in data-store-service, submit the changed pot to the API and close the modal
-  submitEditPot() {
+  // #region Submit
+
+  private completePotObject(): void {
+    
+  }
+
+  /**
+   * @description - Submit the changed pot to the pots array in data-store-service, submit the changed pot to the API and close the modal
+   */
+  public submitEditPot(): void {
     let potObject = this.currentPot;
     potObject.name = this.potNameValue;
     potObject.target = parseFloat(this.potTargetInputValue.replace(/,/g, ''));
@@ -188,4 +196,5 @@ export class EditPotModalComponent {
     this.mainModalService.hideMainModal();
     console.log(potObject);
   }
+  // #endregion
 }
