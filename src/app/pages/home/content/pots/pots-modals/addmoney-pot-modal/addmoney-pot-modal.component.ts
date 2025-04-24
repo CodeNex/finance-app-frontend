@@ -4,9 +4,16 @@ import { FormsModule } from '@angular/forms';
 
 import { MainModalService } from '@services/main-modal.service';
 import { DataStoreServiceService } from '@services/data-store-service.service';
-import { ApiPotsService } from '../../api-pots.service';
+import { ApiPotsService } from '@content/pots/api-pots.service';
 import { ApiTransactionService } from '@content/transactions/api-transaction.service';
 
+/**
+ * * * AddmoneyPotModalComponent
+ * * This component is responsible for displaying the add money pot modal.
+ * * It allows the user to add money to an existing pot.
+ * * It uses the MainModalService to manage the modal state and the ApiPotsService to interact with the backend.
+ * * It also uses the ApiTransactionService to handle transactions related to the pot.
+ */
 @Component({
   selector: 'app-addmoney-pot-modal',
   imports: [CommonModule, FormsModule],
@@ -14,22 +21,21 @@ import { ApiTransactionService } from '@content/transactions/api-transaction.ser
   styleUrl: './addmoney-pot-modal.component.scss',
 })
 export class AddmoneyPotModalComponent {
-  public mainModalService: MainModalService = inject(MainModalService);
-  public dataStore: DataStoreServiceService = inject(DataStoreServiceService);
-  public apiPotService: ApiPotsService = inject(ApiPotsService);
-  public apiTransactionService: ApiTransactionService = inject(
-    ApiTransactionService
-  );
+  // #region Component Setup (DI, Outputs, Template Refs, Subscription)
+  public mainModalService = inject(MainModalService);
+  public dataStore = inject(DataStoreServiceService);
+  public apiPotService = inject(ApiPotsService);
+  public apiTransactionService = inject(ApiTransactionService);
 
   // closes main modal and its children
   public closeMainModal() {
     this.mainModalService.hideMainModal();
   }
 
-  @Input() public modalObject: Object = {};
+  @Input() public modalObject!: PotsObject;
   @Input() public potIndex: number = -1;
 
-  public currentPot: any = {
+  public currentPot: PotsObject = {
     id: -1,
     name: '',
     target: -1,
@@ -40,20 +46,9 @@ export class AddmoneyPotModalComponent {
   };
 
   public currentPotIndex: number = -1;
-
-  public newAmount: string = '';
-  public targetAmount: string = '';
-
-  public percentageNumber: number = 0;
-  public percentage: string = '';
-  public progressBarPercentage: string = '';
-
-  public prevPercentageBar: string = '';
-  public amountPercentageBar: number = 0;
-
-  public inputValue: string = '0.00';
-  public inputValueCache: string = '0.00';
-
+  // #endregion
+  
+  // #region Lifecycle Hooks
   ngOnInit() {
     this.currentPot = this.modalObject;
     this.currentPotIndex = this.potIndex;
@@ -73,8 +68,19 @@ export class AddmoneyPotModalComponent {
         Math.trunc((this.currentPot.total / this.currentPot.target) * 1000) / 10
       ).toFixed(0) + '%';
   }
+  // #endregion
 
-  // controls the money input field
+  // #region Input Control
+  public newAmount: string = '';
+  public targetAmount: string = '';
+  public inputValue: string = '0.00';
+  public inputValueCache: string = '0.00';
+
+  /**
+   * @description - This function is used to control the input value of the money input field.
+   * It formats the input value and updates the percentage bar based on the input value.
+   * @param event - The event that is triggered when the user types in the input field.
+   */
   controlMoneyInput(event: any) {
     this.formatInputValue(event);
     let inputValueNumber = Number(this.inputValueCache.replace(/,/g, ''));
@@ -82,7 +88,13 @@ export class AddmoneyPotModalComponent {
     this.updatePercentageBar(inputAmount);
   }
 
-  // controls the maximum amount of the pot target
+  /**
+   * @description - This function is used to format the input value of the money input field.
+   * It checks if the key pressed is a number, delete key, or arrow key and formats the input value accordingly.
+   * @param event - The event that is triggered when the user types in the input field.
+   * @returns - The formatted input value in the en-US format.
+   * @example - 1234567.89 => '1,234,567.89' 
+   */
   formatInputValue(event: any) {
     const deleteKeys = ['Backspace', 'Delete'];
     const otherKeys = ['ArrowLeft', 'ArrowRight', 'Tab'];
@@ -106,7 +118,11 @@ export class AddmoneyPotModalComponent {
     return formatInputValue;
   }
 
-  // add a number to the target input
+  /**
+   * @description - This function is used to add a number to the target input value.
+   * It checks if the key pressed is a number and adds it to the input value.
+   * @param event - The event that is triggered when the user types in the input field.
+   */
   addNumberToTargetInput(event: any) {
     let currentTarget = this.inputValueCache;
     let numbersArray = currentTarget.replace(/[.,]/g, '').split('');
@@ -136,7 +152,10 @@ export class AddmoneyPotModalComponent {
     }
   }
 
-  // delete a number from the target input
+  /**
+   * @description - This function is used to delete a number from the target input value.
+   * It checks if the key pressed is a delete key and removes the last number from the input value.
+   */
   deleteNumberFromTargetInput() {
     let currentTarget = this.inputValueCache;
     let numbersArray = currentTarget.replace(/[.,]/g, '').split('');
@@ -150,7 +169,13 @@ export class AddmoneyPotModalComponent {
     );
   }
 
-  // validate the input value
+  /**
+   * @description - This function is used to validate the input value of the money input field.
+   * It checks if the input value is greater than 0 and less than or equal to the remaining amount and balance.
+   * It also updates the input value accordingly.
+   * @param inputValueNumber - The input value number to be validated.
+   * @returns - The validated input amount. 
+   */
   validateInputValue(inputValueNumber: number) {
     let inputAmount: any;
     let balance = this.dataStore.balance().balance;
@@ -213,8 +238,21 @@ export class AddmoneyPotModalComponent {
 
     return inputAmount;
   }
+  // #endregion
 
-  // update the percentage bar
+  // #region Progress Bar
+  public percentageNumber: number = 0;
+  public percentage: string = '';
+  public progressBarPercentage: string = '';
+  public prevPercentageBar: string = '';
+  public amountPercentageBar: number = 0;
+
+  /**
+   * @description - This function is used to update the progress bar percentage and the amount percentage bar.
+   * It takes the input value and calculates the percentage of the current pot total and target.
+   * It also updates the new amount to be displayed in the modal.
+   * @param value - The value to be used to update the progress bar.
+   */
   updatePercentageBar(value: number) {
     let inputAmount = value;
     this.progressBarPercentage =
@@ -236,8 +274,14 @@ export class AddmoneyPotModalComponent {
       }
     );
   }
+  // #endregion
 
-  // submit the add money modal and new pot Object
+  // #region Submit Add Money
+  /**
+   * @description - This function is used to submit the add money request.
+   * It checks if the input value is greater than 0.00 and updates the pot total and transaction.
+   * It also hides the main modal after the transaction is completed.
+   */
   submitAddMoney() {
     if (this.inputValue && this.inputValue > '0.00') {
       this.currentPot.total =
@@ -258,4 +302,5 @@ export class AddmoneyPotModalComponent {
       this.mainModalService.hideMainModal();
     }
   }
+  // #endregion
 }

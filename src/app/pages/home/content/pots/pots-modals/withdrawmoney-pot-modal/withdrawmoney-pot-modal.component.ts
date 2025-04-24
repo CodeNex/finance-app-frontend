@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 
 import { MainModalService } from '@services/main-modal.service';
 import { DataStoreServiceService } from '@services/data-store-service.service';
-import { ApiPotsService } from '../../api-pots.service';
+import { ApiPotsService } from '@content/pots/api-pots.service';
 import { ApiTransactionService } from '@content/transactions/api-transaction.service';
 
 @Component({
