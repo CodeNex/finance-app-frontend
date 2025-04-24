@@ -2,7 +2,7 @@ import { Component, inject, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { MainModalService } from '@services/main-modal.service';
-import { ApiPotsService } from '../../api-pots.service';
+import { ApiPotsService } from '@content/pots/api-pots.service';
 
 @Component({
   selector: 'app-delete-pot-modal',
@@ -11,13 +11,9 @@ import { ApiPotsService } from '../../api-pots.service';
   styleUrl: './delete-pot-modal.component.scss',
 })
 export class DeletePotModalComponent {
-  public mainModalService: MainModalService = inject(MainModalService);
-  public apiPotService: ApiPotsService = inject(ApiPotsService);
-
-  // closes main modal and its children
-  public closeMainModal() {
-    this.mainModalService.hideMainModal();
-  }
+  // #region Component Setup (DI, Outputs, Template Refs, Subscription)
+  public mainModalService = inject(MainModalService);
+  public apiPotService = inject(ApiPotsService);
 
   public currentPotToDelete: string = 'CurrentPot';
   
@@ -35,6 +31,7 @@ export class DeletePotModalComponent {
   };
 
   public currentPotIndex: number = -1;
+  // #endregion
 
   ngOnInit() {
     this.currentPot = this.modalObject;
@@ -46,5 +43,12 @@ export class DeletePotModalComponent {
 
   deleteCurrentPot() {
     this.apiPotService.deletePot(this.currentPot, this.currentPotIndex);
+  }
+
+  /**
+   * * Closes the main and current modal by calling the hideMainModal method from the MainModalService.
+   */
+  public closeMainModal() {
+    this.mainModalService.hideMainModal();
   }
 }
