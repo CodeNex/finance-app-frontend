@@ -132,7 +132,7 @@ export class AddBudgetModalComponent implements OnInit {
   // #endregion
 
   // #region Target Input
-  public amountInputValue: string = '0.00';
+  public amountInputValue: string = '0.00'; // ngModel binded to the input field
 
   /**
    * @description - This function is used to format the amount input value.

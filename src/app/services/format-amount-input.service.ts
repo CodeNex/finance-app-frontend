@@ -11,8 +11,7 @@ import { Injectable } from '@angular/core';
 })
 export class FormatAmountInputService {
   public formatAmountInput(event: KeyboardEvent, inputValue: string): string {
-    const amountInputValue: string = inputValue;
-    return this.controlMaxTarget(event, amountInputValue);
+    return this.controlMaxTarget(event, inputValue);
   }
 
   /**

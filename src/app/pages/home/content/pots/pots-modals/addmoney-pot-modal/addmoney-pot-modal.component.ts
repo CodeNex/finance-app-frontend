@@ -83,9 +83,9 @@ export class AddmoneyPotModalComponent {
    */
   controlMoneyInput(event: any) {
     
-    
     this.formatInputValue(event);
     console.log(this.inputValue);
+
     let inputValueNumber = Number(this.inputValueCache.replace(/,/g, ''));
     let inputAmount: number = this.validateInputValue(inputValueNumber);
     this.updatePercentageBar(inputAmount);
@@ -98,7 +98,7 @@ export class AddmoneyPotModalComponent {
    * @returns - The formatted input value in the en-US format.
    * @example - 1234567.89 => '1,234,567.89' 
    */
-  formatInputValue(event: any) {
+  private formatInputValue(event: KeyboardEvent) {
     const deleteKeys = ['Backspace', 'Delete'];
     const otherKeys = ['ArrowLeft', 'ArrowRight', 'Tab'];
     const isNumberKey = /^[0-9]$/.test(event.key);
@@ -159,7 +159,7 @@ export class AddmoneyPotModalComponent {
    * @description - This function is used to delete a number from the target input value.
    * It checks if the key pressed is a delete key and removes the last number from the input value.
    */
-  deleteNumberFromTargetInput() {
+  private deleteNumberFromTargetInput() {
     let currentTarget = this.inputValueCache;
     let numbersArray = currentTarget.replace(/[.,]/g, '').split('');
     numbersArray.pop();
@@ -179,7 +179,7 @@ export class AddmoneyPotModalComponent {
    * @param inputValueNumber - The input value number to be validated.
    * @returns - The validated input amount. 
    */
-  validateInputValue(inputValueNumber: number) {
+  private validateInputValue(inputValueNumber: number): number {
     let inputAmount: any;
     let balance = this.dataStore.balance().balance;
     let remainingAmount = this.currentPot.target - this.currentPot.total;
