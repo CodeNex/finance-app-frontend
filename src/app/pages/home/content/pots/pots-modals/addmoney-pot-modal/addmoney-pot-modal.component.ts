@@ -49,7 +49,7 @@ export class AddmoneyPotModalComponent {
 
   public currentPotIndex: number = -1;
   // #endregion
-  
+
   // #region Lifecycle Hooks
   ngOnInit() {
     this.currentPot = this.modalObject;
@@ -87,7 +87,10 @@ export class AddmoneyPotModalComponent {
    * @param event - The event that is triggered when the user types in the input field.
    */
   public controlMoneyInput(event: KeyboardEvent): void {
-    const inputAmountValue = this.formatAmountInputService.formatAmountInput(event, this.inputValue);
+    const inputAmountValue = this.formatAmountInputService.formatAmountInput(
+      event,
+      this.inputValue
+    );
     if (inputAmountValue === 'Invalid Amount') return;
     let inputValueNumber = Number(inputAmountValue.replace(/,/g, ''));
     let inputAmount: number = this.validateInputValue(inputValueNumber);
@@ -99,7 +102,7 @@ export class AddmoneyPotModalComponent {
    * It checks if the input value is greater than 0 and less than or equal to the remaining amount and balance.
    * It also updates the input value accordingly.
    * @param inputValueNumber - The input value number to be validated.
-   * @returns - The validated input amount. 
+   * @returns - The validated input amount.
    */
   private validateInputValue(inputValueNumber: number): number {
     let inputAmount: number = 0;
@@ -112,43 +115,31 @@ export class AddmoneyPotModalComponent {
       inputValueNumber === undefined
     )
       inputAmount = 0;
-    setTimeout(() => {
-      this.inputValue = this.formatToEnUS(inputAmount);
-    }, 10);
     // if the input value is greater than 0 and less than or equal to the remaining amount and the balance, set the input amount to the input value
     if (
       inputValueNumber &&
       inputValueNumber <= remainingAmount &&
       inputValueNumber <= balance
-    ) {
+    )
       inputAmount = inputValueNumber;
-      setTimeout(() => {
-        this.inputValue = this.formatToEnUS(inputAmount);
-      }, 10);
-    }
     // if the input value is greater than 0 and greater than the remaining amount and the balance, set the input amount to the remaining amount
     if (
       inputValueNumber &&
       inputValueNumber > remainingAmount &&
       balance >= remainingAmount
-    ) {
+    )
       inputAmount = remainingAmount;
-      setTimeout(() => {
-        this.inputValue = this.formatToEnUS(inputAmount);
-      }, 10);
-    }
     // if the input value is greater than 0 and greater than the remaining amount and the balance, set the input amount to
     if (
       inputValueNumber &&
       inputValueNumber > balance &&
       remainingAmount > balance
-    ) {
+    )
       inputAmount = balance;
-      setTimeout(() => {
-        this.inputValue = this.formatToEnUS(inputAmount);
-      }, 10);
-    }
 
+    setTimeout(() => {
+      this.inputValue = this.formatToEnUS(inputAmount);
+    }, 10);
     return inputAmount;
   }
 
