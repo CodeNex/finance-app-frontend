@@ -103,6 +103,7 @@ export class WithdrawmoneyPotModalComponent {
   }
   // #endregion
 
+  // #region Input Control
   public inputValue: string = '0.00';
   public inputValueCache: string = '0.00';
 
@@ -182,27 +183,19 @@ export class WithdrawmoneyPotModalComponent {
     );
   }
 
-  // validates the input value and returns the value if it is valid
+  /**
+   * @description - This function is used to validate the input value of the money input field.
+   * It checks if the input value is greater than 0 and less than or equal to the remaining amount and balance.
+   * @param inputValueNumber - The input value number to be validated.
+   * @returns - The validated input amount. 
+   */
   private validateInputValue(inputValueNumber: number): number {
-    let inputAmount: any;
-    if (inputValueNumber <= this.currentPot.total) {
+    let inputAmount: number = 0;
+    if (inputValueNumber <= this.currentPot.total)
       inputAmount = inputValueNumber;
-      setTimeout(() => {
-        let value = inputAmount.toLocaleString('en-US', {
-          minimumFractionDigits: 2,
-        });
-        [this.inputValue, this.inputValueCache] = [value, value];
-      }, 10);
-    }
-    if (inputValueNumber > this.currentPot.total) {
+    if (inputValueNumber > this.currentPot.total)
       inputAmount = this.currentPot.total;
-      setTimeout(() => {
-        let value = this.currentPot.total.toLocaleString('en-US', {
-          minimumFractionDigits: 2,
-        });
-        [this.inputValue, this.inputValueCache] = [value, value];
-      }, 10);
-    }
+
     setTimeout(() => {
       this.inputValue = this.formatToEnUS(inputAmount, 'twoDigit');
       this.newAmount = this.formatToEnUS(
@@ -212,6 +205,7 @@ export class WithdrawmoneyPotModalComponent {
     }, 10);
     return inputAmount;
   }
+  // #endregion
 
   // #region Progress Bar
   public percentageNumber: number = 0;
