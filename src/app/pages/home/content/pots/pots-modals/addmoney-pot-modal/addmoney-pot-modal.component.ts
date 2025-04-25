@@ -189,7 +189,7 @@ export class AddmoneyPotModalComponent {
    * It also updates the new amount to be displayed in the modal.
    * @param value - The value to be used to update the progress bar.
    */
-  updatePercentageBar(value: number) {
+  private updatePercentageBar(value: number): void {
     let inputAmount = value;
     this.progressBarPercentage =
       Math.trunc(
@@ -212,7 +212,7 @@ export class AddmoneyPotModalComponent {
    * It checks if the input value is greater than 0.00 and updates the pot total and transaction.
    * It also hides the main modal after the transaction is completed.
    */
-  submitAddMoney() {
+  public submitAddMoney(): void {
     if (this.inputValue && this.inputValue > '0.00') {
       this.currentPot.total =
         this.currentPot.total + Number(this.inputValue.replace(/,/g, ''));
