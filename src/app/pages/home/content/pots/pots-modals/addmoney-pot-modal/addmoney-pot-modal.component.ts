@@ -14,6 +14,7 @@ import { FormatAmountInputService } from '@src/services/format-amount-input.serv
  * * It allows the user to add money to an existing pot.
  * * It uses the MainModalService to manage the modal state and the ApiPotsService to interact with the backend.
  * * It also uses the ApiTransactionService to handle transactions related to the pot.
+ * * It uses the FormatAmountInputService to format the input value.
  */
 @Component({
   selector: 'app-addmoney-pot-modal',

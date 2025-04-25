@@ -8,6 +8,14 @@ import { ApiPotsService } from '@content/pots/api-pots.service';
 import { ApiTransactionService } from '@content/transactions/api-transaction.service';
 import { FormatAmountInputService } from '@src/services/format-amount-input.service';
 
+/**
+ * * * * WithdrawmoneyPotModalComponent
+ * * This component is responsible for displaying the withdraw money pot modal.
+ * * It allows the user to withdraw money from an existing pot.
+ * * It uses the MainModalService to manage the modal state and the ApiPotsService to interact with the backend.
+ * * It also uses the ApiTransactionService to handle transactions related to the pot.
+ * * It uses the FormatAmountInputService to format the input value.
+ */
 @Component({
   selector: 'app-withdrawmoney-pot-modal',
   imports: [CommonModule, FormsModule],
@@ -107,87 +115,29 @@ export class WithdrawmoneyPotModalComponent {
   public inputValue: string = '0.00';
   public inputValueCache: string = '0.00';
 
-  // controls the money input field
-  controlMoneyInput(event: any) {
-    this.formatInputValue(event);
-    let inputValueNumber = Number(this.inputValueCache.replace(/,/g, ''));
+  /**
+   * @description - This function is used to control the input value of the money input field.
+   * It uses the FormatAmountInputService to format the input value and validate it.
+   * It formats the input value to the en-US format and updates the percentage bar.
+   * It also validates the input value to ensure it is within the allowed range.
+   * @param event - The event that is triggered when the user types in the input field.
+   */
+  public controlMoneyInput(event: KeyboardEvent): void {
+    const inputAmountValue = this.formatAmountInputService.formatAmountInput(
+      event,
+      this.inputValue
+    );
+    if (inputAmountValue === 'Invalid Amount') return;
+    let inputValueNumber = Number(inputAmountValue.replace(/,/g, ''));
     let inputAmount: number = this.validateInputValue(inputValueNumber);
     this.updatePercentageBar(inputAmount);
-  }
-
-  // controls the maximum amount of the pot target
-  formatInputValue(event: any) {
-    const deleteKeys = ['Backspace', 'Delete'];
-    const otherKeys = ['ArrowLeft', 'ArrowRight', 'Tab'];
-    const isNumberKey = /^[0-9]$/.test(event.key);
-
-    let formatInputValue: number = 0;
-
-    if (isNumberKey) {
-      event.preventDefault();
-      this.addNumberToTargetInput(event);
-    } else if (deleteKeys.includes(event.key)) {
-      event.preventDefault();
-      this.deleteNumberFromTargetInput();
-    } else if (otherKeys.includes(event.key)) {
-      return;
-    } else {
-      event.preventDefault();
-      return;
-    }
-
-    return formatInputValue;
-  }
-
-  // add a number to the target input
-  addNumberToTargetInput(event: any) {
-    let currentTarget = this.inputValueCache;
-    let numbersArray = currentTarget.replace(/[.,]/g, '').split('');
-    if (numbersArray.length === 3 && numbersArray[0] === '0') {
-      numbersArray.shift();
-      numbersArray.push(event.key);
-      numbersArray.splice(numbersArray.length - 2, 0, '.');
-      this.inputValueCache = parseFloat(numbersArray.join('')).toLocaleString(
-        'en-US',
-        {
-          minimumFractionDigits: 2,
-        }
-      );
-    } else if (
-      numbersArray.length >= 3 &&
-      numbersArray.length < 11 &&
-      numbersArray[0] !== '0'
-    ) {
-      numbersArray.push(event.key);
-      numbersArray.splice(numbersArray.length - 2, 0, '.');
-      this.inputValueCache = parseFloat(numbersArray.join('')).toLocaleString(
-        'en-US',
-        {
-          minimumFractionDigits: 2,
-        }
-      );
-    }
-  }
-
-  // delete a number from the target input
-  deleteNumberFromTargetInput() {
-    let currentTarget = this.inputValueCache;
-    let numbersArray = currentTarget.replace(/[.,]/g, '').split('');
-    numbersArray.pop();
-    numbersArray.splice(numbersArray.length - 2, 0, '.');
-    this.inputValueCache = parseFloat(numbersArray.join('')).toLocaleString(
-      'en-US',
-      {
-        minimumFractionDigits: 2,
-      }
-    );
   }
 
   /**
    * @description - This function is used to validate the input value of the money input field.
    * It checks if the input value is greater than 0 and less than or equal to the remaining amount and balance.
    * @param inputValueNumber - The input value number to be validated.
-   * @returns - The validated input amount. 
+   * @returns - The validated input amount.
    */
   private validateInputValue(inputValueNumber: number): number {
     let inputAmount: number = 0;
@@ -239,10 +189,10 @@ export class WithdrawmoneyPotModalComponent {
    * * @description - This function is called when the user clicks the withdraw button in the modal.
    * * It checks if the input value is valid and if so, it updates the pot total and starts a transaction.
    */
-  commitWithdrawMoney() {
+  public submitWithdrawMoney(): void {
     if (this.inputValue && this.inputValue > '0.00') {
       this.currentPot.total =
-        this.currentPot.total - Number(this.inputValueCache.replace(/,/g, ''));
+        this.currentPot.total - Number(this.inputValue.replace(/,/g, ''));
       this.apiPotService.updatePot(
         'pots',
         'withdrawMoneyPot',
@@ -252,7 +202,7 @@ export class WithdrawmoneyPotModalComponent {
       this.apiTransactionService.startTransactionFromPots(
         'potWithdraw',
         new Date().toISOString(),
-        Number(this.inputValueCache.replace(/,/g, '')),
+        Number(this.inputValue.replace(/,/g, '')),
         this.currentPotIndex,
         this.currentPot.theme
       );
