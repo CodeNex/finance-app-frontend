@@ -163,6 +163,20 @@ export class AddmoneyPotModalComponent {
 
     return inputAmount;
   }
+
+  /**
+   * @description - This function is responsible for formatting the input value to the en-US format.
+   * @param value - The value to be formatted.
+   * @returns - The formatted value in the en-US format.
+   * @example - 1234567.89 => '1,234,567.89'
+   */
+  private formatToEnUS(value: number): string {
+    if (value == null) return '';
+    return `${value.toLocaleString('en-US', {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    })}`;
+  }
   // #endregion
 
   // #region Progress Bar
