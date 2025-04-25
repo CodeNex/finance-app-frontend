@@ -13,6 +13,7 @@ import { FormatAmountPipe } from '@shared/pipes/format-amount.pipe';
   styleUrl: './single-transaction.component.scss',
 })
 export class SingleTransactionComponent {
+  // #region Component Setup (DI, Outputs, Template Refs, Subscription)
   public baseData = inject(BasedataService);
 
   @Input() transaction: TransactionsObject = {
@@ -34,28 +35,29 @@ export class SingleTransactionComponent {
   };
 
   public iconName: string = '';
-  public theme: string = '';
-  public name: string = '';
-  public category: string = '';
-  public date: string = '';
-  public amount: string = '';
-  public type: string = '';
 
-  ngOnInit() {
+
+  public category: string = '';
+
+
+  // #endregion
+
+  // #region Lifecycle Hooks
+  ngOnInit(): void {
     this.iconName =
       this.baseData.financeApp.budgets.categories[
         this.transaction.category!
       ].iconName;
-    this.theme = this.transaction.theme;
-    this.name = this.transaction.name;
+
+
     this.category =
       this.baseData.financeApp.budgets.categories[
         this.transaction.category!
       ].name;
-    this.amount = this.transaction.amount!.toLocaleString('en-US', {
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2,
-    });
-    this.type = this.transaction.type;
   }
+
+  private getIconName(): string {
+    return this.baseData.getCategoryIcon(this.transaction.category!);
+  }
+  // #endregion
 }
