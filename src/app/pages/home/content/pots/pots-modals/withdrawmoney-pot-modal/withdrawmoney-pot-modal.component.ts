@@ -37,8 +37,8 @@ export class WithdrawmoneyPotModalComponent {
 
   public currentPotIndex: number = -1;
 
-  public newAmount: string = ''; // template variable 
-  public targetAmount: string = ''; // template variable 
+  public newAmount: string = ''; // template variable
+  public targetAmount: string = ''; // template variable
   // #endregion
 
   // #region Lifecycle Hooks
@@ -74,7 +74,10 @@ export class WithdrawmoneyPotModalComponent {
    * @returns - The formatted value in the en-US format.
    * @example - 1234567.89 => '1,234,567.89'
    */
-  private formatToEnUS(value: number, digit: 'twoDigit' | 'zeroDigit' = 'twoDigit'): string {
+  private formatToEnUS(
+    value: number,
+    digit: 'twoDigit' | 'zeroDigit' = 'twoDigit'
+  ): string {
     if (value == null) return '';
     if (digit === 'twoDigit') {
       return `${value.toLocaleString('en-US', {
@@ -200,6 +203,13 @@ export class WithdrawmoneyPotModalComponent {
         [this.inputValue, this.inputValueCache] = [value, value];
       }, 10);
     }
+    setTimeout(() => {
+      this.inputValue = this.formatToEnUS(inputAmount, 'twoDigit');
+      this.newAmount = this.formatToEnUS(
+        this.currentPot.total - inputAmount,
+        'twoDigit'
+      );
+    }, 10);
     return inputAmount;
   }
 
@@ -227,12 +237,6 @@ export class WithdrawmoneyPotModalComponent {
     this.amountPercentageBar =
       this.amountPercentageBar -
       Math.floor((inputAmount / this.currentPot.total) * 100);
-    this.newAmount = (this.currentPot.total - inputAmount).toLocaleString(
-      'en-US',
-      {
-        minimumFractionDigits: 2,
-      }
-    );
   }
   // #endregion
 
