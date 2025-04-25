@@ -41,31 +41,70 @@ export class TransactionsComponent {
   });
   // #endregion
 
-  // ########################################
-  // # function takes the transactions array and returns it in a format that is ready to be rendered
-  // ########################################
+  // #region Helper Functions
+  /**
+   * @description - This function is responsible for setting the total sub pages signal.	
+   * @param value - The value to be set for the total sub pages signal.
+   */
+  private setTotalSubPagesSignal(value: number): void {
+    this.totalSubPagesSignal.set(value);
+  }
 
+  /**
+   * @description - This function is responsible for setting the current page signal.	
+   * @param value - The value to be set for the current page signal.
+   */
+  public setCurrentPageSignal(value: number): void {
+    this.currentPageSignal.set(value);
+  }
+
+  /**
+   * @description - This function is responsible for opening the sub modal.
+   * It uses the MainModalService to open the sub modal and pass the object to it.
+   * @param subModal - The name of the sub modal to be opened.
+   * @param subModalObject - The object to be passed to the sub modal. 
+   */
+  public openSubModal(subModal: string, subModalObject: Object = {}): void {
+    this.mainModalService.chooseSubModal(subModal, subModalObject, null);
+  }
+  // #endregion
+
+  // #region Format & Sorting Transactions Array
+  /**
+   * @description - This function is responsible for formatting the transactions array.
+   * It filters the transactions by category, searches for transactions by name, 
+   * sorts the transactions by date, and splits the transactions into sub arrays for pagination.
+   * @param prevArray - The array of transactions to be formatted.
+   */
   public formatTransactionsArray(prevArray: TransactionsObject[]): void {
     let arrayByCategories = this.getTransactionsFilteredByCategories(prevArray);
     let searchedArray = this.getSearchedTransactions(arrayByCategories);
     let sortedArray = this.getSortedTransactions(searchedArray);
     let splittedArray = this.splitTransactionsArray(sortedArray);
-    this.settotalSubPagesSignal(splittedArray.length);
+    this.setTotalSubPagesSignal(splittedArray.length);
     this.renderReadyArray = splittedArray;
   }
 
-  // ########################################
-  // # functions to filter the array by category
-  // ########################################
-
+  
+  // functions to filter the array by category
   public categoryFilterInput: string = 'All Transactions';
 
-  public setCategoryFilterInput(input: string) {
+  /**
+   * @description - This function is responsible for setting the category filter input.
+   * It sets the category filter input to the given value and formats the transactions array.
+   * @param input - The input value to be set for the category filter.
+   */
+  public setCategoryFilterInput(input: string): void {
     this.categoryFilterInput = input;
     this.formatTransactionsArray(this.transactionsSignal());
-    this.setcurrentPageSignal(1);
+    this.setCurrentPageSignal(1);
   }
 
+  /**
+   * @description - This function is responsible for getting the transactions filtered by categories.
+   * @param prevArray - The array of transactions to be filtered by category.
+   * @returns - The filtered array of transactions. 
+   */
   private getTransactionsFilteredByCategories(
     prevArray: TransactionsObject[]
   ): TransactionsObject[] {
@@ -77,18 +116,25 @@ export class TransactionsComponent {
     return array;
   }
 
-  // ########################################
-  // # functions to filter the array by search field
-  // ########################################
-
+  // functions to filter the array by search field
   public searchFieldInput: string = '';
 
+  /**
+   * @description - This function is responsible for setting the search field input.
+   * It sets the search field input to the given value and formats the transactions array.
+   * @param input - The input value to be set for the search field.
+   */
   public setSearchFieldInput(input: string) {
     this.searchFieldInput = input;
     this.formatTransactionsArray(this.transactionsSignal());
-    this.setcurrentPageSignal(1);
+    this.setCurrentPageSignal(1);
   }
 
+  /**
+   * @description - This function is responsible for getting the transactions filtered by search field.
+   * @param prevArray - The array of transactions to be filtered by search field.
+   * @returns - The filtered array of transactions. 
+   */
   private getSearchedTransactions(
     prevArray: TransactionsObject[]
   ): TransactionsObject[] {
@@ -103,6 +149,12 @@ export class TransactionsComponent {
     return array;
   }
 
+  /**
+   * @description - This function is responsible for checking if the search string is a subsequence of the text string.
+   * @param search - The search string to be checked.
+   * @param text - The text string to be checked against.
+   * @returns - True if the search string is a subsequence of the text string, false otherwise.
+   */
   private isSubsequence(search: string, text: string): boolean {
     let searchIncludingCount: number = 0;
     let lastMatchIndex: number = -1;
@@ -122,10 +174,11 @@ export class TransactionsComponent {
     }
   }
 
-  // ########################################
-  // # functions to split the array into sub arrays for pagination
-  // ########################################
-
+  /**
+   * @description - This function is responsible for splitting the transactions array into sub arrays for pagination.
+   * @param prevArray - The array of transactions to be split into sub arrays.
+   * @returns - The splitted array of transactions. 
+   */
   private splitTransactionsArray(
     prevArray: TransactionsObject[]
   ): TransactionsObject[][] {
@@ -137,19 +190,26 @@ export class TransactionsComponent {
     return splittedArray;
   }
 
-  // ########################################
-  // # functions to sort the array
-  // ########################################
-
+  // functions to sort the array
   public sortByInput: string = 'Latest';
 
+  /**
+   * @description - This function is responsible for setting the sort by input.
+   * It sets the sort by input to the given value and formats the transactions array.
+   * @param input - The input value to be set for the sort by input.
+   */
   public setSortByInput(input: string) {
     this.sortByInput = input;
     this.formatTransactionsArray(this.transactionsSignal());
   }
 
+  /**
+   * @description - This function is responsible for getting the transactions sorted by the given input.
+   * @param prevArray - The array of transactions to be sorted.
+   * @returns - The sorted array of transactions. 
+   */
   private getSortedTransactions(prevArray: TransactionsObject[]): TransactionsObject[] {
-    let array;
+    let array: TransactionsObject[] = prevArray;
     if (
       this.sortByInput === 'Latest' ||
       this.sortByInput === 'Oldest' ||
@@ -164,6 +224,11 @@ export class TransactionsComponent {
     return array;
   }
 
+  /**
+   * @description - This function is responsible for sorting the transactions array by date.
+   * @param array - The array of transactions to be sorted by date.
+   * @returns - The sorted array of transactions. 
+   */
   private sortByDate(array: TransactionsObject[]): TransactionsObject[] {
     return array.sort((a, b) => {
       if (!a.execute_on) return 1;
@@ -184,43 +249,34 @@ export class TransactionsComponent {
     });
   }
 
-  private sortByAlphabet(array: any) {
-    return array.sort((a: any, b: any) => {
+  /**
+   * @description - This function is responsible for sorting the transactions array by name.
+   * @param array - The array of transactions to be sorted by name.
+   * @returns - The sorted array of transactions. 
+   */
+  private sortByAlphabet(array: TransactionsObject[]): TransactionsObject[] {
+    return array.sort((a, b) => {
       if (!a.name) return 1;
       if (!b.name) return -1;
       if (this.sortByInput === 'A to Z') return a.name.localeCompare(b.name);
       if (this.sortByInput === 'Z to A') return b.name.localeCompare(a.name);
-      return;
+      return 0;
     });
   }
 
-  private sortByAmount(array: any) {
-    return array.sort((a: any, b: any) => {
+  /**
+   * @description - This function is responsible for sorting the transactions array by amount.
+   * @param array - The array of transactions to be sorted by amount.
+   * @returns - The sorted array of transactions. 
+   */
+  private sortByAmount(array: TransactionsObject[]): TransactionsObject[] {
+    return array.sort((a, b) => {
       if (a.amount == null) return 1;
       if (b.amount == null) return -1;
       if (this.sortByInput === 'Highest') return b.amount - a.amount;
       if (this.sortByInput === 'Lowest') return a.amount - b.amount;
-      return;
+      return 0;
     });
   }
-
-  // ########################################
-  // # functions to handle pagination
-  // ########################################
-
-  public settotalSubPagesSignal(value: number) {
-    this.totalSubPagesSignal.set(value);
-  }
-
-  public setcurrentPageSignal(value: number) {
-    this.currentPageSignal.set(value);
-  }
-
-  // ########################################
-  // # open add task sub modal
-  // ########################################
-
-  public openSubModal(subModal: string, subModalObject: Object) {
-    this.mainModalService.chooseSubModal(subModal, subModalObject, null);
-  }
+  // #endregion
 }
