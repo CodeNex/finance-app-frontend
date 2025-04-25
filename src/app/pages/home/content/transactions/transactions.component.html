@@ -84,7 +84,7 @@
       <!-- Transactions Navigation -->
       <div aria-label="transactions window navigation">
         @if (this.renderReadyArray.length > 1) {
-        <app-pagination-transactions [currentPage$]="currentPage$" [totalSubPages$]="totalSubPages$" (changePage)="setCurrentPage$($event)" ></app-pagination-transactions>
+        <app-pagination-transactions [currentPage$]="currentPage$" [totalSubPagesSignal]="totalSubPagesSignal" (changePage)="setCurrentPage$($event)" ></app-pagination-transactions>
         }
       </div>
     </div>

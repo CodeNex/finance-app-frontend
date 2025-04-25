@@ -17,10 +17,10 @@ import { IconsComponent } from '@components/icons/icons.component';
 })
 export class PaginationTransactionsComponent {
   @Input() public currentPage$!: Signal<number>;
-  @Input() public totalSubPages$!: Signal<number>; 
+  @Input() public totalSubPagesSignal!: Signal<number>; 
 
   public currentPage = computed(() => this.currentPage$());
-  public totalSubPages = computed(() => this.totalSubPages$());
+  public totalSubPages = computed(() => this.totalSubPagesSignal());
 
   @Output() public changePage: EventEmitter<number> =
     new EventEmitter<number>();

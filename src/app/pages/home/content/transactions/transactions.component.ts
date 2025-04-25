@@ -42,12 +42,12 @@ export class TransactionsComponent {
   // # function takes the transactions array and returns it in a format that is ready to be rendered
   // ########################################
 
-  public formatTransactionsArray(prevArray: any) {
+  public formatTransactionsArray(prevArray: TransactionsObject[]) {
     let arrayByCategories = this.getTransactionsFilteredByCategories(prevArray);
     let searchedArray = this.getSearchedTransactions(arrayByCategories);
     let sortedArray = this.getSortedTransactions(searchedArray);
     let splittedArray = this.splitTransactionsArray(sortedArray);
-    this.setTotalSubPages$(splittedArray.length);
+    this.settotalSubPagesSignal(splittedArray.length);
     this.renderReadyArray = splittedArray;
   }
 
@@ -118,7 +118,7 @@ export class TransactionsComponent {
   // # functions to split the array into sub arrays for pagination
   // ########################################
 
-  public totalSubPages$ = signal(0); // signal for paginantion
+  public totalSubPagesSignal = signal(0); // signal for paginantion
   public currentPage$ = signal(1); // signal for paginantion
 
   private splitTransactionsArray(prevArray: any) {
@@ -201,8 +201,8 @@ export class TransactionsComponent {
   // # functions to handle pagination
   // ########################################
 
-  public setTotalSubPages$(value: number) {
-    this.totalSubPages$.set(value);
+  public settotalSubPagesSignal(value: number) {
+    this.totalSubPagesSignal.set(value);
   }
 
   public setCurrentPage$(value: number) {
