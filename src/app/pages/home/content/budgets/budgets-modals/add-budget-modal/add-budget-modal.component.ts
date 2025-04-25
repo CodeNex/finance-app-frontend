@@ -138,7 +138,7 @@ export class AddBudgetModalComponent implements OnInit {
    * @description - This function is used to format the amount input value.
    * @param event - The event that is triggered when the user types in the input field.
    */
-  public controlMaxTarget(event: KeyboardEvent) {
+  public controlMaxTarget(event: KeyboardEvent): void {
     const inputValue = this.amountInputValue;
     this.amountInputValue = this.formatAmountInputService.formatAmountInput(event, inputValue);
   }

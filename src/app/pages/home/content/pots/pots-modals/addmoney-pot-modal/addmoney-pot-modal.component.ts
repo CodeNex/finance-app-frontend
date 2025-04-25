@@ -6,6 +6,7 @@ import { MainModalService } from '@services/main-modal.service';
 import { DataStoreServiceService } from '@services/data-store-service.service';
 import { ApiPotsService } from '@content/pots/api-pots.service';
 import { ApiTransactionService } from '@content/transactions/api-transaction.service';
+import { FormatAmountInputService } from '@src/services/format-amount-input.service';
 
 /**
  * * * AddmoneyPotModalComponent
@@ -26,6 +27,7 @@ export class AddmoneyPotModalComponent {
   public dataStore = inject(DataStoreServiceService);
   public apiPotService = inject(ApiPotsService);
   public apiTransactionService = inject(ApiTransactionService);
+  public formatAmountInputService = inject(FormatAmountInputService);
 
   // closes main modal and its children
   public closeMainModal() {
@@ -73,103 +75,23 @@ export class AddmoneyPotModalComponent {
   // #region Input Control
   public newAmount: string = '';
   public targetAmount: string = '';
+
   public inputValue: string = '0.00'; // ngModel binded to the input field
-  public inputValueCache: string = '0.00';
+  // public inputValue: string = '0.00';
 
   /**
    * @description - This function is used to control the input value of the money input field.
-   * It formats the input value and updates the percentage bar based on the input value.
+   * It uses the FormatAmountInputService to format the input value and validate it.
+   * It formats the input value to the en-US format and updates the percentage bar.
+   * It also validates the input value to ensure it is within the allowed range.
    * @param event - The event that is triggered when the user types in the input field.
    */
-  controlMoneyInput(event: any) {
-    
-    this.formatInputValue(event);
-    console.log(this.inputValue);
-
-    let inputValueNumber = Number(this.inputValueCache.replace(/,/g, ''));
+  public controlMoneyInput(event: KeyboardEvent): void {
+    const inputAmountValue = this.formatAmountInputService.formatAmountInput(event, this.inputValue);
+    if (inputAmountValue === 'Invalid Amount') return;
+    let inputValueNumber = Number(inputAmountValue.replace(/,/g, ''));
     let inputAmount: number = this.validateInputValue(inputValueNumber);
     this.updatePercentageBar(inputAmount);
-  }
-
-  /**
-   * @description - This function is used to format the input value of the money input field.
-   * It checks if the key pressed is a number, delete key, or arrow key and formats the input value accordingly.
-   * @param event - The event that is triggered when the user types in the input field.
-   * @returns - The formatted input value in the en-US format.
-   * @example - 1234567.89 => '1,234,567.89' 
-   */
-  private formatInputValue(event: KeyboardEvent) {
-    const deleteKeys = ['Backspace', 'Delete'];
-    const otherKeys = ['ArrowLeft', 'ArrowRight', 'Tab'];
-    const isNumberKey = /^[0-9]$/.test(event.key);
-
-    let formatInputValue: number = 0;
-
-    if (isNumberKey) {
-      event.preventDefault();
-      this.addNumberToTargetInput(event);
-    } else if (deleteKeys.includes(event.key)) {
-      event.preventDefault();
-      this.deleteNumberFromTargetInput();
-    } else if (otherKeys.includes(event.key)) {
-      return;
-    } else {
-      event.preventDefault();
-      return;
-    }
-
-    return formatInputValue;
-  }
-
-  /**
-   * @description - This function is used to add a number to the target input value.
-   * It checks if the key pressed is a number and adds it to the input value.
-   * @param event - The event that is triggered when the user types in the input field.
-   */
-  addNumberToTargetInput(event: any) {
-    let currentTarget = this.inputValueCache;
-    let numbersArray = currentTarget.replace(/[.,]/g, '').split('');
-    if (numbersArray.length === 3 && numbersArray[0] === '0') {
-      numbersArray.shift();
-      numbersArray.push(event.key);
-      numbersArray.splice(numbersArray.length - 2, 0, '.');
-      this.inputValueCache = parseFloat(numbersArray.join('')).toLocaleString(
-        'en-US',
-        {
-          minimumFractionDigits: 2,
-        }
-      );
-    } else if (
-      numbersArray.length >= 3 &&
-      numbersArray.length < 11 &&
-      numbersArray[0] !== '0'
-    ) {
-      numbersArray.push(event.key);
-      numbersArray.splice(numbersArray.length - 2, 0, '.');
-      this.inputValueCache = parseFloat(numbersArray.join('')).toLocaleString(
-        'en-US',
-        {
-          minimumFractionDigits: 2,
-        }
-      );
-    }
-  }
-
-  /**
-   * @description - This function is used to delete a number from the target input value.
-   * It checks if the key pressed is a delete key and removes the last number from the input value.
-   */
-  private deleteNumberFromTargetInput() {
-    let currentTarget = this.inputValueCache;
-    let numbersArray = currentTarget.replace(/[.,]/g, '').split('');
-    numbersArray.pop();
-    numbersArray.splice(numbersArray.length - 2, 0, '.');
-    this.inputValueCache = parseFloat(numbersArray.join('')).toLocaleString(
-      'en-US',
-      {
-        minimumFractionDigits: 2,
-      }
-    );
   }
 
   /**
@@ -194,7 +116,7 @@ export class AddmoneyPotModalComponent {
       let value = inputAmount.toLocaleString('en-US', {
         minimumFractionDigits: 2,
       });
-      [this.inputValue, this.inputValueCache] = [value, value];
+      this.inputValue = value;
     }, 10);
     // if the input value is greater than 0 and less than or equal to the remaining amount and the balance, set the input amount to the input value
     if (
@@ -207,7 +129,7 @@ export class AddmoneyPotModalComponent {
         let value = inputAmount.toLocaleString('en-US', {
           minimumFractionDigits: 2,
         });
-        [this.inputValue, this.inputValueCache] = [value, value];
+        this.inputValue = value;
       }, 10);
     }
     // if the input value is greater than 0 and greater than the remaining amount and the balance, set the input amount to the remaining amount
@@ -221,7 +143,7 @@ export class AddmoneyPotModalComponent {
         let value = inputAmount.toLocaleString('en-US', {
           minimumFractionDigits: 2,
         });
-        [this.inputValue, this.inputValueCache] = [value, value];
+        this.inputValue = value;
       }, 10);
     }
     // if the input value is greater than 0 and greater than the remaining amount and the balance, set the input amount to
@@ -235,7 +157,7 @@ export class AddmoneyPotModalComponent {
         let value = inputAmount.toLocaleString('en-US', {
           minimumFractionDigits: 2,
         });
-        [this.inputValue, this.inputValueCache] = [value, value];
+        this.inputValue = value;
       }, 10);
     }
 
@@ -288,7 +210,7 @@ export class AddmoneyPotModalComponent {
   submitAddMoney() {
     if (this.inputValue && this.inputValue > '0.00') {
       this.currentPot.total =
-        this.currentPot.total + Number(this.inputValueCache.replace(/,/g, ''));
+        this.currentPot.total + Number(this.inputValue.replace(/,/g, ''));
       this.apiPotService.updatePot(
         'pots',
         'addMoneyPot',
@@ -298,7 +220,7 @@ export class AddmoneyPotModalComponent {
       this.apiTransactionService.startTransactionFromPots(
         'potAdd',
         new Date().toISOString(),
-        Number(this.inputValueCache.replace(/,/g, '')),
+        Number(this.inputValue.replace(/,/g, '')),
         this.currentPotIndex,
         this.currentPot.theme
       );
