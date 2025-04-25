@@ -43,18 +43,17 @@ export class AddmoneyPotModalComponent {
   };
 
   public currentPotIndex: number = -1;
+
+  public newAmount: string = ''; // template variable 
+  public targetAmount: string = ''; // template variable
   // #endregion
 
   // #region Lifecycle Hooks
   ngOnInit(): void {
     this.currentPot = this.modalObject;
     this.currentPotIndex = this.potIndex;
-    this.newAmount = this.currentPot.total.toLocaleString('en-US', {
-      minimumFractionDigits: 2,
-    });
-    this.targetAmount = this.currentPot.target.toLocaleString('en-US', {
-      maximumFractionDigits: 0,
-    });
+    this.newAmount = this.formatToEnUS(this.currentPot.total, 'twoDigit');
+    this.targetAmount = this.formatToEnUS(this.currentPot.target, 'zeroDigit');
     this.initializeProgressbar();
   }
   // #endregion
@@ -82,12 +81,21 @@ export class AddmoneyPotModalComponent {
    * @returns - The formatted value in the en-US format.
    * @example - 1234567.89 => '1,234,567.89'
    */
-  private formatToEnUS(value: number, digit: 'twoDigit' | 'zeroDigit'): string {
+  private formatToEnUS(value: number, digit: 'twoDigit' | 'zeroDigit' = 'twoDigit'): string {
     if (value == null) return '';
-    return `${value.toLocaleString('en-US', {
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2,
-    })}`;
+    if (digit === 'twoDigit') {
+      return `${value.toLocaleString('en-US', {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+      })}`;
+    }
+    if (digit === 'zeroDigit') {
+      return `${value.toLocaleString('en-US', {
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 0,
+      })}`;
+    }
+    return '';
   }
 
   /**
@@ -100,11 +108,7 @@ export class AddmoneyPotModalComponent {
   // #endregion
 
   // #region Input Control
-  public newAmount: string = '';
-  public targetAmount: string = '';
-
   public inputValue: string = '0.00'; // ngModel binded to the input field
-  // public inputValue: string = '0.00';
 
   /**
    * @description - This function is used to control the input value of the money input field.
