@@ -73,7 +73,7 @@ export class AddmoneyPotModalComponent {
   // #region Input Control
   public newAmount: string = '';
   public targetAmount: string = '';
-  public inputValue: string = '0.00';
+  public inputValue: string = '0.00'; // ngModel binded to the input field
   public inputValueCache: string = '0.00';
 
   /**
@@ -82,7 +82,10 @@ export class AddmoneyPotModalComponent {
    * @param event - The event that is triggered when the user types in the input field.
    */
   controlMoneyInput(event: any) {
+    
+    
     this.formatInputValue(event);
+    console.log(this.inputValue);
     let inputValueNumber = Number(this.inputValueCache.replace(/,/g, ''));
     let inputAmount: number = this.validateInputValue(inputValueNumber);
     this.updatePercentageBar(inputAmount);
