@@ -9,6 +9,12 @@ import {
 } from '@angular/core';
 import { IconsComponent } from '@components/icons/icons.component';
 
+/**
+ * * * PaginationTransactionsComponent
+ * * This component is responsible for displaying the pagination for transactions.
+ * * It allows the user to navigate through the pages of transactions.
+ * * It uses the Signal API to manage the state of the current page and total subpages.
+ */
 @Component({
   selector: 'app-pagination-transactions',
   imports: [CommonModule, IconsComponent],
@@ -16,8 +22,9 @@ import { IconsComponent } from '@components/icons/icons.component';
   styleUrl: './pagination-transactions.component.scss',
 })
 export class PaginationTransactionsComponent {
+  // #region Component Setup (DI, Outputs, Template Refs, Subscription)
   @Input() public currentPageSignal!: Signal<number>;
-  @Input() public totalSubPagesSignal!: Signal<number>; 
+  @Input() public totalSubPagesSignal!: Signal<number>;
 
   public currentPage = computed(() => this.currentPageSignal());
   public totalSubPages = computed(() => this.totalSubPagesSignal());
@@ -25,28 +32,20 @@ export class PaginationTransactionsComponent {
   @Output() public changePage: EventEmitter<number> =
     new EventEmitter<number>();
 
-  public changePageHandler(page: number) {
+  private changePageHandler(page: number): void {
     this.changePage.emit(page);
   }
+  // #endregion
 
-  ngOnInit() {
-    // setTimeout(() => {
-    //   this.changePageHandler(7);
-    //   console.log(this.currentPageSignal());
-    // }, 2000);
-  }
-
-  prevPage() {
+  public prevPage(): void {
     if (this.currentPage() > 0) {
       this.changePageHandler(this.currentPage() - 1);
     }
   }
 
-  nextPage() {
-    if (this.currentPage() < (this.totalSubPages())) {
+  public nextPage(): void {
+    if (this.currentPage() < this.totalSubPages()) {
       this.changePageHandler(this.currentPage() + 1);
     }
   }
-
-  
 }
