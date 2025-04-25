@@ -44,7 +44,7 @@ export class AddmoneyPotModalComponent {
 
   public currentPotIndex: number = -1;
 
-  public newAmount: string = ''; // template variable 
+  public newAmount: string = ''; // template variable
   public targetAmount: string = ''; // template variable
   // #endregion
 
@@ -81,7 +81,10 @@ export class AddmoneyPotModalComponent {
    * @returns - The formatted value in the en-US format.
    * @example - 1234567.89 => '1,234,567.89'
    */
-  private formatToEnUS(value: number, digit: 'twoDigit' | 'zeroDigit' = 'twoDigit'): string {
+  private formatToEnUS(
+    value: number,
+    digit: 'twoDigit' | 'zeroDigit' = 'twoDigit'
+  ): string {
     if (value == null) return '';
     if (digit === 'twoDigit') {
       return `${value.toLocaleString('en-US', {
@@ -170,7 +173,10 @@ export class AddmoneyPotModalComponent {
 
     setTimeout(() => {
       this.inputValue = this.formatToEnUS(inputAmount, 'twoDigit');
-      this.newAmount = this.formatToEnUS((inputAmount + this.currentPot.total), 'twoDigit');
+      this.newAmount = this.formatToEnUS(
+        inputAmount + this.currentPot.total,
+        'twoDigit'
+      );
     }, 10);
     return inputAmount;
   }
