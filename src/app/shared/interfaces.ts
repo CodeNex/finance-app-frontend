@@ -3,6 +3,11 @@ interface Theme {
   hex: string;
 }
 
+interface Category {
+  name: string;
+  iconName: string;
+}
+
 interface Themes {
   [key: string]: Theme;
 }

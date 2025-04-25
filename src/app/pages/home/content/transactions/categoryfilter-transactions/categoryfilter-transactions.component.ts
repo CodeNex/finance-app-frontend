@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter, inject } from '@angular/core';
+import { Component, Output, EventEmitter, inject, OnInit } from '@angular/core';
 
 import { BasedataService } from '@services/basedata.service';
 import { CommonModule } from '@angular/common';
@@ -8,43 +8,55 @@ import { IconsComponent } from '@components/icons/icons.component';
   selector: 'app-categoryfilter-transactions',
   imports: [CommonModule, IconsComponent],
   templateUrl: './categoryfilter-transactions.component.html',
-  styleUrl: './categoryfilter-transactions.component.scss'
+  styleUrl: './categoryfilter-transactions.component.scss',
 })
-export class CategoryfilterTransactionsComponent {
+export class CategoryfilterTransactionsComponent implements OnInit {
+  // #region Component Setup (DI, Outputs, Template Refs, Subscription)
+  public baseData = inject(BasedataService);
 
-  @Output() public categoryFilterChange: EventEmitter<string> = new EventEmitter<string>();
+  @Output() public categoryFilterChange: EventEmitter<string> =
+    new EventEmitter<string>();
 
   public emitCategoryFilterChange(category: string) {
     this.categoryFilterChange.emit(category);
   }
 
-  public baseData: BasedataService = inject(BasedataService);
-
-  // array of all categories in the application
-  public categories: any[] = [];
-  // current chosen category
+  public categories: Category[] = [];
   public chosenCategory: string = 'All Transactions';
-  // boolean to control the dropdown
   public isDropDownOpen: boolean = false;
+  // #endregion
 
+  // #region Lifecycle Hooks
   ngOnInit() {
     this.categories = this.getCategories();
   }
+  // #endregion
 
-  private getCategories() {
-    let array = Object.values(this.baseData.financeApp.budgets.categories);
-    array.unshift({name: 'All Transactions', iconName: 'All Transactions'});
+  // #region Helper Function
+  public closeHideDropdown(): void {
+    this.isDropDownOpen = !this.isDropDownOpen;
+  }
+  // #endregion
+
+  // #region Category Filter Functions
+  /**
+   * @description - This function is responsible for getting the categories from the base data.
+   * @returns - Returns an array of categories with the first element being 'All Transactions'.
+   */
+  private getCategories(): Category[] {
+    let array: Category[] = Object.values(this.baseData.categories);
+    array.unshift({ name: 'All Transactions', iconName: 'All Transactions' });
     return array;
   }
 
-  public closeHideDropdown() {
-    this.isDropDownOpen = !this.isDropDownOpen;
-  }
-
-  public chooseCategory(category: any) {
+  /**
+   * @description - This function is responsible for getting the initial category.
+   * @param category - The category object that is passed to the function.
+   */
+  public chooseCategory(category: Category): void {
     this.chosenCategory = category.name;
     this.emitCategoryFilterChange(category.iconName);
     this.closeHideDropdown();
   }
-
+  // #endregion
 }
