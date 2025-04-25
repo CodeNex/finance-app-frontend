@@ -75,6 +75,23 @@ export class ApiTransactionService {
     pot_id: number,
     theme: string
   ) {
+    this.currentTransaction = {
+      transaction_id: 0,
+      user_id: 0,
+      amount: 0,
+      budget_id: null,
+      created_at: null,
+      execute_on: null,
+      deleted_at: null,
+      recurring: null,
+      recurring_id: null,
+      theme: '',
+      sender: '',
+      receiver: '',
+      name: '',
+      category: 'general',
+      type: 'debit',
+    };
     this.mergeAndOverwriteTransactionWithPot(type, date, amount, pot_id, theme);
     this.getCurrentDate();
     this.addNewTransaction(this.currentTransaction, 'pots');
