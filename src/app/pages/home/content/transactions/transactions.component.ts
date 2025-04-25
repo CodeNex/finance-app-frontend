@@ -11,10 +11,11 @@ import { DataStoreServiceService } from '@services/data-store-service.service';
 import { AuthenticationService } from '@services/authentication.service';
 import { MainModalService } from '@services/main-modal.service';
 import { CategoryfilterTransactionsComponent } from './categoryfilter-transactions/categoryfilter-transactions.component';
-import { SearchTransactionComponent } from './search-transaction/search-transaction.component';
-import { SortbyTransactionsComponent } from './sortby-transactions/sortby-transactions.component';
-import { SingleTransactionComponent } from './single-transaction/single-transaction.component';
-import { PaginationTransactionsComponent } from './pagination-transactions/pagination-transactions.component';
+import { SearchTransactionComponent } from '@content/transactions/search-transaction/search-transaction.component';
+import { SortbyTransactionsComponent } from '@content/transactions/sortby-transactions/sortby-transactions.component';
+import { SingleTransactionComponent } from '@content/transactions/single-transaction/single-transaction.component';
+import { PaginationTransactionsComponent } from '@content/transactions/pagination-transactions/pagination-transactions.component';
+
 @Component({
   selector: 'app-transactions',
   imports: [
@@ -29,9 +30,9 @@ import { PaginationTransactionsComponent } from './pagination-transactions/pagin
   styleUrl: './transactions.component.scss',
 })
 export class TransactionsComponent {
-  private dataStore: DataStoreServiceService = inject(DataStoreServiceService);
-  private mainModalService: MainModalService = inject(MainModalService);
-  public authService: AuthenticationService = inject(AuthenticationService);
+  private dataStore = inject(DataStoreServiceService);
+  private mainModalService = inject(MainModalService);
+  public authService = inject(AuthenticationService);
 
   public transactionsSignal$: Signal<any[]> = this.dataStore.transactions;
   public renderReadyArray: any[] = [];
