@@ -60,7 +60,7 @@ export class TransactionsComponent {
   public setCategoryFilterInput(input: string) {
     this.categoryFilterInput = input;
     this.formatTransactionsArray(this.transactionsSignal());
-    this.setCurrentPage$(1);
+    this.setcurrentPageSignal(1);
   }
 
   private getTransactionsFilteredByCategories(prevArray: any) {
@@ -80,7 +80,7 @@ export class TransactionsComponent {
   public setSearchFieldInput(input: string) {
     this.searchFieldInput = input;
     this.formatTransactionsArray(this.transactionsSignal());
-    this.setCurrentPage$(1);
+    this.setcurrentPageSignal(1);
   }
 
   private getSearchedTransactions(prevArray: any) {
@@ -119,7 +119,7 @@ export class TransactionsComponent {
   // ########################################
 
   public totalSubPagesSignal = signal(0); // signal for paginantion
-  public currentPage$ = signal(1); // signal for paginantion
+  public currentPageSignal = signal(1); // signal for paginantion
 
   private splitTransactionsArray(prevArray: any) {
     let transactionsPerPage = 7;
@@ -205,8 +205,8 @@ export class TransactionsComponent {
     this.totalSubPagesSignal.set(value);
   }
 
-  public setCurrentPage$(value: number) {
-    this.currentPage$.set(value);
+  public setcurrentPageSignal(value: number) {
+    this.currentPageSignal.set(value);
   }
 
   // ########################################

@@ -16,10 +16,10 @@ import { IconsComponent } from '@components/icons/icons.component';
   styleUrl: './pagination-transactions.component.scss',
 })
 export class PaginationTransactionsComponent {
-  @Input() public currentPage$!: Signal<number>;
+  @Input() public currentPageSignal!: Signal<number>;
   @Input() public totalSubPagesSignal!: Signal<number>; 
 
-  public currentPage = computed(() => this.currentPage$());
+  public currentPage = computed(() => this.currentPageSignal());
   public totalSubPages = computed(() => this.totalSubPagesSignal());
 
   @Output() public changePage: EventEmitter<number> =
@@ -32,7 +32,7 @@ export class PaginationTransactionsComponent {
   ngOnInit() {
     // setTimeout(() => {
     //   this.changePageHandler(7);
-    //   console.log(this.currentPage$());
+    //   console.log(this.currentPageSignal());
     // }, 2000);
   }
 
