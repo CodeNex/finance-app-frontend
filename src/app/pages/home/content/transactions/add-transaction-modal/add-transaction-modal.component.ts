@@ -6,7 +6,8 @@ import { IconsComponent } from '@components/icons/icons.component';
 import { MainModalService } from '@services/main-modal.service';
 import { BasedataService } from '@services/basedata.service';
 import { DataStoreServiceService } from '@services/data-store-service.service';
-import { ApiTransactionService } from '../api-transaction.service';
+import { ApiTransactionService } from '@content/transactions/api-transaction.service';
+import { FormatAmountInputService } from '@src/services/format-amount-input.service';
 
 @Component({
   selector: 'app-add-transaction-modal',
@@ -15,14 +16,13 @@ import { ApiTransactionService } from '../api-transaction.service';
   styleUrl: './add-transaction-modal.component.scss',
 })
 export class AddTransactionModalComponent {
-  public mainModalService: MainModalService = inject(MainModalService);
-  public baseData: BasedataService = inject(BasedataService);
-  public dataStore: DataStoreServiceService = inject(DataStoreServiceService);
-  public apiTransactionsService: ApiTransactionService = inject(
-    ApiTransactionService
-  );
+  // #region Component Setup (DI, Outputs, Template Refs, Subscription)
+  public mainModalService = inject(MainModalService);
+  public baseData = inject(BasedataService);
+  public dataStore = inject(DataStoreServiceService);
+  public apiTransactionsService = inject(ApiTransactionService);
+  public formatAmountInputService = inject(FormatAmountInputService);
 
-  // blueprint for a new transaction
   public currentTransaction: TransactionsObject = {
     transaction_id: 0,
     user_id: 0,
@@ -40,6 +40,7 @@ export class AddTransactionModalComponent {
     category: 'general',
     type: 'debit',
   };
+  // #endregion
 
   ngOnInit() {
     this.getCategoryArray();
@@ -56,13 +57,10 @@ export class AddTransactionModalComponent {
     this.mainModalService.hideMainModal();
   }
 
-  /**
-   * DEBIT and CREDIT choose functions
-   */
-
+  // #region DEBIT and CREDIT choose functions
   public currentTransactionType: string = 'Debit';
 
-  public setTransactionType(type: string) {
+  public setTransactionType(type: string): void {
     if (this.currentTransactionType === type) {
       return;
     } else {
@@ -75,10 +73,7 @@ export class AddTransactionModalComponent {
       }
     }
   }
-
-  /**
-   * AMOUNT Input functions
-   */
+  // #endregion
 
   public maxAmountInputValue: string = '0.00'; // ngModel binded
   public maxAmountString: string = '0.00';
@@ -151,10 +146,7 @@ export class AddTransactionModalComponent {
     return parseFloat(this.maxAmountInputValue.replace(/,/g, ''));
   }
 
-  /**
-   * NAME Input functions
-   */
-
+  // #region Transaction Name functions
   public transactionNameValue: string = ''; // ngModel binded
   public transactionsNameCharactersLeft: number = 30;
 
@@ -178,18 +170,18 @@ export class AddTransactionModalComponent {
   private getNameValue() {
     return this.transactionNameValue;
   }
+  // #endregion
 
-  /**
-   * CATEGORY Dropdown functions
-   */
-
-  public categories: any = [];
+  // #region Category Dropdown functions
+  public categories: string[] = [];
   public chosenCategory: string = 'General'; // interpolation {{chosenCategory}}
   public isCategoryDropdownOpen: boolean = false;
 
   public getCategoryArray() {
-    Object.values(this.baseData.financeApp.budgets.categories).forEach(
-      (category: any) => {
+    console.log(Object.values(this.baseData.categories));
+
+    Object.values(this.baseData.categories as Category[]).forEach(
+      (category: Category) => {
         this.categories.push(category.name);
       }
     );
@@ -206,6 +198,7 @@ export class AddTransactionModalComponent {
   public openCloseCategoryDropdown() {
     this.isCategoryDropdownOpen = !this.isCategoryDropdownOpen;
   }
+  // #endregion
 
   /**
    * RECURRING Dropdown functions
@@ -268,7 +261,7 @@ export class AddTransactionModalComponent {
   public isAmountValid: boolean = true; // ngStyle binded
   public isNameValid: boolean = true; // ngStyle binded
 
-  public validateInputValues() {
+  public validateInputValues(): boolean {
     let isAmountValid = this.validateAmount();
     let isNameValid = this.validateName();
     if (isAmountValid && isNameValid) {
@@ -278,7 +271,7 @@ export class AddTransactionModalComponent {
     }
   }
 
-  public validateAmount() {
+  public validateAmount(): boolean | undefined {
     if (!this.currentTransaction.amount) return;
     if (this.currentTransaction.amount <= 0) {
       this.isAmountValid = false;
@@ -289,7 +282,7 @@ export class AddTransactionModalComponent {
     }
   }
 
-  public validateName() {
+  public validateName(): boolean {
     if (this.currentTransaction.name.length === 0) {
       this.isNameValid = false;
       return false;
@@ -299,28 +292,31 @@ export class AddTransactionModalComponent {
     }
   }
 
-  public resetValidation(input: string) {
+  public resetValidation(input: string): void {
     if (input === 'amount') this.isAmountValid = true;
     if (input === 'name') this.isNameValid = true;
   }
 
+  // #region Submit functions
   /**
-   * complete and submit new transaction to "api-transaction.service"
+   * @description - This function is used to complete the new transaction object.
    */
-
-  // add ngModel binded values and other defaults to the currentTransaction object
-  private completeNewTransaction() {
+  private completeNewTransaction(): void {
     this.currentTransaction.amount = this.getAmountValue();
     this.currentTransaction.name = this.getNameValue();
     this.currentTransaction.execute_on = this.getChosenDate();
     this.currentTransaction.theme = this.getRandomTheme();
   }
 
-  public submitAddTransaction() {
+  public submitAddTransaction(): void {
     this.completeNewTransaction();
     if (this.validateInputValues()) {
-      this.apiTransactionsService.startTransactionFromTransactions(this.currentTransaction, 'transactions');
+      this.apiTransactionsService.startTransactionFromTransactions(
+        this.currentTransaction,
+        'transactions'
+      );
       this.mainModalService.hideMainModal();
     }
   }
+  // #endregion
 }
