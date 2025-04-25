@@ -6,6 +6,13 @@ import { IconsComponent } from '@components/icons/icons.component';
 import { FormatDatePipe } from '@shared/pipes/format-date.pipe';
 import { FormatAmountPipe } from '@shared/pipes/format-amount.pipe';
 
+/**
+ * * * * SingleTransactionComponent
+ * This component is responsible for displaying a single transaction in the application.
+ * It shows the transaction details such as amount, date, category, and type.
+ * * It uses the BasedataService to get the base data for the application and the IconsComponent to display icons.
+ * * It uses the FormatDatePipe and FormatAmountPipe to format the date and amount respectively.
+ */
 @Component({
   selector: 'app-single-transaction',
   imports: [CommonModule, IconsComponent, FormatDatePipe, FormatAmountPipe],
@@ -35,29 +42,23 @@ export class SingleTransactionComponent {
   };
 
   public iconName: string = '';
-
-
   public category: string = '';
-
-
   // #endregion
 
   // #region Lifecycle Hooks
   ngOnInit(): void {
-    this.iconName =
-      this.baseData.financeApp.budgets.categories[
-        this.transaction.category!
-      ].iconName;
-
-
-    this.category =
-      this.baseData.financeApp.budgets.categories[
-        this.transaction.category!
-      ].name;
+    this.iconName = this.getIconName();
+    this.category = this.getCategoryName();
   }
 
   private getIconName(): string {
-    return this.baseData.getCategoryIcon(this.transaction.category!);
+    const categories = this.baseData.categories;
+    return categories[this.transaction.category!].iconName;
+  }
+
+  private getCategoryName(): string {
+    const categories = this.baseData.categories;
+    return categories[this.transaction.category!].name;
   }
   // #endregion
 }

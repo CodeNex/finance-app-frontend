@@ -32,6 +32,10 @@ export class BasedataService {
     return this.financeApp.budgets.categories[category].iconName;
   }
 
+  public get categories(): any {
+    return this.financeApp.budgets.categories;
+  }
+
   /**
    * @description - This function returns the base URL for the API.
    */
