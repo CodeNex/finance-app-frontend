@@ -22,10 +22,10 @@ export class WithdrawmoneyPotModalComponent {
   public apiTransactionService = inject(ApiTransactionService);
   public formatAmountInputService = inject(FormatAmountInputService);
 
-  @Input() public modalObject: Object = {};
+  @Input() public modalObject!: PotsObject;
   @Input() public potIndex: number = -1;
 
-  public currentPot: any = {
+  public currentPot: PotsObject = {
     id: -1,
     name: '',
     target: -1,
@@ -37,26 +37,16 @@ export class WithdrawmoneyPotModalComponent {
 
   public currentPotIndex: number = -1;
 
-  public newAmount: string = '';
-  public targetAmount: string = '';
-
-
-  public inputValue: string = '0.00';
-  public inputValueCache: string = '0.00';
+  public newAmount: string = ''; // template variable 
+  public targetAmount: string = ''; // template variable 
   // #endregion
 
   // #region Lifecycle Hooks
   ngOnInit() {
     this.currentPot = this.modalObject;
     this.currentPotIndex = this.potIndex;
-    this.newAmount = this.currentPot.total.toLocaleString('en-US', {
-      minimumFractionDigits: 2,
-    });
-    this.targetAmount = this.currentPot.target.toLocaleString('en-US', {
-      maximumFractionDigits: 0,
-    });
-
-
+    this.newAmount = this.formatToEnUS(this.currentPot.total, 'twoDigit');
+    this.targetAmount = this.formatToEnUS(this.currentPot.target, 'zeroDigit');
     this.initializeProgressbar();
   }
   // #endregion
@@ -109,6 +99,9 @@ export class WithdrawmoneyPotModalComponent {
     this.mainModalService.hideMainModal();
   }
   // #endregion
+
+  public inputValue: string = '0.00';
+  public inputValueCache: string = '0.00';
 
   // controls the money input field
   controlMoneyInput(event: any) {
@@ -187,7 +180,7 @@ export class WithdrawmoneyPotModalComponent {
   }
 
   // validates the input value and returns the value if it is valid
-  validateInputValue(inputValueNumber: number) {
+  private validateInputValue(inputValueNumber: number): number {
     let inputAmount: any;
     if (inputValueNumber <= this.currentPot.total) {
       inputAmount = inputValueNumber;
