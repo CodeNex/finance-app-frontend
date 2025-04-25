@@ -139,6 +139,7 @@ export class AddmoneyPotModalComponent {
 
     setTimeout(() => {
       this.inputValue = this.formatToEnUS(inputAmount);
+      this.newAmount = this.formatToEnUS(inputAmount + this.currentPot.total);
     }, 10);
     return inputAmount;
   }
@@ -184,12 +185,6 @@ export class AddmoneyPotModalComponent {
     ).toFixed(1);
     this.amountPercentageBar = Math.floor(
       (inputAmount / (this.currentPot.total + inputAmount)) * 100
-    );
-    this.newAmount = (inputAmount + this.currentPot.total).toLocaleString(
-      'en-US',
-      {
-        minimumFractionDigits: 2,
-      }
     );
   }
   // #endregion
