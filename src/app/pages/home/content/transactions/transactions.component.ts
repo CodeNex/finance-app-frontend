@@ -29,6 +29,9 @@ export class TransactionsComponent {
   private mainModalService = inject(MainModalService);
   public authService = inject(AuthenticationService);
 
+  public totalSubPagesSignal = signal(0); // signal for paginantion
+  public currentPageSignal = signal(1); // signal for paginantion
+
   public transactionsSignal: Signal<TransactionsObject[]> =
     this.dataStore.transactions;
   public renderReadyArray: any[] = [];
@@ -42,7 +45,7 @@ export class TransactionsComponent {
   // # function takes the transactions array and returns it in a format that is ready to be rendered
   // ########################################
 
-  public formatTransactionsArray(prevArray: TransactionsObject[]) {
+  public formatTransactionsArray(prevArray: TransactionsObject[]): void {
     let arrayByCategories = this.getTransactionsFilteredByCategories(prevArray);
     let searchedArray = this.getSearchedTransactions(arrayByCategories);
     let sortedArray = this.getSortedTransactions(searchedArray);
@@ -63,10 +66,13 @@ export class TransactionsComponent {
     this.setcurrentPageSignal(1);
   }
 
-  private getTransactionsFilteredByCategories(prevArray: any) {
+  private getTransactionsFilteredByCategories(
+    prevArray: TransactionsObject[]
+  ): TransactionsObject[] {
     if (this.categoryFilterInput === 'All Transactions') return prevArray;
     let array = prevArray.filter(
-      (transactions: any) => transactions.category === this.categoryFilterInput
+      (transactions: TransactionsObject) =>
+        transactions.category === this.categoryFilterInput
     );
     return array;
   }
@@ -83,10 +89,12 @@ export class TransactionsComponent {
     this.setcurrentPageSignal(1);
   }
 
-  private getSearchedTransactions(prevArray: any) {
+  private getSearchedTransactions(
+    prevArray: TransactionsObject[]
+  ): TransactionsObject[] {
     if (!this.searchFieldInput || this.searchFieldInput === '')
       return prevArray;
-    let array = prevArray.filter((transaction: any) => {
+    let array = prevArray.filter((transaction: TransactionsObject) => {
       return this.isSubsequence(
         this.searchFieldInput.toLowerCase().replace(/\s+/g, ''),
         transaction.name.toLowerCase().replace(/\s+/g, '')
@@ -118,12 +126,11 @@ export class TransactionsComponent {
   // # functions to split the array into sub arrays for pagination
   // ########################################
 
-  public totalSubPagesSignal = signal(0); // signal for paginantion
-  public currentPageSignal = signal(1); // signal for paginantion
-
-  private splitTransactionsArray(prevArray: any) {
+  private splitTransactionsArray(
+    prevArray: TransactionsObject[]
+  ): TransactionsObject[][] {
     let transactionsPerPage = 7;
-    let splittedArray: any[][] = [];
+    let splittedArray: TransactionsObject[][] = [];
     for (let i = 0; i < prevArray.length; i += transactionsPerPage) {
       splittedArray.push(prevArray.slice(i, i + transactionsPerPage));
     }
@@ -141,7 +148,7 @@ export class TransactionsComponent {
     this.formatTransactionsArray(this.transactionsSignal());
   }
 
-  private getSortedTransactions(prevArray: any) {
+  private getSortedTransactions(prevArray: TransactionsObject[]): TransactionsObject[] {
     let array;
     if (
       this.sortByInput === 'Latest' ||
@@ -157,8 +164,8 @@ export class TransactionsComponent {
     return array;
   }
 
-  private sortByDate(array: any) {
-    return array.sort((a: any, b: any) => {
+  private sortByDate(array: TransactionsObject[]): TransactionsObject[] {
+    return array.sort((a, b) => {
       if (!a.execute_on) return 1;
       if (!b.execute_on) return -1;
       if (
@@ -173,7 +180,7 @@ export class TransactionsComponent {
         return (
           new Date(a.execute_on).getTime() - new Date(b.execute_on).getTime()
         );
-      return;
+      return 0;
     });
   }
 
