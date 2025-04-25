@@ -1,10 +1,4 @@
-import {
-  Component,
-  effect,
-  inject,
-  Signal,
-  signal,
-} from '@angular/core';
+import { Component, effect, inject, Signal, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { DataStoreServiceService } from '@services/data-store-service.service';
@@ -30,27 +24,24 @@ import { PaginationTransactionsComponent } from '@content/transactions/paginatio
   styleUrl: './transactions.component.scss',
 })
 export class TransactionsComponent {
+  // #region Component Setup (DI, Outputs, Template Refs, Subscription)
   private dataStore = inject(DataStoreServiceService);
   private mainModalService = inject(MainModalService);
   public authService = inject(AuthenticationService);
 
-  public transactionsSignal$: Signal<any[]> = this.dataStore.transactions;
+  public transactionsSignal: Signal<TransactionsObject[]> =
+    this.dataStore.transactions;
   public renderReadyArray: any[] = [];
 
-  constructor() {
-    effect(() => {
-      let signal$ = this.transactionsSignal$();
-      this.formatTransactionsArray(signal$);
-    });
-  }
-
-  ngOnInit() {
-  }
+  public transactionsEffect = effect(() => {
+    this.formatTransactionsArray(this.transactionsSignal());
+  });
+  // #endregion
 
   // ########################################
   // # function takes the transactions array and returns it in a format that is ready to be rendered
   // ########################################
- 
+
   public formatTransactionsArray(prevArray: any) {
     let arrayByCategories = this.getTransactionsFilteredByCategories(prevArray);
     let searchedArray = this.getSearchedTransactions(arrayByCategories);
@@ -68,7 +59,7 @@ export class TransactionsComponent {
 
   public setCategoryFilterInput(input: string) {
     this.categoryFilterInput = input;
-    this.formatTransactionsArray(this.transactionsSignal$());
+    this.formatTransactionsArray(this.transactionsSignal());
     this.setCurrentPage$(1);
   }
 
@@ -88,14 +79,18 @@ export class TransactionsComponent {
 
   public setSearchFieldInput(input: string) {
     this.searchFieldInput = input;
-    this.formatTransactionsArray(this.transactionsSignal$());
+    this.formatTransactionsArray(this.transactionsSignal());
     this.setCurrentPage$(1);
   }
 
   private getSearchedTransactions(prevArray: any) {
-    if (!this.searchFieldInput || this.searchFieldInput === '') return prevArray;
+    if (!this.searchFieldInput || this.searchFieldInput === '')
+      return prevArray;
     let array = prevArray.filter((transaction: any) => {
-      return this.isSubsequence(this.searchFieldInput.toLowerCase().replace(/\s+/g, ''), transaction.name.toLowerCase().replace(/\s+/g, ''));
+      return this.isSubsequence(
+        this.searchFieldInput.toLowerCase().replace(/\s+/g, ''),
+        transaction.name.toLowerCase().replace(/\s+/g, '')
+      );
     });
     return array;
   }
@@ -104,7 +99,10 @@ export class TransactionsComponent {
     let searchIncludingCount: number = 0;
     let lastMatchIndex: number = -1;
     for (let i = 0; i < search.length; i++) {
-      if (text.includes(search[i]) && text.indexOf(search[i], lastMatchIndex + 1) > lastMatchIndex) {
+      if (
+        text.includes(search[i]) &&
+        text.indexOf(search[i], lastMatchIndex + 1) > lastMatchIndex
+      ) {
         lastMatchIndex = text.indexOf(search[i]);
         searchIncludingCount++;
       }
@@ -120,8 +118,8 @@ export class TransactionsComponent {
   // # functions to split the array into sub arrays for pagination
   // ########################################
 
-  public totalSubPages$ = signal(0); // signal for paginantion 
-  public currentPage$ = signal(1); // signal for paginantion 
+  public totalSubPages$ = signal(0); // signal for paginantion
+  public currentPage$ = signal(1); // signal for paginantion
 
   private splitTransactionsArray(prevArray: any) {
     let transactionsPerPage = 7;
@@ -140,12 +138,17 @@ export class TransactionsComponent {
 
   public setSortByInput(input: string) {
     this.sortByInput = input;
-    this.formatTransactionsArray(this.transactionsSignal$());
+    this.formatTransactionsArray(this.transactionsSignal());
   }
 
   private getSortedTransactions(prevArray: any) {
     let array;
-    if (this.sortByInput === 'Latest' || this.sortByInput === 'Oldest' || this.sortByInput === null || this.sortByInput === '')
+    if (
+      this.sortByInput === 'Latest' ||
+      this.sortByInput === 'Oldest' ||
+      this.sortByInput === null ||
+      this.sortByInput === ''
+    )
       array = this.sortByDate(prevArray);
     if (this.sortByInput === 'A to Z' || this.sortByInput === 'Z to A')
       array = this.sortByAlphabet(prevArray);
@@ -153,12 +156,16 @@ export class TransactionsComponent {
       array = this.sortByAmount(prevArray);
     return array;
   }
- 
+
   private sortByDate(array: any) {
     return array.sort((a: any, b: any) => {
       if (!a.execute_on) return 1;
       if (!b.execute_on) return -1;
-      if (this.sortByInput === 'Latest' || this.sortByInput === null || this.sortByInput === '')
+      if (
+        this.sortByInput === 'Latest' ||
+        this.sortByInput === null ||
+        this.sortByInput === ''
+      )
         return (
           new Date(b.execute_on).getTime() - new Date(a.execute_on).getTime()
         );
@@ -193,7 +200,7 @@ export class TransactionsComponent {
   // ########################################
   // # functions to handle pagination
   // ########################################
-  
+
   public setTotalSubPages$(value: number) {
     this.totalSubPages$.set(value);
   }
@@ -205,7 +212,7 @@ export class TransactionsComponent {
   // ########################################
   // # open add task sub modal
   // ########################################
-   
+
   public openSubModal(subModal: string, subModalObject: Object) {
     this.mainModalService.chooseSubModal(subModal, subModalObject, null);
   }
