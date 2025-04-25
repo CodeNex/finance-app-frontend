@@ -10,6 +10,13 @@ import { SortbyTransactionsComponent } from '@content/transactions/sortby-transa
 import { SingleTransactionComponent } from '@content/transactions/single-transaction/single-transaction.component';
 import { PaginationTransactionsComponent } from '@content/transactions/pagination-transactions/pagination-transactions.component';
 
+/**
+ * * * * TransactionsComponent
+ * This component is responsible for displaying the transactions page.
+ * It allows the user to view, filter, and sort transactions.
+ * It uses the DataStoreServiceService to manage the state of the transactions and the MainModalService to manage modals.
+ * It also uses the AuthenticationService to manage user authentication.
+ */
 @Component({
   selector: 'app-transactions',
   imports: [
