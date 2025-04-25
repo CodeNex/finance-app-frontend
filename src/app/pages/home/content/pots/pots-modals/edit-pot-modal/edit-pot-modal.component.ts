@@ -10,6 +10,13 @@ import { DataStoreServiceService } from '@services/data-store-service.service';
 import { ApiPotsService } from '@content/pots/api-pots.service';
 import { FormatAmountInputService } from '@src/services/format-amount-input.service';
 
+/**
+ * * * * EditPotModalComponent
+ * * This component is responsible for displaying the edit pot modal.
+ * * It allows the user to edit an existing pot's name, target, and theme.
+ * * It uses the MainModalService to manage the modal state and the ApiPotsService to interact with the backend.
+ * * It also uses the FormatAmountInputService to format the input value.
+ */
 @Component({
   selector: 'app-edit-pot-modal',
   imports: [CommonModule, FormsModule, ReactiveFormsModule, IconsComponent],
