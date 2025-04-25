@@ -102,7 +102,7 @@ export class AddmoneyPotModalComponent {
    * @returns - The validated input amount. 
    */
   private validateInputValue(inputValueNumber: number): number {
-    let inputAmount: any;
+    let inputAmount: number = 0;
     let balance = this.dataStore.balance().balance;
     let remainingAmount = this.currentPot.target - this.currentPot.total;
     // if the input value is null, less than or equal to 0, or undefined, set the input amount to 0
@@ -113,10 +113,7 @@ export class AddmoneyPotModalComponent {
     )
       inputAmount = 0;
     setTimeout(() => {
-      let value = inputAmount.toLocaleString('en-US', {
-        minimumFractionDigits: 2,
-      });
-      this.inputValue = value;
+      this.inputValue = this.formatToEnUS(inputAmount);
     }, 10);
     // if the input value is greater than 0 and less than or equal to the remaining amount and the balance, set the input amount to the input value
     if (
@@ -126,10 +123,7 @@ export class AddmoneyPotModalComponent {
     ) {
       inputAmount = inputValueNumber;
       setTimeout(() => {
-        let value = inputAmount.toLocaleString('en-US', {
-          minimumFractionDigits: 2,
-        });
-        this.inputValue = value;
+        this.inputValue = this.formatToEnUS(inputAmount);
       }, 10);
     }
     // if the input value is greater than 0 and greater than the remaining amount and the balance, set the input amount to the remaining amount
@@ -140,10 +134,7 @@ export class AddmoneyPotModalComponent {
     ) {
       inputAmount = remainingAmount;
       setTimeout(() => {
-        let value = inputAmount.toLocaleString('en-US', {
-          minimumFractionDigits: 2,
-        });
-        this.inputValue = value;
+        this.inputValue = this.formatToEnUS(inputAmount);
       }, 10);
     }
     // if the input value is greater than 0 and greater than the remaining amount and the balance, set the input amount to
@@ -154,10 +145,7 @@ export class AddmoneyPotModalComponent {
     ) {
       inputAmount = balance;
       setTimeout(() => {
-        let value = inputAmount.toLocaleString('en-US', {
-          minimumFractionDigits: 2,
-        });
-        this.inputValue = value;
+        this.inputValue = this.formatToEnUS(inputAmount);
       }, 10);
     }
 
