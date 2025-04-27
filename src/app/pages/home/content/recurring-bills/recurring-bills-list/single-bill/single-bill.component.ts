@@ -41,7 +41,8 @@ export class SingleBillComponent {
 
   // components basic data
   public name: string = '';
-  public amount: string = '';
+  // public amount: string = '';
+  public amount: number = 0;
   public dueDate: string | null = '';
   public occurrency: string = '';
   public iconBackground: string = '';
@@ -56,12 +57,12 @@ export class SingleBillComponent {
 
   public completeComponentsBasicData() {
     this.name = this.recurringBill.name;
-    this.amount = this.formatAmount(this.recurringBill.amount);
+    this.amount = this.recurringBill.amount;
     this.dueDate = this.recurringBill.execute_on;
 
     this.occurrency =
       this.baseData.financeApp.recurrings.types[
-        
+
         this.recurringBill.recurring!
       ].name;
 
@@ -85,16 +86,4 @@ export class SingleBillComponent {
     );
   }
   // #endregion
-
-  // ########################################
-  // # format amount and date
-  // ########################################
-
-  private formatAmount(amount: number): string {
-    return amount.toLocaleString('en-US', {
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2,
-    });
-  }
-
 }
