@@ -57,15 +57,17 @@ export class SingleBillComponent {
   public completeComponentsBasicData() {
     this.name = this.recurringBill.name;
     this.amount = this.formatAmount(this.recurringBill.amount);
-    // this.dueDate = this.formatDate(this.recurringBill.execute_on);
     this.dueDate = this.recurringBill.execute_on;
+
     this.occurrency =
       this.baseData.financeApp.recurrings.types[
+        
         this.recurringBill.recurring!
       ].name;
-    this.iconName = this.getCategoryIcon(this.recurringBill.category);
-    this.iconBackground = this.recurringBill.theme;
+
     this.type = this.recurringBill.type;
+    this.iconBackground = this.recurringBill.theme;
+    this.iconName = this.getCategoryIcon(this.recurringBill.category);
   }
   // #endregion
 
@@ -95,12 +97,4 @@ export class SingleBillComponent {
     });
   }
 
-  private formatDate(date: string | null): string {
-    if (date === null) return '';
-    return new Date(date).toLocaleDateString('en-US', {
-      month: 'short',
-      day: 'numeric',
-      year: 'numeric',
-    });
-  }
 }
