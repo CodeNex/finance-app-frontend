@@ -57,7 +57,7 @@ export class AddTransactionModalComponent {
   }
 
   private getRandomTheme(): string {
-    let themeArray: any = Object.values(this.baseData.financeApp.basics.colors);
+    let themeArray: Theme[] = Object.values(this.baseData.colors);
     return themeArray[Math.floor(Math.random() * themeArray.length)].hex;
   }
   // #endregion
