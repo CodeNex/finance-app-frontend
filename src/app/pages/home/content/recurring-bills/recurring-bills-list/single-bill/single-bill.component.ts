@@ -1,12 +1,16 @@
 import { Component, inject, Input } from '@angular/core';
-import { IconsComponent } from '@components/icons/icons.component';
 import { CommonModule } from '@angular/common';
+import { IconsComponent } from '@components/icons/icons.component';
+
 import { BasedataService } from '@services/basedata.service';
 import { MainModalService } from '@services/main-modal.service';
 
+import { FormatDatePipe } from '@src/shared/pipes/format-date.pipe';
+import { FormatAmountPipe } from '@src/shared/pipes/format-amount.pipe';
+
 @Component({
   selector: 'app-single-bill',
-  imports: [IconsComponent, CommonModule],
+  imports: [IconsComponent, CommonModule, FormatDatePipe, FormatAmountPipe],
   templateUrl: './single-bill.component.html',
   styleUrl: './single-bill.component.scss',
 })
