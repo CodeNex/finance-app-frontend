@@ -11,8 +11,8 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class FormatDatePipe implements PipeTransform {
 
-  transform(value: string,): string {
-    if (!value) {
+  transform(value: string | null): string {
+    if (!value || value === null) {
       console.log('No value provided for date formatting');
       return '';
     } 

@@ -57,7 +57,8 @@ export class SingleBillComponent {
   public completeComponentsBasicData() {
     this.name = this.recurringBill.name;
     this.amount = this.formatAmount(this.recurringBill.amount);
-    this.dueDate = this.formatDate(this.recurringBill.execute_on);
+    // this.dueDate = this.formatDate(this.recurringBill.execute_on);
+    this.dueDate = this.recurringBill.execute_on;
     this.occurrency =
       this.baseData.financeApp.recurrings.types[
         this.recurringBill.recurring!
