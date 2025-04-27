@@ -61,6 +61,6 @@ export class SingleTransactionComponent implements OnInit {
 
   // public function to get category icon
   private getCategoryIcon(category: string): string {
-    return this.baseData.financeApp.budgets.categories[category].iconName;
+    return this.baseData.getCategoryIcon(category);
   }
 }

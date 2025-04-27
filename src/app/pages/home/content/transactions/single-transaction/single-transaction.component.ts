@@ -6,6 +6,13 @@ import { IconsComponent } from '@components/icons/icons.component';
 import { FormatDatePipe } from '@shared/pipes/format-date.pipe';
 import { FormatAmountPipe } from '@shared/pipes/format-amount.pipe';
 
+/**
+ * * * * SingleTransactionComponent
+ * This component is responsible for displaying a single transaction in the application.
+ * It shows the transaction details such as amount, date, category, and type.
+ * * It uses the BasedataService to get the base data for the application and the IconsComponent to display icons.
+ * * It uses the FormatDatePipe and FormatAmountPipe to format the date and amount respectively.
+ */
 @Component({
   selector: 'app-single-transaction',
   imports: [CommonModule, IconsComponent, FormatDatePipe, FormatAmountPipe],
@@ -13,6 +20,7 @@ import { FormatAmountPipe } from '@shared/pipes/format-amount.pipe';
   styleUrl: './single-transaction.component.scss',
 })
 export class SingleTransactionComponent {
+  // #region Component Setup (DI, Outputs, Template Refs, Subscription)
   public baseData = inject(BasedataService);
 
   @Input() transaction: TransactionsObject = {
@@ -34,28 +42,23 @@ export class SingleTransactionComponent {
   };
 
   public iconName: string = '';
-  public theme: string = '';
-  public name: string = '';
   public category: string = '';
-  public date: string = '';
-  public amount: string = '';
-  public type: string = '';
+  // #endregion
 
-  ngOnInit() {
-    this.iconName =
-      this.baseData.financeApp.budgets.categories[
-        this.transaction.category!
-      ].iconName;
-    this.theme = this.transaction.theme;
-    this.name = this.transaction.name;
-    this.category =
-      this.baseData.financeApp.budgets.categories[
-        this.transaction.category!
-      ].name;
-    this.amount = this.transaction.amount!.toLocaleString('en-US', {
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2,
-    });
-    this.type = this.transaction.type;
+  // #region Lifecycle Hooks
+  ngOnInit(): void {
+    this.iconName = this.getIconName();
+    this.category = this.getCategoryName();
   }
+
+  private getIconName(): string {
+    const categories = this.baseData.categories;
+    return categories[this.transaction.category!].iconName;
+  }
+
+  private getCategoryName(): string {
+    const categories = this.baseData.categories;
+    return categories[this.transaction.category!].name;
+  }
+  // #endregion
 }

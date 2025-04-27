@@ -26,10 +26,26 @@ export class BasedataService {
   }
 
   /**
-   * @description - This function returns the icon names for the categories. 
+   * @description - This function returns the icon names for the categories.
+   * @param category - The category value. 
    */
   public getCategoryIcon(category: string): string {
     return this.financeApp.budgets.categories[category].iconName;
+  }
+
+  /**
+   * @description - This function returns the name of the Recurring Frequency.
+   * @param recurring - The recurring value.
+   */
+  public getRecurringFrequency(recurring: string): string {
+    return this.financeApp.recurrings.types[recurring].name;
+  }
+
+  /**
+   * @description - This function returns an Object of all categories.
+   */
+  public get categories(): any {
+    return this.financeApp.budgets.categories;
   }
 
   /**
@@ -44,6 +60,14 @@ export class BasedataService {
    */
   public get tokenKey(): string {
     return this.financeApp.basics.apiData.localStorage.tokenKey;
+  }
+
+  public get colors(): Theme[] {
+    return this.financeApp.basics.colors
+  }
+
+  public get recurringTypes() {
+    return this.financeApp.recurrings.types;
   }
 
   /**

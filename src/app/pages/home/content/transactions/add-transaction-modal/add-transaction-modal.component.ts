@@ -6,8 +6,20 @@ import { IconsComponent } from '@components/icons/icons.component';
 import { MainModalService } from '@services/main-modal.service';
 import { BasedataService } from '@services/basedata.service';
 import { DataStoreServiceService } from '@services/data-store-service.service';
-import { ApiTransactionService } from '../api-transaction.service';
+import { ApiTransactionService } from '@content/transactions/api-transaction.service';
+import { FormatAmountInputService } from '@src/services/format-amount-input.service';
 
+/**
+ * * * AddTransactionModalComponent
+ * This component is responsible for displaying the add transaction modal.
+ * It allows the user to add a new transaction with a name, amount, and theme.
+ * It allows the user to choose a category and a recurring type for the transaction.
+ * It uses the MainModalService to manage the modal state and the ApiTransactionService to interact with the backend.
+ * It uses the FormatAmountInputService to format the amount input value.
+ * It uses the BasedataService to get the base data for the application.
+ * It uses the DataStoreServiceService to store the data for the application.
+ * It uses the IconsComponent to display the icons for the categories.
+ */
 @Component({
   selector: 'app-add-transaction-modal',
   imports: [CommonModule, ReactiveFormsModule, FormsModule, IconsComponent],
@@ -15,14 +27,13 @@ import { ApiTransactionService } from '../api-transaction.service';
   styleUrl: './add-transaction-modal.component.scss',
 })
 export class AddTransactionModalComponent {
-  public mainModalService: MainModalService = inject(MainModalService);
-  public baseData: BasedataService = inject(BasedataService);
-  public dataStore: DataStoreServiceService = inject(DataStoreServiceService);
-  public apiTransactionsService: ApiTransactionService = inject(
-    ApiTransactionService
-  );
+  // #region Component Setup (DI, Outputs, Template Refs, Subscription)
+  public mainModalService = inject(MainModalService);
+  public baseData = inject(BasedataService);
+  public dataStore = inject(DataStoreServiceService);
+  public apiTransactionsService = inject(ApiTransactionService);
+  public formatAmountInputService = inject(FormatAmountInputService);
 
-  // blueprint for a new transaction
   public currentTransaction: TransactionsObject = {
     transaction_id: 0,
     user_id: 0,
@@ -40,29 +51,32 @@ export class AddTransactionModalComponent {
     category: 'general',
     type: 'debit',
   };
+  // #endregion
 
+  // #region Lifecycle Hooks
   ngOnInit() {
     this.getCategoryArray();
-    this.getRecurringsArray();
+    this.recurrings = this.getRecurringsArray();
     this.currentDate = this.getCurrentDate();
     this.chosenDateValue = this.getCurrentDate();
   }
+  // #endregion
 
-  /**
-   * closes main modal and its children
-   */
-
-  public closeMainModal() {
+  // #region Helper functions
+  public closeMainModal(): void {
     this.mainModalService.hideMainModal();
   }
 
-  /**
-   * DEBIT and CREDIT choose functions
-   */
+  private getRandomTheme(): string {
+    let themeArray: Theme[] = Object.values(this.baseData.colors);
+    return themeArray[Math.floor(Math.random() * themeArray.length)].hex;
+  }
+  // #endregion
 
+  // #region DEBIT and CREDIT choose
   public currentTransactionType: string = 'Debit';
 
-  public setTransactionType(type: string) {
+  public setTransactionType(type: string): void {
     if (this.currentTransactionType === type) {
       return;
     } else {
@@ -75,86 +89,29 @@ export class AddTransactionModalComponent {
       }
     }
   }
+  // #endregion
+
+  // #region Amount Input
+  public maxAmountInputValue: string = '0.00'; // ngModel binded
 
   /**
-   * AMOUNT Input functions
+   * @description - This function is used to format the amount input value.
+   * @param event - The event that is triggered when the user types in the input field.
    */
-
-  public maxAmountInputValue: string = '0.00'; // ngModel binded
-  public maxAmountString: string = '0.00';
-
-  public controlMaxTarget(event: any) {
-    const deleteKeys = ['Backspace', 'Delete'];
-    const otherKeys = ['ArrowLeft', 'ArrowRight', 'Tab'];
-    const isNumberKey = /^[0-9]$/.test(event.key);
-
-    if (isNumberKey) {
-      event.preventDefault();
-      this.addNumberToTargetInput(event);
-    } else if (deleteKeys.includes(event.key)) {
-      event.preventDefault();
-      this.deleteNumberFromTargetInput();
-    } else if (otherKeys.includes(event.key)) {
-      return;
-    } else {
-      event.preventDefault();
-      return;
-    }
-  }
-
-  public addNumberToTargetInput(event: any) {
-    let currentTarget = this.maxAmountString;
-    let numbersArray = currentTarget.replace(/[.,]/g, '').split('');
-    if (numbersArray.length === 3 && numbersArray[0] === '0') {
-      numbersArray.shift();
-      numbersArray.push(event.key);
-      numbersArray.splice(numbersArray.length - 2, 0, '.');
-      this.maxAmountString = parseFloat(numbersArray.join('')).toLocaleString(
-        'en-US',
-        {
-          minimumFractionDigits: 2,
-        }
-      );
-      this.maxAmountInputValue = this.maxAmountString;
-    } else if (
-      numbersArray.length >= 3 &&
-      numbersArray.length < 11 &&
-      numbersArray[0] !== '0'
-    ) {
-      numbersArray.push(event.key);
-      numbersArray.splice(numbersArray.length - 2, 0, '.');
-      this.maxAmountString = parseFloat(numbersArray.join('')).toLocaleString(
-        'en-US',
-        {
-          minimumFractionDigits: 2,
-        }
-      );
-      this.maxAmountInputValue = this.maxAmountString;
-    }
-  }
-
-  public deleteNumberFromTargetInput() {
-    let currentTarget = this.maxAmountString;
-    let numbersArray = currentTarget.replace(/[.,]/g, '').split('');
-    numbersArray.pop();
-    numbersArray.splice(numbersArray.length - 2, 0, '.');
-    this.maxAmountString = parseFloat(numbersArray.join('')).toLocaleString(
-      'en-US',
-      {
-        minimumFractionDigits: 2,
-      }
+  public controlMaxTarget(event: KeyboardEvent): void {
+    const inputValue = this.maxAmountInputValue;
+    this.maxAmountInputValue = this.formatAmountInputService.formatAmountInput(
+      event,
+      inputValue
     );
-    this.maxAmountInputValue = this.maxAmountString;
   }
 
-  private getAmountValue() {
+  private getAmountValue(): number {
     return parseFloat(this.maxAmountInputValue.replace(/,/g, ''));
   }
+  // #endregion
 
-  /**
-   * NAME Input functions
-   */
-
+  // #region Transaction Name
   public transactionNameValue: string = ''; // ngModel binded
   public transactionsNameCharactersLeft: number = 30;
 
@@ -178,18 +135,18 @@ export class AddTransactionModalComponent {
   private getNameValue() {
     return this.transactionNameValue;
   }
+  // #endregion
 
-  /**
-   * CATEGORY Dropdown functions
-   */
-
-  public categories: any = [];
+  // #region Category Dropdown
+  public categories: string[] = [];
   public chosenCategory: string = 'General'; // interpolation {{chosenCategory}}
   public isCategoryDropdownOpen: boolean = false;
 
   public getCategoryArray() {
-    Object.values(this.baseData.financeApp.budgets.categories).forEach(
-      (category: any) => {
+    console.log(Object.values(this.baseData.categories));
+
+    Object.values(this.baseData.categories as Category[]).forEach(
+      (category: Category) => {
         this.categories.push(category.name);
       }
     );
@@ -206,69 +163,54 @@ export class AddTransactionModalComponent {
   public openCloseCategoryDropdown() {
     this.isCategoryDropdownOpen = !this.isCategoryDropdownOpen;
   }
+  // #endregion
 
-  /**
-   * RECURRING Dropdown functions
-   */
-
-  public recurrings: any = [];
+  // #region Recurring Dropdown
+  public recurrings: Recurring[] = [];
   public chosenRecurring: string = 'Single Transaction'; // interpolation {{chosenRecurring}}
   public isRecurringDropdownOpen: boolean = false;
 
-  public getRecurringsArray() {
-    Object.values(this.baseData.financeApp.recurrings.types).forEach(
-      (type: any) => {
-        this.recurrings.push(type);
-      }
-    );
+  public getRecurringsArray(): Recurring[] {
+    return Object.values(this.baseData.recurringTypes);
   }
 
-  public chooseRecurring(recurring: any) {
+  public openCloseRecurringDropdown(): void {
+    this.isRecurringDropdownOpen = !this.isRecurringDropdownOpen;
+  }
+
+  public chooseRecurring(recurring: Recurring) {
     this.chosenRecurring = recurring.name;
     this.currentTransaction.recurring = recurring.value;
     this.openCloseRecurringDropdown();
   }
+  // #endregion
 
-  public openCloseRecurringDropdown() {
-    this.isRecurringDropdownOpen = !this.isRecurringDropdownOpen;
-  }
-
-  /**
-   * DATE Input functions
-   */
-
+  // #region Date picker
   public currentDate: string = ''; // html - min attribute
   public chosenDateValue: string = ''; // ngModel binded
 
-  public getCurrentDate() {
+  private getCurrentDate(): string {
     return new Date().toISOString().split('T')[0];
   }
 
-  private getChosenDate() {
+  private getChosenDate(): null | string {
     if (this.chosenDateValue.length === 0) {
       return null;
     } else {
       return new Date(this.chosenDateValue).toISOString();
     }
   }
+  // #endregion
 
-  /**
-   * Get a random theme color for the transaction
-   */
-
-  public getRandomTheme() {
-    let themeArray: any = Object.values(this.baseData.financeApp.basics.colors);
-    return themeArray[Math.floor(Math.random() * themeArray.length)].hex;
-  }
-
-  /**
-   * functions to validate the input values
-   */
-
+  // #region Input Validation
   public isAmountValid: boolean = true; // ngStyle binded
   public isNameValid: boolean = true; // ngStyle binded
 
-  public validateInputValues() {
+  /**
+   * @description - This function is used to validate the input values of the transaction.
+   * @returns boolean - true if all inputs are valid, false otherwise
+   */
+  public validateInputValues(): boolean {
     let isAmountValid = this.validateAmount();
     let isNameValid = this.validateName();
     if (isAmountValid && isNameValid) {
@@ -278,7 +220,11 @@ export class AddTransactionModalComponent {
     }
   }
 
-  public validateAmount() {
+  /**
+   * @description - This function is used to validate the amount input value.
+   * @returns boolean - true if the amount is valid, false otherwise
+   */
+  public validateAmount(): boolean | undefined {
     if (!this.currentTransaction.amount) return;
     if (this.currentTransaction.amount <= 0) {
       this.isAmountValid = false;
@@ -289,7 +235,11 @@ export class AddTransactionModalComponent {
     }
   }
 
-  public validateName() {
+  /**
+   * @description - This function is used to validate the name input value.
+   * @returns boolean - true if the name is valid, false otherwise
+   */
+  public validateName(): boolean {
     if (this.currentTransaction.name.length === 0) {
       this.isNameValid = false;
       return false;
@@ -299,28 +249,41 @@ export class AddTransactionModalComponent {
     }
   }
 
-  public resetValidation(input: string) {
+  /**
+   * @description - This function is used to reset the validation state of the input fields.
+   * @param input - The name of the input field to reset (amount or name)
+   */
+  public resetValidation(input: string): void {
     if (input === 'amount') this.isAmountValid = true;
     if (input === 'name') this.isNameValid = true;
   }
+  // #endregion
 
+  // #region Submit functions
   /**
-   * complete and submit new transaction to "api-transaction.service"
+   * @description - This function is used to complete the new transaction object.
    */
-
-  // add ngModel binded values and other defaults to the currentTransaction object
-  private completeNewTransaction() {
+  private completeNewTransaction(): void {
     this.currentTransaction.amount = this.getAmountValue();
     this.currentTransaction.name = this.getNameValue();
     this.currentTransaction.execute_on = this.getChosenDate();
     this.currentTransaction.theme = this.getRandomTheme();
   }
 
-  public submitAddTransaction() {
+  /**
+   * @description - This function is used to submit the new transaction object.
+   * It first completes the new transaction object and then validates the input values.
+   * If the input values are valid, it starts the transaction and hides the modal.
+   */
+  public submitAddTransaction(): void {
     this.completeNewTransaction();
     if (this.validateInputValues()) {
-      this.apiTransactionsService.startTransactionFromTransactions(this.currentTransaction, 'transactions');
+      this.apiTransactionsService.startTransactionFromTransactions(
+        this.currentTransaction,
+        'transactions'
+      );
       this.mainModalService.hideMainModal();
     }
   }
+  // #endregion
 }

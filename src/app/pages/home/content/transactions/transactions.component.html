@@ -61,7 +61,7 @@
         <div class="w-full h-[1.5px] rounded-full bg-grey-100"></div>
 
         @for (item of this.renderReadyArray; let index = $index;
-        track item) { @if (index === (this.currentPage$() - 1)) {
+        track item) { @if (index === (this.currentPageSignal() - 1)) {
 
         <ul id="" aria-label="list of latest spendings" class="">
           @for (transaction of item; let index = $index; track transaction) {
@@ -84,7 +84,7 @@
       <!-- Transactions Navigation -->
       <div aria-label="transactions window navigation">
         @if (this.renderReadyArray.length > 1) {
-        <app-pagination-transactions [currentPage$]="currentPage$" [totalSubPages$]="totalSubPages$" (changePage)="setCurrentPage$($event)" ></app-pagination-transactions>
+        <app-pagination-transactions [currentPageSignal]="currentPageSignal" [totalSubPagesSignal]="totalSubPagesSignal" (changePage)="setCurrentPageSignal($event)" ></app-pagination-transactions>
         }
       </div>
     </div>
