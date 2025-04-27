@@ -5,7 +5,7 @@ interface Theme {
 
 interface Recurring {
   name: string;
-  value?: string | null;
+  value: string | null;
 }
 
 interface Category {

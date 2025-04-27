@@ -62,7 +62,7 @@ export class AddTransactionModalComponent {
   }
   // #endregion
 
-  // #region DEBIT and CREDIT choose 
+  // #region DEBIT and CREDIT choose
   public currentTransactionType: string = 'Debit';
 
   public setTransactionType(type: string): void {
@@ -89,7 +89,10 @@ export class AddTransactionModalComponent {
    */
   public controlMaxTarget(event: KeyboardEvent): void {
     const inputValue = this.maxAmountInputValue;
-    this.maxAmountInputValue = this.formatAmountInputService.formatAmountInput(event, inputValue);
+    this.maxAmountInputValue = this.formatAmountInputService.formatAmountInput(
+      event,
+      inputValue
+    );
   }
 
   private getAmountValue(): number {
@@ -123,7 +126,7 @@ export class AddTransactionModalComponent {
   }
   // #endregion
 
-  // #region Category Dropdown 
+  // #region Category Dropdown
   public categories: string[] = [];
   public chosenCategory: string = 'General'; // interpolation {{chosenCategory}}
   public isCategoryDropdownOpen: boolean = false;
@@ -154,8 +157,8 @@ export class AddTransactionModalComponent {
   /**
    * RECURRING Dropdown functions
    */
-
-  public recurrings: any = [];
+  // #region Recurring Dropdown
+  public recurrings: Recurring[] = [];
   public chosenRecurring: string = 'Single Transaction'; // interpolation {{chosenRecurring}}
   public isRecurringDropdownOpen: boolean = false;
 
@@ -166,14 +169,13 @@ export class AddTransactionModalComponent {
       }
     );
     console.log(this.recurrings);
-    
   }
 
-  public openCloseRecurringDropdown() {
+  public openCloseRecurringDropdown(): void {
     this.isRecurringDropdownOpen = !this.isRecurringDropdownOpen;
   }
 
-  public chooseRecurring(recurring: any) {
+  public chooseRecurring(recurring: Recurring) {
     this.chosenRecurring = recurring.name;
     this.currentTransaction.recurring = recurring.value;
     this.openCloseRecurringDropdown();
@@ -196,7 +198,7 @@ export class AddTransactionModalComponent {
   }
   // #endregion
 
-  // #region Input Validation 
+  // #region Input Validation
   public isAmountValid: boolean = true; // ngStyle binded
   public isNameValid: boolean = true; // ngStyle binded
 
