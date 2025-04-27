@@ -147,7 +147,7 @@ export class AddTransactionModalComponent {
     this.maxAmountInputValue = this.maxAmountString;
   }
 
-  private getAmountValue() {
+  private getAmountValue(): number {
     return parseFloat(this.maxAmountInputValue.replace(/,/g, ''));
   }
 
@@ -235,11 +235,11 @@ export class AddTransactionModalComponent {
   public currentDate: string = ''; // html - min attribute
   public chosenDateValue: string = ''; // ngModel binded
 
-  private getCurrentDate() {
+  private getCurrentDate(): string {
     return new Date().toISOString().split('T')[0];
   }
 
-  private getChosenDate() {
+  private getChosenDate(): null | string {
     if (this.chosenDateValue.length === 0) {
       return null;
     } else {
@@ -247,10 +247,6 @@ export class AddTransactionModalComponent {
     }
   }
   // #endregion
-
- 
-
-  
 
   // #region Validation functions
   public isAmountValid: boolean = true; // ngStyle binded
