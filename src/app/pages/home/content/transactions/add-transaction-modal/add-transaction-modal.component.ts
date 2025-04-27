@@ -9,6 +9,17 @@ import { DataStoreServiceService } from '@services/data-store-service.service';
 import { ApiTransactionService } from '@content/transactions/api-transaction.service';
 import { FormatAmountInputService } from '@src/services/format-amount-input.service';
 
+/**
+ * * * AddTransactionModalComponent
+ * This component is responsible for displaying the add transaction modal.
+ * It allows the user to add a new transaction with a name, amount, and theme.
+ * It allows the user to choose a category and a recurring type for the transaction.
+ * It uses the MainModalService to manage the modal state and the ApiTransactionService to interact with the backend.
+ * It uses the FormatAmountInputService to format the amount input value.
+ * It uses the BasedataService to get the base data for the application.
+ * It uses the DataStoreServiceService to store the data for the application.
+ * It uses the IconsComponent to display the icons for the categories.
+ */
 @Component({
   selector: 'app-add-transaction-modal',
   imports: [CommonModule, ReactiveFormsModule, FormsModule, IconsComponent],
