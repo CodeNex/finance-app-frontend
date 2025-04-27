@@ -3,6 +3,11 @@ interface Theme {
   hex: string;
 }
 
+interface Recurring {
+  name: string;
+  value?: string | null;
+}
+
 interface Category {
   name: string;
   iconName: string;

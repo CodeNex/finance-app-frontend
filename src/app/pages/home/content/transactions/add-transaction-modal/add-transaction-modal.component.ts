@@ -165,6 +165,8 @@ export class AddTransactionModalComponent {
         this.recurrings.push(type);
       }
     );
+    console.log(this.recurrings);
+    
   }
 
   public openCloseRecurringDropdown() {
