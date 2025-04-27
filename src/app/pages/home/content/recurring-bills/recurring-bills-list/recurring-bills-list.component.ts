@@ -7,6 +7,15 @@ import { SingleBillComponent } from '@content/recurring-bills/recurring-bills-li
 import { SortbyTransactionsComponent } from '@content/transactions/sortby-transactions/sortby-transactions.component';
 import { SearchTransactionComponent } from '@content/transactions/search-transaction/search-transaction.component';
 
+/**
+ * * * RecurringBillsListComponent
+ * This component is responsible for displaying the list of recurring bills.
+ * It allows the user to search and sort the Recurring Transactions by different criteria.
+ * It uses the SingleBillComponent to display each recurring bill.
+ * It uses the DataStoreService to get the recurring transactions and the AuthenticationService to manage user authentication.
+ * It also uses the MainModalService to open the delete modal for each recurring bill.
+ * It uses the SortbyTransactionsComponent and SearchTransactionComponent to provide sorting and searching functionality.
+ */
 @Component({
   selector: 'app-recurring-bills-list',
   imports: [
@@ -36,6 +45,10 @@ export class RecurringBillsListComponent {
   // #endregion
 
   // #region Format Transactions Array
+  /**
+   * @description - This function formats the transactions array by searching and sorting it.
+   * @param prevArray - The previous array of transactions.
+   */
   public formatTransactionsArray(prevArray: TransactionsObject[]) {
     let searchedArray = this.getSearchedTransactions(prevArray);
     let sortedArray = this.getSortedTransactions(searchedArray);
@@ -46,11 +59,20 @@ export class RecurringBillsListComponent {
   // #region SearchField
   public searchFieldInput: string = '';
 
+  /**
+   * @description - This function sets the input value for the search field.
+   * @param input - The input value for the search field.
+   */
   public setSearchFieldInput(input: string): void {
     this.searchFieldInput = input;
     this.formatTransactionsArray(this.transactionsRecurringSignal());
   }
 
+  /**
+   * @description - This function gets the searched transactions from the previous array.
+   * @param prevArray - The previous array of transactions.
+   * @returns - The array of searched transactions. 
+   */
   private getSearchedTransactions(
     prevArray: TransactionsObject[]
   ): TransactionsObject[] {
@@ -65,6 +87,12 @@ export class RecurringBillsListComponent {
     return array;
   }
 
+  /**
+   * @description - This function checks if the search string is a subsequence of the text string.
+   * @param search - The search string.
+   * @param text - The text string. 
+   * @returns - True if the search string is a subsequence of the text string, false otherwise. 
+   */
   private isSubsequence(search: string, text: string): boolean {
     let searchIncludingCount: number = 0;
     let lastMatchIndex: number = -1;
@@ -88,11 +116,20 @@ export class RecurringBillsListComponent {
   // #region SortBy
   public sortByInput: string = 'Latest';
 
+  /**
+   * @description - This function sets the input value for the sort by field. 
+   * @param input - The input value for the sort by field.
+   */
   public setSortByInput(input: string) {
     this.sortByInput = input;
     this.formatTransactionsArray(this.transactionsRecurringSignal());
   }
 
+  /**
+   * @description - This function gets the sorted transactions from the previous array. It sorts the transactions by date, alphabet, or amount.
+   * @param prevArray - The previous array of transactions.
+   * @returns - The array of sorted transactions. 
+   */
   private getSortedTransactions(
     prevArray: TransactionsObject[]
   ): TransactionsObject[] {
@@ -111,6 +148,11 @@ export class RecurringBillsListComponent {
     return array;
   }
 
+  /**
+   * @description - This function sorts the transactions by date. It sorts the transactions by execute_on date in ascending or descending order.
+   * @param array - The array of transactions to be sorted.
+   * @returns - The sorted array of transactions. 
+   */
   private sortByDate(array: TransactionsObject[]): TransactionsObject[] {
     return array.sort((a: TransactionsObject, b: TransactionsObject) => {
       if (!a.execute_on) return 1;
@@ -131,6 +173,11 @@ export class RecurringBillsListComponent {
     });
   }
 
+  /**
+   * @description - This function sorts the transactions by alphabet. It sorts the transactions by name in ascending or descending order.
+   * @param array - The array of transactions to be sorted. 
+   * @returns - The sorted array of transactions. 
+   */
   private sortByAlphabet(array: TransactionsObject[]) {
     return array.sort((a: TransactionsObject, b: TransactionsObject) => {
       if (!a.name) return 1;
@@ -141,6 +188,11 @@ export class RecurringBillsListComponent {
     });
   }
 
+  /**
+   * @description - This function sorts the transactions by amount. It sorts the transactions by amount in ascending or descending order.
+   * @param array - The array of transactions to be sorted.
+   * @returns - The sorted array of transactions. 
+   */
   private sortByAmount(array: TransactionsObject[]) {
     return array.sort((a: TransactionsObject, b: TransactionsObject) => {
       if (a.amount == null) return 1;
