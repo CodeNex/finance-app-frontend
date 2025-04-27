@@ -42,20 +42,25 @@ export class AddTransactionModalComponent {
   };
   // #endregion
 
+  // #region Lifecycle Hooks
   ngOnInit() {
     this.getCategoryArray();
     this.getRecurringsArray();
     this.currentDate = this.getCurrentDate();
     this.chosenDateValue = this.getCurrentDate();
   }
+  // #endregion
 
-  /**
-   * closes main modal and its children
-   */
-
-  public closeMainModal() {
+  // #region Helper functions
+  public closeMainModal(): void {
     this.mainModalService.hideMainModal();
   }
+
+  private getRandomTheme(): string {
+    let themeArray: any = Object.values(this.baseData.financeApp.basics.colors);
+    return themeArray[Math.floor(Math.random() * themeArray.length)].hex;
+  }
+  // #endregion
 
   // #region DEBIT and CREDIT choose functions
   public currentTransactionType: string = 'Debit';
@@ -216,24 +221,21 @@ export class AddTransactionModalComponent {
     );
   }
 
+  public openCloseRecurringDropdown() {
+    this.isRecurringDropdownOpen = !this.isRecurringDropdownOpen;
+  }
+
   public chooseRecurring(recurring: any) {
     this.chosenRecurring = recurring.name;
     this.currentTransaction.recurring = recurring.value;
     this.openCloseRecurringDropdown();
   }
 
-  public openCloseRecurringDropdown() {
-    this.isRecurringDropdownOpen = !this.isRecurringDropdownOpen;
-  }
-
-  /**
-   * DATE Input functions
-   */
-
+  // #region Date functions
   public currentDate: string = ''; // html - min attribute
   public chosenDateValue: string = ''; // ngModel binded
 
-  public getCurrentDate() {
+  private getCurrentDate() {
     return new Date().toISOString().split('T')[0];
   }
 
@@ -244,23 +246,20 @@ export class AddTransactionModalComponent {
       return new Date(this.chosenDateValue).toISOString();
     }
   }
+  // #endregion
 
-  /**
-   * Get a random theme color for the transaction
-   */
+ 
 
-  public getRandomTheme() {
-    let themeArray: any = Object.values(this.baseData.financeApp.basics.colors);
-    return themeArray[Math.floor(Math.random() * themeArray.length)].hex;
-  }
+  
 
-  /**
-   * functions to validate the input values
-   */
-
+  // #region Validation functions
   public isAmountValid: boolean = true; // ngStyle binded
   public isNameValid: boolean = true; // ngStyle binded
 
+  /**
+   * @description - This function is used to validate the input values of the transaction.
+   * @returns boolean - true if all inputs are valid, false otherwise
+   */
   public validateInputValues(): boolean {
     let isAmountValid = this.validateAmount();
     let isNameValid = this.validateName();
@@ -271,6 +270,10 @@ export class AddTransactionModalComponent {
     }
   }
 
+  /**
+   * @description - This function is used to validate the amount input value.
+   * @returns boolean - true if the amount is valid, false otherwise
+   */
   public validateAmount(): boolean | undefined {
     if (!this.currentTransaction.amount) return;
     if (this.currentTransaction.amount <= 0) {
@@ -282,6 +285,10 @@ export class AddTransactionModalComponent {
     }
   }
 
+  /**
+   * @description - This function is used to validate the name input value.
+   * @returns boolean - true if the name is valid, false otherwise
+   */
   public validateName(): boolean {
     if (this.currentTransaction.name.length === 0) {
       this.isNameValid = false;
@@ -292,10 +299,15 @@ export class AddTransactionModalComponent {
     }
   }
 
+  /**
+   * @description - This function is used to reset the validation state of the input fields.
+   * @param input - The name of the input field to reset (amount or name)
+   */
   public resetValidation(input: string): void {
     if (input === 'amount') this.isAmountValid = true;
     if (input === 'name') this.isNameValid = true;
   }
+  // #endregion
 
   // #region Submit functions
   /**
@@ -308,6 +320,11 @@ export class AddTransactionModalComponent {
     this.currentTransaction.theme = this.getRandomTheme();
   }
 
+  /**
+   * @description - This function is used to submit the new transaction object.
+   * It first completes the new transaction object and then validates the input values.
+   * If the input values are valid, it starts the transaction and hides the modal.
+   */
   public submitAddTransaction(): void {
     this.completeNewTransaction();
     if (this.validateInputValues()) {
