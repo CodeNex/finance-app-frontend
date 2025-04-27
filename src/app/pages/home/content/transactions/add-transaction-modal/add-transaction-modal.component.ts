@@ -62,7 +62,7 @@ export class AddTransactionModalComponent {
   }
   // #endregion
 
-  // #region DEBIT and CREDIT choose functions
+  // #region DEBIT and CREDIT choose 
   public currentTransactionType: string = 'Debit';
 
   public setTransactionType(type: string): void {
@@ -80,78 +80,24 @@ export class AddTransactionModalComponent {
   }
   // #endregion
 
+  // #region Amount Input
   public maxAmountInputValue: string = '0.00'; // ngModel binded
-  public maxAmountString: string = '0.00';
 
-  public controlMaxTarget(event: any) {
-    const deleteKeys = ['Backspace', 'Delete'];
-    const otherKeys = ['ArrowLeft', 'ArrowRight', 'Tab'];
-    const isNumberKey = /^[0-9]$/.test(event.key);
-
-    if (isNumberKey) {
-      event.preventDefault();
-      this.addNumberToTargetInput(event);
-    } else if (deleteKeys.includes(event.key)) {
-      event.preventDefault();
-      this.deleteNumberFromTargetInput();
-    } else if (otherKeys.includes(event.key)) {
-      return;
-    } else {
-      event.preventDefault();
-      return;
-    }
-  }
-
-  public addNumberToTargetInput(event: any) {
-    let currentTarget = this.maxAmountString;
-    let numbersArray = currentTarget.replace(/[.,]/g, '').split('');
-    if (numbersArray.length === 3 && numbersArray[0] === '0') {
-      numbersArray.shift();
-      numbersArray.push(event.key);
-      numbersArray.splice(numbersArray.length - 2, 0, '.');
-      this.maxAmountString = parseFloat(numbersArray.join('')).toLocaleString(
-        'en-US',
-        {
-          minimumFractionDigits: 2,
-        }
-      );
-      this.maxAmountInputValue = this.maxAmountString;
-    } else if (
-      numbersArray.length >= 3 &&
-      numbersArray.length < 11 &&
-      numbersArray[0] !== '0'
-    ) {
-      numbersArray.push(event.key);
-      numbersArray.splice(numbersArray.length - 2, 0, '.');
-      this.maxAmountString = parseFloat(numbersArray.join('')).toLocaleString(
-        'en-US',
-        {
-          minimumFractionDigits: 2,
-        }
-      );
-      this.maxAmountInputValue = this.maxAmountString;
-    }
-  }
-
-  public deleteNumberFromTargetInput() {
-    let currentTarget = this.maxAmountString;
-    let numbersArray = currentTarget.replace(/[.,]/g, '').split('');
-    numbersArray.pop();
-    numbersArray.splice(numbersArray.length - 2, 0, '.');
-    this.maxAmountString = parseFloat(numbersArray.join('')).toLocaleString(
-      'en-US',
-      {
-        minimumFractionDigits: 2,
-      }
-    );
-    this.maxAmountInputValue = this.maxAmountString;
+  /**
+   * @description - This function is used to format the amount input value.
+   * @param event - The event that is triggered when the user types in the input field.
+   */
+  public controlMaxTarget(event: KeyboardEvent): void {
+    const inputValue = this.maxAmountInputValue;
+    this.maxAmountInputValue = this.formatAmountInputService.formatAmountInput(event, inputValue);
   }
 
   private getAmountValue(): number {
     return parseFloat(this.maxAmountInputValue.replace(/,/g, ''));
   }
+  // #endregion
 
-  // #region Transaction Name functions
+  // #region Transaction Name
   public transactionNameValue: string = ''; // ngModel binded
   public transactionsNameCharactersLeft: number = 30;
 
@@ -177,7 +123,7 @@ export class AddTransactionModalComponent {
   }
   // #endregion
 
-  // #region Category Dropdown functions
+  // #region Category Dropdown 
   public categories: string[] = [];
   public chosenCategory: string = 'General'; // interpolation {{chosenCategory}}
   public isCategoryDropdownOpen: boolean = false;
@@ -231,7 +177,7 @@ export class AddTransactionModalComponent {
     this.openCloseRecurringDropdown();
   }
 
-  // #region Date functions
+  // #region Date picker
   public currentDate: string = ''; // html - min attribute
   public chosenDateValue: string = ''; // ngModel binded
 
@@ -248,7 +194,7 @@ export class AddTransactionModalComponent {
   }
   // #endregion
 
-  // #region Validation functions
+  // #region Input Validation 
   public isAmountValid: boolean = true; // ngStyle binded
   public isNameValid: boolean = true; // ngStyle binded
 
