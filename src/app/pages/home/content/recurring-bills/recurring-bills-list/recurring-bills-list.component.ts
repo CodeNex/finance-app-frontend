@@ -27,7 +27,7 @@ export class RecurringBillsListComponent {
   constructor() {
     effect(() => {
       let signal$ = this.transactionsRecurringSignal$();
-      // this.formatTransactionsArray(signal$);
+      this.formatTransactionsArray(signal$);
     });
   }
 
@@ -45,6 +45,7 @@ export class RecurringBillsListComponent {
   // # functions to filter the array by search field
   // ########################################
 
+  // #region SearchField
   public searchFieldInput: string = '';
 
   public setSearchFieldInput(input: string) {
@@ -75,11 +76,9 @@ export class RecurringBillsListComponent {
       return false;
     }
   }
+  // #endregion
 
-  // ########################################
-  // # functions to sort the array
-  // ########################################
-
+  // #region SortBy
   public sortByInput: string = 'Latest';
 
   public setSortByInput(input: string) {
@@ -133,4 +132,5 @@ export class RecurringBillsListComponent {
       return;
     });
   }
+  // #endregion
 }
