@@ -1,4 +1,5 @@
 import { Component, inject, Input } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { IconsComponent } from '@components/icons/icons.component';
@@ -6,9 +7,16 @@ import { IconsComponent } from '@components/icons/icons.component';
 import { MainModalService } from '@services/main-modal.service';
 import { BasedataService } from '@services/basedata.service';
 import { DataStoreServiceService } from '@services/data-store-service.service';
-import { ApiPotsService } from '../../api-pots.service';
-import { CommonModule } from '@angular/common';
+import { ApiPotsService } from '@content/pots/api-pots.service';
+import { FormatAmountInputService } from '@src/services/format-amount-input.service';
 
+/**
+ * * * * EditPotModalComponent
+ * * This component is responsible for displaying the edit pot modal.
+ * * It allows the user to edit an existing pot's name, target, and theme.
+ * * It uses the MainModalService to manage the modal state and the ApiPotsService to interact with the backend.
+ * * It also uses the FormatAmountInputService to format the input value.
+ */
 @Component({
   selector: 'app-edit-pot-modal',
   imports: [CommonModule, FormsModule, ReactiveFormsModule, IconsComponent],
@@ -16,20 +24,17 @@ import { CommonModule } from '@angular/common';
   styleUrl: './edit-pot-modal.component.scss',
 })
 export class EditPotModalComponent {
-  public mainModalService: MainModalService = inject(MainModalService);
-  public baseData: BasedataService = inject(BasedataService);
-  public dataStore: DataStoreServiceService = inject(DataStoreServiceService);
-  public apiPotsService: ApiPotsService = inject(ApiPotsService);
+  // #region Component Setup (DI, Outputs, Template Refs, Subscription)
+  public mainModalService = inject(MainModalService);
+  public baseData = inject(BasedataService);
+  public dataStore = inject(DataStoreServiceService);
+  public apiPotsService = inject(ApiPotsService);
+  public formatAmountInputService = inject(FormatAmountInputService);
 
-  // closes main modal and its children
-  public closeMainModal() {
-    this.mainModalService.hideMainModal();
-  }
-
-  @Input() public modalObject: Object = {};
+  @Input() public modalObject!: PotsObject;
   @Input() public potIndex: number = -1;
 
-  public currentPot: any = {
+  public currentPot: PotsObject = {
     id: -1,
     name: '',
     target: -1,
@@ -40,19 +45,15 @@ export class EditPotModalComponent {
   };
 
   public currentPotIndex: number = -1;
+  // #endregion
 
-  public themes: any;
-  public usedPotThemes: any;
-  public unusedPotThemes: any;
-  public chosenTheme: any;
-  public isThemeDropdownOpen: boolean = false;
-  public potNameValue: string = '';
-  public potNameCharactersLeft: number = 30;
-  public potTargetInputValue: string = '0.00';
-  public potTargetString: string = '0.00';
-  public potThemeValue: string = '';
+  // #region Lifecycle Hooks
+  ngOnInit(): void {
+    this.initializePotAndModal();
+    this.getThemeArrays();
+  }
 
-  ngOnInit() {
+  private initializePotAndModal(): void {
     this.currentPot = this.modalObject;
     this.currentPotIndex = this.potIndex;
     this.potNameValue = this.currentPot.name;
@@ -60,16 +61,33 @@ export class EditPotModalComponent {
     this.potTargetInputValue = this.currentPot.target.toLocaleString('en-US', {
       minimumFractionDigits: 2,
     });
-    this.potTargetString = this.potTargetInputValue;
-    this.getThemeArrays();
   }
+  // #endregion
 
-  // closes or opens theme dropdown
-  toggleThemeDropdown() {
+  // #region Dropdowns & Modal
+  public isThemeDropdownOpen: boolean = false;
+
+  public toggleThemeDropdown(): void {
     this.isThemeDropdownOpen = !this.isThemeDropdownOpen;
   }
 
-  // controls the maximum length of the pot name
+  /**
+   * @description - This function closes the main modal and add pot modal within it. Its called when the user clicks on the close button in the modal, outside the modal or submit the new pot.
+   */
+  public closeMainModal(): void {
+    this.mainModalService.hideMainModal();
+  }
+  // #endregion
+
+  // #region Name & Target Input
+  public potNameValue: string = '';
+  public potNameCharactersLeft: number = 30;
+
+  /**
+   * @description - This function is used to control the length of the pot name input. It prevents the user from typing more than 30 characters in the input field.
+   * It also updates the potNameCharactersLeft variable to show the remaining characters left.
+   * @param event - The event that is triggered when the user types in the input field.
+   */
   controlNameLength(event: any) {
     const deleteKeys = ['Backspace', 'Delete'];
     if (deleteKeys.includes(event.key)) {
@@ -85,107 +103,82 @@ export class EditPotModalComponent {
     }
   }
 
-  // controls the maximum amount of the pot target
-  controlMaxTarget(event: any) {
-    const deleteKeys = ['Backspace', 'Delete'];
-    const otherKeys = ['ArrowLeft', 'ArrowRight', 'Tab'];
-    const isNumberKey = /^[0-9]$/.test(event.key);
+  // the value of the pot target input binded by ngModel
+  public potTargetInputValue: string = '0.00';
 
-    if (isNumberKey) {
-      event.preventDefault();
-      this.addNumberToTargetInput(event);
-    } else if (deleteKeys.includes(event.key)) {
-      event.preventDefault();
-      this.deleteNumberFromTargetInput();
-    } else if (otherKeys.includes(event.key)) {
-      return;
-    } else {
-      event.preventDefault();
-      return;
-    }
-  }
-
-  // add a number to the target input
-  addNumberToTargetInput(event: any) {
-    let currentTarget = this.potTargetString;
-    let numbersArray = currentTarget.replace(/[.,]/g, '').split('');
-    if (numbersArray.length === 3 && numbersArray[0] === '0') {
-      numbersArray.shift();
-      numbersArray.push(event.key);
-      numbersArray.splice(numbersArray.length - 2, 0, '.');
-      this.potTargetString = parseFloat(numbersArray.join('')).toLocaleString(
-        'en-US',
-        {
-          minimumFractionDigits: 2,
-        }
-      );
-      this.potTargetInputValue = this.potTargetString;
-    } else if (
-      numbersArray.length >= 3 &&
-      numbersArray.length < 11 &&
-      numbersArray[0] !== '0'
-    ) {
-      numbersArray.push(event.key);
-      numbersArray.splice(numbersArray.length - 2, 0, '.');
-      this.potTargetString = parseFloat(numbersArray.join('')).toLocaleString(
-        'en-US',
-        {
-          minimumFractionDigits: 2,
-        }
-      );
-      this.potTargetInputValue = this.potTargetString;
-    }
-  }
-
-  // delete a number from the target input
-  deleteNumberFromTargetInput() {
-    let currentTarget = this.potTargetString;
-    let numbersArray = currentTarget.replace(/[.,]/g, '').split('');
-    numbersArray.pop();
-    numbersArray.splice(numbersArray.length - 2, 0, '.');
-    this.potTargetString = parseFloat(numbersArray.join('')).toLocaleString(
-      'en-US',
-      {
-        minimumFractionDigits: 2,
-      }
+  /**
+   * @description - This function is used to format the amount input value.
+   * @param event - The event that is triggered when the user types in the input field.
+   */
+  public controlMaxTarget(event: KeyboardEvent): void {
+    const inputValue = this.potTargetInputValue;
+    this.potTargetInputValue = this.formatAmountInputService.formatAmountInput(
+      event,
+      inputValue
     );
-    this.potTargetInputValue = this.potTargetString;
   }
+  // #endregion
 
-  // get all the themes from the data-store-service and split them into used and unused theme arrays
+  // #region Themes
+  public themes: Theme[] = [];
+  public usedPotThemes: string[] = [];
+  public unusedPotThemes: Theme[] = [];
+  public chosenTheme: Theme = { name: '', hex: '' };
+  public potThemeValue: string = '';
+
+  /**
+   * @description - This function is used to get the themes from the base data. It sets the themes, usedPotThemes and unusedPotThemes arrays.
+   */
   getThemeArrays() {
-    this.themes = Object.values(this.baseData.financeApp.basics.colors);
-
-    this.usedPotThemes = this.dataStore.pots().map((pot: any) => pot.theme);
+    this.themes = Object.values(this.baseData.colors);
+    this.usedPotThemes = this.dataStore
+      .pots()
+      .map((pot: PotsObject) => pot.theme);
     this.unusedPotThemes = this.themes.filter(
-      (theme: any) => !this.usedPotThemes.includes(theme.hex)
+      (theme: Theme) => !this.usedPotThemes.includes(theme.hex)
     );
-    this.themes.forEach((theme: any) => {
+    this.themes.forEach((theme: Theme) => {
       if (this.currentPot.theme === theme.hex) this.chosenTheme = theme;
     });
   }
 
-  // choose a theme from the dropdown
-  chooseTheme(theme: any) {
+  /**
+   * @description - This function is used to choose a theme from the dropdown. It sets the chosenTheme to the selected theme and closes the dropdown.
+   * @param theme - The theme to be chosen.
+   */
+  public chooseTheme(theme: Theme): void {
     if (this.unusedPotThemes.includes(theme)) {
       this.chosenTheme = theme;
       this.toggleThemeDropdown();
     }
   }
+  // #endregion
 
-  // submit the changed pot to the pots array in data-store-service, submit the changed pot to the API and close the modal
-  submitEditPot() {
-    let potObject = this.currentPot;
-    potObject.name = this.potNameValue;
-    potObject.target = parseFloat(this.potTargetInputValue.replace(/,/g, ''));
-    potObject.theme = this.chosenTheme.hex;
+  // #region Submit
+  /**
+   * @description - This function is used to complete the pot object with the values from the input fields.
+   * It sets the name, target and theme of the pot object.
+   */
+  private completePotObject(): void {
+    this.currentPot.name = this.potNameValue;
+    this.currentPot.target = parseFloat(
+      this.potTargetInputValue.replace(/,/g, '')
+    );
+    this.currentPot.theme = this.chosenTheme.hex;
+  }
+
+  /**
+   * @description - Submit the changed pot to the pots array in data-store-service, submit the changed pot to the API and close the modal
+   */
+  public submitEditPot(): void {
+    this.completePotObject();
     this.apiPotsService.updatePot(
       'pots',
       'editPot',
       this.currentPotIndex,
-      potObject
+      this.currentPot
     );
     this.mainModalService.hideMainModal();
-    console.log(potObject);
   }
+  // #endregion
 }

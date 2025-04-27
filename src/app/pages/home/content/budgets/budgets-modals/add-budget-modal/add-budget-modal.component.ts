@@ -132,9 +132,13 @@ export class AddBudgetModalComponent implements OnInit {
   // #endregion
 
   // #region Target Input
-  public amountInputValue: string = '0.00';
+  public amountInputValue: string = '0.00'; // ngModel binded to the input field
 
-  public controlMaxTarget(event: KeyboardEvent) {
+  /**
+   * @description - This function is used to format the amount input value.
+   * @param event - The event that is triggered when the user types in the input field.
+   */
+  public controlMaxTarget(event: KeyboardEvent): void {
     const inputValue = this.amountInputValue;
     this.amountInputValue = this.formatAmountInputService.formatAmountInput(event, inputValue);
   }

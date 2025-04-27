@@ -16,12 +16,12 @@ export class RecurringBillsComponent {
   private dataStore: DataStoreServiceService = inject(DataStoreServiceService);
   public authService: AuthenticationService = inject(AuthenticationService);
 
-  public recurringBillsArray$ = this.dataStore.transactionsRecurring();
+  public recurringBillsArray = this.dataStore.transactionsRecurring();
   public transactionsArray$ = this.dataStore.transactions();
   
   constructor() {
     effect(() => {
-      this.recurringBillsArray$ = this.dataStore.transactionsRecurring();
+      this.recurringBillsArray = this.dataStore.transactionsRecurring();
       this.transactionsArray$ = this.dataStore.transactions();
     });
   }

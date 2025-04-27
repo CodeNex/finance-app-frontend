@@ -1,3 +1,22 @@
+interface Theme {
+  name: string;
+  hex: string;
+}
+
+interface Recurring {
+  name: string;
+  value: string | null;
+}
+
+interface Category {
+  name: string;
+  iconName: string;
+}
+
+interface Themes {
+  [key: string]: Theme;
+}
+
 interface DateRange {
   start: number;
   end: number;
