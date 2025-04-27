@@ -47,7 +47,7 @@
         [recurringIndex]="$index"
       ></app-single-bill>
     </li>
-    @if (this.recurringBillsArray$ && index < recurringBillsArray$.length - 1) {
+    @if (this.recurringBillsArray && index < recurringBillsArray.length - 1) {
     <div class="w-full h-[1.5px] rounded-full bg-grey-100"></div>
     } } }
   </ul>

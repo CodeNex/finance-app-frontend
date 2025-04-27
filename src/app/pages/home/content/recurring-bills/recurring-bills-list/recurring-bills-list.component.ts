@@ -19,7 +19,7 @@ export class RecurringBillsListComponent {
   public authService: AuthenticationService = inject(AuthenticationService);
   public mainModalService: MainModalService = inject(MainModalService);
 
-  @Input() public recurringBillsArray$!: TransactionsObject[];
+  @Input() public recurringBillsArray!: TransactionsObject[];
 
   public transactionsRecurringSignal$: Signal<any[]>  = this.dataStore.transactionsRecurring;
   public renderReadyArray: any[] = [];
