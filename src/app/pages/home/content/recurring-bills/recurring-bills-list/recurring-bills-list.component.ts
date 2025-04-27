@@ -3,60 +3,64 @@ import { CommonModule } from '@angular/common';
 import { DataStoreServiceService } from '@services/data-store-service.service';
 import { AuthenticationService } from '@services/authentication.service';
 import { MainModalService } from '@services/main-modal.service';
-import { SingleBillComponent } from './single-bill/single-bill.component';
+import { SingleBillComponent } from '@content/recurring-bills/recurring-bills-list/single-bill/single-bill.component';
 import { SortbyTransactionsComponent } from '@content/transactions/sortby-transactions/sortby-transactions.component';
 import { SearchTransactionComponent } from '@content/transactions/search-transaction/search-transaction.component';
 
 @Component({
   selector: 'app-recurring-bills-list',
-  imports: [SingleBillComponent, CommonModule, SearchTransactionComponent,SortbyTransactionsComponent],
+  imports: [
+    SingleBillComponent,
+    CommonModule,
+    SearchTransactionComponent,
+    SortbyTransactionsComponent,
+  ],
   templateUrl: './recurring-bills-list.component.html',
-  styleUrl: './recurring-bills-list.component.scss'
+  styleUrl: './recurring-bills-list.component.scss',
 })
 export class RecurringBillsListComponent {
+  // #region Component Setup (DI, Outputs, Template Refs, Subscription)
+  public dataStore = inject(DataStoreServiceService);
+  public authService = inject(AuthenticationService);
+  public mainModalService = inject(MainModalService);
 
-  private dataStore: DataStoreServiceService = inject(DataStoreServiceService);
-  public authService: AuthenticationService = inject(AuthenticationService);
-  public mainModalService: MainModalService = inject(MainModalService);
+  @Input() public recurringBillsArray: TransactionsObject[] = [];
 
-  @Input() public recurringBillsArray!: TransactionsObject[];
+  public transactionsRecurringSignal: Signal<TransactionsObject[]> =
+    this.dataStore.transactionsRecurring;
+  public renderReadyArray: TransactionsObject[] = [];
 
-  public transactionsRecurringSignal$: Signal<any[]>  = this.dataStore.transactionsRecurring;
-  public renderReadyArray: any[] = [];
+  public recurringBillsListEffect = effect(() =>
+    this.formatTransactionsArray(this.transactionsRecurringSignal())
+  );
+  // #endregion
 
-  constructor() {
-    effect(() => {
-      let signal$ = this.transactionsRecurringSignal$();
-      this.formatTransactionsArray(signal$);
-    });
-  }
-
-  // ########################################
-  // # function takes the transactions array and returns it in a format that is ready to be rendered
-  // ########################################
- 
-  public formatTransactionsArray(prevArray: any) {
+  // #region Format Transactions Array
+  public formatTransactionsArray(prevArray: TransactionsObject[]) {
     let searchedArray = this.getSearchedTransactions(prevArray);
     let sortedArray = this.getSortedTransactions(searchedArray);
     this.renderReadyArray = sortedArray;
   }
-
-   // ########################################
-  // # functions to filter the array by search field
-  // ########################################
+  // #endregion
 
   // #region SearchField
   public searchFieldInput: string = '';
 
-  public setSearchFieldInput(input: string) {
+  public setSearchFieldInput(input: string): void {
     this.searchFieldInput = input;
-    this.formatTransactionsArray(this.transactionsRecurringSignal$());
+    this.formatTransactionsArray(this.transactionsRecurringSignal());
   }
 
-  private getSearchedTransactions(prevArray: any) {
-    if (!this.searchFieldInput || this.searchFieldInput === '') return prevArray;
-    let array = prevArray.filter((transaction: any) => {
-      return this.isSubsequence(this.searchFieldInput.toLowerCase().replace(/\s+/g, ''), transaction.name.toLowerCase().replace(/\s+/g, ''));
+  private getSearchedTransactions(
+    prevArray: TransactionsObject[]
+  ): TransactionsObject[] {
+    if (!this.searchFieldInput || this.searchFieldInput === '')
+      return prevArray;
+    let array = prevArray.filter((transaction: TransactionsObject) => {
+      return this.isSubsequence(
+        this.searchFieldInput.toLowerCase().replace(/\s+/g, ''),
+        transaction.name.toLowerCase().replace(/\s+/g, '')
+      );
     });
     return array;
   }
@@ -65,7 +69,10 @@ export class RecurringBillsListComponent {
     let searchIncludingCount: number = 0;
     let lastMatchIndex: number = -1;
     for (let i = 0; i < search.length; i++) {
-      if (text.includes(search[i]) && text.indexOf(search[i], lastMatchIndex + 1) > lastMatchIndex) {
+      if (
+        text.includes(search[i]) &&
+        text.indexOf(search[i], lastMatchIndex + 1) > lastMatchIndex
+      ) {
         lastMatchIndex = text.indexOf(search[i]);
         searchIncludingCount++;
       }
@@ -83,12 +90,19 @@ export class RecurringBillsListComponent {
 
   public setSortByInput(input: string) {
     this.sortByInput = input;
-    this.formatTransactionsArray(this.transactionsRecurringSignal$());
+    this.formatTransactionsArray(this.transactionsRecurringSignal());
   }
 
-  private getSortedTransactions(prevArray: any) {
-    let array;
-    if (this.sortByInput === 'Latest' || this.sortByInput === 'Oldest' || this.sortByInput === null || this.sortByInput === '')
+  private getSortedTransactions(
+    prevArray: TransactionsObject[]
+  ): TransactionsObject[] {
+    let array: TransactionsObject[] = [];
+    if (
+      this.sortByInput === 'Latest' ||
+      this.sortByInput === 'Oldest' ||
+      this.sortByInput === null ||
+      this.sortByInput === ''
+    )
       array = this.sortByDate(prevArray);
     if (this.sortByInput === 'A to Z' || this.sortByInput === 'Z to A')
       array = this.sortByAlphabet(prevArray);
@@ -96,12 +110,16 @@ export class RecurringBillsListComponent {
       array = this.sortByAmount(prevArray);
     return array;
   }
- 
-  private sortByDate(array: any) {
-    return array.sort((a: any, b: any) => {
+
+  private sortByDate(array: TransactionsObject[]): TransactionsObject[] {
+    return array.sort((a: TransactionsObject, b: TransactionsObject) => {
       if (!a.execute_on) return 1;
       if (!b.execute_on) return -1;
-      if (this.sortByInput === 'Latest' || this.sortByInput === null || this.sortByInput === '')
+      if (
+        this.sortByInput === 'Latest' ||
+        this.sortByInput === null ||
+        this.sortByInput === ''
+      )
         return (
           new Date(b.execute_on).getTime() - new Date(a.execute_on).getTime()
         );
@@ -109,27 +127,27 @@ export class RecurringBillsListComponent {
         return (
           new Date(a.execute_on).getTime() - new Date(b.execute_on).getTime()
         );
-      return;
+      return 0;
     });
   }
 
-  private sortByAlphabet(array: any) {
-    return array.sort((a: any, b: any) => {
+  private sortByAlphabet(array: TransactionsObject[]) {
+    return array.sort((a: TransactionsObject, b: TransactionsObject) => {
       if (!a.name) return 1;
       if (!b.name) return -1;
       if (this.sortByInput === 'A to Z') return a.name.localeCompare(b.name);
       if (this.sortByInput === 'Z to A') return b.name.localeCompare(a.name);
-      return;
+      return 0;
     });
   }
 
-  private sortByAmount(array: any) {
-    return array.sort((a: any, b: any) => {
+  private sortByAmount(array: TransactionsObject[]) {
+    return array.sort((a: TransactionsObject, b: TransactionsObject) => {
       if (a.amount == null) return 1;
       if (b.amount == null) return -1;
       if (this.sortByInput === 'Highest') return b.amount - a.amount;
       if (this.sortByInput === 'Lowest') return a.amount - b.amount;
-      return;
+      return 0;
     });
   }
   // #endregion
