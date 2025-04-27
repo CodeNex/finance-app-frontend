@@ -8,19 +8,23 @@ import { MainModalService } from '@services/main-modal.service';
   selector: 'app-single-bill',
   imports: [IconsComponent, CommonModule],
   templateUrl: './single-bill.component.html',
-  styleUrl: './single-bill.component.scss'
+  styleUrl: './single-bill.component.scss',
 })
 export class SingleBillComponent {
-  @Input() public recurringBill: any = {
+  // #region Component Setup (DI, Outputs, Template Refs, Subscription)
+  public baseData = inject(BasedataService);
+  public mainModalService = inject(MainModalService);
+
+  @Input() public recurringBill: TransactionsObject = {
     transaction_id: 6,
     user_id: 0,
-    amount: 40.00,
+    amount: 40.0,
     budget_id: null,
     created_at: '2024-03-25T00:00:00Z',
     execute_on: '2025-03-23T00:00:00Z',
     deleted_at: null,
     recurring: 'weekly',
-    recurring_id: "6",
+    recurring_id: 0,
     theme: '#cab361',
     sender: '',
     receiver: '',
@@ -31,35 +35,49 @@ export class SingleBillComponent {
 
   @Input() public recurringIndex: number = -1;
 
-  public baseData: BasedataService = inject(BasedataService);
-  public mainModalService: MainModalService = inject(MainModalService);
-
   // components basic data
   public name: string = '';
   public amount: string = '';
-  public dueDate: string = '';
+  public dueDate: string | null = '';
   public occurrency: string = '';
   public iconBackground: string = '';
   public iconName: string = '';
   public type: string = '';
+  // #endregion
 
+  // #region Lifecycle Hooks
   ngOnInit() {
     this.completeComponentsBasicData();
   }
-
-  // ########################################
-  // # complete components basic data
-  // ########################################
 
   public completeComponentsBasicData() {
     this.name = this.recurringBill.name;
     this.amount = this.formatAmount(this.recurringBill.amount);
     this.dueDate = this.formatDate(this.recurringBill.execute_on);
-    this.occurrency = this.baseData.financeApp.recurrings.types[this.recurringBill.recurring].name;
+    this.occurrency =
+      this.baseData.financeApp.recurrings.types[
+        this.recurringBill.recurring!
+      ].name;
     this.iconName = this.getCategoryIcon(this.recurringBill.category);
     this.iconBackground = this.recurringBill.theme;
     this.type = this.recurringBill.type;
   }
+  // #endregion
+
+  // #region Helper Functions
+  private getCategoryIcon(category: string | null): string {
+    if (category === null) return 'general';
+    return this.baseData.financeApp.budgets.categories[category].iconName;
+  }
+
+  public openDeleteModal(): void {
+    this.mainModalService.chooseSubModal(
+      'deleteRecurring',
+      this.recurringBill,
+      this.recurringIndex
+    );
+  }
+  // #endregion
 
   // ########################################
   // # format amount and date
@@ -72,27 +90,12 @@ export class SingleBillComponent {
     });
   }
 
-  private formatDate(date: string): string {
+  private formatDate(date: string | null): string {
+    if (date === null) return '';
     return new Date(date).toLocaleDateString('en-US', {
       month: 'short',
       day: 'numeric',
       year: 'numeric',
     });
-  }
-
-  // ########################################
-  // # get specific category icon
-  // ########################################
-
-  private getCategoryIcon(category: string): string {
-    return this.baseData.financeApp.budgets.categories[category].iconName;
-  }
-
-  // ########################################
-  // # delete recurring bill
-  // ########################################
-
-  public openDeleteModal() {
-    this.mainModalService.chooseSubModal('deleteRecurring', this.recurringBill, this.recurringIndex);
   }
 }
