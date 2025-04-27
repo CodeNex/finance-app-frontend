@@ -163,7 +163,7 @@ export class AddTransactionModalComponent {
   public isRecurringDropdownOpen: boolean = false;
 
   public getRecurringsArray() {
-    Object.values(this.baseData.financeApp.recurrings.types).forEach(
+    Object.values(this.baseData.recurringTypes).forEach(
       (type: any) => {
         this.recurrings.push(type);
       }

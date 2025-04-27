@@ -54,6 +54,10 @@ export class BasedataService {
     return this.financeApp.basics.colors
   }
 
+  public get recurringTypes() {
+    return this.financeApp.recurrings.types;
+  }
+
   /**
    * @description - Saves the base data for the application.
    * This includes the API data, colors, login data, navbar links, and budget categories etc.
