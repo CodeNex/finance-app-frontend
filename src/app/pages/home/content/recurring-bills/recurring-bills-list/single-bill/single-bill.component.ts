@@ -41,26 +41,25 @@ export class SingleBillComponent {
 
   // components basic data
   public name: string = '';
-  // public amount: string = '';
   public amount: number = 0;
   public dueDate: string | null = '';
-  public occurrency: string = '';
+  public frequency: string = '';
   public iconBackground: string = '';
   public iconName: string = '';
   public type: string = '';
   // #endregion
 
   // #region Lifecycle Hooks
-  ngOnInit() {
+  ngOnInit(): void {
     this.completeComponentsBasicData();
   }
 
-  public completeComponentsBasicData() {
+  public completeComponentsBasicData(): void {
     this.name = this.recurringBill.name;
     this.amount = this.recurringBill.amount;
     this.dueDate = this.recurringBill.execute_on;
 
-    this.occurrency =
+    this.frequency =
       this.baseData.financeApp.recurrings.types[
 
         this.recurringBill.recurring!
@@ -75,7 +74,7 @@ export class SingleBillComponent {
   // #region Helper Functions
   private getCategoryIcon(category: string | null): string {
     if (category === null) return 'general';
-    return this.baseData.financeApp.budgets.categories[category].iconName;
+    return this.baseData.getCategoryIcon(category);
   }
 
   public openDeleteModal(): void {
