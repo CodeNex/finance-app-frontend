@@ -45,7 +45,7 @@ export class AddTransactionModalComponent {
   // #region Lifecycle Hooks
   ngOnInit() {
     this.getCategoryArray();
-    this.getRecurringsArray();
+    this.recurrings = this.getRecurringsArray();
     this.currentDate = this.getCurrentDate();
     this.chosenDateValue = this.getCurrentDate();
   }
@@ -154,21 +154,13 @@ export class AddTransactionModalComponent {
   }
   // #endregion
 
-  /**
-   * RECURRING Dropdown functions
-   */
   // #region Recurring Dropdown
   public recurrings: Recurring[] = [];
   public chosenRecurring: string = 'Single Transaction'; // interpolation {{chosenRecurring}}
   public isRecurringDropdownOpen: boolean = false;
 
-  public getRecurringsArray() {
-    Object.values(this.baseData.recurringTypes).forEach(
-      (type: any) => {
-        this.recurrings.push(type);
-      }
-    );
-    console.log(this.recurrings);
+  public getRecurringsArray(): Recurring[] {
+    return Object.values(this.baseData.recurringTypes);
   }
 
   public openCloseRecurringDropdown(): void {
@@ -180,6 +172,7 @@ export class AddTransactionModalComponent {
     this.currentTransaction.recurring = recurring.value;
     this.openCloseRecurringDropdown();
   }
+  // #endregion
 
   // #region Date picker
   public currentDate: string = ''; // html - min attribute
