@@ -8,6 +8,13 @@ import { MainModalService } from '@services/main-modal.service';
 import { FormatDatePipe } from '@src/shared/pipes/format-date.pipe';
 import { FormatAmountPipe } from '@src/shared/pipes/format-amount.pipe';
 
+/**
+ * * * SingleBillComponent
+ * This component is responsible for displaying a single recurring bill in the list of recurring bills.
+ * It shows the bill's name, amount, due date, frequency, and icon.
+ * It also provides a button to delete the bill.
+ * It uses the BasedataService to get the icon name and frequency, and the MainModalService to open the delete modal.
+ */
 @Component({
   selector: 'app-single-bill',
   imports: [IconsComponent, CommonModule, FormatDatePipe, FormatAmountPipe],
@@ -58,23 +65,22 @@ export class SingleBillComponent {
     this.name = this.recurringBill.name;
     this.amount = this.recurringBill.amount;
     this.dueDate = this.recurringBill.execute_on;
-
-    this.frequency =
-      this.baseData.financeApp.recurrings.types[
-
-        this.recurringBill.recurring!
-      ].name;
-
     this.type = this.recurringBill.type;
     this.iconBackground = this.recurringBill.theme;
-    this.iconName = this.getCategoryIcon(this.recurringBill.category);
+    this.frequency = this.setRecurringFrequency(this.recurringBill.recurring);
+    this.iconName = this.setCategoryIconName(this.recurringBill.category);
   }
   // #endregion
 
   // #region Helper Functions
-  private getCategoryIcon(category: string | null): string {
+  private setCategoryIconName(category: string | null): string {
     if (category === null) return 'general';
     return this.baseData.getCategoryIcon(category);
+  }
+
+  private setRecurringFrequency(recurring: string | null): string {
+    if (recurring === null) return 'Monthly';
+    return this.baseData.getRecurringFrequency(recurring) || 'Monthly';
   }
 
   public openDeleteModal(): void {
