@@ -10,7 +10,7 @@ import { DataStoreServiceService } from '@services/data-store-service.service';
   styleUrl: './bills-summary.component.scss',
 })
 export class BillsSummaryComponent {
-  private dataStore: DataStoreServiceService = inject(DataStoreServiceService);
+  private dataStore = inject(DataStoreServiceService);
 
   public recurringBillsSignal$ = this.dataStore.transactionsRecurring;
   public transactionsSignal$ = this.dataStore.transactions;
@@ -25,19 +25,19 @@ export class BillsSummaryComponent {
   public unformattedTotalUpcoming: number = 0;
   public totalUpcoming: string = '';
   public selectedTimeWindow: string = 'monthly';
-  public selectedTimeWindowName: string = 'Monthly';
+  public selectedTimeWindowName: string = 'This Month';
 
   public currentDate = new Date();
   public currentMonth = this.currentDate.getMonth();
   public currentYear = this.currentDate.getFullYear();
 
-  public timeFrames: any = [
-    {name: 'Monthly', value: 'monthly'},
-    {name: 'Quarterly', value: 'quarterly'},
-    {name: 'Yearly', value: 'yearly'},
-    {name: 'Next Month', value: 'nextMonth'},
-    {name: 'Next 3 Months', value: 'nextThreeMonths'},
-    {name: 'Next 6 Months', value: 'nextSixMonths'},
+  public timeFrames: TimeFrame[] = [
+    { name: 'This Month', value: 'monthly' },
+    { name: 'This Quarter', value: 'quarterly' },
+    { name: 'This Year', value: 'yearly' },
+    { name: 'Next Month', value: 'nextMonth' },
+    { name: 'Next 3 Months', value: 'nextThreeMonths' },
+    { name: 'Next 6 Months', value: 'nextSixMonths' },
   ];
 
   constructor() {
@@ -54,23 +54,28 @@ export class BillsSummaryComponent {
     this.updateCalculations();
   }
 
-  updateCalculations() {
-    if (
-      this.selectedTimeWindow === 'monthly' ||
-      this.selectedTimeWindow === 'quarterly' ||
-      this.selectedTimeWindow === 'yearly'
-    ) {
+  /**
+   * * @description - This function is responsible for updating the calculations of the total paid and upcoming amounts.
+   * * It checks the selected time window and calculates the total paid and upcoming amounts accordingly.
+   */
+  private updateCalculations(): void {
+    const isCurrentPeriod = ['monthly', 'quarterly', 'yearly'].includes(
+      this.selectedTimeWindow
+    );
+    const isFuturePeriod = [
+      'nextMonth',
+      'nextThreeMonths',
+      'nextSixMonths',
+    ].includes(this.selectedTimeWindow);
+
+    if (isCurrentPeriod) {
       this.unformattedTotalPaid = this.getTotalPaidAmount(
         this.transactionsArray$
       );
       this.unformattedTotalUpcoming = this.getTotalUpcomingAmount(
         this.recurringBillsArray$
       );
-    } else if (
-      this.selectedTimeWindow === 'nextMonth' ||
-      this.selectedTimeWindow === 'nextThreeMonths' ||
-      this.selectedTimeWindow === 'nextSixMonths'
-    ) {
+    } else if (isFuturePeriod) {
       this.unformattedTotalPaid = 0;
       this.unformattedTotalUpcoming = this.getFutureUpcoming(
         this.recurringBillsArray$
@@ -83,31 +88,37 @@ export class BillsSummaryComponent {
     );
   }
 
-  getTotalUpcomingAmount(recurringBillsArray$: TransactionsObject[]): number {
-    let upcoming = 0;
-
+  /**
+   * @description - This function is responsible for calculating the amount of total upcoming bills.
+   * * It filters the recurring bills array to get only the debit transactions that are not deleted.
+   * * It then calculates the total amount of upcoming bills based on the selected time window.
+   * @param recurringBillsArray$ - Array of recurring bills
+   * @returns - Total amount of upcoming bills
+   */
+  private getTotalUpcomingAmount(
+    recurringBillsArray$: TransactionsObject[]
+  ): number {
     const { periodStartMonth, periodEndMonth } = this.definePeriodRange();
-
-    recurringBillsArray$.forEach((bill) => {
-      if (bill.type === 'debit' && !bill.deleted_at) {
-        const { billDate, billMonth, billYear } = this.getBillsDates(bill);
-
-        let remainingOccurrences = this.getRemainingOccurrences(
+    return recurringBillsArray$
+      .filter((bill) => bill.type === 'debit' && !bill.deleted_at)
+      .reduce((total, bill) => {
+        const { billDate, billMonth } = this.getBillsDates(bill);
+        const remainingOccurrences = this.getRemainingOccurrences(
           bill,
           billDate,
           billMonth,
           periodStartMonth,
           periodEndMonth
         );
-
-        upcoming += bill.amount! * remainingOccurrences;
-      }
-    });
-
-    return upcoming;
+        return total + bill.amount! * remainingOccurrences;
+      }, 0);
   }
 
-  private definePeriodRange() {
+  /**
+   * @description - This function is responsible for defining the period range based on the selected time window.
+   * @returns - An object containing the start and end month of the period based on the selected time window.
+   */
+  private definePeriodRange(): { periodStartMonth: number, periodEndMonth: number } {
     const currentMonth = this.currentMonth;
     let periodStartMonth = currentMonth + 1;
     let periodEndMonth = currentMonth;
@@ -139,7 +150,6 @@ export class BillsSummaryComponent {
     let upcoming = 0;
 
     recurringBillsArray$.forEach((bill) => {
-
       if (bill.type === 'debit' && !bill.deleted_at) {
         const { billDate, billMonth, billYear } = this.getBillsDates(bill);
 
