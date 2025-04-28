@@ -1,1 +1,9 @@
 <router-outlet class="w-full"></router-outlet>
+@if (this.isConstructionNoticeVisible) {
+  <section aria-label="Construction Notice"
+class="absolute top-0 left-0 z-[1000] w-full h-full backdrop-blur-md flex items-center justify-center">
+  <div class="constructionModal">
+
+  </div>
+</section>
+}
