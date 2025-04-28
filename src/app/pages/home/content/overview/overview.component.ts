@@ -7,8 +7,11 @@ import { TransactionsSummaryComponent } from '@content/overview/transactions-sum
 import { BudgetsSummaryComponent } from '@content/overview/budgets-summary/budgets-summary.component';
 import { RecurringBillsSummaryComponent } from '@content/overview/recurring-bills-summary/recurring-bills-summary.component';
 
-
-
+/**
+ * * * * OverviewComponent
+ * This component is responsible for displaying the overview page of the application.
+ * It includes the balance, pots summary, transactions summary, budgets summary, and recurring bills summary components.
+ */
 @Component({
   selector: 'app-overview',
   imports: [ CommonModule, BalanceComponent, PotsSummaryComponent, TransactionsSummaryComponent, BudgetsSummaryComponent, RecurringBillsSummaryComponent],
