@@ -145,31 +145,41 @@ export class BillsSummaryComponent {
     return { periodStartMonth, periodEndMonth };
   }
 
-  getFutureUpcoming(recurringBillsArray$: TransactionsObject[]): number {
+  /**
+   * @description - This function is responsible for calculating the amount of future upcoming bills.
+   * * It filters the recurring bills array to get only the debit transactions that are not deleted.
+   * @param recurringBillsArray$ - Array of recurring bills
+   * @returns - Total amount of future upcoming bills 
+   */
+  private getFutureUpcoming(recurringBillsArray$: TransactionsObject[]): number {
     const { periodStartMonth, periodEndMonth } = this.definePeriodRange();
-    let upcoming = 0;
-
-    recurringBillsArray$.forEach((bill) => {
-      if (bill.type === 'debit' && !bill.deleted_at) {
-        const { billDate, billMonth, billYear } = this.getBillsDates(bill);
-
-        if (billYear === this.currentYear && billMonth <= periodEndMonth) {
-          let occurrences = this.getFutureOccurences(
-            bill,
-            billDate,
-            billMonth,
-            this.selectedTimeWindow,
-            periodEndMonth
-          );
-
-          upcoming += bill.amount! * occurrences;
-        }
-      }
-    });
-
-    return upcoming;
+  
+    return recurringBillsArray$
+      .filter(bill =>
+        bill.type === 'debit' &&
+        !bill.deleted_at &&
+        this.getBillsDates(bill).billYear === this.currentYear &&
+        this.getBillsDates(bill).billMonth <= periodEndMonth
+      )
+      .reduce((total, bill) => {
+        const { billDate, billMonth } = this.getBillsDates(bill);
+        const occurrences = this.getFutureOccurences(
+          bill,
+          billDate,
+          billMonth,
+          this.selectedTimeWindow,
+          periodEndMonth
+        );
+        return total + (bill.amount! * occurrences);
+      }, 0);
   }
-
+  
+  /**
+   * @description - This function is responsible for getting the date of the bill.
+   * * It extracts the date, month, and year from the bill object.
+   * @param bill - The bill object to extract the date from
+   * @returns - An object containing the bill date, month, and year 
+   */
   getBillsDates(bill: TransactionsObject): {
     billDate: Date;
     billMonth: number;
