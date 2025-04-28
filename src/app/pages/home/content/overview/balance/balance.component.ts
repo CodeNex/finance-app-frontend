@@ -1,47 +1,57 @@
-import {
-  Component,
-  inject,
-  WritableSignal,
-  computed,
-  effect,
-} from '@angular/core';
-import { DataStoreServiceService } from '@services/data-store-service.service';
-import { AuthenticationService } from '@services/authentication.service';
-import { APIService } from '@services/api.service';
+import { Component, inject, Signal, computed, effect } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IconsComponent } from '@components/icons/icons.component';
 
+import { DataStoreServiceService } from '@services/data-store-service.service';
+import { FormatAmountPipe } from '@src/shared/pipes/format-amount.pipe';
 
 @Component({
   selector: 'app-balance',
-  imports: [CommonModule, IconsComponent],
+  imports: [CommonModule, IconsComponent, FormatAmountPipe],
   templateUrl: './balance.component.html',
   styleUrl: './balance.component.scss',
 })
 export class BalanceComponent {
+  // #region Component Setup (DI, Outputs, Template Refs, Subscription)
   public dataStore = inject(DataStoreServiceService);
-  public authService = inject(AuthenticationService);
-  public apiService = inject(APIService);
 
-  public balanceSignal$: WritableSignal<BalanceObject> = this.dataStore.balance;
-  public transactionsSignal$: WritableSignal<any[]> =
+  public balanceSignal: Signal<BalanceObject> = this.dataStore.balance;
+  public transactionsSignal: Signal<TransactionsObject[]> =
     this.dataStore.transactions;
+
+  public balance: number = this.balanceSignal().balance;
+  public income: number = 0;
+  public expenses: number = 0;
 
   constructor() {
     effect(() => {
-      let signal$ = this.transactionsSignal$();
+      let signal$ = this.transactionsSignal();
       this.getTimeBasedIncomeAndExpenses(this.selectedTimeFrame.value);
     });
   }
 
-  ngOnInit() {}
+  // #endregion
+
+  // #region Helper Functions
+  private getCurrentDate(): string {
+    return new Date().toISOString();
+  }
+
+  private getSubstractedDate(currentDate: string, days: number | null): string {
+    if (days === null) return currentDate;
+    const date = new Date(currentDate);
+    const msPerDay = 24 * 60 * 60 * 1000;
+    date.setTime(date.getTime() - days * msPerDay);
+    return date.toISOString();
+  }
+  // #endregion
 
   // ########################################
   // # Balance Value Update and Formatting
   // ########################################
 
   public formattedBalance: any = computed(() => {
-    return this.getformattedValue(this.balanceSignal$().balance);
+    return this.getformattedValue(this.balanceSignal().balance);
   });
 
   getformattedValue(value: number): string {
@@ -63,7 +73,7 @@ export class BalanceComponent {
 
   public timeFrames: { [key: string]: { name: string; value: number | null } } =
     {
-      'week': { name: 'Week', value: 7 },
+      week: { name: 'Week', value: 7 },
       '2weeks': { name: '2 Weeks', value: 14 },
       '30days': { name: 'Month', value: 30 },
       '60days': { name: '2 Months', value: 60 },
@@ -72,12 +82,12 @@ export class BalanceComponent {
       all: { name: 'All time', value: null },
     };
 
-  public renderableTimesFrames: any = Object.values(this.timeFrames);
+  public renderableTimesFrames = Object.values(this.timeFrames);
 
   public selectedTimeFrame: { name: string; value: number | null } =
     this.timeFrames['30days'];
 
-  public selectTimeFrame(type: any) {
+  public selectTimeFrame(type: { name: string; value: number | null }) {
     this.selectedTimeFrame = type;
     this.getTimeBasedIncomeAndExpenses(type.value);
     this.openCloseDropdown();
@@ -97,7 +107,7 @@ export class BalanceComponent {
     let expenses = 0;
 
     if (timeFrame === null) {
-      this.transactionsSignal$().forEach((transaction) => {
+      this.transactionsSignal().forEach((transaction: TransactionsObject) => {
         if (transaction.type === 'debit') {
           expenses += transaction.amount;
         } else {
@@ -105,8 +115,9 @@ export class BalanceComponent {
         }
       });
     } else {
-      this.transactionsSignal$().forEach((transaction) => {
+      this.transactionsSignal().forEach((transaction: TransactionsObject) => {
         if (
+          transaction.execute_on &&
           transaction.execute_on <= currentDate &&
           transaction.execute_on >= oldestDate
         ) {
@@ -126,16 +137,4 @@ export class BalanceComponent {
   // ########################################
   // # Get Current & Substracted Date
   // ########################################
-
-  private getCurrentDate(): string {
-    return new Date().toISOString();
-  }
-
-  private getSubstractedDate(currentDate: string, days: number | null): string {
-    if (days === null) return currentDate;
-    const date = new Date(currentDate);
-    const msPerDay = 24 * 60 * 60 * 1000;
-    date.setTime(date.getTime() - days * msPerDay);
-    return date.toISOString();
-  }
 }

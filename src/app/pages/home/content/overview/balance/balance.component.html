@@ -7,7 +7,7 @@
     aria-label="Current Balance"
   >
     <p class="text2b">Current Balance</p>
-    <p class="text1b">${{ formattedBalance() }}</p>
+    <p class="text1b">{{ this.balance | formatAmount }}</p>
   </div>
 
   <div class="flex-[2] bg-white flex flex-col gap-3 p-6 rounded-xl">
@@ -74,7 +74,7 @@
         <div class="h-full w-1 rounded-full bg-secondary-green"></div>
         <div class="flex flex-col gap-1">
           <p class="text4r text-grey-500">Income</p>
-          <p class="text1b text-grey-900">${{ this.formattedIncome }}</p>
+          <p class="text1b text-grey-900">{{ this.income | formatAmount }}</p>
         </div>
       </div>
 
@@ -83,7 +83,7 @@
         <div class="h-full w-1 rounded-full bg-secondary-lightRed"></div>
         <div class="flex flex-col gap-1">
           <p class="text4r text-grey-500">Expenses</p>
-          <p class="text1b text-grey-900">${{ this.formattedExpenses }}</p>
+          <p class="text1b text-grey-900">{{ this.expenses | formatAmount }}</p>
         </div>
       </div>
     </div>
