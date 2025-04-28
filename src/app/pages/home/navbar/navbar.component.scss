@@ -2,8 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-@import "../../../../styles.scss";
-
 @layer components {
   .navbar-wide {
     width: 300px;
@@ -49,7 +47,9 @@
     p {
       transition: fill 0.9s ease-in-out;
       color: var(--color-grey-300);
-      @apply text3b;
+      font-size: 16px;
+      line-height: 150%;
+      font-weight: bold;
     }
   }
 
@@ -88,7 +88,9 @@
 
     p {
       color: var(--color-grey-900);
-      @apply text3b;
+      font-size: 16px;
+      line-height: 150%;
+      font-weight: bold;
     }
   }
 
@@ -133,7 +135,9 @@
   p {
     transition: all 0.15s ease-in-out;
     color: var(--color-grey-300);
-    @apply text3b;
+    font-size: 16px;
+    line-height: 150%;
+    font-weight: bold;
   }
 
   &:hover .iconBox {

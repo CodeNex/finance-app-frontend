@@ -1,5 +1,4 @@
 import { Injectable, signal } from '@angular/core';
-import '@shared/interfaces.ts';
 
 /**
  * * * DataStoreServiceService
