@@ -1,49 +1,20 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { LoadingScreenComponent } from '@components/loading-screen/loading-screen.component';
-import { WarningScreenComponent } from '@components/warning-screen/warning-screen.component';
-
-import { DataStoreServiceService } from '@services/data-store-service.service';
-import { AuthenticationService } from '@services/authentication.service';
-
-import { BalanceComponent } from './balance/balance.component';
-import { PotsSummaryComponent } from './pots-summary/pots-summary.component';
-import { TransactionsSummaryComponent } from './transactions-summary/transactions-summary.component';
-import { BudgetsSummaryComponent } from './budgets-summary/budgets-summary.component';
-import { RecurringBillsSummaryComponent } from './recurring-bills-summary/recurring-bills-summary.component';
+import { BalanceComponent } from '@content/overview/balance/balance.component';
+import { PotsSummaryComponent } from '@content/overview/pots-summary/pots-summary.component';
+import { TransactionsSummaryComponent } from '@content/overview/transactions-summary/transactions-summary.component';
+import { BudgetsSummaryComponent } from '@content/overview/budgets-summary/budgets-summary.component';
+import { RecurringBillsSummaryComponent } from '@content/overview/recurring-bills-summary/recurring-bills-summary.component';
 
 
 
 @Component({
   selector: 'app-overview',
-  imports: [LoadingScreenComponent, WarningScreenComponent, CommonModule, BalanceComponent, PotsSummaryComponent, TransactionsSummaryComponent, BudgetsSummaryComponent, RecurringBillsSummaryComponent],
+  imports: [ CommonModule, BalanceComponent, PotsSummaryComponent, TransactionsSummaryComponent, BudgetsSummaryComponent, RecurringBillsSummaryComponent],
   templateUrl: './overview.component.html',
   styleUrl: './overview.component.scss',
 })
-export class OverviewComponent implements OnInit {
-  private dataStore: DataStoreServiceService = inject(DataStoreServiceService);
-  public authService: AuthenticationService = inject(AuthenticationService);
-
-  isLoadingScreenVisible: boolean = false;
-  isWarningScreenVisible: boolean = false;
-
-  public balanceData: any;
-  public potsData$: any;
-  public transactionsData: any;
-  public budgetsData: any;
-  public recurringBillsData: any;
-
-  ngOnInit() {
-    this.updateData();
-  }
-
-  updateData() {
-    this.balanceData = this.dataStore.balance();
-    // this.potsData = this.dataStore.pots;
-    this.transactionsData = this.dataStore.transactions();
-    this.budgetsData = this.dataStore.budgets();
-    this.recurringBillsData = this.dataStore.transactionsRecurring();
-  }
+export class OverviewComponent {
 }
 
