@@ -1,10 +1,17 @@
-import { Component, inject, Signal, computed, effect } from '@angular/core';
+import { Component, inject, Signal, effect } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IconsComponent } from '@components/icons/icons.component';
 
 import { DataStoreServiceService } from '@services/data-store-service.service';
 import { FormatAmountPipe } from '@src/shared/pipes/format-amount.pipe';
 
+/**
+ * * * BalanceComponent
+ * * This component is responsible for displaying the balance overview of the user.
+ * * It shows the total balance, income, and expenses for a selected time frame.
+ * * It uses the DataStoreService to get the balance and transactions data.
+ * * It also provides a dropdown to select the time frame for the income and expenses calculations.
+ */
 @Component({
   selector: 'app-balance',
   imports: [CommonModule, IconsComponent, FormatAmountPipe],
@@ -23,12 +30,10 @@ export class BalanceComponent {
   public income: number = 0;
   public expenses: number = 0;
 
-  constructor() {
-    effect(() => {
-      let signal$ = this.transactionsSignal();
-      this.getTimeBasedIncomeAndExpenses(this.selectedTimeFrame.value);
-    });
-  }
+  public balanceEffect = effect(() => {
+    this.balance = this.balanceSignal().balance;
+    this.getTimeBasedIncomeAndExpenses(this.selectedTimeFrame.value);
+  });
 
   // #endregion
 
@@ -46,28 +51,10 @@ export class BalanceComponent {
   }
   // #endregion
 
-  // ########################################
-  // # Balance Value Update and Formatting
-  // ########################################
-
-  public formattedBalance: any = computed(() => {
-    return this.getformattedValue(this.balanceSignal().balance);
-  });
-
-  getformattedValue(value: number): string {
-    return value.toLocaleString('en-US', {
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2,
-    });
-  }
-
-  // ########################################
-  // # DropDown & selected Value handling
-  // ########################################
-
+  // #region Timeframe Dropdown
   public isDropDownOpen: boolean = false;
 
-  public openCloseDropdown() {
+  public openCloseDropdown(): void {
     this.isDropDownOpen = !this.isDropDownOpen;
   }
 
@@ -87,19 +74,14 @@ export class BalanceComponent {
   public selectedTimeFrame: { name: string; value: number | null } =
     this.timeFrames['30days'];
 
-  public selectTimeFrame(type: { name: string; value: number | null }) {
+  public selectTimeFrame(type: { name: string; value: number | null }): void {
     this.selectedTimeFrame = type;
     this.getTimeBasedIncomeAndExpenses(type.value);
     this.openCloseDropdown();
   }
+  // #endregion
 
-  // ########################################
-  // # Get Timebased Income and Expenses
-  // ########################################
-
-  public formattedIncome: string = '';
-  public formattedExpenses: string = '';
-
+  // #region Calculations
   public getTimeBasedIncomeAndExpenses(timeFrame: number | null = null): void {
     let currentDate = this.getCurrentDate();
     let oldestDate = this.getSubstractedDate(currentDate, timeFrame);
@@ -129,12 +111,8 @@ export class BalanceComponent {
         }
       });
     }
-
-    this.formattedIncome = this.getformattedValue(income);
-    this.formattedExpenses = this.getformattedValue(expenses);
+    this.income = income;
+    this.expenses = expenses;
   }
-
-  // ########################################
-  // # Get Current & Substracted Date
-  // ########################################
+  // #endregion
 }
