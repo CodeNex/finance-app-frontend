@@ -35,7 +35,7 @@ export class PotsSummaryComponent {
     for (let i = 0; i < potsArray.length; i++) {
       totalSavings += potsArray[i].total;
     }
-    return totalSavings;
+    return Math.floor(totalSavings);
   }
   // #endregion
 }
