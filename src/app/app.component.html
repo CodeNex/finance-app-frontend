@@ -2,8 +2,18 @@
 @if (this.isConstructionNoticeVisible) {
   <section aria-label="Construction Notice"
 class="absolute top-0 left-0 z-[1000] w-full h-full backdrop-blur-lg flex items-center justify-center p-4 bg-black/75">
-  <div class="constructionModal">
-    🚧 Seite im Bau 🚧
+  <div class="constructionModal flex"> 
+    <div>
+      <div>
+        <p>UNDER</p>
+        <p>CONSTRUCTION</p>
+      </div>
+      <div>
+        <button (click)="closeConstructionNotice()">Notify Me!</button>
+      </div>
+
+    </div>
+    <div></div>
   </div>
 </section>
 }
