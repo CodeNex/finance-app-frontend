@@ -8,6 +8,7 @@ import { MainModalComponent } from './main-modal/main-modal.component';
 
 import { AuthenticationService } from '@services/authentication.service';
 import { MainModalService } from '@services/main-modal.service';
+import { CustomBreakpoints } from '@shared/breakpoints';
 
 /**
  * * HomeComponent
