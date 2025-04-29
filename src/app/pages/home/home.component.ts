@@ -38,7 +38,9 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   private homeSubscriptions$: Subscription = new Subscription();
 
-  public isMobile: boolean = false;  
+  public isMobile: boolean = false;
+  
+  public isBurgerMenuOpen: boolean = false
   // #endregion
 
   // #region Lifecycle Hooks
@@ -56,12 +58,15 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
   // #endregion
 
-  /**
-   * checks if the authToken exists, if not, redirects to the login page
-   */
+  // #region Helper Functions
   checkIfAuthTokenExists() {
     if (!this.authService.authToken) {
       this.router.navigate(['']);
     }
   }
+
+  public toggleBurgerMenu(): void {
+    this.isBurgerMenuOpen = !this.isBurgerMenuOpen;
+  }
+  // #endregion
 }
