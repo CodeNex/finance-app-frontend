@@ -15,7 +15,7 @@ import { RouterOutlet } from '@angular/router';
 export class AppComponent {
   title = 'finance-app-frontend';
 
-  public isConstructionNoticeVisible: boolean = true; // Set to true to show the construction notice
+  public isConstructionNoticeVisible: boolean = false; // Set to true to show the construction notice
 
   public closeConstructionNotice(): void {
     this.isConstructionNoticeVisible = false;
