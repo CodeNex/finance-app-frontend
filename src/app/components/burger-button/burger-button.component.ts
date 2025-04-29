@@ -19,7 +19,5 @@ export class BurgerButtonComponent {
   public toggleBurgerButton(): void {
     this.isBurgerOpened = !this.isBurgerOpened;
     this.IsBurgerOpen.emit(this.isBurgerOpened);
-  }
-
-  
+  }  
 }

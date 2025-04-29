@@ -42,7 +42,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   public isMobile: boolean = false;
   
-  public isBurgerMenuOpen: boolean = false
+  public isMobileNavbarOpen: boolean = false
   // #endregion
 
   // #region Lifecycle Hooks
@@ -67,8 +67,10 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
   }
 
-  public toggleBurgerMenu(): void {
-    this.isBurgerMenuOpen = !this.isBurgerMenuOpen;
+  public toggleMobileNavbar(event: boolean): void {
+    this.isMobileNavbarOpen = event;
+    console.log('Is Mobile Navbar Open:', this.isMobileNavbarOpen);
+    
   }
   // #endregion
 }
