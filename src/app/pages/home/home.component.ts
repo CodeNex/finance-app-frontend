@@ -1,13 +1,15 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit, OnDestroy } from '@angular/core';
 import { NavbarComponent } from './navbar/navbar.component';
 import { ContentComponent } from '@content/content.component';
 import { RouterModule, Router } from '@angular/router';
 import { AsyncPipe } from '@angular/common';
+import { Subscription } from 'rxjs';
 
 import { MainModalComponent } from './main-modal/main-modal.component';
 
 import { AuthenticationService } from '@services/authentication.service';
 import { MainModalService } from '@services/main-modal.service';
+import { ScreensizeService } from '@services/screensize.service';
 
 /**
  * * HomeComponent
@@ -32,11 +34,27 @@ export class HomeComponent {
   private authService = inject(AuthenticationService);
   private router = inject(Router);
   public mainModalService = inject(MainModalService);
+  public screensizeService = inject(ScreensizeService);
+
+  private homeSubscription: Subscription = new Subscription();
+
+  public isMobile$: boolean = false;  
   // #endregion
 
+  // #region Lifecycle Hooks
   ngOnInit() {
+    this.homeSubscription.add(
+      this.screensizeService.isTablet$.subscribe((isTablet) => {
+        this.isMobile$ = isTablet;
+      })
+    )
     this.checkIfAuthTokenExists();
   }
+
+  ngOnDestroy() {
+    this.homeSubscription.unsubscribe();
+  }
+  // #endregion
 
   /**
    * checks if the authToken exists, if not, redirects to the login page
