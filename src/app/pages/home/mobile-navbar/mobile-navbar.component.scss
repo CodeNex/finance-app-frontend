@@ -6,10 +6,10 @@
   .navbar-wide {
     width: 300px;
   }
+}
 
-  .navbar-thin {
-    width: 100px;
-  }
+:host {
+  transition: all 0.4s ease-in-out;
 }
 
 .navbarLinkInActive {

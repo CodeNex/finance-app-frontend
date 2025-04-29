@@ -20,7 +20,7 @@
     <app-navbar></app-navbar>
     }
     @if (this.isMobile) {
-      <app-mobile-navbar class="transition" [ngClass]="{'closed': !isMobileNavbarOpen}"></app-mobile-navbar>
+      <app-mobile-navbar [ngClass]="{'opened': isMobileNavbarOpen, 'closed': !isMobileNavbarOpen}"></app-mobile-navbar>
     }
     <app-content class="flex-1 relative flex"></app-content>
   </main>

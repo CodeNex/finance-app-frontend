@@ -6,7 +6,19 @@ header {
   padding: 16px 32px;
 }
 
+.opened {
+  position: absolute;
+  z-index: 1000;
+  right: 0;
+  width: 240px;
+  transform: translateX(0);
+}
+
 .closed {
+  position: absolute;
+  z-index: 1000;
+  right: 0;
+  width: 240px;
   transform: translateX(100%);
 }
 
