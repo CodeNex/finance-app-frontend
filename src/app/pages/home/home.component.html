@@ -1,6 +1,8 @@
 <section class="relative h-dvh w-full">
   <main class="flex max-lg:flex-col-reverse h-full w-full">
-    <app-navbar></app-navbar>
+    @if (!this.isMobile) {
+      <app-navbar></app-navbar>
+    }
     <app-content class="flex-1 relative flex"></app-content>
   </main>
   @if (this.mainModalService.isMainModalVisible$ | async) {

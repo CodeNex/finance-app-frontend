@@ -29,7 +29,7 @@ import { ScreensizeService } from '@services/screensize.service';
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit, OnDestroy {
   // #region Component Setup (DI, Outputs, Template Refs, Subscription)
   private authService = inject(AuthenticationService);
   private router = inject(Router);
