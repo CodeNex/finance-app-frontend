@@ -4,14 +4,14 @@
 
 :host {
   transition: all 0.4s ease-in-out;
-  width: 240px;
+  padding-right: 32px;
+  background-color: var(--color-grey-900);
 }
 
 .navbarLinkInActive {
   height: 56px;
   width: 100%;
   display: flex;
-  border-left: 4px solid;
   cursor: pointer;
 
   .linkBox {
