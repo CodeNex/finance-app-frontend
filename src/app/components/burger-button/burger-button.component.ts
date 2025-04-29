@@ -1,8 +1,9 @@
+import { CommonModule } from '@angular/common';
 import { Component, Output, Input, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-burger-button',
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './burger-button.component.html',
   styleUrl: './burger-button.component.scss'
 })

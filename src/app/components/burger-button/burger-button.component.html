@@ -1,1 +1,5 @@
-<p class="text-grey-100" (click)="toggleBurgerButton()">burger-button works!</p>
+<div (click)="toggleBurgerButton()" [ngStyle]="{'width': width, 'height': height}" class="flex flex-col justify-between cursor-pointer">
+  <div [ngStyle]="{'background-color': color }" class="burgerBar top"></div>
+  <div [ngStyle]="{'background-color': color}" class="burgerBar mid"></div>
+  <div [ngStyle]="{'background-color': color}" class="burgerBar low"></div>
+</div>
