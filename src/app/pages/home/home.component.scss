@@ -5,3 +5,11 @@
 header {
   padding: 16px 32px;
 }
+
+.closed {
+  transform: translateX(100%);
+}
+
+.transition {
+  transition: transform 0.4s ease-in-out;
+}

@@ -1,23 +1,31 @@
 <section class="relative h-dvh w-full">
+
   @if (this.isMobile) {
   <header class="w-full bg-grey-900 flex items-center justify-between">
     <a [routerLink]="'overview'">
       <img src="/img/navbar/finance-logo.svg" alt="" />
     </a>
     <app-burger-button
-      [color]="'#ffffff'"
+      [color]="'#f2f2f2'"
       [width]="'32px'"
       [height]="'20px'"
       (IsBurgerOpen)="toggleMobileNavbar($event)"
     ></app-burger-button>
   </header>
   }
-  <main class="flex max-lg:flex-col-reverse w-full">
+
+
+  <main class="relative flex w-full">
     @if (!this.isMobile) {
     <app-navbar></app-navbar>
     }
+    @if (this.isMobile) {
+      <app-mobile-navbar class="transition" [ngClass]="{'closed': !isMobileNavbarOpen}"></app-mobile-navbar>
+    }
     <app-content class="flex-1 relative flex"></app-content>
   </main>
+
+  <!-- Main Modal -->
   @if (this.mainModalService.isMainModalVisible$ | async) {
   <app-main-modal></app-main-modal>
   }

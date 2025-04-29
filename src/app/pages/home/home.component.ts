@@ -1,6 +1,6 @@
 import { Component, inject, OnInit, OnDestroy } from '@angular/core';
 import { RouterModule, Router } from '@angular/router';
-import { AsyncPipe } from '@angular/common';
+import { AsyncPipe, CommonModule } from '@angular/common';
 import { Subscription } from 'rxjs';
 
 import { MainModalComponent } from './main-modal/main-modal.component';
@@ -27,7 +27,9 @@ import { ScreensizeService } from '@services/screensize.service';
     RouterModule,
     ContentComponent,
     MainModalComponent,
-    BurgerButtonComponent
+    BurgerButtonComponent,
+    MobileNavbarComponent,
+    CommonModule
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',

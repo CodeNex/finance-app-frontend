@@ -2,7 +2,7 @@
   #navBar
   id="navBar"
   style="padding-right: 24px; transition: all 0.3s ease-in-out"
-  class="h-full relative flex flex-col justify-between bg-grey-900 transition-all ease-in-out origin-left rounded-tr-2xl rounded-br-2xl navbar-wide"
+  class="h-[calc(100dvh-54px)] absolute z-50 right-0 flex flex-col justify-between bg-grey-900 transition-all ease-in-out origin-left shadow-lg"
 >
   <!-- upper main navigation -->
   <div>
@@ -30,19 +30,6 @@
       }
     </nav>
   </div>
-  <!-- minimize button -->
-  <div
-    class="slideButtonBox absolute -right-[12px] top-[50%] -translate-y-2/4 z-10 h-[56px] w-[18px] bg-grey-900 rounded-tr-xl rounded-br-xl transition-all cursor-pointer"
-  >
-    <div #slideButton
-    class="">
-      <app-icons
-        id="slideButton"
-        class="slideButton"
-        [iconName]="'slideButton'"
-      ></app-icons>
-    </div>
-  </div>
 
   <!-- lower sub navigation -->
   <div class="pb-[40px]">
@@ -58,7 +45,7 @@
         </div>
         <p
           #navLinkName
-          class="text-grey-300 select-none"
+          class="text-grey-100 select-none"
           data-group="navLinkName"
           style="transition: all 0.3s ease-in-out"
         >

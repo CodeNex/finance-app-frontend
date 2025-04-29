@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import {
   Component,
   inject,
@@ -10,7 +11,7 @@ import { BasedataService } from '@services/basedata.service';
 
 @Component({
   selector: 'app-mobile-navbar',
-  imports: [RouterModule, IconsComponent],
+  imports: [RouterModule, IconsComponent, CommonModule],
   templateUrl: './mobile-navbar.component.html',
   styleUrl: './mobile-navbar.component.scss'
 })
