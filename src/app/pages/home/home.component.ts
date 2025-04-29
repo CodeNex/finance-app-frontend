@@ -6,6 +6,7 @@ import { AsyncPipe } from '@angular/common';
 import { Subscription } from 'rxjs';
 
 import { MainModalComponent } from './main-modal/main-modal.component';
+import { BurgerButtonComponent } from '@src/components/burger-button/burger-button.component';
 
 import { AuthenticationService } from '@services/authentication.service';
 import { MainModalService } from '@services/main-modal.service';
@@ -25,6 +26,7 @@ import { ScreensizeService } from '@services/screensize.service';
     RouterModule,
     ContentComponent,
     MainModalComponent,
+    BurgerButtonComponent
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
