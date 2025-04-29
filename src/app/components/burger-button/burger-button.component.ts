@@ -1,5 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component, Output, Input, EventEmitter } from '@angular/core';
+import { Component, Output, Input, EventEmitter, inject, computed } from '@angular/core';
+
+import { BurgerButtonService } from './burger-button.service';
 
 @Component({
   selector: 'app-burger-button',
@@ -8,6 +10,7 @@ import { Component, Output, Input, EventEmitter } from '@angular/core';
   styleUrl: './burger-button.component.scss'
 })
 export class BurgerButtonComponent {
+  private burgerButtonService = inject(BurgerButtonService);
 
   @Input() width: string = '40px';
   @Input() height: string = '40px';
@@ -15,10 +18,10 @@ export class BurgerButtonComponent {
 
   @Output() IsBurgerOpen: EventEmitter<boolean> = new EventEmitter<boolean>();
 
-  public isBurgerOpened: boolean = false;
+  public isBurgerOpened = computed(() => this.burgerButtonService.isOpen());
 
   public toggleBurgerButton(): void {
-    this.isBurgerOpened = !this.isBurgerOpened;
-    this.IsBurgerOpen.emit(this.isBurgerOpened);
+    this.burgerButtonService.toggle();
+    this.IsBurgerOpen.emit(this.isBurgerOpened());
   }  
 }
