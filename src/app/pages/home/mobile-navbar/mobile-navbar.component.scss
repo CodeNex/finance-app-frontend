@@ -2,14 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer components {
-  .navbar-wide {
-    width: 300px;
-  }
-}
-
 :host {
   transition: all 0.4s ease-in-out;
+  width: 240px;
 }
 
 .navbarLinkInActive {
@@ -107,6 +102,3 @@
 .d_none {
   display: none;
 }
-
-
-

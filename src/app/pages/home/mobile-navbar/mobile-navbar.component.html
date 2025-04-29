@@ -1,8 +1,7 @@
 <section
   #navBar
   id="navBar"
-  style="padding-right: 24px; transition: all 0.3s ease-in-out"
-  class="h-[calc(100dvh-54px)] flex flex-col justify-between bg-grey-900 transition-all ease-in-out origin-left shadow-lg"
+  class="h-[calc(100dvh-70px)] flex flex-col justify-between bg-grey-900 transition-all ease-in-out origin-left shadow-lg"
 >
   <!-- upper main navigation -->
   <div>
@@ -12,6 +11,7 @@
         class="navbarLinkInActive"
         [routerLink]="[item.path]"
         routerLinkActive="navbarLinkActive"
+        (click)="closeMobileNavbar()"
       >
         <div class="linkBox">
           <div class="navImgBox">
@@ -38,6 +38,7 @@
       class="navbarLinkInActive"
       [routerLink]="[item.path]"
       routerLinkActive="navbarLinkActive"
+      (click)="closeMobileNavbar()"
     >
       <div class="linkBox">
         <div class="navImgBox">
@@ -54,7 +55,7 @@
       </div>
     </a>
     }
-    <button class="logoutButton" (click)="this.authService.doLogOut()">
+    <button class="logoutButton" (click)="closeMobileNavbar()" (click)="this.authService.doLogOut()">
       <div class="iconBox">
         <app-icons [iconName]="'logout'"></app-icons>
       </div>
