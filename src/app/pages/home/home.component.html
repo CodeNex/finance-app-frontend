@@ -1,5 +1,8 @@
 <section class="relative h-dvh w-full">
-  <main class="flex max-lg:flex-col-reverse h-full w-full">
+  @if (this.isMobile) {
+    <header class="h-24 w-full bg-grey-900"></header>
+  }
+  <main class="flex max-lg:flex-col-reverse w-full">
     @if (!this.isMobile) {
       <app-navbar></app-navbar>
     }
