@@ -14,6 +14,8 @@
 body {
   font-family: "public-sans";
   color: var(--color-grey-900);
+  height: 100%;
+  overflow: hidden;
 }
 
 @layer utilities {

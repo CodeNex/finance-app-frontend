@@ -1,0 +1,25 @@
+:host {
+  overflow-x: hidden;
+}
+
+header {
+  padding: 24px 32px;
+}
+
+.opened {
+  position: absolute;
+  z-index: 1000;
+  right: 0;
+  transform: translateX(0);
+}
+
+.closed {
+  position: absolute;
+  z-index: 1000;
+  right: 0;
+  transform: translateX(100%);
+}
+
+.transition {
+  transition: transform 0.4s ease-in-out;
+}

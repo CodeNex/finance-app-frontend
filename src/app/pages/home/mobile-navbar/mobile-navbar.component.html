@@ -1,0 +1,72 @@
+<section
+  #navBar
+  id="navBar"
+  class="h-[calc(100dvh-70px)] flex flex-col justify-between bg-grey-900 transition-all ease-in-out origin-left"
+>
+  <!-- upper main navigation -->
+  <div>
+    <nav class="flex flex-col gap-1 pt-6">
+      @for (item of navData.main; track $index) {
+      <a
+        class="navbarLinkInActive"
+        [routerLink]="[item.path]"
+        routerLinkActive="navbarLinkActive"
+        (click)="closeMobileNavbar()"
+      >
+        <div class="linkBox">
+          <div class="navImgBox">
+            <app-icons [iconName]="item.path"></app-icons>
+          </div>
+          <p
+            #navLinkName
+            class="text-grey-300 select-none"
+            style="transition: all 0.3s ease-in-out"
+            data-group="navLinkName"
+          >
+            {{ item.name }}
+          </p>
+        </div>
+      </a>
+      }
+    </nav>
+  </div>
+
+  <!-- lower sub navigation -->
+  <div class="pb-[40px]">
+    @for (item of navData.sub; track $index) {
+    <a
+      class="navbarLinkInActive"
+      [routerLink]="[item.path]"
+      routerLinkActive="navbarLinkActive"
+      (click)="closeMobileNavbar()"
+    >
+      <div class="linkBox">
+        <div class="navImgBox">
+          <app-icons class="appIcon" [iconName]="item.path"></app-icons>
+        </div>
+        <p
+          #navLinkName
+          class="text-grey-100 select-none"
+          data-group="navLinkName"
+          style="transition: all 0.3s ease-in-out"
+        >
+          {{ item.name }}
+        </p>
+      </div>
+    </a>
+    }
+    <button class="logoutButton" (click)="closeMobileNavbar()" (click)="this.authService.doLogOut()">
+      <div class="iconBox">
+        <app-icons [iconName]="'logout'"></app-icons>
+      </div>
+      <p
+        #navLinkName
+        class="select-none"
+        data-group="navLinkName"
+      >
+        Logout
+      </p>
+    </button>
+  </div>
+</section>
+

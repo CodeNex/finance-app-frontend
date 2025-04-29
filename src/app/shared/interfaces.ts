@@ -8,6 +8,11 @@ interface Recurring {
   value: string | null;
 }
 
+interface TimeFrame {
+  name: string;
+  value: string;
+}
+
 interface Category {
   name: string;
   iconName: string;

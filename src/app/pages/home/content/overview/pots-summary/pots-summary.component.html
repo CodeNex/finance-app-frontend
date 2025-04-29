@@ -22,12 +22,12 @@
       <app-icons [iconName]="'potsTransparentGreen'"></app-icons>
       <div class="total-saved flex flex-col gap-3">
         <p class="text4r text-grey-500">Total Saved</p>
-        <p class="text1b">${{ formattedTotalSavings }}</p>
+        <p class="text1b">${{ this.totalSavings }}</p>
       </div>
     </div>
 
     <div id="pots-listing" class="pots-listing h-[110px] flex flex-wrap gap-4 overflow-auto" aria-label="The first four Pots of the list">
-        @for (pot of potsArray(); track $index) {
+        @for (pot of potsArraySignal(); track $index) {
           <div class="list-element min-w-[130px] flex items-center gap-4">
             <div class="theme-element w-1 h-[43px] rounded-full"
             [ngStyle]="{
@@ -36,7 +36,7 @@
             ></div>
             <p class="list-element-content flex flex-col gap-1">
                 <span class="text5r text-grey-500">{{ pot.name }}</span>
-                <span class="text3b">{{ pot.total }}</span>
+                <span class="text3b">${{ pot.total }}</span>
             </p>
           </div>
         }
