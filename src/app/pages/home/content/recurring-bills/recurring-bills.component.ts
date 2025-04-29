@@ -1,10 +1,14 @@
 import { Component, effect, inject } from '@angular/core';
 import { DataStoreServiceService } from '@services/data-store-service.service';
 import { CommonModule } from '@angular/common';
-import { AuthenticationService } from '@services/authentication.service';
-import { BillsSummaryComponent } from './bills-summary/bills-summary.component';
-import { RecurringBillsListComponent } from './recurring-bills-list/recurring-bills-list.component';
+import { BillsSummaryComponent } from '@content/recurring-bills/bills-summary/bills-summary.component';
+import { RecurringBillsListComponent } from '@content/recurring-bills/recurring-bills-list/recurring-bills-list.component';
 
+/**
+ * * * RecurringBillsComponent
+ * * This component is responsible for displaying the recurring bills section of the application.
+ * * It uses the DataStoreService to get the recurring bills data and the transactions data.
+ */
 @Component({
   selector: 'app-recurring-bills',
   imports: [ CommonModule, BillsSummaryComponent, RecurringBillsListComponent],
@@ -12,17 +16,15 @@ import { RecurringBillsListComponent } from './recurring-bills-list/recurring-bi
   styleUrl: './recurring-bills.component.scss'
 })
 export class RecurringBillsComponent {
+  // #region Component Setup (DI, Outputs, Template Refs, Subscription)
+  private dataStore = inject(DataStoreServiceService);
 
-  private dataStore: DataStoreServiceService = inject(DataStoreServiceService);
-  public authService: AuthenticationService = inject(AuthenticationService);
-
-  public recurringBillsArray = this.dataStore.transactionsRecurring();
-  public transactionsArray$ = this.dataStore.transactions();
+  public recurringBillsArray: TransactionsObject[] = this.dataStore.transactionsRecurring();
+  public transactionsArray: TransactionsObject[] = this.dataStore.transactions();
   
-  constructor() {
-    effect(() => {
-      this.recurringBillsArray = this.dataStore.transactionsRecurring();
-      this.transactionsArray$ = this.dataStore.transactions();
-    });
-  }
+  public recurringBillsEffect = effect(() => {
+    this.recurringBillsArray = this.dataStore.transactionsRecurring();
+    this.transactionsArray = this.dataStore.transactions();
+  })
+  // #endregion
 }

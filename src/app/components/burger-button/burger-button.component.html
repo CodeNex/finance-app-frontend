@@ -1,0 +1,5 @@
+<div (click)="toggleBurgerButton()" [ngStyle]="{'width': width, 'height': height}" class="flex flex-col justify-between cursor-pointer burger-button" [ngClass]="{'open': isBurgerOpened()}">
+  <div [ngStyle]="{'background-color': color }" class="burgerBar top"></div>
+  <div [ngStyle]="{'background-color': color}" class="burgerBar mid"></div>
+  <div [ngStyle]="{'background-color': color}" class="burgerBar low"></div>
+</div>

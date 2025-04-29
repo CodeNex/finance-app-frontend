@@ -26,7 +26,11 @@ export const routes: Routes = [
       { path: 'pots', component: PotsComponent },
       { path: 'recurringBills', component: RecurringBillsComponent },
       { path: 'settings', component: SettingsComponent },
-      { path: 'imprint', component: ImprintComponent, data: {location: 'loggedIn'} },
+      {
+        path: 'imprint',
+        component: ImprintComponent,
+        data: { location: 'loggedIn' },
+      },
     ],
   },
   { path: 'imprint', component: ImprintComponent },

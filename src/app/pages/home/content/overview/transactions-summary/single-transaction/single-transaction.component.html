@@ -7,10 +7,10 @@
       >
         <app-icons [iconName]="iconName"></app-icons>
       </div>
-      <p class="text3b text-grey-900">{{ this.name }}</p>
+      <p class="text3b text-grey-900">{{ this.transaction.name }}</p>
     </div>
     <div>
-      <p class="text-right text3b text-grey-900">{{ this.amount }}</p>
-      <p class="text-right text5r text-grey-500">{{ this.date }}</p>
+      <p class="text-right text3b text-grey-900">{{ this.transaction.amount | formatAmount: this.transaction.type }}</p>
+      <p class="text-right text5r text-grey-500">{{ this.transaction.execute_on | formatDate }}</p>
     </div>
   </div>

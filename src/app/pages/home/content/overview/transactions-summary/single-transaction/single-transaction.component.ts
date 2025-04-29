@@ -1,65 +1,49 @@
 import { Component, inject, Input, OnInit } from '@angular/core';
-import { IconsComponent } from '@components/icons/icons.component';
 import { CommonModule } from '@angular/common';
+
+import { IconsComponent } from '@components/icons/icons.component';
 import { BasedataService } from '@services/basedata.service';
+import { FormatAmountPipe } from '@src/shared/pipes/format-amount.pipe';
+import { FormatDatePipe } from '@src/shared/pipes/format-date.pipe';
 
 @Component({
   selector: 'app-single-transaction',
-  imports: [IconsComponent, CommonModule],
+  imports: [IconsComponent, CommonModule, FormatAmountPipe, FormatDatePipe],
   templateUrl: './single-transaction.component.html',
-  styleUrl: './single-transaction.component.scss'
+  styleUrl: './single-transaction.component.scss',
 })
 export class SingleTransactionComponent implements OnInit {
-  @Input() public transaction: any = {
-    id: 0,
-    user: 0,
-    amount: 40.24,
+  // #region Component Setup (DI, Outputs, Template Refs, Subscription)
+  public baseData = inject(BasedataService);
+
+  @Input() public transaction: TransactionsObject = {
+    transaction_id: 0,
+    user_id: 0,
+    amount: 345.0,
     budget_id: null,
-    created_at: null,
+    created_at: '2024-09-12T00:00:00Z',
+    execute_on: '2025-03-26T00:00:00Z',
     deleted_at: null,
-    recurring: null,
-    theme: "",
-    name: "Test Transaction 1",
-    category: "Entertainment",
-    budget: {
-      category: ""
-    }
+    recurring: 'monthly',
+    recurring_id: 0,
+    theme: '#597C7C',
+    sender: '',
+    receiver: '',
+    name: 'Apartment Rent',
+    category: 'bills',
+    type: 'debit',
   };
 
-  public baseData: BasedataService = inject(BasedataService);
-
-  public name: string = '';
-  public amount: string = '';
-  public date: string = '';
   public iconBackground: string = '';
   public iconName: string = '';
+  // #endregion
 
-  ngOnInit() {
-    this.name = this.transaction.name;
-    this.amount = this.formatAmount(this.transaction.amount);
-    this.date = this.formatDate(this.transaction.execute_on);
-    this.iconName = this.getCategoryIcon(this.transaction.category);
+  ngOnInit(): void {
     this.iconBackground = this.transaction.theme;
+    if (this.transaction.category)
+      this.iconName = this.getCategoryIcon(this.transaction.category);
   }
 
-  // private function to format amount
-  private formatAmount(amount: number): string {
-    return `-$${amount.toLocaleString('en-US', {
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2,
-    })}`;
-  }
-
-  // private function to format date
-  private formatDate(date: string): string {
-    return new Date(date).toLocaleDateString('en-US', {
-      month: 'short',
-      day: 'numeric',
-      year: 'numeric',
-    });
-  }
-
-  // public function to get category icon
   private getCategoryIcon(category: string): string {
     return this.baseData.getCategoryIcon(category);
   }

@@ -10,13 +10,14 @@ import { DataStoreServiceService } from '@services/data-store-service.service';
   styleUrl: './bills-summary.component.scss',
 })
 export class BillsSummaryComponent {
-  private dataStore: DataStoreServiceService = inject(DataStoreServiceService);
+  // #region Component Setup (DI, Outputs, Template Refs, Subscription)
+  private dataStore = inject(DataStoreServiceService);
 
   public recurringBillsSignal$ = this.dataStore.transactionsRecurring;
   public transactionsSignal$ = this.dataStore.transactions;
 
-  public recurringBillsArray$: any[] = [];
-  public transactionsArray$: any[] = [];
+  public recurringBillsArray$: TransactionsObject[] = [];
+  public transactionsArray$: TransactionsObject[] = [];
 
   public unformattedTotalBillsAmount: number = 0;
   public totalBillsAmount: string = '';
@@ -25,52 +26,74 @@ export class BillsSummaryComponent {
   public unformattedTotalUpcoming: number = 0;
   public totalUpcoming: string = '';
   public selectedTimeWindow: string = 'monthly';
-  public selectedTimeWindowName: string = 'Monthly';
+  public selectedTimeWindowName: string = 'This Month';
 
   public currentDate = new Date();
   public currentMonth = this.currentDate.getMonth();
   public currentYear = this.currentDate.getFullYear();
 
-  public timeFrames: any = [
-    {name: 'Monthly', value: 'monthly'},
-    {name: 'Quarterly', value: 'quarterly'},
-    {name: 'Yearly', value: 'yearly'},
-    {name: 'Next Month', value: 'nextMonth'},
-    {name: 'Next 3 Months', value: 'nextThreeMonths'},
-    {name: 'Next 6 Months', value: 'nextSixMonths'},
+  public timeFrames: TimeFrame[] = [
+    { name: 'This Month', value: 'monthly' },
+    { name: 'This Quarter', value: 'quarterly' },
+    { name: 'This Year', value: 'yearly' },
+    { name: 'Next Month', value: 'nextMonth' },
+    { name: 'Next 3 Months', value: 'nextThreeMonths' },
+    { name: 'Next 6 Months', value: 'nextSixMonths' },
   ];
 
-  constructor() {
-    effect(() => {
-      let signalRecurrings = this.recurringBillsSignal$();
-      let signalTransactions = this.transactionsSignal$();
-      this.ngOnInit();
-    });
-  }
-
-  ngOnInit() {
+  public billsSummaryEffect = effect(() => {
     this.recurringBillsArray$ = this.recurringBillsSignal$();
     this.transactionsArray$ = this.transactionsSignal$();
     this.updateCalculations();
+  });
+  // #endregion
+
+  // #region Helper Functions
+  private getformattedValue(value: number): string {
+    return value.toLocaleString('en-US', {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    });
   }
 
-  updateCalculations() {
-    if (
-      this.selectedTimeWindow === 'monthly' ||
-      this.selectedTimeWindow === 'quarterly' ||
-      this.selectedTimeWindow === 'yearly'
-    ) {
+  public updateTimeWindow(timeFrame: TimeFrame) {
+    this.selectedTimeWindow = timeFrame.value;
+    this.selectedTimeWindowName = timeFrame.name;
+    this.updateCalculations();
+    this.closeHideDropdown();
+  }
+
+  // boolean to control the dropdown
+  public isDropDownOpen: boolean = false;
+
+  public closeHideDropdown() {
+    this.isDropDownOpen = !this.isDropDownOpen;
+  }
+  // #endregion
+
+  // #region Calculations
+  /**
+   * * @description - This function is responsible for updating the calculations of the total paid and upcoming amounts.
+   * * It checks the selected time window and calculates the total paid and upcoming amounts accordingly.
+   */
+  private updateCalculations(): void {
+    const isCurrentPeriod = ['monthly', 'quarterly', 'yearly'].includes(
+      this.selectedTimeWindow
+    );
+    const isFuturePeriod = [
+      'nextMonth',
+      'nextThreeMonths',
+      'nextSixMonths',
+    ].includes(this.selectedTimeWindow);
+
+    if (isCurrentPeriod) {
       this.unformattedTotalPaid = this.getTotalPaidAmount(
         this.transactionsArray$
       );
       this.unformattedTotalUpcoming = this.getTotalUpcomingAmount(
         this.recurringBillsArray$
       );
-    } else if (
-      this.selectedTimeWindow === 'nextMonth' ||
-      this.selectedTimeWindow === 'nextThreeMonths' ||
-      this.selectedTimeWindow === 'nextSixMonths'
-    ) {
+    } else if (isFuturePeriod) {
       this.unformattedTotalPaid = 0;
       this.unformattedTotalUpcoming = this.getFutureUpcoming(
         this.recurringBillsArray$
@@ -83,31 +106,94 @@ export class BillsSummaryComponent {
     );
   }
 
-  getTotalUpcomingAmount(recurringBillsArray$: TransactionsObject[]): number {
-    let upcoming = 0;
-
+  /**
+   * @description - This function is responsible for calculating the amount of total upcoming bills.
+   * * It filters the recurring bills array to get only the debit transactions that are not deleted.
+   * * It then calculates the total amount of upcoming bills based on the selected time window.
+   * @param recurringBillsArray$ - Array of recurring bills
+   * @returns - Total amount of upcoming bills
+   */
+  private getTotalUpcomingAmount(
+    recurringBillsArray$: TransactionsObject[]
+  ): number {
     const { periodStartMonth, periodEndMonth } = this.definePeriodRange();
-
-    recurringBillsArray$.forEach((bill) => {
-      if (bill.type === 'debit' && !bill.deleted_at) {
-        const { billDate, billMonth, billYear } = this.getBillsDates(bill);
-
-        let remainingOccurrences = this.getRemainingOccurrences(
+    return recurringBillsArray$
+      .filter((bill) => bill.type === 'debit' && !bill.deleted_at)
+      .reduce((total, bill) => {
+        const { billDate, billMonth } = this.getBillsDates(bill);
+        const remainingOccurrences = this.getRemainingOccurrences(
           bill,
           billDate,
           billMonth,
           periodStartMonth,
           periodEndMonth
         );
-
-        upcoming += bill.amount! * remainingOccurrences;
-      }
-    });
-
-    return upcoming;
+        return total + bill.amount! * remainingOccurrences;
+      }, 0);
   }
 
-  private definePeriodRange() {
+  /**
+   * @description - This function is responsible for calculating the amount of future upcoming bills.
+   * * It filters the recurring bills array to get only the debit transactions that are not deleted.
+   * @param recurringBillsArray$ - Array of recurring bills
+   * @returns - Total amount of future upcoming bills
+   */
+  private getFutureUpcoming(
+    recurringBillsArray$: TransactionsObject[]
+  ): number {
+    const { periodStartMonth, periodEndMonth } = this.definePeriodRange();
+
+    return recurringBillsArray$
+      .filter(
+        (bill) =>
+          bill.type === 'debit' &&
+          !bill.deleted_at &&
+          this.getBillsDates(bill).billYear === this.currentYear &&
+          this.getBillsDates(bill).billMonth <= periodEndMonth
+      )
+      .reduce((total, bill) => {
+        const { billDate, billMonth } = this.getBillsDates(bill);
+        const occurrences = this.getFutureOccurrences(
+          bill,
+          billDate,
+          billMonth,
+          this.selectedTimeWindow,
+          periodEndMonth
+        );
+        return total + bill.amount! * occurrences;
+      }, 0);
+  }
+
+  /**
+   * @description - This function is responsible for calculating the total paid amount.
+   * * It filters the transactions array to get only the debit transactions that are not deleted.
+   * * It then calculates the total amount of paid transactions based on the selected time window.
+   * @returns - Total amount of paid transactions
+   */
+  private getTotalPaidAmount(transactionsArray$: TransactionsObject[]): number {
+    return transactionsArray$
+      .filter(
+        (transaction) =>
+          transaction.type === 'debit' &&
+          !transaction.deleted_at &&
+          transaction.amount &&
+          transaction.execute_on &&
+          transaction.recurring_id &&
+          this.isInSelectedTimeWindow(new Date(transaction.execute_on))
+      )
+      .reduce((total, transaction) => total + transaction.amount!, 0);
+  }
+  // #endregion
+
+  // #region Time Window
+  /**
+   * @description - This function is responsible for defining the period range based on the selected time window.
+   * @returns - An object containing the start and end month of the period based on the selected time window.
+   */
+  private definePeriodRange(): {
+    periodStartMonth: number;
+    periodEndMonth: number;
+  } {
     const currentMonth = this.currentMonth;
     let periodStartMonth = currentMonth + 1;
     let periodEndMonth = currentMonth;
@@ -134,32 +220,12 @@ export class BillsSummaryComponent {
     return { periodStartMonth, periodEndMonth };
   }
 
-  getFutureUpcoming(recurringBillsArray$: TransactionsObject[]): number {
-    const { periodStartMonth, periodEndMonth } = this.definePeriodRange();
-    let upcoming = 0;
-
-    recurringBillsArray$.forEach((bill) => {
-
-      if (bill.type === 'debit' && !bill.deleted_at) {
-        const { billDate, billMonth, billYear } = this.getBillsDates(bill);
-
-        if (billYear === this.currentYear && billMonth <= periodEndMonth) {
-          let occurrences = this.getFutureOccurences(
-            bill,
-            billDate,
-            billMonth,
-            this.selectedTimeWindow,
-            periodEndMonth
-          );
-
-          upcoming += bill.amount! * occurrences;
-        }
-      }
-    });
-
-    return upcoming;
-  }
-
+  /**
+   * @description - This function is responsible for getting the date of the bill.
+   * * It extracts the date, month, and year from the bill object.
+   * @param bill - The bill object to extract the date from
+   * @returns - An object containing the bill date, month, and year
+   */
   getBillsDates(bill: TransactionsObject): {
     billDate: Date;
     billMonth: number;
@@ -172,120 +238,32 @@ export class BillsSummaryComponent {
     return { billDate, billMonth, billYear };
   }
 
-  getRemainingOccurrences(
-    bill: TransactionsObject,
-    billDate: Date,
-    billMonth: number,
-    periodStartMonth: number,
-    periodEndMonth: number
-  ): number {
-    let remainingOccurrences = 0;
-    if (
-      this.selectedTimeWindow === 'monthly' &&
-      this.inCurrentMonth(billDate) &&
-      this.inCurrentYear(billDate)
-    ) {
-      remainingOccurrences = 1;
-
-      if (bill.recurring === 'weekly') {
-        remainingOccurrences = this.getRemainingWeeklyOccurrences(billDate);
-      }
-    } else if (
-      this.selectedTimeWindow === 'quarterly' &&
-      this.inCurrentQuarter(billDate) &&
-      this.inCurrentYear(billDate)
-    ) {
-      remainingOccurrences = 1;
-
-      if (bill.recurring === 'monthly') {
-        remainingOccurrences = periodEndMonth - billMonth + 1;
-      } else if (bill.recurring === 'weekly') {
-        remainingOccurrences = this.getRemainingWeeklyOccurrences(billDate);
-      }
-    } else if (
-      this.selectedTimeWindow === 'yearly' &&
-      billDate.getFullYear() === this.currentYear
-    ) {
-      remainingOccurrences = 1;
-
-      if (bill.recurring === 'monthly') {
-        remainingOccurrences = 12 - billDate.getMonth();
-      } else if (bill.recurring === 'quarterly') {
-        remainingOccurrences = 4 - Math.floor(billDate.getMonth() / 3);
-      } else if (bill.recurring === 'weekly') {
-        remainingOccurrences = this.getRemainingWeeklyOccurrences(billDate);
-      }
+  /**
+   * @description - This function is responsible for checking if the transaction date is within the selected time window.
+   * @param date - The date to check
+   * @returns - A boolean indicating whether the date is in the selected time window
+   */
+  private isInSelectedTimeWindow(date: Date): boolean {
+    switch (this.selectedTimeWindow) {
+      case 'monthly':
+        return this.inCurrentMonth(date);
+      case 'quarterly':
+        return this.inCurrentQuarter(date);
+      case 'yearly':
+        return this.inCurrentYear(date);
+      default:
+        return false;
     }
-    return remainingOccurrences;
   }
 
-  getFutureOccurences(
-    bill: TransactionsObject,
-    billDate: Date,
-    billMonth: number,
-    selectedTimeWindow: string,
-    periodEndMonth: number
-  ): number {
-    let occurrences = 0;
-    if (bill.recurring === 'weekly') {
-      occurrences = this.getRemainingWeeklyOccurrences(billDate) - 1;
-    } else if (bill.recurring === 'monthly') {
-      if (billMonth === this.currentMonth) {
-        occurrences = periodEndMonth - this.currentMonth;
-      } else {
-        occurrences =
-          periodEndMonth - Math.max(billMonth, this.currentMonth) + 1;
-      }
-    } else if (bill.recurring === 'quarterly') {
-      occurrences = Math.floor((periodEndMonth - billMonth) / 3) + 1;
-    }
-
-    return occurrences;
-  }
-
-  getTotalPaidAmount(transactionsArray$: TransactionsObject[]): number {
-    let paid = 0;
-
-    transactionsArray$.forEach((transaction) => {
-      if (transaction.type === 'debit' && !transaction.deleted_at) {
-        if (
-          transaction.amount &&
-          transaction.execute_on &&
-          transaction.recurring_id
-        ) {
-          const transactionDate = new Date(transaction.execute_on);
-
-          if (
-            this.selectedTimeWindow === 'monthly' &&
-            this.inCurrentMonth(transactionDate)
-          ) {
-            paid += transaction.amount;
-          } else if (
-            this.selectedTimeWindow === 'quarterly' &&
-            this.inCurrentQuarter(transactionDate)
-          ) {
-            paid += transaction.amount;
-          } else if (
-            this.selectedTimeWindow === 'yearly' &&
-            this.inCurrentYear(transactionDate)
-          ) {
-            paid += transaction.amount;
-          }
-        }
-      }
-    });
-
-    return paid;
-  }
-
-  inCurrentMonth(transactionDate: Date): boolean {
+  private inCurrentMonth(transactionDate: Date): boolean {
     return (
       transactionDate.getMonth() === this.currentMonth &&
       transactionDate.getFullYear() === this.currentYear
     );
   }
 
-  inCurrentQuarter(transactionDate: Date): boolean {
+  private inCurrentQuarter(transactionDate: Date): boolean {
     const { periodStartMonth, periodEndMonth } = this.definePeriodRange();
     return (
       transactionDate.getMonth() >= periodStartMonth &&
@@ -294,11 +272,10 @@ export class BillsSummaryComponent {
     );
   }
 
-  inCurrentYear(transactionDate: Date): boolean {
+  private inCurrentYear(transactionDate: Date): boolean {
     return transactionDate.getFullYear() === this.currentYear;
   }
 
-  // ✅ Funzione per ottenere l'ultimo giorno del mese
   private getLastDayOfMonth(year: number, month: number): number {
     const monthDaysMapping: Record<number, number> = {
       0: 31,
@@ -315,97 +292,159 @@ export class BillsSummaryComponent {
       11: 31,
     };
     if (month === 1) {
-      // Febbraio
       return year % 4 === 0 && (year % 100 !== 0 || year % 400 === 0) ? 29 : 28;
     }
     return monthDaysMapping[month];
   }
+  // #endregion
 
-  // ✅ Funzione aggiornata per calcolare le ricorrenze settimanali
+  // #region Occurrences
+  /**
+   * @description - This function is responsible for calculating the remaining occurrences of a bill.
+   * * It checks the selected time window and calculates the remaining occurrences based on the bill's recurring type.
+   * @returns - The number of remaining occurrences of the bill
+   * * based on the selected time window and the bill's recurring type.
+   */
+  private getRemainingOccurrences(
+    bill: TransactionsObject,
+    billDate: Date,
+    billMonth: number,
+    periodStartMonth: number,
+    periodEndMonth: number
+  ): number {
+    if (
+      (this.selectedTimeWindow === 'monthly' &&
+        this.inCurrentMonth(billDate) &&
+        this.inCurrentYear(billDate)) ||
+      (this.selectedTimeWindow === 'quarterly' &&
+        this.inCurrentQuarter(billDate) &&
+        this.inCurrentYear(billDate)) ||
+      (this.selectedTimeWindow === 'yearly' &&
+        billDate.getFullYear() === this.currentYear)
+    ) {
+      switch (bill.recurring) {
+        case 'weekly':
+          return this.getRemainingWeeklyOccurrences(billDate);
+        case 'monthly':
+          if (this.selectedTimeWindow === 'quarterly') {
+            return periodEndMonth - billMonth + 1;
+          }
+          if (this.selectedTimeWindow === 'yearly') {
+            return 12 - billDate.getMonth();
+          }
+          return 1;
+        case 'quarterly':
+          if (this.selectedTimeWindow === 'yearly') {
+            return 4 - Math.floor(billDate.getMonth() / 3);
+          }
+          return 1;
+        default:
+          return 1;
+      }
+    }
+    return 0;
+  }
+
+  /**
+   * @description - This function is responsible for calculating the future occurrences of a bill.
+   * * It checks the selected time window and calculates the future occurrences based on the bill's recurring type.
+   * @returns - The number of future occurrences of the bill
+   * * based on the selected time window and the bill's recurring type.
+   */
+  private getFutureOccurrences(
+    bill: TransactionsObject,
+    billDate: Date,
+    billMonth: number,
+    selectedTimeWindow: string,
+    periodEndMonth: number
+  ): number {
+    switch (bill.recurring) {
+      case 'weekly':
+        return Math.max(this.getRemainingWeeklyOccurrences(billDate) - 1, 0);
+      case 'monthly':
+        const adjustedStartMonth = Math.max(billMonth, this.currentMonth);
+        return Math.max(periodEndMonth - adjustedStartMonth + 1, 0);
+      case 'quarterly':
+        return Math.max(Math.floor((periodEndMonth - billMonth) / 3) + 1, 0);
+      default:
+        return 0;
+    }
+  }
+
+  /**
+   * @description - This function is responsible for calculating the remaining weekly occurrences of a bill.
+   * * It checks the selected time window and calculates the remaining occurrences based on the bill's date.
+   * @param billDate - The date of the bill
+   * @returns - The number of remaining weekly occurrences of the bill
+   * * based on the selected time window and the bill's recurring type.
+   */
   private getRemainingWeeklyOccurrences(billDate: Date): number {
-    let startOfPeriod: Date;
-    let endOfPeriod: Date;
     const currentYear = billDate.getFullYear();
     const currentMonth = billDate.getMonth();
+    let startOfPeriod = new Date(currentYear, currentMonth, billDate.getDate());
+    let endOfPeriod: Date;
 
-    if (this.selectedTimeWindow === 'monthly') {
-      startOfPeriod = new Date(currentYear, currentMonth, billDate.getDate());
-      const lastDayOfMonth = this.getLastDayOfMonth(currentYear, currentMonth);
-      endOfPeriod = new Date(currentYear, currentMonth, lastDayOfMonth);
-    } else if (this.selectedTimeWindow === 'quarterly') {
-      const quarterStartMonth = Math.floor(currentMonth / 3) * 3;
-      const quarterEndMonth = quarterStartMonth + 2;
-      const lastDayOfQuarter = this.getLastDayOfMonth(
-        currentYear,
-        quarterEndMonth
-      );
-      startOfPeriod = new Date(currentYear, currentMonth, billDate.getDate());
-      endOfPeriod = new Date(currentYear, quarterEndMonth, lastDayOfQuarter);
-    } else if (this.selectedTimeWindow === 'yearly') {
-      startOfPeriod = new Date(currentYear, currentMonth, billDate.getDate());
-      endOfPeriod = new Date(currentYear, 11, 31); // Ultimo giorno dell'anno
-    } else if (this.selectedTimeWindow === 'nextMonth') {
-      startOfPeriod = new Date(currentYear, currentMonth + 1, 1); // Inizio del mese successivo
-      const lastDayNextMonth = this.getLastDayOfMonth(
-        currentYear,
-        currentMonth + 1
-      );
-      endOfPeriod = new Date(currentYear, currentMonth + 1, lastDayNextMonth);
-    } else if (this.selectedTimeWindow === 'nextThreeMonths') {
-      startOfPeriod = new Date(currentYear, currentMonth + 1, 1); // Inizio del mese successivo
-      const lastDayNextThreeMonths = this.getLastDayOfMonth(
-        currentYear,
-        currentMonth + 3
-      );
-      endOfPeriod = new Date(
-        currentYear,
-        currentMonth + 3,
-        lastDayNextThreeMonths
-      );
-    } else if (this.selectedTimeWindow === 'nextSixMonths') {
-      startOfPeriod = new Date(currentYear, currentMonth + 1, 1); // Inizio del mese successivo
-      const lastDayNextSixMonths = this.getLastDayOfMonth(
-        currentYear,
-        currentMonth + 6
-      );
-      endOfPeriod = new Date(
-        currentYear,
-        currentMonth + 6,
-        lastDayNextSixMonths
-      );
-    } else {
-      throw new Error('Time window not supported');
+    switch (this.selectedTimeWindow) {
+      case 'monthly':
+        endOfPeriod = new Date(
+          currentYear,
+          currentMonth,
+          this.getLastDayOfMonth(currentYear, currentMonth)
+        );
+        break;
+
+      case 'quarterly': {
+        const quarterStartMonth = Math.floor(currentMonth / 3) * 3;
+        const quarterEndMonth = quarterStartMonth + 2;
+        endOfPeriod = new Date(
+          currentYear,
+          quarterEndMonth,
+          this.getLastDayOfMonth(currentYear, quarterEndMonth)
+        );
+        break;
+      }
+
+      case 'yearly':
+        endOfPeriod = new Date(currentYear, 11, 31);
+        break;
+
+      case 'nextMonth':
+        startOfPeriod = new Date(currentYear, currentMonth + 1, 1);
+        endOfPeriod = new Date(
+          currentYear,
+          currentMonth + 1,
+          this.getLastDayOfMonth(currentYear, currentMonth + 1)
+        );
+        break;
+
+      case 'nextThreeMonths':
+        startOfPeriod = new Date(currentYear, currentMonth + 1, 1);
+        endOfPeriod = new Date(
+          currentYear,
+          currentMonth + 3,
+          this.getLastDayOfMonth(currentYear, currentMonth + 3)
+        );
+        break;
+
+      case 'nextSixMonths':
+        startOfPeriod = new Date(currentYear, currentMonth + 1, 1);
+        endOfPeriod = new Date(
+          currentYear,
+          currentMonth + 6,
+          this.getLastDayOfMonth(currentYear, currentMonth + 6)
+        );
+        break;
+
+      default:
+        throw new Error('Unsupported time window');
     }
 
-    // 🔹 Calcoliamo il numero di giorni rimanenti fino alla fine del periodo
     const remainingDays = Math.ceil(
       (endOfPeriod.getTime() - startOfPeriod.getTime()) / (1000 * 60 * 60 * 24)
     );
-
-    // 🔹 Convertiamo i giorni rimanenti in settimane
     const remainingWeeks = Math.floor(remainingDays / 7) + 1;
 
     return remainingWeeks;
   }
-
-  getformattedValue(value: number): string {
-    return value.toLocaleString('en-US', {
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2,
-    });
-  }
-
-  updateTimeWindow(timeFrame: any) {
-    this.selectedTimeWindow = timeFrame.value;
-    this.selectedTimeWindowName = timeFrame.name;
-    this.updateCalculations();
-    this.closeHideDropdown();
-  }
-
-  // boolean to control the dropdown
-  public isDropDownOpen: boolean = false;
-
-  public closeHideDropdown() {
-    this.isDropDownOpen = !this.isDropDownOpen;
-  }
+  // #endregion
 }

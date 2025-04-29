@@ -1,11 +1,9 @@
-import { Component, effect, inject } from '@angular/core';
+import { Component, effect, inject, Signal } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { IconsComponent } from '@components/icons/icons.component';
 import { DataStoreServiceService } from '@services/data-store-service.service';
-import { AuthenticationService } from '@services/authentication.service';
-import { APIService } from '@services/api.service';
 import { CommonModule } from '@angular/common';
-import { SingleTransactionComponent } from './single-transaction/single-transaction.component';
+import { SingleTransactionComponent } from '@content/overview/transactions-summary/single-transaction/single-transaction.component';
 
 @Component({
   selector: 'app-transactions-summary',
@@ -19,27 +17,21 @@ import { SingleTransactionComponent } from './single-transaction/single-transact
   styleUrl: './transactions-summary.component.scss',
 })
 export class TransactionsSummaryComponent {
+  // #region Component Setup (DI, Outputs, Template Refs, Subscription)
   public dataStore: DataStoreServiceService = inject(DataStoreServiceService);
-  public authService: AuthenticationService = inject(AuthenticationService);
-  public apiService: APIService = inject(APIService);
 
-  public transactionsArraySignal$: any = this.dataStore.transactions;
+  public transactionsArraySignal: Signal<TransactionsObject[]> = this.dataStore.transactions;
 
-  public readyToRenderArray: any[] = [];
+  public readyToRenderArray: TransactionsObject[] = [];
 
-  constructor() {
-    effect(() => {
-      let potsSignal = this.transactionsArraySignal$();
-      this.ngOnInit();
-    });
-  }
+  public transactionsSummaryEffect = effect(() => {
+    this.readyToRenderArray = this.sortByDate(this.transactionsArraySignal());
+  })
+  // #endregion
 
-  ngOnInit() {
-    this.readyToRenderArray = this.sortByDate(this.transactionsArraySignal$());
-  }
-
-  private sortByDate(array: any) {
-    return array.sort((a: any, b: any) => {
+  // #region Helper Functions
+  private sortByDate(array: TransactionsObject[]): TransactionsObject[] {
+    return array.sort((a: TransactionsObject, b: TransactionsObject) => {
       if (!a.execute_on) return 1;
       if (!b.execute_on) return -1;
       return (
@@ -47,4 +39,5 @@ export class TransactionsSummaryComponent {
       );
     }).slice(0, 4);
   }
+  // #endregion
 }

@@ -1,0 +1,32 @@
+.burgerBar {
+  width: 100%;
+  height: 2.5px;
+  border-radius: 100vh;
+  transition: all 0.2s ease-in-out;
+}
+
+.burger-button {
+  .top {
+    transform: translateY(0) rotate(0deg);
+  }
+  .mid {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  .low {
+    transform: translateY(0) rotate(0deg);
+  }
+}
+
+.burger-button.open {
+  .top {
+    transform: translateY(9px) rotate(45deg);
+  }
+  .mid {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  .low {
+    transform: translateY(-8px) rotate(-45deg);
+  }
+}
