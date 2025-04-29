@@ -36,23 +36,23 @@ export class HomeComponent {
   public mainModalService = inject(MainModalService);
   public screensizeService = inject(ScreensizeService);
 
-  private homeSubscription: Subscription = new Subscription();
+  private homeSubscriptions$: Subscription = new Subscription();
 
-  public isMobile$: boolean = false;  
+  public isMobile: boolean = false;  
   // #endregion
 
   // #region Lifecycle Hooks
   ngOnInit() {
-    this.homeSubscription.add(
+    this.homeSubscriptions$.add(
       this.screensizeService.isTablet$.subscribe((isTablet) => {
-        this.isMobile$ = isTablet;
+        this.isMobile = isTablet;
       })
     )
     this.checkIfAuthTokenExists();
   }
 
   ngOnDestroy() {
-    this.homeSubscription.unsubscribe();
+    this.homeSubscriptions$.unsubscribe();
   }
   // #endregion
 
