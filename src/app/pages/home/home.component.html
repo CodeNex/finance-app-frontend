@@ -1,18 +1,20 @@
 <section class="relative h-dvh w-full">
   @if (this.isMobile) {
-    <header class="w-full bg-grey-900 flex items-center justify-between">
-      <a [routerLink]="'overview'">
-        <img src="/img/navbar/finance-logo.svg" alt="">
-      </a>
-      
-
-        <app-burger-button [color]="'#ffffff'" [width]="'32px'" [height]="'20px'" (IsBurgerOpen)="toggleMobileNavbar($event)"></app-burger-button>
-
-    </header>
+  <header class="w-full bg-grey-900 flex items-center justify-between">
+    <a [routerLink]="'overview'">
+      <img src="/img/navbar/finance-logo.svg" alt="" />
+    </a>
+    <app-burger-button
+      [color]="'#ffffff'"
+      [width]="'32px'"
+      [height]="'20px'"
+      (IsBurgerOpen)="toggleMobileNavbar($event)"
+    ></app-burger-button>
+  </header>
   }
   <main class="flex max-lg:flex-col-reverse w-full">
     @if (!this.isMobile) {
-      <app-navbar></app-navbar>
+    <app-navbar></app-navbar>
     }
     <app-content class="flex-1 relative flex"></app-content>
   </main>

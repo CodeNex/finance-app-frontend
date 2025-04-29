@@ -1,12 +1,13 @@
 import { Component, inject, OnInit, OnDestroy } from '@angular/core';
-import { NavbarComponent } from './navbar/navbar.component';
-import { ContentComponent } from '@content/content.component';
 import { RouterModule, Router } from '@angular/router';
 import { AsyncPipe } from '@angular/common';
 import { Subscription } from 'rxjs';
 
 import { MainModalComponent } from './main-modal/main-modal.component';
 import { BurgerButtonComponent } from '@src/components/burger-button/burger-button.component';
+import { NavbarComponent } from './navbar/navbar.component';
+import { ContentComponent } from '@content/content.component';
+import { MobileNavbarComponent } from './mobile-navbar/mobile-navbar.component';
 
 import { AuthenticationService } from '@services/authentication.service';
 import { MainModalService } from '@services/main-modal.service';
