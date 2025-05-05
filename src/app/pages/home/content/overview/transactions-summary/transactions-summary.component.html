@@ -21,14 +21,14 @@
       [ngStyle]="{
         'padding-bottom':
           this.readyToRenderArray &&
-          index < 4
+          index < 7
             ? '20px'
             : '0px'
       }"
     >
       <app-single-transaction [transaction]="item"></app-single-transaction>
     </li>
-    @if (this.readyToRenderArray && index < 4) {
+    @if (this.readyToRenderArray && index < 7) {
     <div class="w-full h-[2px] rounded-full bg-grey-100"></div>
     } }
   </ul>
