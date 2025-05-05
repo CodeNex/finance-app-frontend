@@ -4,9 +4,9 @@ module.exports = {
   theme: {
     extend: {
       screens: {
-        'max-sm': { max: '639px' },   // kleiner als sm
-        'max-md': { max: '767px' },   // kleiner als md
-        'max-lg': { max: '1025px' },  // kleiner als lg
+        'max-sm': { max: '639px' },  
+        'max-md': { max: '767px' },  
+        'max-lg': { max: '1025px' },  
       },
       colors: {
         beige: {
