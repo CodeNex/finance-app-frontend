@@ -3,6 +3,11 @@ module.exports = {
   content: ["./src/**/*.{html,ts}"],
   theme: {
     extend: {
+      screens: {
+        'max-sm': { max: '639px' },   // kleiner als sm
+        'max-md': { max: '767px' },   // kleiner als md
+        'max-lg': { max: '1025px' },  // kleiner als lg
+      },
       colors: {
         beige: {
           500: "var(--color-beige-500)",
