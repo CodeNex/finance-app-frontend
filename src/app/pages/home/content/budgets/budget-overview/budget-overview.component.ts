@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { BudgetChartComponent } from '@content/budgets/budget-overview/budget-chart/budget-chart.component';
 import { SpendingSummaryComponent } from '@content/budgets/budget-overview/spending-summary/spending-summary.component';
@@ -9,7 +10,7 @@ import { SpendingSummaryComponent } from '@content/budgets/budget-overview/spend
  */
 @Component({
   selector: 'app-budget-overview',
-  imports: [BudgetChartComponent, SpendingSummaryComponent],
+  imports: [BudgetChartComponent, SpendingSummaryComponent, CommonModule],
   templateUrl: './budget-overview.component.html',
   styleUrl: './budget-overview.component.scss'
 })

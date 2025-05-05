@@ -1,4 +1,5 @@
-<section class="flex flex-col items-center justify-between gap-6 w-full min-h-[100%] max-w-[1440px]" aria-label="Budget Overview Section">
+<section class="flex items-center justify-between gap-6 w-full min-h-[100%] max-w-[1440px]" aria-label="Budget Overview Section"
+[ngStyle]="{ 'flex-direction': inWhichSection === 'overview' ? 'column' : 'row' }">
   <app-budget-chart class="flex-1" aria-label="Spending Chart"></app-budget-chart>
   <app-spending-summary [inWhichSection]="inWhichSection" class="w-full"></app-spending-summary>
 </section>
