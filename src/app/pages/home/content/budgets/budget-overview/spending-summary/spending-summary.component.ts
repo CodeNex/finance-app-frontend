@@ -3,7 +3,8 @@ import {
   inject,
   Input,
   Signal,
-  computed
+  computed,
+  effect
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -29,7 +30,12 @@ export class SpendingSummaryComponent {
 
   public budgetsArraySignal: Signal<BudgetsObject[]> = this.dataStore.budgets;
 
-  public readonly budgetsArray: Signal<BudgetsObject[]> = computed(() => this.budgetsArraySignal().filter(b => !b.deleted_at));
+  public budgetsEffect = effect(() => {
+    let array = this.budgetsArraySignal();
+    this.budgetsArray = array.filter(b => !b.deleted_at);
+  })
+
+  public budgetsArray: BudgetsObject[] = [];
 
   @Input() public inWhichSection: string = '';
   // #endregion
