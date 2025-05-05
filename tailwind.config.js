@@ -6,7 +6,8 @@ module.exports = {
       screens: {
         'max-sm': { max: '639px' },  
         'max-md': { max: '767px' },  
-        'max-lg': { max: '1025px' },  
+        'max-lg': { max: '1025px' },
+        'max-xl': { max: '1279px' },
       },
       colors: {
         beige: {
