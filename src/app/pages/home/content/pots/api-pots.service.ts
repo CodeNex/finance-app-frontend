@@ -5,6 +5,7 @@ import { AuthenticationService } from '@services/authentication.service';
 import { BasedataService } from '@services/basedata.service';
 import { DataStoreServiceService } from '@services/data-store-service.service';
 import { MainModalService } from '@services/main-modal.service';
+import { ApiTransactionService } from '@content/transactions/api-transaction.service';
 
 /**
  * * * ApiPotsService
@@ -22,6 +23,7 @@ export class ApiPotsService {
   private authService = inject(AuthenticationService);
   private dataStore = inject(DataStoreServiceService);
   private mainModalService = inject(MainModalService);
+  private apiTransactionService = inject(ApiTransactionService);
 
   private baseUrl: string = this.baseData.baseUrl;
   // #endregion
@@ -118,12 +120,26 @@ export class ApiPotsService {
           this.dataStore.choseDataAndSoftDelete('pots', index);
           this.mainModalService.hideMainModal();
           console.log('Pot deleted');
+          this.apiTransactionService.startTransactionFromPots(
+            'potWithdraw',
+            new Date().toISOString(),
+            potObject.total,
+            index,
+            potObject.theme
+          );
         }
       },
       error: (error) => {
         console.error(error);
         this.dataStore.choseDataAndSoftDelete('pots', index);
         this.mainModalService.hideMainModal();
+        this.apiTransactionService.startTransactionFromPots(
+          'potWithdraw',
+          new Date().toISOString(),
+          potObject.total,
+          index,
+          potObject.theme
+        );
         return;
       },
     });
