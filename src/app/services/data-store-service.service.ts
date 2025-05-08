@@ -1433,11 +1433,7 @@ export class DataStoreServiceService {
     if (endpoint === 'budgets') this.budgets.set(data);
     if (endpoint === 'pots') this.pots.set(data);
     if (endpoint === 'transactions') this.transactions.set(data);
-    if (endpoint === 'recurrings') {
-      this.transactionsRecurring.set(data);
-      console.log(this.transactionsRecurring());
-      
-    } 
+    if (endpoint === 'recurrings') this.transactionsRecurring.set(data); 
   }
 
   /**
