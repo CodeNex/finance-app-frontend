@@ -14,9 +14,9 @@ import { RecurringBillsComponent } from '@content/recurring-bills/recurring-bill
 import { SettingsComponent } from '@content/settings/settings.component';
 
 export const routes: Routes = [
-  { path: 'login', component: LoginComponent, pathMatch: 'full' },
+  { path: '', component: LoginComponent, pathMatch: 'full' },
   {
-    path: '',
+    path: 'home',
     component: HomeComponent,
     children: [
       { path: '', redirectTo: 'overview', pathMatch: 'full' },
