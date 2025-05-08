@@ -79,8 +79,9 @@ export class ApiBudgetsService {
 
     this.http.put(`${this.baseUrl}/${path}`, body, { headers }).subscribe({
       next: (response: any) => {
-        if (response.message === 'Budget updated') {
-          // CREATE NEW TRANSACTION --->LOCAL in Datastore and at the same time remote at the server
+        if (response.message === 'Budget updated successfully') {
+          this.dataStore.editStoredData(endpoint, index, budgetObject);
+          this.mainModalService.hideMainModal();
         }
       },
       error: (error) => {
@@ -96,7 +97,7 @@ export class ApiBudgetsService {
    * @description - This function deletes a budget in the database
    * @returns - The response from the server
    * @param budgetObject - The budget object to be deleted
-   * @param index - The index of the budget to be deleted 
+   * @param index - The index of the budget to be deleted
    */
   // response: {message: "Budget deleted"}
   deleteBudget(budgetObject: BudgetsObject, index: number) {
