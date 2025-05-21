@@ -1,1 +1,33 @@
-<p>average-recurring works!</p>
+<div class="w-full h-full bg-white rounded-xl">
+<div>
+  <div>
+    @if (this.isDropDownOpen) {
+      <div
+        class="themeDropDown w-full h-[174px] no-scrollbar absolute z-10 left-0 top-14 bg-grey-900 shadow-[0px_4px_16px_0px_#ffffff40] rounded-lg pt-3 pb-3 pl-5 pr-5 overflow-auto"
+      >
+        @for (item of this.timeFrames; let index = $index; track item) {
+        <div
+          (click)="updateTimeWindow(item)"
+          class="w-full flex items-center justify-between pt-3 transition-all duration-300 ease-in-out rounded-lg"
+        >
+          <!-- Category Box Left Part -->
+          <div class="w-full flex gap-3 items-center mb-3 cursor-pointer">
+            <p
+              class="text4r text-white"
+              [ngStyle]="{
+                'font-weight':
+                  item.name === selectedTimeWindowName ? 'bold' : 'normal'
+              }"
+            >
+              {{ item.name }}
+            </p>
+          </div>
+        </div>
+        @if (index < this.timeFrames.length - 1) {
+        <hr class="bg-grey-500 border-grey-500 w-full h-[1px]" />
+        } }
+      </div>
+      }
+  </div>
+</div>
+</div>
