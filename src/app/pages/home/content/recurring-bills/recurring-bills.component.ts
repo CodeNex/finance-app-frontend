@@ -3,6 +3,7 @@ import { DataStoreServiceService } from '@services/data-store-service.service';
 import { CommonModule } from '@angular/common';
 import { BillsSummaryComponent } from '@content/recurring-bills/bills-summary/bills-summary.component';
 import { RecurringBillsListComponent } from '@content/recurring-bills/recurring-bills-list/recurring-bills-list.component';
+import { AverageRecurringComponent } from '@content/recurring-bills/average-recurring/average-recurring.component';
 
 /**
  * * * RecurringBillsComponent
@@ -11,7 +12,7 @@ import { RecurringBillsListComponent } from '@content/recurring-bills/recurring-
  */
 @Component({
   selector: 'app-recurring-bills',
-  imports: [ CommonModule, BillsSummaryComponent, RecurringBillsListComponent],
+  imports: [ CommonModule, BillsSummaryComponent, RecurringBillsListComponent, AverageRecurringComponent],
   templateUrl: './recurring-bills.component.html',
   styleUrl: './recurring-bills.component.scss'
 })
