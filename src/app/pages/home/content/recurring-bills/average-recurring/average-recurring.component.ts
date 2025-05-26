@@ -1,9 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
+import { FormatAmountPipe } from '@src/shared/pipes/format-amount.pipe';
 
 @Component({
   selector: 'app-average-recurring',
-  imports: [CommonModule],
+  imports: [CommonModule, FormatAmountPipe],
   templateUrl: './average-recurring.component.html',
   styleUrl: './average-recurring.component.scss'
 })
@@ -17,6 +18,9 @@ export class AverageRecurringComponent {
     { name: 'per Quarter', value: 'quarterly' },
     { name: 'per Year', value: 'yearly' },
   ];
+
+  public avrIncome: number = 0;
+  public avrExpense: number = 0;
 // #endregion
 
 // #region Helper Functions

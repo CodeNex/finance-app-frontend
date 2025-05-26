@@ -1,4 +1,4 @@
-<div class="w-full h-[255px] p-6 bg-white rounded-xl">
+<div class="w-full h-[272px] flex flex-col justify-between p-6 bg-white rounded-xl">
   <div class="flex justify-between items-center">
     <div>
       <svg
@@ -99,5 +99,23 @@
       }
     </div>
   </div>
-  <div></div>
+  <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-5">
+      <!-- Income Box -->
+      <div class="flex-1 items-center flex gap-4 flex-row h-full" aria-label="Income Box">
+        <div class="h-full min-h-[62px] w-1 rounded-full bg-secondary-green"></div>
+        <div class="flex flex-col gap-1">
+          <p class="text4r text-grey-500">Avr. Income</p>
+          <p class="text1b text-grey-900">{{ this.avrIncome | formatAmount }}</p>
+        </div>
+      </div>
+
+      <!-- Expenses Box -->
+      <div class="flex-1 items-center flex gap-4 flex-row h-full" aria-label="Expenses Box">
+        <div class="h-full min-h-[62px] w-1 rounded-full bg-secondary-lightRed"></div>
+        <div class="flex flex-col gap-1">
+          <p class="text4r text-grey-500">Avr. Expenses</p>
+          <p class="text1b text-grey-900">{{ this.avrExpense | formatAmount }}</p>
+        </div>
+      </div>
+    </div>
 </div>
