@@ -9,7 +9,6 @@ import { Injectable, signal } from '@angular/core';
   providedIn: 'root',
 })
 export class DataStoreServiceService {
-
   /**
    * @description - This Signal is used to store the settings data in the application.
    */
@@ -319,7 +318,6 @@ export class DataStoreServiceService {
       deleted_at: null,
     },
   ]);
-
 
   /**
    * * @description - This Signal is used to store the transactions data in the application.
@@ -1423,8 +1421,8 @@ export class DataStoreServiceService {
 
   /**
    * @description - Set the hole data package within signal and UI update
-   * @param endpoint - endpoint name to set the data 
-   * @param data - data to set 
+   * @param endpoint - endpoint name to set the data
+   * @param data - data to set
    */
   // set the hole data package within signal and UI update
   public setStoredData(endpoint: string, data: any): void {
@@ -1433,7 +1431,7 @@ export class DataStoreServiceService {
     if (endpoint === 'budgets') this.budgets.set(data);
     if (endpoint === 'pots') this.pots.set(data);
     if (endpoint === 'transactions') this.transactions.set(data);
-    if (endpoint === 'recurrings') this.transactionsRecurring.set(data); 
+    if (endpoint === 'recurrings') this.transactionsRecurring.set(data);
   }
 
   /**
@@ -1453,7 +1451,7 @@ export class DataStoreServiceService {
   /**
    * @description - Add new data to the existing dataArrays and update the signal and UI
    * @param endpoint - endpoint name to add the data
-   * @param data - data to add 
+   * @param data - data to add
    */
   public addToStoredData(endpoint: string, data: any) {
     if (endpoint === 'budgets') this.budgets.update((prev) => [data, ...prev]);
@@ -1485,9 +1483,9 @@ export class DataStoreServiceService {
 
   /**
    * @description - Soft delete data by setting the deleted_at property to the current date and time
-   * @param prev - previous data array  
-   * @param index - index of the data to soft delete 
-   * @returns - updated data array with soft deleted data 
+   * @param prev - previous data array
+   * @param index - index of the data to soft delete
+   * @returns - updated data array with soft deleted data
    */
   public softDeleteData(prev: any, index: number) {
     let array = [...prev];
@@ -1498,7 +1496,7 @@ export class DataStoreServiceService {
   /**
    * @description - Update the balance of a specific key and update the signal and UI
    * @param key - key to update the balance
-   * @param amount - amount to update the balance 
+   * @param amount - amount to update the balance
    */
   public updateStoredBalance(key: string, amount: number) {
     this.balance.update((prev) => {
@@ -1512,10 +1510,10 @@ export class DataStoreServiceService {
 
   /**
    * @description - Update the existing data and update the signal and UI
-   * @param endpoint - endpoint name to update the data 
-   * @param index - index of the data to update 
+   * @param endpoint - endpoint name to update the data
+   * @param index - index of the data to update
    * @param data - data to update
-   * @returns - updated data array with updated data 
+   * @returns - updated data array with updated data
    */
   // update the existing data and update the signal and UI
   public editStoredData(endpoint: string, index: number, data: any) {
