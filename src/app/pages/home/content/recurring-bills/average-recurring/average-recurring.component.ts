@@ -1,6 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, effect, inject } from '@angular/core';
 import { FormatAmountPipe } from '@src/shared/pipes/format-amount.pipe';
+
+import { DataStoreServiceService } from '@src/services/data-store-service.service';
 
 @Component({
   selector: 'app-average-recurring',
@@ -10,6 +12,9 @@ import { FormatAmountPipe } from '@src/shared/pipes/format-amount.pipe';
 })
 export class AverageRecurringComponent {
 // #region Component Setup (DI, Outputs, Template Refs, Subscription)
+  public dataStoreService = inject(DataStoreServiceService);
+  private recurrings: TransactionsObject[] = this.dataStoreService.transactionsRecurring();
+
   public selectedTimeWindow: string = 'monthly';
   public selectedTimeWindowName: string = 'per Month';
 
@@ -21,6 +26,8 @@ export class AverageRecurringComponent {
 
   public avrIncome: number = 0;
   public avrExpense: number = 0;
+
+  private avrRecEffect = effect(() => {})
 // #endregion
 
 // #region Helper Functions
