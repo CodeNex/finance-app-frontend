@@ -72,7 +72,7 @@
 
       @if (this.isDropDownOpen) {
       <div
-        class="themeDropDown w-full h-[174px] no-scrollbar absolute z-10 left-0 top-14 bg-grey-900 shadow-[0px_4px_16px_0px_#ffffff40] rounded-lg pt-3 pb-3 pl-5 pr-5 overflow-auto"
+        class="themeDropDown w-full h-[162px] no-scrollbar absolute z-10 left-0 top-14 bg-white shadow-[0px_4px_16px_0px_#201f2440] rounded-lg pt-3 pb-3 pl-5 pr-5 overflow-auto"
       >
         @for (item of this.timeFrames; let index = $index; track item) {
         <div
@@ -82,7 +82,7 @@
           <!-- Category Box Left Part -->
           <div class="w-full flex gap-3 items-center mb-3 cursor-pointer">
             <p
-              class="text4r text-white"
+              class="text4r text-grey-900"
               [ngStyle]="{
                 'font-weight':
                   item.name === selectedTimeWindowName ? 'bold' : 'normal'
@@ -93,7 +93,7 @@
           </div>
         </div>
         @if (index < this.timeFrames.length - 1) {
-        <hr class="bg-grey-500 border-grey-500 w-full h-[1px]" />
+        <hr class="bg-grey-100 border-grey-100 w-full h-[1px]" />
         } }
       </div>
       }
