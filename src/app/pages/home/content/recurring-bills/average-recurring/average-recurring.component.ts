@@ -29,6 +29,7 @@ export class AverageRecurringComponent {
 
   private avrRecEffect = effect(() => {
     this.recurrings = this.dataStoreService.transactionsRecurring();
+    this.getAverages();
   });
   // #endregion
 
@@ -42,44 +43,80 @@ export class AverageRecurringComponent {
   public updateTimeWindow(timeFrame: TimeFrame) {
     this.selectedTimeWindow = timeFrame.value;
     this.selectedTimeWindowName = timeFrame.name;
+    this.getAverages();
     this.toggleDropDown();
   }
   // #endregion
 
   // #region Calculations
-  private calculateAverages(): void {
-    this.recurrings
-      .forEach((recurring) => {
-        if (recurring.amount) {
-          switch (recurring.recurring) {
-            case null:
-              recurring.
-              this.avrIncome += recurring.amount;
-              break;
-            case 'weekly':
-              this.avrIncome += recurring.amount / 7;
-              break;
-            case 'twoWeeks':
-              this.avrIncome += recurring.amount / 14;
-              break;
-            case 'monthly':
-              this.avrIncome += recurring.amount / 30;
-              break;
-            case 'quarterly':
-              this.avrIncome += recurring.amount / 91;
-              break;
-            case 'halfYearly':
-              this.avrIncome += recurring.amount / 182;
-              break;
-            case 'yearly':
-              this.avrIncome += recurring.amount / 365;
-              break;
-            default:
-              break;
-          }
+  private avrDailyIncome: number = 0;
+  private avrDailyExpense: number = 0;
+
+  private calculateDailyAverages(): void {
+    this.recurrings.forEach((recurring) => {
+      if (recurring.amount) {
+        switch (recurring.recurring) {
+          case null:
+            recurring.type === 'credit'
+              ? (this.avrDailyIncome += recurring.amount)
+              : (this.avrDailyExpense += recurring.amount);
+            break;
+          case 'weekly':
+            recurring.type === 'credit'
+              ? (this.avrDailyIncome += recurring.amount / 7)
+              : (this.avrDailyExpense += recurring.amount / 7);
+            break;
+          case 'twoWeeks':
+            recurring.type === 'credit'
+              ? (this.avrDailyIncome += recurring.amount / 14)
+              : (this.avrDailyExpense += recurring.amount / 14);
+            break;
+          case 'monthly':
+            recurring.type === 'credit'
+              ? (this.avrDailyIncome += recurring.amount / 30)
+              : (this.avrDailyExpense += recurring.amount / 30);
+            break;
+          case 'quarterly':
+            recurring.type === 'credit'
+              ? (this.avrDailyIncome += recurring.amount / 91)
+              : (this.avrDailyExpense += recurring.amount / 91);
+            break;
+          case 'halfYearly':
+            recurring.type === 'credit'
+              ? (this.avrDailyIncome += recurring.amount / 182)
+              : (this.avrDailyExpense += recurring.amount / 182);
+            break;
+          case 'yearly':
+            recurring.type === 'credit'
+              ? (this.avrDailyIncome += recurring.amount / 365)
+              : (this.avrDailyExpense += recurring.amount / 365);
+            break;
+          default:
+            break;
         }
-      });
+      }
+    });
   }
 
+  private getAverages(): void {
+    this.calculateDailyAverages();
+
+    switch (this.selectedTimeWindow) {
+      case 'monthly':
+        this.avrIncome = this.avrDailyIncome * 30;
+        this.avrExpense = this.avrDailyExpense * 30;
+        break;
+      case 'quarterly':
+        this.avrIncome = this.avrDailyIncome * 91;
+        this.avrExpense = this.avrDailyExpense * 91;
+        break;
+      case 'yearly':
+        this.avrIncome = this.avrDailyIncome * 365;
+        this.avrExpense = this.avrDailyExpense * 365;
+        break;
+      default:
+        break;
+    }
+  }
   // #endregion
 }
