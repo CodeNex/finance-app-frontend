@@ -13,7 +13,7 @@ import { DataStoreServiceService } from '@src/services/data-store-service.servic
 export class AverageRecurringComponent {
 // #region Component Setup (DI, Outputs, Template Refs, Subscription)
   public dataStoreService = inject(DataStoreServiceService);
-  private recurrings: TransactionsObject[] = this.dataStoreService.transactionsRecurring();
+  private recurrings: TransactionsObject[] = [];
 
   public selectedTimeWindow: string = 'monthly';
   public selectedTimeWindowName: string = 'per Month';
@@ -27,7 +27,9 @@ export class AverageRecurringComponent {
   public avrIncome: number = 0;
   public avrExpense: number = 0;
 
-  private avrRecEffect = effect(() => {})
+  private avrRecEffect = effect(() => {
+    this.recurrings = this.dataStoreService.transactionsRecurring();
+  })
 // #endregion
 
 // #region Helper Functions
@@ -42,6 +44,10 @@ export class AverageRecurringComponent {
     this.selectedTimeWindowName = timeFrame.name;
     this.toggleDropDown();
   }
+// #endregion
+
+// #region Calculations
+
 // #endregion
 
 }
