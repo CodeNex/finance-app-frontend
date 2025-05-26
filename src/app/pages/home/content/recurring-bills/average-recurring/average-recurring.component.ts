@@ -53,6 +53,9 @@ export class AverageRecurringComponent {
   private avrDailyExpense: number = 0;
 
   private calculateDailyAverages(): void {
+    this.avrDailyIncome = 0;
+    this.avrDailyExpense = 0;
+
     this.recurrings.forEach((recurring) => {
       if (recurring.amount) {
         switch (recurring.recurring) {
@@ -99,6 +102,7 @@ export class AverageRecurringComponent {
   }
 
   private getAverages(): void {
+
     this.calculateDailyAverages();
 
     switch (this.selectedTimeWindow) {
