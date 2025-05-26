@@ -10,7 +10,7 @@ import { Component } from '@angular/core';
 export class AverageRecurringComponent {
 // #region Component Setup (DI, Outputs, Template Refs, Subscription)
   public selectedTimeWindow: string = 'monthly';
-  public selectedTimeWindowName: string = 'This Month';
+  public selectedTimeWindowName: string = 'per Month';
 
   public timeFrames: TimeFrame[] = [
     { name: 'per Month', value: 'monthly' },
@@ -29,6 +29,7 @@ export class AverageRecurringComponent {
   public updateTimeWindow(timeFrame: TimeFrame) {
     this.selectedTimeWindow = timeFrame.value;
     this.selectedTimeWindowName = timeFrame.name;
+    this.toggleDropDown();
   }
 // #endregion
 
