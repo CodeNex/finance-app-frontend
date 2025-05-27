@@ -4,6 +4,12 @@ import { FormatAmountPipe } from '@src/shared/pipes/format-amount.pipe';
 
 import { DataStoreServiceService } from '@src/services/data-store-service.service';
 
+/**
+ * * * AverageRecurringComponent
+ * This component calculates and displays the average recurring income and expenses based on the user's transactions.
+ * It allows the user to select a time window (monthly, quarterly, or yearly) to view the averages.
+ * It uses the DataStoreServiceService to fetch the recurring transactions and calculates the averages accordingly.
+ */
 @Component({
   selector: 'app-average-recurring',
   imports: [CommonModule, FormatAmountPipe],
@@ -54,6 +60,10 @@ export class AverageRecurringComponent {
   private avrDailyIncome: number = 0;
   private avrDailyExpense: number = 0;
 
+  /**
+   * @description - Calculates the daily averages for income and expenses based on the recurring transactions.
+   * It iterates through the recurring transactions and divides the amount by the number of days in the respective time frame.
+   */
   private calculateDailyAverages(): void {
     this.avrDailyIncome = 0;
     this.avrDailyExpense = 0;
@@ -103,10 +113,12 @@ export class AverageRecurringComponent {
     });
   }
 
+  /**
+   * @description - Calculates the average income and expense based on the selected time window.
+   * It first calculates the daily averages and then multiplies them by the number of days in the selected time window.
+   */
   private getAverages(): void {
-
     this.calculateDailyAverages();
-
     switch (this.selectedTimeWindow) {
       case 'monthly':
         this.avrIncome = this.avrDailyIncome * 30;
