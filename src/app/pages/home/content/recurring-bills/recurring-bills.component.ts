@@ -13,20 +13,28 @@ import { AddTransactionButtonComponent } from '@src/components/add-transaction-b
  */
 @Component({
   selector: 'app-recurring-bills',
-  imports: [ CommonModule, BillsSummaryComponent, RecurringBillsListComponent, AverageRecurringComponent, AddTransactionButtonComponent],
+  imports: [
+    CommonModule,
+    BillsSummaryComponent,
+    RecurringBillsListComponent,
+    AverageRecurringComponent,
+    AddTransactionButtonComponent,
+  ],
   templateUrl: './recurring-bills.component.html',
-  styleUrl: './recurring-bills.component.scss'
+  styleUrl: './recurring-bills.component.scss',
 })
 export class RecurringBillsComponent {
   // #region Component Setup (DI, Outputs, Template Refs, Subscription)
   private dataStore = inject(DataStoreServiceService);
 
-  public recurringBillsArray: TransactionsObject[] = this.dataStore.transactionsRecurring();
-  public transactionsArray: TransactionsObject[] = this.dataStore.transactions();
-  
+  public recurringBillsArray: TransactionsObject[] =
+    this.dataStore.transactionsRecurring();
+  public transactionsArray: TransactionsObject[] =
+    this.dataStore.transactions();
+
   public recurringBillsEffect = effect(() => {
     this.recurringBillsArray = this.dataStore.transactionsRecurring();
     this.transactionsArray = this.dataStore.transactions();
-  })
+  });
   // #endregion
 }
