@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { BillsSummaryComponent } from '@content/recurring-bills/bills-summary/bills-summary.component';
 import { RecurringBillsListComponent } from '@content/recurring-bills/recurring-bills-list/recurring-bills-list.component';
 import { AverageRecurringComponent } from '@content/recurring-bills/average-recurring/average-recurring.component';
+import { AddTransactionButtonComponent } from '@src/components/add-transaction-button/add-transaction-button.component';
 
 /**
  * * * RecurringBillsComponent
@@ -12,7 +13,7 @@ import { AverageRecurringComponent } from '@content/recurring-bills/average-recu
  */
 @Component({
   selector: 'app-recurring-bills',
-  imports: [ CommonModule, BillsSummaryComponent, RecurringBillsListComponent, AverageRecurringComponent],
+  imports: [ CommonModule, BillsSummaryComponent, RecurringBillsListComponent, AverageRecurringComponent, AddTransactionButtonComponent],
   templateUrl: './recurring-bills.component.html',
   styleUrl: './recurring-bills.component.scss'
 })
