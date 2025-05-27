@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { DataStoreServiceService } from '@services/data-store-service.service';
 import { AuthenticationService } from '@services/authentication.service';
 import { MainModalService } from '@services/main-modal.service';
+import { AddTransactionButtonComponent } from '@src/components/add-transaction-button/add-transaction-button.component';
 import { CategoryfilterTransactionsComponent } from './categoryfilter-transactions/categoryfilter-transactions.component';
 import { SearchTransactionComponent } from '@content/transactions/search-transaction/search-transaction.component';
 import { SortbyTransactionsComponent } from '@content/transactions/sortby-transactions/sortby-transactions.component';
@@ -26,6 +27,7 @@ import { PaginationTransactionsComponent } from '@content/transactions/paginatio
     CategoryfilterTransactionsComponent,
     SingleTransactionComponent,
     PaginationTransactionsComponent,
+    AddTransactionButtonComponent,
   ],
   templateUrl: './transactions.component.html',
   styleUrl: './transactions.component.scss',

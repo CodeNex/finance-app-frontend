@@ -5,12 +5,9 @@
       class="potsHeader flex items-center justify-between"
     >
       <p class="text1b">Transactions</p>
-      <button
-        (click)="openSubModal('addTransaction', {})"
-        class="border-solid bg-grey-900 text4b text-white p-4 rounded-lg transition-all duration-300 hover:bg-grey-500"
-      >
-        + Add New Transaction
-      </button>
+
+      <app-add-transaction-button></app-add-transaction-button>
+
     </header>
 
     <!-- Transactions content section -->
