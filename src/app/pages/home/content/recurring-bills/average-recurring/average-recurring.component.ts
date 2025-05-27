@@ -30,6 +30,8 @@ export class AverageRecurringComponent {
   private avrRecEffect = effect(() => {
     this.recurrings = this.dataStoreService.transactionsRecurring();
     this.getAverages();
+    console.log('Average Recurring Effect: ', this.dataStoreService.transactionsRecurring());
+    
   });
   // #endregion
 
@@ -57,7 +59,7 @@ export class AverageRecurringComponent {
     this.avrDailyExpense = 0;
 
     this.recurrings.forEach((recurring) => {
-      if (recurring.amount) {
+      if (recurring.amount && !recurring.deleted_at) {
         switch (recurring.recurring) {
           case null:
             recurring.type === 'credit'
