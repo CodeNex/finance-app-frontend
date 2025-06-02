@@ -34,6 +34,10 @@ export class SearchTransactionComponent implements OnInit, OnDestroy {
   }
 
   public isSmallTablet: boolean = false
+
+  public placeholderText = () => {
+    return this.isSmallTablet ? 'Search Trans...' : 'Search Transaction';
+  }
   // #endregion
 
   // #region Lifecycle Hooks
