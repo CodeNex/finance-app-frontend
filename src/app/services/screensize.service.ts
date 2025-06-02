@@ -9,8 +9,8 @@ import { map } from 'rxjs/operators';
 export class ScreensizeService {
   private customBreakpoints = {
     handset: '(max-width: 768px)',
-    tablet: '(max-width: 1024px)',
-    desktop: '(min-width: 1025px)',
+    tablet: '(max-width: 1280px)',
+    desktop: '(min-width: 1281px)',
   }
 
   private breakpointObserver = inject(BreakpointObserver);
