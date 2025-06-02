@@ -15,7 +15,7 @@ import { map } from 'rxjs/operators';
 export class ScreensizeService {
   private customBreakpoints = {
     handset: '(max-width: 768px)',
-    smallTablet: '(min-width: 769px) and (max-width: 1280px)',
+    smallTablet: '(max-width: 1024px)',
     tablet: '(max-width: 1280px)',
     desktop: '(min-width: 1281px)',
   };

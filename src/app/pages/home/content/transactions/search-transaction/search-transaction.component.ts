@@ -30,6 +30,8 @@ export class SearchTransactionComponent implements OnInit, OnDestroy {
   public emitSearchFieldChange(input: string) {
     this.searchFieldChange.emit(input);
   }
+
+  public isSmallTablet: boolean = false
   // #endregion
 
   // #region Lifecycle Hooks
