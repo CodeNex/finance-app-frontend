@@ -1,6 +1,15 @@
 import { CommonModule } from '@angular/common';
 import { Subscription } from 'rxjs';
-import { Component, Output, OnInit, OnDestroy, EventEmitter, ViewChild, ElementRef, inject } from '@angular/core';
+import {
+  Component,
+  Output,
+  OnInit,
+  OnDestroy,
+  EventEmitter,
+  ViewChild,
+  ElementRef,
+  inject,
+} from '@angular/core';
 import { IconsComponent } from '@components/icons/icons.component';
 
 import { ScreensizeService } from '@src/services/screensize.service';
@@ -17,35 +26,38 @@ import { ScreensizeService } from '@src/services/screensize.service';
   selector: 'app-search-transaction',
   imports: [CommonModule, IconsComponent],
   templateUrl: './search-transaction.component.html',
-  styleUrl: './search-transaction.component.scss'
+  styleUrl: './search-transaction.component.scss',
 })
 export class SearchTransactionComponent implements OnInit, OnDestroy {
   // #region Component Setup (DI, Outputs, Template Refs, Subscription)
-  private screenSizeService = inject(ScreensizeService); 
+  private screenSizeService = inject(ScreensizeService);
 
   private searchTransactionSubscriptions$: Subscription = new Subscription();
 
-  @Output() public searchFieldChange: EventEmitter<string> = new EventEmitter<string>();
+  @Output() public searchFieldChange: EventEmitter<string> =
+    new EventEmitter<string>();
 
-  @ViewChild('transactionSearchInputField') public transactionSearchInputField!: ElementRef<HTMLInputElement>;
+  @ViewChild('transactionSearchInputField')
+  public transactionSearchInputField!: ElementRef<HTMLInputElement>;
 
   public emitSearchFieldChange(input: string) {
     this.searchFieldChange.emit(input);
   }
 
-  public isSmallTablet: boolean = false
+  public isSmallTablet: boolean = false;
 
-  public placeholderText = () => {
+  public get placeholderText(): string {
     return this.isSmallTablet ? 'Search Trans...' : 'Search Transaction';
-  }
+  };
   // #endregion
 
   // #region Lifecycle Hooks
   ngOnInit(): void {
-    this.searchTransactionSubscriptions$.add(this.screenSizeService.isSmallTablet$.subscribe((isSmallTablet$) => {this.isSmallTablet = isSmallTablet$;
-      console.log(`Is small tablet: ${this.isSmallTablet}`);
-      
-    }));
+    this.searchTransactionSubscriptions$.add(
+      this.screenSizeService.isSmallTablet$.subscribe(
+        (isSmallTablet$) => (this.isSmallTablet = isSmallTablet$)
+      )
+    );
   }
 
   ngOnDestroy(): void {
