@@ -10,6 +10,8 @@ import { ScreensizeService } from '@src/services/screensize.service';
  * This component is responsible for displaying the search input field for transactions.
  * It allows the user to search for transactions by entering a search term.
  * It uses the CommonModule for common Angular directives and the IconsComponent for displaying icons.
+ * It also uses the ScreensizeService to determine if the screen size is small tablet or not.
+ * The component emits an event when the search field changes, allowing parent components to react to the change.
  */
 @Component({
   selector: 'app-search-transaction',
@@ -35,7 +37,12 @@ export class SearchTransactionComponent implements OnInit, OnDestroy {
   // #endregion
 
   // #region Lifecycle Hooks
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.searchTransactionSubscriptions$.add(this.screenSizeService.isSmallTablet$.subscribe((isSmallTablet$) => {this.isSmallTablet = isSmallTablet$;
+      console.log(`Is small tablet: ${this.isSmallTablet}`);
+      
+    }));
+  }
 
   ngOnDestroy(): void {
     this.searchTransactionSubscriptions$.unsubscribe();
