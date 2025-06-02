@@ -1,4 +1,4 @@
-<section class="transaction-summary min-h-[458px] bg-white flex flex-col gap-8 p-8 rounded-xl">
+<section class="transaction-summary min-h-[458px] bg-white flex flex-col gap-8 px-5 py-6 sm:px-8 sm:py-8 rounded-xl">
 
   <p class="transactions-summary-header flex items-center justify-between">
       <span class="text2b">Last Transactions</span>
@@ -17,18 +17,18 @@
     {
     <li
       aria-label="spending item"
-      class="pt-5 pb-3"
+      class="pt-[24px] pb-[16px]"
       [ngStyle]="{
         'padding-bottom':
           this.readyToRenderArray &&
-          index < 4
+          index < 7
             ? '20px'
             : '0px'
       }"
     >
       <app-single-transaction [transaction]="item"></app-single-transaction>
     </li>
-    @if (this.readyToRenderArray && index < 4) {
+    @if (this.readyToRenderArray && index < 7) {
     <div class="w-full h-[2px] rounded-full bg-grey-100"></div>
     } }
   </ul>

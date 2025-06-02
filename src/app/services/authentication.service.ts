@@ -84,9 +84,7 @@ export class AuthenticationService {
             this.setTokenToLocalStorage(response.token);
           this.authWarningMessage.set('');
           this.authToken = response.token;
-          this.startApiFirstDataLoading();
-          console.log(this.authToken);
-          
+          this.startApiFirstDataLoading(); 
         },
         error: (error) => {
           this.setLoadingScreen(false);
@@ -118,7 +116,12 @@ export class AuthenticationService {
           this.router.navigate(['']);
         },
         error: (error) => {
-          console.error('Fail to logout', error);
+          // console.error('Fail to logout', error);
+          this.authToken = '';
+          localStorage.removeItem(
+            `${this.baseData.tokenKey}`
+          );
+          this.router.navigate(['']);
         },
       });
   }

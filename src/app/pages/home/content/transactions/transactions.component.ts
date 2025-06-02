@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { DataStoreServiceService } from '@services/data-store-service.service';
 import { AuthenticationService } from '@services/authentication.service';
 import { MainModalService } from '@services/main-modal.service';
+import { AddTransactionButtonComponent } from '@src/components/add-transaction-button/add-transaction-button.component';
 import { CategoryfilterTransactionsComponent } from './categoryfilter-transactions/categoryfilter-transactions.component';
 import { SearchTransactionComponent } from '@content/transactions/search-transaction/search-transaction.component';
 import { SortbyTransactionsComponent } from '@content/transactions/sortby-transactions/sortby-transactions.component';
@@ -26,6 +27,7 @@ import { PaginationTransactionsComponent } from '@content/transactions/paginatio
     CategoryfilterTransactionsComponent,
     SingleTransactionComponent,
     PaginationTransactionsComponent,
+    AddTransactionButtonComponent,
   ],
   templateUrl: './transactions.component.html',
   styleUrl: './transactions.component.scss',
@@ -50,7 +52,7 @@ export class TransactionsComponent {
 
   // #region Helper Functions
   /**
-   * @description - This function is responsible for setting the total sub pages signal.	
+   * @description - This function is responsible for setting the total sub pages signal.
    * @param value - The value to be set for the total sub pages signal.
    */
   private setTotalSubPagesSignal(value: number): void {
@@ -58,7 +60,7 @@ export class TransactionsComponent {
   }
 
   /**
-   * @description - This function is responsible for setting the current page signal.	
+   * @description - This function is responsible for setting the current page signal.
    * @param value - The value to be set for the current page signal.
    */
   public setCurrentPageSignal(value: number): void {
@@ -69,7 +71,7 @@ export class TransactionsComponent {
    * @description - This function is responsible for opening the sub modal.
    * It uses the MainModalService to open the sub modal and pass the object to it.
    * @param subModal - The name of the sub modal to be opened.
-   * @param subModalObject - The object to be passed to the sub modal. 
+   * @param subModalObject - The object to be passed to the sub modal.
    */
   public openSubModal(subModal: string, subModalObject: Object = {}): void {
     this.mainModalService.chooseSubModal(subModal, subModalObject, null);
@@ -79,7 +81,7 @@ export class TransactionsComponent {
   // #region Format & Sorting Transactions Array
   /**
    * @description - This function is responsible for formatting the transactions array.
-   * It filters the transactions by category, searches for transactions by name, 
+   * It filters the transactions by category, searches for transactions by name,
    * sorts the transactions by date, and splits the transactions into sub arrays for pagination.
    * @param prevArray - The array of transactions to be formatted.
    */
@@ -92,7 +94,6 @@ export class TransactionsComponent {
     this.renderReadyArray = splittedArray;
   }
 
-  
   // functions to filter the array by category
   public categoryFilterInput: string = 'All Transactions';
 
@@ -110,7 +111,7 @@ export class TransactionsComponent {
   /**
    * @description - This function is responsible for getting the transactions filtered by categories.
    * @param prevArray - The array of transactions to be filtered by category.
-   * @returns - The filtered array of transactions. 
+   * @returns - The filtered array of transactions.
    */
   private getTransactionsFilteredByCategories(
     prevArray: TransactionsObject[]
@@ -140,7 +141,7 @@ export class TransactionsComponent {
   /**
    * @description - This function is responsible for getting the transactions filtered by search field.
    * @param prevArray - The array of transactions to be filtered by search field.
-   * @returns - The filtered array of transactions. 
+   * @returns - The filtered array of transactions.
    */
   private getSearchedTransactions(
     prevArray: TransactionsObject[]
@@ -184,7 +185,7 @@ export class TransactionsComponent {
   /**
    * @description - This function is responsible for splitting the transactions array into sub arrays for pagination.
    * @param prevArray - The array of transactions to be split into sub arrays.
-   * @returns - The splitted array of transactions. 
+   * @returns - The splitted array of transactions.
    */
   private splitTransactionsArray(
     prevArray: TransactionsObject[]
@@ -213,9 +214,11 @@ export class TransactionsComponent {
   /**
    * @description - This function is responsible for getting the transactions sorted by the given input.
    * @param prevArray - The array of transactions to be sorted.
-   * @returns - The sorted array of transactions. 
+   * @returns - The sorted array of transactions.
    */
-  private getSortedTransactions(prevArray: TransactionsObject[]): TransactionsObject[] {
+  private getSortedTransactions(
+    prevArray: TransactionsObject[]
+  ): TransactionsObject[] {
     let array: TransactionsObject[] = prevArray;
     if (
       this.sortByInput === 'Latest' ||
@@ -234,7 +237,7 @@ export class TransactionsComponent {
   /**
    * @description - This function is responsible for sorting the transactions array by date.
    * @param array - The array of transactions to be sorted by date.
-   * @returns - The sorted array of transactions. 
+   * @returns - The sorted array of transactions.
    */
   private sortByDate(array: TransactionsObject[]): TransactionsObject[] {
     return array.sort((a, b) => {
@@ -259,7 +262,7 @@ export class TransactionsComponent {
   /**
    * @description - This function is responsible for sorting the transactions array by name.
    * @param array - The array of transactions to be sorted by name.
-   * @returns - The sorted array of transactions. 
+   * @returns - The sorted array of transactions.
    */
   private sortByAlphabet(array: TransactionsObject[]): TransactionsObject[] {
     return array.sort((a, b) => {
@@ -274,7 +277,7 @@ export class TransactionsComponent {
   /**
    * @description - This function is responsible for sorting the transactions array by amount.
    * @param array - The array of transactions to be sorted by amount.
-   * @returns - The sorted array of transactions. 
+   * @returns - The sorted array of transactions.
    */
   private sortByAmount(array: TransactionsObject[]): TransactionsObject[] {
     return array.sort((a, b) => {

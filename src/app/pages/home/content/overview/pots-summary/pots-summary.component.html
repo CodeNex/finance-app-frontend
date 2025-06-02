@@ -1,23 +1,23 @@
 <section
-  class="pots-summary bg-white flex flex-col gap-8 p-8 rounded-xl"
+  class="pots-summary bg-white flex flex-col gap-8 px-5 py-6 sm:px-8 sm:py-8 rounded-xl"
   aria-label="Pots Summary"
 >
-  <p class="pots-summary-header flex items-center justify-between">
-    <span class="text2b">Pots</span>
-    <span
+  <div class="pots-summary-header flex items-center justify-between">
+    <p class="text2b">Pots</p>
+    <a
       [routerLink]="['/home/pots']"
       class="details-Btn text4r text-grey-500 flex items-center gap-4 transition-all duration-300 ease-in-out hover:text-grey-900 hover:cursor-pointer"
       aria-label="Button to be redirected to the pots page"
     >
       See Details
       <app-icons [iconName]="'smallArrowRight'"></app-icons>
-  </span>
-  </p>
+  </a>
+</div>
 
-  <div class="pots-summary-content flex justify-center items-center gap-4" aria-label="Pots Summary Content">
+  <div class="pots-summary-content flex flex-col sm:flex-row gap-4 items-center " aria-label="Pots Summary Content">
 
     <div
-      class="total-saved-container bg-beige-100 min-w-[247px] min-h-[110px] flex gap-4 items-center p-4 rounded-xl"
+      class="total-saved-container bg-beige-100 w-full sm:max-w-[247px] sm:min-w-[247px] min-h-[110px] flex gap-4 items-center p-4 rounded-xl"
     >
       <app-icons [iconName]="'potsTransparentGreen'"></app-icons>
       <div class="total-saved flex flex-col gap-3">

@@ -1,22 +1,22 @@
 <div
-  class="overview-balance-container max-w-[100%] flex justify-between gap-6"
+  class="overview-balance-container max-w-[100%] flex max-xl:flex-col justify-between gap-6"
   aria-label="Overview Balance Container"
 >
   <div
-    class="overview-balance bg-grey-900 text-white flex flex-col justify-between gap-4 flex-[1] p-6 rounded-xl"
+    class="overview-balance bg-grey-900 text-white flex flex-col justify-between gap-4 flex-[1] px-5 py-6 sm:px-8 sm:py-8 rounded-xl"
     aria-label="Current Balance"
   >
     <p class="text2b">Current Balance</p>
     <p class="text1b">{{ this.balance | formatAmount }}</p>
   </div>
 
-  <div class="flex-[2] bg-white flex flex-col gap-3 p-6 rounded-xl">
+  <div class="flex-[2] bg-white flex flex-col gap-3 px-5 py-6 sm:px-8 sm:py-8 rounded-xl">
     <!-- Details Upper Part -->
     <div class="flex justify-between">
       <p class="text2b text-grey-900">Details</p>
       <!-- DropDown -->
       <div class="flex items-center gap-3">
-        <p class="text4r text-grey-500">for the last</p>
+        <p class="text4r text-grey-500">last</p>
         <div class="relative">
           <div
             (click)="openCloseDropdown()"
@@ -67,11 +67,12 @@
         </div>
       </div>
     </div>
+    
     <!-- Details Lower Part -->
-    <div class="flex justify-between items-center gap-5">
+    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-5">
       <!-- Income Box -->
-      <div class="flex-1 flex gap-4 flex-row h-full" aria-label="Income Box">
-        <div class="h-full w-1 rounded-full bg-secondary-green"></div>
+      <div class="flex-1 items-center flex gap-4 flex-row h-full" aria-label="Income Box">
+        <div class="h-full min-h-[62px] w-1 rounded-full bg-secondary-green"></div>
         <div class="flex flex-col gap-1">
           <p class="text4r text-grey-500">Income</p>
           <p class="text1b text-grey-900">{{ this.income | formatAmount }}</p>
@@ -79,8 +80,8 @@
       </div>
 
       <!-- Expenses Box -->
-      <div class="flex-1 flex gap-4 flex-row h-full" aria-label="Expenses Box">
-        <div class="h-full w-1 rounded-full bg-secondary-lightRed"></div>
+      <div class="flex-1 items-center flex gap-4 flex-row h-full" aria-label="Expenses Box">
+        <div class="h-full min-h-[62px] w-1 rounded-full bg-secondary-lightRed"></div>
         <div class="flex flex-col gap-1">
           <p class="text4r text-grey-500">Expenses</p>
           <p class="text1b text-grey-900">{{ this.expenses | formatAmount }}</p>

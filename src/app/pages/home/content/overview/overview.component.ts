@@ -6,6 +6,7 @@ import { PotsSummaryComponent } from '@content/overview/pots-summary/pots-summar
 import { TransactionsSummaryComponent } from '@content/overview/transactions-summary/transactions-summary.component';
 import { BudgetsSummaryComponent } from '@content/overview/budgets-summary/budgets-summary.component';
 import { RecurringBillsSummaryComponent } from '@content/overview/recurring-bills-summary/recurring-bills-summary.component';
+import { AddTransactionButtonComponent } from '@src/components/add-transaction-button/add-transaction-button.component';
 
 /**
  * * * * OverviewComponent
@@ -14,7 +15,7 @@ import { RecurringBillsSummaryComponent } from '@content/overview/recurring-bill
  */
 @Component({
   selector: 'app-overview',
-  imports: [ CommonModule, BalanceComponent, PotsSummaryComponent, TransactionsSummaryComponent, BudgetsSummaryComponent, RecurringBillsSummaryComponent],
+  imports: [ CommonModule, BalanceComponent, PotsSummaryComponent, TransactionsSummaryComponent, BudgetsSummaryComponent, RecurringBillsSummaryComponent, AddTransactionButtonComponent],
   templateUrl: './overview.component.html',
   styleUrl: './overview.component.scss',
 })

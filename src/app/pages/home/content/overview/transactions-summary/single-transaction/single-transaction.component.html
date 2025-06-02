@@ -1,16 +1,16 @@
-<div class="w-full flex items-center justify-between">
+<div class="w-full flex gap-2 items-center justify-between">
     <div class="flex items-center gap-4">
       <div
         aria-labelledby="logo"
-        class="w-10 h-10 rounded-full flex items-center justify-center"
+        class="w-8 sm:w-10 h-8 sm:h-10 rounded-full flex items-center justify-center"
         [ngStyle]="{ 'background-color': iconBackground }"
       >
         <app-icons [iconName]="iconName"></app-icons>
       </div>
-      <p class="text3b text-grey-900">{{ this.transaction.name }}</p>
+      <p class="text4b sm:text3b text-grey-900">{{ this.transaction.name }}</p>
     </div>
     <div>
-      <p class="text-right text3b text-grey-900">{{ this.transaction.amount | formatAmount: this.transaction.type }}</p>
-      <p class="text-right text5r text-grey-500">{{ this.transaction.execute_on | formatDate }}</p>
+      <p class="text-right whitespace-nowrap text4b sm:text3b text-grey-900">{{ this.transaction.amount | formatAmount: this.transaction.type }}</p>
+      <p class="text-right whitespace-nowrap text5r text-grey-500">{{ this.transaction.execute_on | formatDate }}</p>
     </div>
   </div>
