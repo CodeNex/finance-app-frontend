@@ -5,12 +5,9 @@
       class="potsHeader flex items-center justify-between"
     >
       <p class="text1b">Transactions</p>
-      <button
-        (click)="openSubModal('addTransaction', {})"
-        class="border-solid bg-grey-900 text4b text-white p-4 rounded-lg transition-all duration-300 hover:bg-grey-500"
-      >
-        + Add New Transaction
-      </button>
+
+      <app-add-transaction-button></app-add-transaction-button>
+
     </header>
 
     <!-- Transactions content section -->
@@ -28,11 +25,11 @@
         </div>
         <div class="flex items-center gap-6">
           <div class="flex items-center gap-2">
-            <p class="text4r text-grey-500">Sort by</p>
+            <p class="text5r lg:text4r text-grey-500">Sort by</p>
             <app-sortby-transactions (sortByChange)="setSortByInput($event)"></app-sortby-transactions>
           </div>
           <div class="flex items-center gap-2">
-            <p class="text4r text-grey-500">Category</p>
+            <p class="text5r lg:text4r text-grey-500">Category</p>
             <app-categoryfilter-transactions (categoryFilterChange)="setCategoryFilterInput($event)"></app-categoryfilter-transactions>
           </div>
         </div>

@@ -4,6 +4,11 @@
 
 header {
   padding: 24px 32px;
+
+  @media screen and (max-width: 768px) {
+    padding: 24px 16px;
+    
+  }
 }
 
 .opened {

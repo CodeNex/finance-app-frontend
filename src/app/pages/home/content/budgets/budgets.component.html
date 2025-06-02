@@ -11,7 +11,7 @@
       (click)="openSubModal('addBudget', {})"
       class="border-solid bg-grey-900 text4b text-white p-4 rounded-lg transition-all duration-300 hover:bg-grey-500"
     >
-      + Add New Budget
+      + Budget
     </button>
   </header>
 
@@ -21,7 +21,7 @@
   >
     <div
       aria-label="Budgets overview"
-      class="w-full p-6 rounded-xl min-h-[250px] min-w-[500px] max-w-[700px] bg-white"
+      class="w-full p-6 rounded-xl min-h-[250px] max-w-[700px] bg-white"
     >
       <app-budget-overview [inWhichSection]="'budgets'"></app-budget-overview>
     </div>
@@ -35,7 +35,7 @@
       <app-single-budget
         [budgetInput]="item"
         [budgetIndex]="index"
-        class="min-w-[500px] w-full max-w-[700px] flex-1"
+        class="w-full max-w-[700px] flex-1"
       ></app-single-budget>
       }}
     </ul>

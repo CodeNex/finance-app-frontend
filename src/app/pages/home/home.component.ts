@@ -72,8 +72,6 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   public toggleMobileNavbar(event: boolean): void {
     this.isMobileNavbarOpen = event;
-    console.log('Is Mobile Navbar Open:', this.isMobileNavbarOpen);
-    
   }
   // #endregion
 }

@@ -66,7 +66,6 @@ export class APIService {
         this.checkDataLoaded(endpoint);
         this.authService.setWarningScreen(false);
         this.warningMessage.set('');
-        console.log(this.dataStore.getStoredData(endpoint));
       },
       error: (error) => {
         console.error(`Fail to fetch ${endpoint} data`, error);

@@ -1,26 +1,45 @@
-<router-outlet class="w-full"></router-outlet>
+<router-outlet></router-outlet>
+
 @if (this.isConstructionNoticeVisible) {
-  <section aria-label="Construction Notice"
-class="absolute top-0 left-0 z-[1000] w-full h-full backdrop-blur-lg flex items-center justify-center p-4 bg-black/75">
-  <div class="constructionModal flex"> 
+<section
+  aria-label="Construction Notice"
+  class="absolute top-0 left-0 z-[1000] w-full h-full backdrop-blur-lg flex items-center justify-center p-4 bg-black/75"
+>
+  <div class="constructionModal flex">
     <div class="flex flex-col justify-between">
       <div class="text-center">
         <p class="text1b">UNDER</p>
         <p class="text1b mb-8">CONSTRUCTION</p>
-        <p class="infoText">Dear visitor,<br><br>
-          Our app is still under development.<br>
-          To give you a first impression, the Guest login is already available - but not all features are active yet, and you may encounter some errors.<br>
-          We are working hard to complete everything soon.<br>
-          Thank you for your understanding!</p>
+        <p class="infoText">
+          Dear visitor,<br /><br />
+          Our app is still under development.<br />
+          To give you a first impression, the Guest login is already available -
+          but not all features are active yet, and you may encounter some
+          errors.<br />
+          We are working hard to complete everything soon.<br />
+          Thank you for your understanding!
+        </p>
       </div>
       <div class="flex flex-col gap-8">
-        <button (click)="closeConstructionNotice()" class="bg-grey-900 w-full pt-4 pb-4 rounded-lg text2b transition-all duration-300 ease-in-out hover:bg-grey-500 text-white text-center">Notify Me!</button>
+        <button
+          (click)="closeConstructionNotice()"
+          class="bg-grey-900 w-full pt-4 pb-4 rounded-lg text2b transition-all duration-300 ease-in-out hover:bg-grey-500 text-white text-center"
+        >
+          Notify Me!
+        </button>
         <div class="flex flex-col items-center gap-1">
-          <p class="text4r">More information on:</p><a class="underline text4b" href="https://github.com/CodeNex" target="_blank">GitHub</a>
-          <a class="underline text4b" href="https://code-nex.de" target="_blank">Code-Nex</a>
+          <p class="text4r">More information on:</p>
+          <a
+            class="underline text4b"
+            href="https://github.com/CodeNex"
+            target="_blank"
+            >GitHub</a
+          >
+          <a class="underline text4b" href="https://code-nex.de" target="_blank"
+            >Code-Nex</a
+          >
         </div>
       </div>
-
     </div>
     <div></div>
   </div>

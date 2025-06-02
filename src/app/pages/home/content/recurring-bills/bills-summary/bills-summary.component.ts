@@ -66,7 +66,7 @@ export class BillsSummaryComponent {
   // boolean to control the dropdown
   public isDropDownOpen: boolean = false;
 
-  public closeHideDropdown() {
+  public closeHideDropdown(): void {
     this.isDropDownOpen = !this.isDropDownOpen;
   }
   // #endregion

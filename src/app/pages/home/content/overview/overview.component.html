@@ -6,30 +6,42 @@
     class="overview-container min-h-[761px] w-[100%] max-w-[1440px] flex flex-col gap-8"
     aria-label="Overview Wrapper"
   >
-    <h2 class="text1b">Overview</h2>
+    <div class="flex items-center justify-between">
+      <h2 class="text1b">Overview</h2>
+      <app-add-transaction-button></app-add-transaction-button>
+    </div>
+    
 
     <app-balance></app-balance>
 
     <div
-      class="overview-summary-container min-w-[100%] min-h-[100%] flex gap-6 sm:max-2xl:flex-col"
+      class="overview-summary-container min-w-[100%] flex gap-6 max-xl:flex-col"
       aria-label="Overview Summary Container"
     >
       <div
-        class="summary-left min-w-[55%] min-h-[100%] flex flex-2 flex-col gap-6"
+        class="summary-left xl:min-w-[55%] flex flex-2 flex-col gap-6"
         aria-label="Left Half of the Overview Summary"
       >
         <app-pots-summary></app-pots-summary>
+
         <app-transactions-summary></app-transactions-summary>
+
       </div>
+
+
       <div
-        class="summary-right min-w-[40%] min-h-[100%] flex flex-1 flex-col gap-6"
+        class="summary-right xl:min-w-[40%] flex flex-1 flex-col gap-6"
         aria-label="Right Half of the Overview Summary"
       >
         <app-budgets-summary></app-budgets-summary>
+
         <app-recurring-bills-summary
           [inWhichSection]="'overview'"
-        ></app-recurring-bills-summary>
+        ></app-recurring-bills-summary> 
+
       </div>
+
+
     </div>
   </div>
 </section>

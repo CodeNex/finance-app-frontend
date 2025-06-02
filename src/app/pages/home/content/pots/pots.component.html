@@ -5,11 +5,11 @@
       (click)="openSubModal('addPot', {})"
       class="border-solid bg-grey-900 text4b text-white p-4 rounded-lg transition-all duration-300 hover:bg-grey-500"
     >
-      + Add New Pot
+      + Pot
     </button>
   </div>
 
-  <div class="potsContent flex flex-wrap gap-6">
+  <div class="potsContent flex justify-center flex-wrap gap-6">
     @for (item of this.potsSignal(); let index = $index; track item) { @if
     (!item.deleted_at) {
     <app-single-pot

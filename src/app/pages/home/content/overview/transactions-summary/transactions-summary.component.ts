@@ -37,7 +37,7 @@ export class TransactionsSummaryComponent {
       return (
         new Date(b.execute_on).getTime() - new Date(a.execute_on).getTime()
       );
-    }).slice(0, 4);
+    }).slice(0, 7);
   }
   // #endregion
 }
