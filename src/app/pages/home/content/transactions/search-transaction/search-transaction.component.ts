@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { Component, Output, OnInit, OnDestroy, EventEmitter, ViewChild, ElementRef } from '@angular/core';
 import { IconsComponent } from '@components/icons/icons.component';
 
 /**
@@ -14,14 +15,24 @@ import { IconsComponent } from '@components/icons/icons.component';
   templateUrl: './search-transaction.component.html',
   styleUrl: './search-transaction.component.scss'
 })
-export class SearchTransactionComponent {
+export class SearchTransactionComponent implements OnInit, OnDestroy {
   // #region Component Setup (DI, Outputs, Template Refs, Subscription)
+  private searchTransactionSubscriptions$: Subscription = new Subscription();
+
   @Output() public searchFieldChange: EventEmitter<string> = new EventEmitter<string>();
 
   @ViewChild('transactionSearchInputField') public transactionSearchInputField!: ElementRef<HTMLInputElement>;
 
   public emitSearchFieldChange(input: string) {
     this.searchFieldChange.emit(input);
+  }
+  // #endregion
+
+  // #region Lifecycle Hooks
+  ngOnInit(): void {}
+
+  ngOnDestroy(): void {
+    this.searchTransactionSubscriptions$.unsubscribe();
   }
   // #endregion
 
