@@ -1,7 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { Subscription } from 'rxjs';
-import { Component, Output, OnInit, OnDestroy, EventEmitter, ViewChild, ElementRef } from '@angular/core';
+import { Component, Output, OnInit, OnDestroy, EventEmitter, ViewChild, ElementRef, inject } from '@angular/core';
 import { IconsComponent } from '@components/icons/icons.component';
+
+import { ScreensizeService } from '@src/services/screensize.service';
 
 /**
  * * * SearchTransactionComponent
@@ -17,6 +19,8 @@ import { IconsComponent } from '@components/icons/icons.component';
 })
 export class SearchTransactionComponent implements OnInit, OnDestroy {
   // #region Component Setup (DI, Outputs, Template Refs, Subscription)
+  private screenSizeService = inject(ScreensizeService); 
+
   private searchTransactionSubscriptions$: Subscription = new Subscription();
 
   @Output() public searchFieldChange: EventEmitter<string> = new EventEmitter<string>();
