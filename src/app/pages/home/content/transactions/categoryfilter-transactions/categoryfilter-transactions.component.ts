@@ -38,7 +38,7 @@ export class CategoryfilterTransactionsComponent implements OnInit {
   // #endregion
 
   // #region Helper Function
-  public closeHideDropdown(): void {
+  public toggleDropdown(): void {
     this.isDropDownOpen = !this.isDropDownOpen;
   }
   // #endregion
@@ -61,7 +61,7 @@ export class CategoryfilterTransactionsComponent implements OnInit {
   public chooseCategory(category: Category): void {
     this.chosenCategory = category.name;
     this.emitCategoryFilterChange(category.iconName);
-    this.closeHideDropdown();
+    this.toggleDropdown();
   }
   // #endregion
 }

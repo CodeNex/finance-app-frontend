@@ -42,14 +42,14 @@ export class SortbyTransactionsComponent {
   public chooseSortBy(sortBy: string): void {
     this.chosenSortBy = sortBy;
     this.emitSortByChange(sortBy);
-    this.closeHideDropdown();
+    this.toggleDropdown();
   }
 
   private emitSortByChange(sortBy: string): void {
     this.sortByChange.emit(sortBy);
   }
 
-  public closeHideDropdown(): void {
+  public toggleDropdown(): void {
     this.isDropDownOpen = !this.isDropDownOpen;
   }
 }
