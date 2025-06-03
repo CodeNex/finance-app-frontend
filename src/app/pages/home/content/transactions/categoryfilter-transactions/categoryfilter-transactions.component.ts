@@ -1,8 +1,9 @@
 import { Component, Output, EventEmitter, inject, OnInit } from '@angular/core';
+import { CommonModule, AsyncPipe } from '@angular/common';
+import { IconsComponent } from '@components/icons/icons.component';
 
 import { BasedataService } from '@services/basedata.service';
-import { CommonModule } from '@angular/common';
-import { IconsComponent } from '@components/icons/icons.component';
+import { ScreensizeService } from '@src/services/screensize.service';
 
 @Component({
   selector: 'app-categoryfilter-transactions',

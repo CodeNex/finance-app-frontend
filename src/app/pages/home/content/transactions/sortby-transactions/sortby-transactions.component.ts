@@ -1,6 +1,8 @@
-import { CommonModule } from '@angular/common';
-import { Component, Output, EventEmitter } from '@angular/core';
+import { CommonModule, AsyncPipe } from '@angular/common';
+import { Component, Output, EventEmitter, inject } from '@angular/core';
 import { IconsComponent } from '@components/icons/icons.component';
+
+import { ScreensizeService } from '@src/services/screensize.service';
 
 /**
  * * * * SortbyTransactionsComponent

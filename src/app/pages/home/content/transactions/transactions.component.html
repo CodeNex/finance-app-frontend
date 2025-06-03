@@ -7,7 +7,6 @@
       <p class="text1b">Transactions</p>
 
       <app-add-transaction-button></app-add-transaction-button>
-
     </header>
 
     <!-- Transactions content section -->
@@ -16,26 +15,35 @@
       class="w-full bg-white rounded-xl p-8 flex flex-col gap-6"
     >
       <!-- Transactions Filter -->
-       @if (!(isHandset | async)) {
+
       <div
         aria-label="transactions filter section"
         class="flex justify-between items-center"
       >
         <div>
-          <app-search-transaction (searchFieldChange)="setSearchFieldInput($event)"></app-search-transaction>
+          <app-search-transaction
+            (searchFieldChange)="setSearchFieldInput($event)"
+          ></app-search-transaction>
         </div>
         <div class="flex items-center gap-6">
           <div class="flex items-center gap-2">
+            @if (!(isHandset | async)) {
             <p class="text5r lg:text4r text-grey-500">Sort by</p>
-            <app-sortby-transactions (sortByChange)="setSortByInput($event)"></app-sortby-transactions>
+            }
+            <app-sortby-transactions
+              (sortByChange)="setSortByInput($event)"
+            ></app-sortby-transactions>
           </div>
           <div class="flex items-center gap-2">
+            @if (!(isHandset | async)) {
             <p class="text5r lg:text4r text-grey-500">Category</p>
-            <app-categoryfilter-transactions (categoryFilterChange)="setCategoryFilterInput($event)"></app-categoryfilter-transactions>
+            }
+            <app-categoryfilter-transactions
+              (categoryFilterChange)="setCategoryFilterInput($event)"
+            ></app-categoryfilter-transactions>
           </div>
         </div>
       </div>
-    }
 
       <!-- Transactions List -->
       <div aria-label="transactions list section">
@@ -55,12 +63,10 @@
           </div>
         </div>
 
-
-        
         <div class="w-full h-[1.5px] rounded-full bg-grey-100"></div>
 
-        @for (item of this.renderReadyArray; let index = $index;
-        track item) { @if (index === (this.currentPageSignal() - 1)) {
+        @for (item of this.renderReadyArray; let index = $index; track item) {
+        @if (index === (this.currentPageSignal() - 1)) {
 
         <ul id="" aria-label="list of latest spendings" class="">
           @for (transaction of item; let index = $index; track transaction) {
@@ -71,7 +77,9 @@
               'padding-bottom': index < item.length - 1 ? '16px' : '0px'
             }"
           >
-            <app-single-transaction [transaction]="transaction" ></app-single-transaction>
+            <app-single-transaction
+              [transaction]="transaction"
+            ></app-single-transaction>
           </li>
           @if ( index < item.length - 1) {
           <div class="w-full h-[1.5px] rounded-full bg-grey-100"></div>
@@ -83,7 +91,11 @@
       <!-- Transactions Navigation -->
       <div aria-label="transactions window navigation">
         @if (this.renderReadyArray.length > 1) {
-        <app-pagination-transactions [currentPageSignal]="currentPageSignal" [totalSubPagesSignal]="totalSubPagesSignal" (changePage)="setCurrentPageSignal($event)" ></app-pagination-transactions>
+        <app-pagination-transactions
+          [currentPageSignal]="currentPageSignal"
+          [totalSubPagesSignal]="totalSubPagesSignal"
+          (changePage)="setCurrentPageSignal($event)"
+        ></app-pagination-transactions>
         }
       </div>
     </div>
