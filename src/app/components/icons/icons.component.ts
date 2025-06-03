@@ -13,4 +13,12 @@ import { Component, Input, } from '@angular/core';
 })
 export class IconsComponent {
   @Input("iconName") public iconName: string = "";
+
+  private iconNames: string[] = ['overview', 'transactions', 'budgets', 'pots', 'potsTransparentGreen', 'recurringBills', 'settings', 'imprint', 'logout', 'slideButton', 'openedEye', 'closedEye', 'checked', 'backArrowWhite', 'dotsThree', 'dropOpen', 'dropClose', 'themeCheck', 'entertainment', 'bills', 'groceries', 'diningOut', 'transportation', 'personalCare', 'education', 'lifestyle', 'shopping', 'general', 'billsIcon', 'searchLensIcon', 'smallArrowRight', 'searchIcon', 'trashCan'];
+
+  ngOnInit(): void {
+    if (!this.iconNames.includes(this.iconName)) {
+      console.warn(`Icon name "${this.iconName}" is not recognized. Please check the icon name.`);
+      this.iconName = 'noAviableIcon'; 
+  }}
 }
