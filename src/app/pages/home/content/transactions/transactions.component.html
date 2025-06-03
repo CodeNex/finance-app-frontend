@@ -47,6 +47,8 @@
 
       <!-- Transactions List -->
       <div aria-label="transactions list section">
+
+        @if (!(isHandset | async)) {
         <div
           aria-label="transactions list header"
           class="flex items-center justify-between pb-6 pl-4 pr-4 text5r text-grey-500"
@@ -62,6 +64,7 @@
             <span>Amount</span>
           </div>
         </div>
+      }
 
         <div class="w-full h-[1.5px] rounded-full bg-grey-100"></div>
 
