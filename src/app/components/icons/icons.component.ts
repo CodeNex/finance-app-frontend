@@ -48,6 +48,8 @@ export class IconsComponent {
     'smallArrowRight',
     'searchIcon',
     'trashCan',
+    'categoryFilter',
+    'sortByFilter'
   ];
 
   ngOnInit(): void {
