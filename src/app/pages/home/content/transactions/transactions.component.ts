@@ -1,6 +1,6 @@
-import { Component, effect, inject, Signal, signal, OnInit, OnDestroy } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { Subscription } from 'rxjs';
+import { Component, effect, inject, Signal, signal } from '@angular/core';
+import { CommonModule, AsyncPipe } from '@angular/common';
+import { Observable } from 'rxjs';
 
 import { DataStoreServiceService } from '@services/data-store-service.service';
 import { AuthenticationService } from '@services/authentication.service';
@@ -30,20 +30,19 @@ import { PaginationTransactionsComponent } from '@content/transactions/paginatio
     SingleTransactionComponent,
     PaginationTransactionsComponent,
     AddTransactionButtonComponent,
+    AsyncPipe
   ],
   templateUrl: './transactions.component.html',
   styleUrl: './transactions.component.scss',
 })
-export class TransactionsComponent implements OnInit, OnDestroy {
+export class TransactionsComponent {
   // #region Component Setup (DI, Outputs, Template Refs, Subscription)
   private dataStore = inject(DataStoreServiceService);
   private mainModalService = inject(MainModalService);
   public authService = inject(AuthenticationService);
 
   private screensizeService = inject(ScreensizeService);
-  public isHandset: boolean = false;
-
-  private transactionsSubscription: Subscription = new Subscription();
+  public isHandset: Observable<boolean> = this.screensizeService.isHandset$; 
 
   public totalSubPagesSignal = signal(0); // signal for paginantion
   public currentPageSignal = signal(1); // signal for paginantion
@@ -55,16 +54,6 @@ export class TransactionsComponent implements OnInit, OnDestroy {
   public transactionsEffect = effect(() => {
     this.formatTransactionsArray(this.transactionsSignal());
   });
-  // #endregion
-
-  // #region Lifecycle Hooks
-  ngOnInit(): void {
-    this.transactionsSubscription.add(this.screensizeService.isHandset$.subscribe((isHandset) => this.isHandset = isHandset));
-  }
-
-  ngOnDestroy(): void {
-    this.transactionsSubscription.unsubscribe();
-  }
   // #endregion
 
   // #region Helper Functions

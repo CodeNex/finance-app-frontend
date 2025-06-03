@@ -16,6 +16,7 @@
       class="w-full bg-white rounded-xl p-8 flex flex-col gap-6"
     >
       <!-- Transactions Filter -->
+       @if (!(isHandset | async)) {
       <div
         aria-label="transactions filter section"
         class="flex justify-between items-center"
@@ -34,6 +35,7 @@
           </div>
         </div>
       </div>
+    }
 
       <!-- Transactions List -->
       <div aria-label="transactions list section">
