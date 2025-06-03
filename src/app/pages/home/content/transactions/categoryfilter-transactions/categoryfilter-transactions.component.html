@@ -1,4 +1,5 @@
 <div class="relative">
+  @if (!(isHandset | async)) {
   <div
     (click)="closeHideDropdown()"
     class="min-w-[180px] flex justify-between gap-4 border-[1px] border-beige-500 hover:border-grey-900 focus:border-grey-900 transition-all duration-300 ease-in-out rounded-lg pl-4 pr-4 pt-3 pb-3 cursor-pointer"
@@ -14,12 +15,12 @@
       }
     </div>
   </div>
-
-  @if ((isHandset | async)) {
-  <app-icons [iconName]="'categoryFilter'"></app-icons>
-  }
-
-  @if (this.isDropDownOpen) {
+  } @if ((isHandset | async)) {
+    <button (click)="closeHideDropdown()">
+      <app-icons [iconName]="'categoryFilter'"></app-icons>
+    </button>
+  
+  } @if (this.isDropDownOpen) {
   <div
     class="themeDropDown w-full h-[311px] no-scrollbar absolute z-10 left-0 top-14 bg-white shadow-[0px_4px_24px_0px_#00000040] rounded-lg pt-3 pb-3 pl-5 pr-5 overflow-auto"
   >
@@ -31,8 +32,10 @@
       <!-- Category Box Left Part -->
       <div class="w-full flex gap-3 items-center mb-3 cursor-pointer">
         <p
-          class="text4r text-grey-900" 
-          [ngStyle]="{ 'font-weight': item.name === chosenCategory ? 'bold' : 'normal' }" 
+          class="text4r text-grey-900"
+          [ngStyle]="{
+            'font-weight': item.name === chosenCategory ? 'bold' : 'normal'
+          }"
         >
           {{ item.name }}
         </p>
