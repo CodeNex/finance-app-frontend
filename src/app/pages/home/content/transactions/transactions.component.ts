@@ -38,8 +38,10 @@ export class TransactionsComponent implements OnInit, OnDestroy {
   // #region Component Setup (DI, Outputs, Template Refs, Subscription)
   private dataStore = inject(DataStoreServiceService);
   private mainModalService = inject(MainModalService);
-  private screensizeService = inject(ScreensizeService);
   public authService = inject(AuthenticationService);
+
+  private screensizeService = inject(ScreensizeService);
+  public isHandset: boolean = false;
 
   private transactionsSubscription: Subscription = new Subscription();
 
@@ -56,9 +58,13 @@ export class TransactionsComponent implements OnInit, OnDestroy {
   // #endregion
 
   // #region Lifecycle Hooks
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.transactionsSubscription.add(this.screensizeService.isHandset$.subscribe((isHandset) => this.isHandset = isHandset));
+  }
 
-  ngOnDestroy(): void {}
+  ngOnDestroy(): void {
+    this.transactionsSubscription.unsubscribe();
+  }
   // #endregion
 
   // #region Helper Functions
