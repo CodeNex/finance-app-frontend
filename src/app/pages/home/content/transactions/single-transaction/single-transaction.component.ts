@@ -1,10 +1,12 @@
 import { Component, inject, Input } from '@angular/core';
-
-import { BasedataService } from '@services/basedata.service';
-import { CommonModule } from '@angular/common';
+import { CommonModule, AsyncPipe } from '@angular/common';
 import { IconsComponent } from '@components/icons/icons.component';
 import { FormatDatePipe } from '@shared/pipes/format-date.pipe';
 import { FormatAmountPipe } from '@shared/pipes/format-amount.pipe';
+
+import { BasedataService } from '@services/basedata.service';
+import { ScreensizeService } from '@src/services/screensize.service';
+import { Observable } from 'rxjs';
 
 /**
  * * * * SingleTransactionComponent
@@ -15,13 +17,16 @@ import { FormatAmountPipe } from '@shared/pipes/format-amount.pipe';
  */
 @Component({
   selector: 'app-single-transaction',
-  imports: [CommonModule, IconsComponent, FormatDatePipe, FormatAmountPipe],
+  imports: [CommonModule, IconsComponent, FormatDatePipe, FormatAmountPipe, AsyncPipe],
   templateUrl: './single-transaction.component.html',
   styleUrl: './single-transaction.component.scss',
 })
 export class SingleTransactionComponent {
   // #region Component Setup (DI, Outputs, Template Refs, Subscription)
-  public baseData = inject(BasedataService);
+  private baseData = inject(BasedataService);
+
+  private screenSizeService = inject(ScreensizeService);
+  public isHandset: Observable<boolean> = this.screenSizeService.isHandset$;
 
   @Input() transaction: TransactionsObject = {
     transaction_id: 4,

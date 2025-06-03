@@ -2,6 +2,8 @@
   aria-label="transactions list header"
   class="flex items-center justify-between text5r text-grey-500"
 >
+
+
   <div class="flex items-center gap-4">
     <div class="w-10 h-10 rounded-full flex items-center justify-center" [ngStyle]="{'background-color': this.transaction.theme}">
       <app-icons [iconName]="this.iconName"></app-icons>
@@ -17,4 +19,6 @@
     </div>
     <p class="text4b" [ngStyle]="{'color': this.transaction.type === 'debit' ? '#201f24' : '#277c78'}">{{ this.transaction.type === 'debit' ? '-' : '+' }}{{ this.transaction.amount | formatAmount }}</p>
   </div>
+
+
 </div>
