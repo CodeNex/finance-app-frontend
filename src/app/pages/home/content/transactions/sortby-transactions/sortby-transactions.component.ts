@@ -3,6 +3,7 @@ import { Component, Output, EventEmitter, inject } from '@angular/core';
 import { IconsComponent } from '@components/icons/icons.component';
 
 import { ScreensizeService } from '@src/services/screensize.service';
+import { Observable } from 'rxjs';
 
 /**
  * * * * SortbyTransactionsComponent
@@ -13,12 +14,15 @@ import { ScreensizeService } from '@src/services/screensize.service';
  */
 @Component({
   selector: 'app-sortby-transactions',
-  imports: [CommonModule, IconsComponent],
+  imports: [CommonModule, IconsComponent, AsyncPipe],
   templateUrl: './sortby-transactions.component.html',
   styleUrl: './sortby-transactions.component.scss',
 })
 export class SortbyTransactionsComponent {
   // #region Component Setup (DI, Outputs, Template Refs, Subscription)
+  private screenSizeService = inject(ScreensizeService);
+  public isHandset: Observable<boolean> = this.screenSizeService.isHandset$;
+
   @Output() public sortByChange: EventEmitter<string> =
     new EventEmitter<string>();
 

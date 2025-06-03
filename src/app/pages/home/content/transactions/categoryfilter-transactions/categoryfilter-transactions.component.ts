@@ -4,16 +4,20 @@ import { IconsComponent } from '@components/icons/icons.component';
 
 import { BasedataService } from '@services/basedata.service';
 import { ScreensizeService } from '@src/services/screensize.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-categoryfilter-transactions',
-  imports: [CommonModule, IconsComponent],
+  imports: [CommonModule, IconsComponent, AsyncPipe],
   templateUrl: './categoryfilter-transactions.component.html',
   styleUrl: './categoryfilter-transactions.component.scss',
 })
 export class CategoryfilterTransactionsComponent implements OnInit {
   // #region Component Setup (DI, Outputs, Template Refs, Subscription)
-  public baseData = inject(BasedataService);
+  private baseData = inject(BasedataService);
+
+  private screenSizeService = inject(ScreensizeService);
+  public isHandset: Observable<boolean> = this.screenSizeService.isHandset$;
 
   @Output() public categoryFilterChange: EventEmitter<string> =
     new EventEmitter<string>();
