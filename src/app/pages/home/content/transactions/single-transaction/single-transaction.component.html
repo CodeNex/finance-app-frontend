@@ -2,8 +2,8 @@
   aria-label="transactions list header"
   class="flex items-center justify-between text5r text-grey-500"
 >
+  <!-- Desktop View -->
   @if (!(isHandset | async)) {
-
   <div class="flex items-center gap-4">
     <div
       class="w-10 h-10 rounded-full flex items-center justify-center"
@@ -30,8 +30,14 @@
       }}{{ this.transaction.amount | formatAmount }}
     </p>
   </div>
-  } @if ((isHandset | async)) {
+  } 
+  
+  <!-- Mobile View -->
+  @if ((isHandset | async)) {
   <div class="flex items-center justify-between w-full">
+
+
+
     <div class="flex items-center gap-3">
       <div
         class="w-10 h-10 rounded-full flex items-center justify-center"
@@ -39,19 +45,29 @@
       >
         <app-icons [iconName]="this.iconName"></app-icons>
       </div>
-      <div class="flex flex-col gap-1">
-        <p class="text4b text-grey-900">{{ this.transaction.name }}</p>
+      <div class="flex flex-col">
+        <p class="text4b text-grey-900 pb-1">{{ this.transaction.name }}</p>
         <p>{{ this.category }}</p>
       </div>
     </div>
 
 
 
-    <div></div>
+    <div class="">
+      <p
+      class="text4b text-right pb-1"
+      [ngStyle]="{
+        color: this.transaction.type === 'debit' ? '#201f24' : '#277c78'
+      }"
+    >
+      {{ this.transaction.type === "debit" ? "-" : "+"
+      }}{{ this.transaction.amount | formatAmount }}
+    </p>
+    <p class="w-[120px] text-right">
+        {{ this.transaction.execute_on! | formatDate }}
+    </p>
 
-
-
-    
+    </div>
   </div>
   }
 </div>
