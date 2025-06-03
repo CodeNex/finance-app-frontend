@@ -1,4 +1,6 @@
 <div class="relative">
+
+  @if (!(isHandset | async)) {
   <div
     (click)="toggleDropdown()"
     class="min-w-[118px] flex justify-between gap-4 border-[1px] border-beige-500 hover:border-grey-900 focus:border-grey-900 transition-all duration-300 ease-in-out rounded-lg pl-4 pr-4 pt-3 pb-3 cursor-pointer"
@@ -14,6 +16,13 @@
       }
     </div>
   </div>
+}
+
+  @if ((isHandset | async)) {
+    <button (click)="toggleDropdown()">
+      <app-icons [iconName]="'sortByFilter'"></app-icons>
+    </button>
+  }
 
   @if (this.isDropDownOpen) {
   <div
