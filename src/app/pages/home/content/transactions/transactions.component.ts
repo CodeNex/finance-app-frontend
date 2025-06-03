@@ -1,9 +1,11 @@
-import { Component, effect, inject, Signal, signal } from '@angular/core';
+import { Component, effect, inject, Signal, signal, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Subscription } from 'rxjs';
 
 import { DataStoreServiceService } from '@services/data-store-service.service';
 import { AuthenticationService } from '@services/authentication.service';
 import { MainModalService } from '@services/main-modal.service';
+import { ScreensizeService } from '@src/services/screensize.service';
 import { AddTransactionButtonComponent } from '@src/components/add-transaction-button/add-transaction-button.component';
 import { CategoryfilterTransactionsComponent } from './categoryfilter-transactions/categoryfilter-transactions.component';
 import { SearchTransactionComponent } from '@content/transactions/search-transaction/search-transaction.component';
@@ -32,11 +34,14 @@ import { PaginationTransactionsComponent } from '@content/transactions/paginatio
   templateUrl: './transactions.component.html',
   styleUrl: './transactions.component.scss',
 })
-export class TransactionsComponent {
+export class TransactionsComponent implements OnInit, OnDestroy {
   // #region Component Setup (DI, Outputs, Template Refs, Subscription)
   private dataStore = inject(DataStoreServiceService);
   private mainModalService = inject(MainModalService);
+  private screensizeService = inject(ScreensizeService);
   public authService = inject(AuthenticationService);
+
+  private transactionsSubscription: Subscription = new Subscription();
 
   public totalSubPagesSignal = signal(0); // signal for paginantion
   public currentPageSignal = signal(1); // signal for paginantion
@@ -48,6 +53,12 @@ export class TransactionsComponent {
   public transactionsEffect = effect(() => {
     this.formatTransactionsArray(this.transactionsSignal());
   });
+  // #endregion
+
+  // #region Lifecycle Hooks
+  ngOnInit(): void {}
+
+  ngOnDestroy(): void {}
   // #endregion
 
   // #region Helper Functions
