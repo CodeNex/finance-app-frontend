@@ -22,7 +22,8 @@
   
   } @if (this.isDropDownOpen) {
   <div
-    class="themeDropDown w-full h-[311px] no-scrollbar absolute z-10 left-0 top-14 bg-white shadow-[0px_4px_24px_0px_#00000040] rounded-lg pt-3 pb-3 pl-5 pr-5 overflow-auto"
+    class="themeDropDown w-full min-w-[180px] h-[311px] no-scrollbar absolute z-10 left-0 top-14 bg-white shadow-[0px_4px_24px_0px_#00000040] rounded-lg pt-3 pb-3 pl-5 pr-5 overflow-auto"
+    [ngStyle]="{'left': (isHandset | async) ? '-162px' : 'inherit'}"
   >
     @for (item of this.categories; let index = $index; track item) {
     <div
