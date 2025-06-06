@@ -29,7 +29,7 @@
       "@login/*": ["app/pages/login/*"],
       "@components/*": ["app/components/*"],
       "@services/*": ["app/services/*"],
-      "@shared/*": ["app/shared/*"],
+      "@shared/*": ["app/shared/*"]
     }
   },
   "angularCompilerOptions": {
