@@ -2,5 +2,13 @@
   (click)="openSubModal('addTransaction', {})"
   class="border-solid bg-grey-900 text4b text-white p-4 rounded-lg transition-all duration-300 hover:bg-grey-500"
 >
-  + Transaction
+@if (!(isHandset$ | async)) {
+  <span>+ Transaction</span>
+}
+@if (isHandset$ | async) {
+  <div class="flex items-center gap-2">
+    <app-icons [iconName]="'transaction'"></app-icons>
+  </div>
+}
+   
 </button>
