@@ -1,6 +1,7 @@
 <button
   (click)="openSubModal('addTransaction', {})"
   class="border-solid bg-grey-900 text4b text-white p-4 rounded-lg transition-all duration-300 hover:bg-grey-500"
+  [ngStyle]="{'padding': (isHandset$ | async) ? '4px' : '16px', 'border-radius': (isHandset$ | async) ? '100vh' : '8px'}"
 >
 @if (!(isHandset$ | async)) {
   <span>+ Transaction</span>
