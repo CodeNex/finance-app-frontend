@@ -49,7 +49,8 @@ export class IconsComponent {
     'searchIcon',
     'trashCan',
     'categoryFilter',
-    'sortByFilter'
+    'sortByFilter',
+    'transaction'
   ];
 
   ngOnInit(): void {
