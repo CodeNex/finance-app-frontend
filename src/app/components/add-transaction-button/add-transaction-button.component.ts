@@ -1,17 +1,21 @@
-import { CommonModule } from '@angular/common';
+import { AsyncPipe, CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
+import { IconsComponent } from '../icons/icons.component';
 
 import { MainModalService } from '@src/services/main-modal.service';
+import { ScreensizeService } from '@src/services/screensize.service';
 
 @Component({
   selector: 'app-add-transaction-button',
-  imports: [CommonModule],
+  imports: [CommonModule, IconsComponent, AsyncPipe],
   templateUrl: './add-transaction-button.component.html',
   styleUrl: './add-transaction-button.component.scss',
 })
 export class AddTransactionButtonComponent {
   // #region Component Setup (DI, Outputs, Template Refs, Subscription)
   private mainModalService = inject(MainModalService);
+  private screensizeService = inject(ScreensizeService);
+  public isHandset$ = this.screensizeService.isHandset$;
   // #endregion
 
   /**
