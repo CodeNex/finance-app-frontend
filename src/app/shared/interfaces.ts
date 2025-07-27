@@ -40,7 +40,7 @@ interface SummaryItem {
   created_at: null;
   deleted_at: null;
   id: number;
-  last_spendings: [];
+  last_spendings: TransactionsObject[];
   maximum: number;
   name: string;
   theme: string;
