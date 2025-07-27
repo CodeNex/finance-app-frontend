@@ -1,3 +1,16 @@
+interface Categories {
+  entertainment: {name: string; iconName: string};
+  bills: {name: string; iconName: string};
+  groceries: {name: string; iconName: string};
+  diningOut: {name: string; iconName: string};
+  transportation: {name: string; iconName: string};
+  personalCare: {name: string; iconName: string};
+  education: {name: string; iconName: string};
+  lifestyle: {name: string; iconName: string};
+  shopping: {name: string; iconName: string};
+  general: {name: string; iconName: string};
+}
+
 interface NavbarLinks {
   main: {name: string; path: string; img: string}[]; 
   sub: {name: string; path: string; img: string}[];
