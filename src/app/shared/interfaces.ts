@@ -1,3 +1,13 @@
+interface NavbarLinks {
+  main: {name: string; path: string; img: string}[]; 
+  sub: {name: string; path: string; img: string}[];
+}
+
+interface GuestLogin {
+  email: string;
+  password: string;
+}
+
 interface Theme {
   name: string;
   hex: string;

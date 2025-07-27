@@ -14,14 +14,14 @@ export class BasedataService {
   /**
    * @description - This function returns the guest Login Data.
    */
-  public get guestLoginData() {
+  public get guestLoginData(): GuestLogin {
     return this.financeApp.basics.apiData.guestLogin;
   }
 
   /**
    * @description - This function returns the data für the navbar.
    */
-  public get navdata() {
+  public get navdata(): NavbarLinks {
     return this.financeApp.navbar.links;
   }
 
