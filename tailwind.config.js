@@ -9,6 +9,9 @@ module.exports = {
         'max-lg': { max: '1025px' },
         'max-xl': { max: '1279px' },
       },
+      boxShadow: {
+        customXs: '2px 2px 6px rgba(0, 0, 0, 0.5)',
+      },
       colors: {
         beige: {
           500: "var(--color-beige-500)",
