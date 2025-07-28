@@ -143,8 +143,6 @@ export class AddTransactionModalComponent {
   public isCategoryDropdownOpen: boolean = false;
 
   public getCategoryArray() {
-    console.log(Object.values(this.baseData.categories));
-
     Object.values(this.baseData.categories as Category[]).forEach(
       (category: Category) => {
         this.categories.push(category.name);
