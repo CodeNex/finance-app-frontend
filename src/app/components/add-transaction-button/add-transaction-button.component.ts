@@ -14,8 +14,8 @@ import { ScreensizeService } from '@src/services/screensize.service';
 export class AddTransactionButtonComponent {
   // #region Component Setup (DI, Outputs, Template Refs, Subscription)
   private mainModalService = inject(MainModalService);
-  private screensizeService = inject(ScreensizeService);
-  public isHandset$ = this.screensizeService.isHandset$;
+  public readonly screensizeService = inject(ScreensizeService);
+  // public isHandset$ = this.screensizeService.isHandset$;
   // #endregion
 
   /**
