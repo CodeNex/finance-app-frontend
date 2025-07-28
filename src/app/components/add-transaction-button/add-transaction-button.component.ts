@@ -15,7 +15,6 @@ export class AddTransactionButtonComponent {
   // #region Component Setup (DI, Outputs, Template Refs, Subscription)
   private mainModalService = inject(MainModalService);
   public readonly screensizeService = inject(ScreensizeService);
-  // public isHandset$ = this.screensizeService.isHandset$;
   // #endregion
 
   /**
