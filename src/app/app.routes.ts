@@ -36,3 +36,4 @@ export const routes: Routes = [
   { path: 'imprint', component: ImprintComponent },
   { path: '**', redirectTo: 'login' },
 ];
+
